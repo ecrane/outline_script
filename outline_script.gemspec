@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eric Crane"]
   spec.email         = ["eric.crane@mac.com"]
 
-  spec.summary       = %q{Outline scripting language.  A scripting language built on top of ruby.}
+  spec.summary       = %q{Outline scripting language.  A scripting language built on ruby.}
   spec.description   = %q{A scripting languge that structures code in an outline.}
   spec.homepage      = "http://github.com/ecrane/outline_script"
   spec.license       = "MIT"
