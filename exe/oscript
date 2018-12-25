@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'outline_script'
+puts OutlineScript.hw
