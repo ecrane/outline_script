@@ -1,7 +1,7 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "outline_script/version"
+require "outline_script/app/version"
 
 ruby_files = File.join( lib, "**/*.rb" )
 
