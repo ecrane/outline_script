@@ -28,10 +28,3 @@ root = File.join( path, "outline_script", "**/*.rb" )
 Dir.glob( root ) { |ruby_file| require ruby_file }
 
 OutlineScript.run
-
-# grr = File.expand_path('..', __FILE__)
-# puts grr
-# files = Dir.chdir( grr ) do
-#   `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-# end
-# puts files
