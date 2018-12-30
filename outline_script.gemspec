@@ -1,11 +1,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "outline_script/app/version"
+require "outline_script/app/info"
 
 Gem::Specification.new do |spec|
   spec.name          = "outline_script"
-  spec.version       = OutlineScript::VERSION
+  spec.version       = OutlineScript::App::Info::VERSION
   spec.authors       = ["Eric Crane"]
   spec.email         = ["eric.crane@mac.com"]
 
