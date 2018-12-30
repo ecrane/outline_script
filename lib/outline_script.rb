@@ -4,7 +4,9 @@
 # Start the Engine.
 #
 
-require 'outline_script/app/engine'
+path = File.dirname( File.absolute_path( __FILE__ ) )
+root = File.join( path, "outline_script", "**/*.rb" )
+Dir.glob( root ) { |ruby_file| require ruby_file }
 
 module OutlineScript  
 

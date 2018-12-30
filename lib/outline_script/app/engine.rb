@@ -4,9 +4,6 @@
 # The Outline Script Engine.
 #
 
-require 'outline_script/app/settings'
-require 'outline_script/app/log'
-
 module OutlineScript
   module App
     class Engine
