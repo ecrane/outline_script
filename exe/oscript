@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'outline_script'
-OutlineScript.run
+require 'outline_script/app/engine'
+
+OutlineScript::App::Engine.new.run

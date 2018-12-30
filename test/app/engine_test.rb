@@ -3,7 +3,7 @@ require "test_helper"
 class EngineTest < Minitest::Test
   
   def test_engine_constrution
-    o = OutlineScript::Engine.new
+    o = OutlineScript::App::Engine.new
     assert o
   end
   

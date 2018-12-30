@@ -1,14 +1,16 @@
 module OutlineScript
-  class Engine
+  module App
+    class Engine
 
-    def initialize
-      puts "Initializing..."
+      def initialize
+        puts "Initializing..."
+      end
+      
+      def run
+        puts "Running..."
+        puts Info.display_title
+      end
+      
     end
-    
-    def run
-      puts "Running..."
-      puts Info.display_title
-    end
-
   end
 end
