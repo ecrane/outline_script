@@ -4,7 +4,8 @@
 # The Outline Script Engine.
 #
 
-require 'colorize'
+require 'outline_script/app/settings'
+require 'outline_script/app/log'
 
 module OutlineScript
   module App
