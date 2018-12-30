@@ -6,6 +6,6 @@
 # 
 path = File.dirname( File.absolute_path( __FILE__ ) )
 root = File.join( path, "outline_script", "**/*.rb" )
-Dir.glob( root ) { |ruby_file| puts ruby_file; require ruby_file }
+Dir.glob( root ) { |ruby_file| require ruby_file }
 
-OutlineScript::App::Engine.new.run
+OutlineScript::App::Engine.new.start
