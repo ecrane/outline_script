@@ -22,6 +22,11 @@ module OutlineScript
         ARGV.each { |o| process_one_arg( o ) }
       end
       
+      # Was the --quiet arg passed?
+      def quiet?
+        return @switches.include?( "quiet" )
+      end
+      
       # 
       # Detect the mode to be run in.
       # Start by seeing if a mode is specified.

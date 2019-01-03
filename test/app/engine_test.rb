@@ -10,14 +10,14 @@ class EngineTest < Minitest::Test
   end
   
   def test_that_we_can_start_the_engine
-    o = OutlineScript::App::Engine.new
+    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
     assert o
     o.start
     assert_equal OutlineScript::App::Mode::EMBED, o.mode
   end
 
   def test_that_a_running_engine_has_a_mode
-    o = OutlineScript::App::Engine.new
+    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
     assert o
     o.start
     assert o.mode
