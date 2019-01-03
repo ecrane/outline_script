@@ -8,10 +8,17 @@ module OutlineScript
   module App
     class Mode
           
-      EMBED = :embed
-      CLI = :cli
-      SCRIPT = :script
+      EMBED = :embed      # Run as embedded script processor
+      CLI = :cli          # Run in interactive (CLI) mode
+      SCRIPT = :script    # Run a script
+      VERSION = :version  # Show version information
+      HELP = :help        # Show the help screen
             
+      # Get the default mode.
+      def self.default_mode
+        return EMBED
+      end
+      
     end
   end
 end

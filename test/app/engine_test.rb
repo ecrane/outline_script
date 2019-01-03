@@ -15,5 +15,17 @@ class EngineTest < Minitest::Test
     o.start
     assert_equal OutlineScript::App::Mode::EMBED, o.mode
   end
+
+  def test_that_a_running_engine_has_a_mode
+    o = OutlineScript::App::Engine.new
+    assert o
+    o.start
+    assert o.mode
+  end
+  
+  def test_that_the_engine_has_args
+    o = OutlineScript::App::Engine.new
+    assert o.args
+  end
   
 end

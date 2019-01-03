@@ -8,4 +8,6 @@ path = File.dirname( File.absolute_path( __FILE__ ) )
 root = File.join( path, "outline_script", "**/*.rb" )
 Dir.glob( root ) { |ruby_file| require ruby_file }
 
-OutlineScript::App::Engine.new.start
+params = []
+( params << "--cli" ) if ARGV.count == 0
+OutlineScript::App::Engine.new( params ).start

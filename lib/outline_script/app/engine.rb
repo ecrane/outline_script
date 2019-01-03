@@ -8,11 +8,12 @@ module OutlineScript
   module App
     class Engine
 
-      attr_reader :mode
+      attr_reader :args, :mode
       
       # Set up the engine with basic elements.
-      def initialize
+      def initialize( params = [] )
         $engine = self
+        @args = Args.new( params )
         $settings = Settings.new
         $log = Log.new
         $log.debug "engine intialized..."
@@ -22,14 +23,9 @@ module OutlineScript
       def start
         $log.debug "starting the engine..."
         $log.debug Info.display_title
-        detect_mode
+        @mode = @args.detect_mode
       end
       
-      # Detect the mode to be run in.
-      def detect_mode
-        @mode = Mode::EMBED
-        $log.debug "running in #{@mode} mode"
-      end
       
     end
   end

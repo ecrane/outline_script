@@ -7,4 +7,10 @@ class ModeTest < Minitest::Test
     assert mode
   end
   
+  def test_default_mode
+    default = OutlineScript::App::Mode.default_mode
+    assert default
+    assert_equal OutlineScript::App::Mode::EMBED, default
+  end
+  
 end

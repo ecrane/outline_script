@@ -11,7 +11,9 @@ Dir.glob( root ) { |ruby_file| require ruby_file }
 module OutlineScript  
 
   def self.run
-    OutlineScript::App::Engine.new.start
+    params = []
+    ( params << "--cli" ) if ARGV.count == 0
+    OutlineScript::App::Engine.new( params ).start
   end
 
 end
