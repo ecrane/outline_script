@@ -94,7 +94,18 @@ module OutlineScript
 
       # Show the help information and then quit.
       def run_help
-        puts Info.display_title unless @args.quiet?
+        unless @args.quiet?
+          puts Info.display_title
+          puts "\nNAME\n\toutline_script\n\n"
+          puts "\nDESCRIPTION\n\tOutline scripting language.  A scripting language built on ruby.\n"
+          puts "\tMore information coming soon.\n\n"
+          puts "\nSYNOPSIS\n\toscript [global option] [file]\n\n"
+          puts "\nGLOBAL OPTIONS\n"
+          puts "\t--cli \t\t - Run in CLI mode\n"
+          puts "\t--version \t - Show application version\n"
+          puts "\t--help \t\t - Show this help page\n"
+          puts "\n"
+        end
         quit
       end
       
