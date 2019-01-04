@@ -13,6 +13,7 @@ module OutlineScript
     class Engine
 
       attr_reader :args, :mode
+      attr_reader :parser, :heap
       
       # Set up the engine with basic elements.
       def initialize( params = [] )
@@ -29,6 +30,9 @@ module OutlineScript
         $log.debug Info.display_title
         @mode = @args.detect_mode
         @running = true
+        
+        @parser = OutlineScript::Core::Parser.new
+        @heap = OutlineScript::Core::Heap.new
         
         run_mode
       end

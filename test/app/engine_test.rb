@@ -27,5 +27,17 @@ class EngineTest < Minitest::Test
     o = OutlineScript::App::Engine.new
     assert o.args
   end
+
+  def test_that_the_running_engine_has_a_parser
+    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    o.start
+    assert o.parser
+  end
+
+  def test_that_the_running_engine_has_an_object_heap
+    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    o.start
+    assert o.heap
+  end
   
 end
