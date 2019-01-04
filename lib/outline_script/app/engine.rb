@@ -49,7 +49,7 @@ module OutlineScript
         # TODO: open any files specifed in args
         # TODO: run any scripts in open files
         
-        unless @mode == Mode::SCRIPT
+        unless @mode == Mode::SCRIPT || @args.quiet?
           $prompt = TTY::Prompt.new
           @cursor = TTY::Cursor
           self.loop 
@@ -96,15 +96,7 @@ module OutlineScript
       def run_help
         unless @args.quiet?
           puts Info.display_title
-          puts "\nNAME\n\toutline_script\n\n"
-          puts "\nDESCRIPTION\n\tOutline scripting language.  A scripting language built on ruby.\n"
-          puts "\tMore information coming soon.\n\n"
-          puts "\nSYNOPSIS\n\toscript [global option] [file]\n\n"
-          puts "\nGLOBAL OPTIONS\n"
-          puts "\t--cli \t\t - Run in CLI mode\n"
-          puts "\t--version \t - Show application version\n"
-          puts "\t--help \t\t - Show this help page\n"
-          puts "\n"
+          puts Help.get_help_text
         end
         quit
       end
