@@ -12,7 +12,7 @@ module OutlineScript
   module App
     class Engine
 
-      attr_reader :args, :mode
+      attr_reader :args, :mode, :running
       attr_reader :parser, :heap
       
       # Set up the engine with basic elements.
@@ -81,9 +81,14 @@ module OutlineScript
       
       # Process the command.
       def process_cmd
-        @running = false if @last_cmd == 'quit'
+        @immediate = @parser.parse_immediate @last_cmd
+        @immediate.run if @immediate
       end
 
+      # Request the engine to stop running.
+      def stop_running
+        @running = false
+      end
       
       # Do any clean up and quit.
       def quit

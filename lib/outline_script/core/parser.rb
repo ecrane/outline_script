@@ -15,6 +15,14 @@ module OutlineScript
       end
       
       
+      # Parse a command from the immediate execution context.
+      def parse_immediate cmd
+        if cmd == 'quit'
+          return OutlineScript::Verbs::Quit.new
+        end
+        
+      end
+      
     end
   end
 end
