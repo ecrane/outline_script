@@ -2,13 +2,16 @@ require "test_helper"
 
 class QuitTest < Minitest::Test
   
+  def setup
+    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+  end
+
   def test_quit_verb
-    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
-    o.start
-    assert o.running
+    @engine.start
+    assert @engine.running
     q = OutlineScript::Verbs::Quit.new
     q.run
-    refute o.running
+    refute @engine.running
   end
 
   def test_the_keyword

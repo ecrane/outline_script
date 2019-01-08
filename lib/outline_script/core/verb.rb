@@ -1,12 +1,15 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
-# An abstract base verb, which is also an obj.
+# An abstract base verb.
+# Derives from the Baseo object.
+# It is a special type of object in that it can be run
+# and can perform an action.
 #
 
 module OutlineScript
   module Core
-    class Verb < Obj
+    class Verb < Baseo
       
       # Set up the verb.
       def initialize()

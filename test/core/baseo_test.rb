@@ -1,14 +1,15 @@
 require "test_helper"
 
-class HeapTest < Minitest::Test
+class BaseoTest < Minitest::Test
   
   def setup
     @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
   end
-
-  def test_heap_constrution
-    o = OutlineScript::Core::Heap.new
+  
+  def test_that_all_objects_have_names
+    o = OutlineScript::Core::Baseo.new
     assert o
+    assert o.name
   end
 
   
