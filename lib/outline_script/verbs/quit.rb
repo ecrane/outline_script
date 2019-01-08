@@ -7,7 +7,7 @@
 module OutlineScript
   module Verbs
     class Quit < OutlineScript::Core::Verb
-        
+      
       # 
       # Run the verb.
       # 
@@ -18,6 +18,13 @@ module OutlineScript
         $engine.stop_running
       end
       
+      # 
+      # Get the Verb's keyword.
+      # 
+      def self.keyword
+        return 'quit'
+      end
+
     end
   end
 end

@@ -13,7 +13,7 @@ module OutlineScript
     class Engine
 
       attr_reader :args, :mode, :running
-      attr_reader :parser, :heap
+      attr_reader :dictionary, :parser, :heap
       
       # Set up the engine with basic elements.
       def initialize( params = [] )
@@ -31,6 +31,8 @@ module OutlineScript
         @mode = @args.detect_mode
         @running = true
         
+        @dictionary = OutlineScript::Core::Dictionary.instance
+        @dictionary.init
         @parser = OutlineScript::Core::Parser.new
         @heap = OutlineScript::Core::Heap.new
         

@@ -11,5 +11,10 @@ class QuitTest < Minitest::Test
     refute o.running
   end
 
+  def test_the_keyword
+    o = OutlineScript::Verbs::Quit.keyword
+    assert_equal "quit", o
+  end
+
   
 end
