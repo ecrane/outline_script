@@ -104,12 +104,12 @@ module OutlineScript
       end
 
       # Show the help information and then quit.
-      def run_help
+      def run_help keep_running=false
         unless @args.quiet?
           puts Info.display_title
           puts Help.get_help_text
         end
-        quit
+        quit unless keep_running
       end
       
     end

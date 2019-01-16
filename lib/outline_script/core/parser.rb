@@ -17,10 +17,10 @@ module OutlineScript
       
       # Parse a command from the immediate execution context.
       def parse_immediate cmd
-        if cmd == 'quit'
-          return OutlineScript::Verbs::Quit.new
-        end
-        
+        first_word = cmd.split( " " ).first
+        dic = OutlineScript::Core::Dictionary.instance
+        verb = dic.find_verb( first_word )
+        return verb.new
       end
       
     end

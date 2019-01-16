@@ -11,6 +11,8 @@ module OutlineScript
       
       include Singleton
       
+      attr_reader :verbs
+      
       # Set up the object dictionary.
       def initialize()
         @verbs = {}
@@ -29,6 +31,7 @@ module OutlineScript
         init_verbs
       end
       
+      # Init the list of verbs.
       def init_verbs
         $log.debug "initializing #{@verb_references.count} verbs"
         @verb_references.each do |v|
@@ -36,6 +39,19 @@ module OutlineScript
           @verbs[ v.keyword ] = v
           # v.send( :new ).run
         end
+      end
+      
+      # Is the given word a verb?
+      def is_verb? word
+        return false unless word
+        return @verbs.key?( word.downcase )
+      end
+      
+      # Find the verb by name.
+      def find_verb verb
+        return nil unless verb
+        return nil unless is_verb?( verb )
+        return @verbs[ verb.downcase ]
       end
       
     end
