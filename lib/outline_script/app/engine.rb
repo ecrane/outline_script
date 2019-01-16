@@ -20,7 +20,7 @@ module OutlineScript
         $engine = self
         @args = Args.new( params )
         $settings = Settings.new
-        $log = Log.new
+        $log = Log.new( @args.quiet? )
         $log.debug "engine intialized..."
       end
       

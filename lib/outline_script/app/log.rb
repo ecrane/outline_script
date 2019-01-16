@@ -10,12 +10,13 @@ module OutlineScript
   module App
     class Log
 
-      attr_reader :logger
+      attr_reader :logger, :quiet
       
-      def initialize()
+      def initialize( quiet )
         f = File.join( $settings.log_path, "outline_script.log" )
         @logger = Logger.new( f )
         @logger.level = Logger::DEBUG
+        @quiet = quiet
       end
       
       def debug msg
@@ -24,12 +25,12 @@ module OutlineScript
 
       def info msg
         @logger.info msg
-        puts msg.blue
+        puts msg.blue unless @quiet
       end
 
       def warn msg
         @logger.warn msg
-        puts msg.yellow
+        puts msg.yellow unless @quiet
       end
 
       def error msg, e = nil
@@ -37,12 +38,12 @@ module OutlineScript
           @logger.error msg
           @logger.error e.message
           @logger.error e.backtrace
-          puts msg.red
-          puts e.message.red
-          puts e.backtrace
+          puts msg.red unless @quiet
+          puts e.message.red unless @quiet
+          puts e.backtrace unless @quiet
         else
           @logger.error msg
-          puts msg.red
+          puts msg.red unless @quiet
         end
       end  
 
