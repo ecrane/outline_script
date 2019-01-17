@@ -20,8 +20,10 @@ module OutlineScript
         tokens = OutlineScript::Core::Tokens.new( cmd )
         dic = OutlineScript::Core::Dictionary.instance
         verb = dic.find_verb( tokens.verb )
-        v = verb.new( tokens )
-        return v
+        return verb.new( tokens ) if verb
+          
+        $log.error "Verb '#{tokens.verb}' was not found."
+        return nil
       end
       
     end
