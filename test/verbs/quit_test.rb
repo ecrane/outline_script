@@ -9,7 +9,7 @@ class QuitTest < Minitest::Test
   def test_quit_verb
     @engine.start
     assert @engine.running
-    q = OutlineScript::Verbs::Quit.new
+    q = OutlineScript::Verbs::Quit.new( nil )
     q.run
     refute @engine.running
   end

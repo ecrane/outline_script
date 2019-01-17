@@ -7,7 +7,7 @@ class VerbTest < Minitest::Test
   end
 
   def test_verb_creation
-    o = OutlineScript::Core::Verb.new
+    o = OutlineScript::Core::Verb.new( nil )
     assert o
   end
 

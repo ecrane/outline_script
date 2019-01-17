@@ -17,10 +17,11 @@ module OutlineScript
       
       # Parse a command from the immediate execution context.
       def parse_immediate cmd
-        first_word = cmd.split( " " ).first
+        tokens = OutlineScript::Core::Tokens.new( cmd )
         dic = OutlineScript::Core::Dictionary.instance
-        verb = dic.find_verb( first_word )
-        return verb.new
+        verb = dic.find_verb( tokens.verb )
+        v = verb.new( tokens )
+        return v
       end
       
     end

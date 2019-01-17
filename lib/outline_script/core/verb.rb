@@ -12,7 +12,8 @@ module OutlineScript
     class Verb < Baseo
       
       # Set up the verb.
-      def initialize()
+      def initialize( tokens )
+        @tokens = tokens
       end
       
       # Register verbs when they are loaded.
