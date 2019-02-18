@@ -14,6 +14,7 @@ module OutlineScript
 
       attr_reader :args, :mode, :running
       attr_reader :dictionary, :parser, :heap
+      attr_accessor :last_cmd
       
       # Set up the engine with basic elements.
       def initialize( params = [] )
@@ -72,6 +73,12 @@ module OutlineScript
 
         @last_cmd = $prompt.ask( "#{d.yellow} #{t.white} >" )
       end
+      
+      # Is the last command entered blank?
+      def last_cmd_blank?
+        return true if @last_cmd.nil?
+        return true if @last_cmd.strip.empty?
+      end
 
       # Prompt, Get input, process.
       def loop
@@ -83,6 +90,11 @@ module OutlineScript
       
       # Process the command.
       def process_cmd
+        if last_cmd_blank?
+          clear_screen
+          return
+        end
+        
         @immediate = @parser.parse_immediate @last_cmd
         @immediate.run if @immediate
       end
@@ -110,6 +122,12 @@ module OutlineScript
           puts Help.get_help_text
         end
         quit unless keep_running
+      end
+      
+      # Clear the screen.
+      def clear_screen
+        print @cursor.clear_screen
+        print @cursor.move_to( 0, 0 )
       end
       
     end

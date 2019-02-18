@@ -39,5 +39,18 @@ class EngineTest < Minitest::Test
     o.start
     assert o.heap
   end
+
+  def test_last_command_blank
+    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    o.last_cmd = nil
+    assert o.last_cmd_blank?
+    o.last_cmd = ""
+    assert o.last_cmd_blank?
+    o.last_cmd = "  "
+    assert o.last_cmd_blank?
+    
+    o.last_cmd = "quit"
+    refute o.last_cmd_blank?    
+  end
   
 end
