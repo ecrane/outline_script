@@ -41,6 +41,13 @@ module OutlineScript
         raise 'this method should be overriden'
       end
 
+      # 
+      # Get the Verb's keyword shortcut.
+      # 
+      def self.keyword_shortcut
+        raise 'this method should be overriden'
+      end
+
     end
   end
 end

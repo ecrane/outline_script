@@ -37,6 +37,7 @@ module OutlineScript
         @verb_references.each do |v|
           $log.debug  v
           @verbs[ v.keyword ] = v
+          @verbs[ v.keyword_shortcut ] = v
           # v.send( :new ).run
         end
       end

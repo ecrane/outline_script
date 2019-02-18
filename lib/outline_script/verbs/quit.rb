@@ -1,7 +1,7 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
-# Quick the running outline_script engine.
+# Quit the running outline_script engine.
 #
 
 module OutlineScript
@@ -23,6 +23,13 @@ module OutlineScript
       # 
       def self.keyword
         return 'quit'
+      end
+      
+      # 
+      # Get the Verb's keyword shortcut.
+      # 
+      def self.keyword_shortcut
+        return 'q'
       end
 
     end

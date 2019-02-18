@@ -19,5 +19,9 @@ class QuitTest < Minitest::Test
     assert_equal "quit", o
   end
 
+  def test_the_keyword_shortcut
+    assert_equal "q", OutlineScript::Verbs::Quit.keyword_shortcut
+  end
+
   
 end

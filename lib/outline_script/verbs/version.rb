@@ -1,34 +1,34 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
-# Show the help information.
+# Show the current application version.
 #
 
 module OutlineScript
   module Verbs
-    class Help < OutlineScript::Core::Verb
+    class Version < OutlineScript::Core::Verb
       
       # 
       # Run the verb.
       # 
       def run
-        $engine.run_help( true )
+        puts OutlineScript::App::Info.display_title
       end
       
       # 
       # Get the Verb's keyword.
       # 
       def self.keyword
-        return 'help'
+        return 'version'
       end
-
+      
       # 
       # Get the Verb's keyword shortcut.
       # 
       def self.keyword_shortcut
-        return '?'
+        return 'v'
       end
-
+      
     end
   end
 end

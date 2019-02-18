@@ -11,9 +11,6 @@ module OutlineScript
       # 
       # Run the verb.
       # 
-      # We'll mark the application as not running and let the
-      # engine stop gracefully next time through the loop.
-      # 
       def run
         $engine.run_help( true )
       end
@@ -23,6 +20,13 @@ module OutlineScript
       # 
       def self.keyword
         return 'create'
+      end
+
+      # 
+      # Get the Verb's keyword shortcut.
+      # 
+      def self.keyword_shortcut
+        return '`'
       end
 
     end
