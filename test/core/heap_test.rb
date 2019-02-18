@@ -9,7 +9,9 @@ class HeapTest < Minitest::Test
   def test_heap_constrution
     o = OutlineScript::Core::Heap.new
     assert o
+    assert o.root
+    assert o.context
+    assert o.it
   end
 
-  
 end

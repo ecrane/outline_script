@@ -10,9 +10,15 @@ module OutlineScript
   module Core
     class Heap
       
+      attr_reader :context, :it, :root
+      
       # Set up the object heap.
       def initialize()
         $log.debug "object heap intialized..."
+        
+        @root = []
+        @context = ObjRef.root
+        @it = It.new
       end
       
       
