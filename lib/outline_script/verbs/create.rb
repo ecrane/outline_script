@@ -20,8 +20,7 @@ module OutlineScript
         name = @tokens.second
         type = @tokens.after_token( AS )
         value = @tokens.after_token( VAL )
-        puts "going to create #{name} with type #{type} and value #{value}"
-        
+        $engine.factory.create( name, type, value )
       end
       
       # 

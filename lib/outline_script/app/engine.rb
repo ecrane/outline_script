@@ -13,7 +13,7 @@ module OutlineScript
     class Engine
 
       attr_reader :args, :mode, :running
-      attr_reader :dictionary, :parser, :heap
+      attr_reader :dictionary, :parser, :heap, :factory
       attr_accessor :last_cmd
       
       # Set up the engine with basic elements.
@@ -36,6 +36,7 @@ module OutlineScript
         @dictionary.init
         @parser = OutlineScript::Core::Parser.new
         @heap = OutlineScript::Core::Heap.new
+        @factory = OutlineScript::Core::Factory.new
         
         run_mode
       end

@@ -65,9 +65,28 @@ class TokensTest < Minitest::Test
     assert_equal "create", o.first
   end
 
+  def test_last_token
+    o = OutlineScript::Core::Tokens.new( "create thing" )
+    assert_equal "thing", o.last
+    o = OutlineScript::Core::Tokens.new( "one" )
+    assert_equal "one", o.last
+    o = OutlineScript::Core::Tokens.new( "one two three 4 5" )
+    assert_equal "5", o.last
+  end
+
   def test_second_token
     o = OutlineScript::Core::Tokens.new( "create thing" )
     assert_equal "thing", o.second
+  end
+
+  def test_token_at
+    o = OutlineScript::Core::Tokens.new( "create thing" )
+    assert_equal "create", o.at( 0 )
+    assert_equal "thing", o.at( 1 )
+    o = OutlineScript::Core::Tokens.new( "one two three 4 5" )
+    assert_equal "one", o.at( 0 )
+    assert_equal "4", o.at( 3 )
+    assert_equal "5", o.at( 4 )
   end
   
   def test_empty_token_list
