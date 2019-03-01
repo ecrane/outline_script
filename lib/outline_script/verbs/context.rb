@@ -13,7 +13,21 @@ module OutlineScript
       # Run the verb.
       # 
       def run
-        puts "context"
+        if @tokens.token_count == 1
+          show_context
+        else
+          path = @tokens.second
+          $engine.heap.context.set_to path
+          $engine.heap.it.set_to path
+          $log.debug "Context set to #{$engine.heap.context}"
+        end
+      end
+      
+      # 
+      # Show the current context.
+      # 
+      def show_context
+        $log.show "Context:  #{$engine.heap.context}"
       end
       
       # 

@@ -22,4 +22,16 @@ class ObjRefTest < Minitest::Test
     assert_equal "root", o.raw
   end  
   
+  def test_setting_it
+    o = OutlineScript::Core::ObjRef.root
+    o.set_to "something.or.other"
+    assert_equal "something.or.other", o.raw
+    assert_equal "something.or.other", "#{o}"
+  end
+
+  def test_to_s
+    o = OutlineScript::Core::ObjRef.new( "other" )
+    assert_equal "other", "#{o}"
+  end
+
 end

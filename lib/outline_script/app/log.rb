@@ -19,6 +19,11 @@ module OutlineScript
         @quiet = quiet
       end
       
+      # Show a message unless we're in quite mode.
+      def show msg
+        puts msg unless @quiet
+      end
+      
       def debug msg
         @logger.debug msg
       end

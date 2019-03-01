@@ -12,7 +12,7 @@ module OutlineScript
       # Run the verb.
       # 
       def run
-        puts OutlineScript::App::Info.display_title
+        $log.show OutlineScript::App::Info.display_title
       end
       
       # 

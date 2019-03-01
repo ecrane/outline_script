@@ -22,6 +22,16 @@ module OutlineScript
         return ObjRef.new( "root" )
       end
       
+      # Set the object reference to the given path.
+      def set_to path
+        @raw = path
+      end
+      
+      # Get the string representation of the reference.
+      def to_s
+        return self.raw
+      end
+      
     end
   end
 end
