@@ -12,6 +12,26 @@ class DictionaryTest < Minitest::Test
     assert @dic
   end
 
+  def test_obj_list
+    assert @dic.objs
+    assert ( @dic.objs.count > 0 )
+  end
+
+  def test_is_obj
+    assert @dic.is_obj?( "string" )
+    refute @dic.is_obj?( "XXXX" )
+    refute @dic.is_obj?( "" )
+    refute @dic.is_obj?( nil )
+  end
+  
+  def test_find_an_obj
+    assert @dic.find_obj( "string" )
+    assert @dic.find_obj( "STRING" )
+    refute @dic.find_obj( nil )
+    refute @dic.find_obj( "" )
+    refute @dic.find_obj( "XXX" )
+  end
+
   def test_verb_list
     assert @dic.verbs
     assert ( @dic.verbs.count > 0 )

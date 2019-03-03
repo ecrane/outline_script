@@ -13,7 +13,21 @@ module OutlineScript
       # Run the verb.
       # 
       def run
-        $engine.run_help( true )
+        if @tokens.token_count == 1
+          ref = $engine.heap.context
+        else
+          ref = OutlineScript::Core::ObjRef.new @tokens.second
+        end
+        
+        # Make sure object exists
+        if ref.obj_exists?
+          # show object(s) at path
+          $log.show "#{ref} exists"
+          
+          
+        else
+          $log.warn "Object #{ref} does not exist"
+        end
       end
       
       # 

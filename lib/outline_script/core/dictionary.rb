@@ -11,11 +11,12 @@ module OutlineScript
       
       include Singleton
       
-      attr_reader :verbs
+      attr_reader :verbs, :objs
       
       # Set up the object dictionary.
       def initialize()
         @verbs = {}
+        @objs = {}
         @verb_references = []
         @obj_references = []
       end
@@ -24,12 +25,41 @@ module OutlineScript
       def register_verb subclass
         @verb_references << subclass
       end
+      
+      # Register an object type.
+      def register_obj subclass
+        @obj_references << subclass
+      end
 
       # Initialize verbs and objects in the dictionary.
       def init
         $log.debug "initializing dictionaries"
         init_verbs
+        init_objs
       end
+
+      # Init the list of verbs.
+      def init_objs
+        $log.debug "initializing #{@obj_references.count} objects"
+        @obj_references.each do |o|
+          $log.debug  o
+          @objs[ o.typename ] = o
+        end
+      end
+      
+      # Is the given word an object type?
+      def is_obj? word
+        return false unless word
+        return @objs.key?( word.downcase )
+      end
+      
+      # Find the object type by name.
+      def find_obj word
+        return nil unless word
+        return nil unless is_obj?( word )
+        return @objs[ word.downcase ]
+      end
+
       
       # Init the list of verbs.
       def init_verbs

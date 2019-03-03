@@ -28,6 +28,35 @@ class ObjRefTest < Minitest::Test
     assert_equal "something.or.other", o.raw
     assert_equal "something.or.other", "#{o}"
   end
+  
+  def test_root_exists
+    o = OutlineScript::Core::ObjRef.root
+    assert o.obj_exists?
+  end
+
+  def test_obj_exists
+    o = OutlineScript::Core::ObjRef.new( "does.not.exist" )
+    refute o.obj_exists?
+    o.set_to "root"
+    assert o.obj_exists?
+  end
+  
+  def test_is_root
+    o = OutlineScript::Core::ObjRef.root
+    assert o.is_root?
+    o.set_to "ROOT"
+    assert o.is_root?
+    o.set_to "rOOt"
+    assert o.is_root?
+    o.set_to "root "
+    assert o.is_root?
+    o.set_to "not_root"
+    refute o.is_root?
+    o.set_to "root!"
+    refute o.is_root?
+    o.set_to "something.else"
+    refute o.is_root?
+  end
 
   def test_to_s
     o = OutlineScript::Core::ObjRef.new( "other" )

@@ -24,7 +24,19 @@ module OutlineScript
       
       # Set the object reference to the given path.
       def set_to path
-        @raw = path
+        @raw = path.strip
+      end
+      
+      # Does the object referenced exists?
+      def obj_exists?
+        return true if is_root?
+        
+        return false
+      end
+      
+      # Does the reference refer to the root?
+      def is_root?
+        return @raw.downcase == "root"
       end
       
       # Get the string representation of the reference.
