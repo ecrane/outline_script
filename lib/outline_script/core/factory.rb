@@ -19,9 +19,10 @@ module OutlineScript
       def create name=nil, type=nil, value=nil
         puts "going to create #{name} with type #{type} and value #{value}"
 
-        objtype = dic.find_obj( type )
+        objtype = $engine.dictionary.find_obj( type )
         if objtype
           o = objtype.new
+          o.name = name
           o.value = value
           $engine.heap.root << o
         end

@@ -22,12 +22,18 @@ module OutlineScript
         # Make sure object exists
         if ref.obj_exists?
           # show object(s) at path
-          $log.show "#{ref} exists"
+          cnt = $engine.heap.root.count
+          $log.show "#{ref} exists (#{cnt})"
           
-          
+          $engine.heap.root.each { |o| show_obj( o ) }
         else
           $log.warn "Object #{ref} does not exist"
         end
+      end
+      
+      # Show object in standard format.
+      def show_obj obj, indent="  "
+        $log.show "#{indent}#{obj.name} as #{obj.type_display} : #{obj.value}"
       end
       
       # 

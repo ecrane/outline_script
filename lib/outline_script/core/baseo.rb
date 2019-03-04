@@ -15,7 +15,14 @@ module OutlineScript
       def initialize()
         @name = ""
       end
-            
+      
+      # 
+      # The object type, suitable for display.
+      # 
+      def type_display
+        raise 'this method should be overriden'
+      end
+
     end
   end
 end

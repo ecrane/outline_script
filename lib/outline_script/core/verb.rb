@@ -47,6 +47,13 @@ module OutlineScript
       def self.keyword_shortcut
         raise 'this method should be overriden'
       end
+      
+      # 
+      # The object type, suitable for display.
+      # 
+      def type_display
+        return self.class.keyword
+      end
 
     end
   end
