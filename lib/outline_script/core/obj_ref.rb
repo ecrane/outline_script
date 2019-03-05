@@ -34,6 +34,25 @@ module OutlineScript
         return false
       end
       
+      # Resolve the reference.
+      # Find the object referenced or return nil if it is not found.
+      def resolve
+        o = $engine.heap.root
+        return o if self.is_root?
+        
+        self.segments.each do |segment|
+          o = o.find_child( segment )
+          return nil unless o          
+        end
+        return o
+      end
+      
+      # Convert the raw string to a list of segments.
+      def segments
+        return [] unless @raw
+        return @raw.split( "." )
+      end
+      
       # Does the reference refer to the root?
       def is_root?
         return @raw.downcase == "root"

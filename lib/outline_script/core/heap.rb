@@ -16,7 +16,9 @@ module OutlineScript
       def initialize()
         $log.debug "object heap intialized..."
         
-        @root = []
+        @root = OutlineScript::Objs::Container.new
+        @root.name = "root"
+        
         @context = ObjRef.root
         @it = It.new
       end

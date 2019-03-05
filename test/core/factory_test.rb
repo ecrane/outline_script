@@ -13,4 +13,14 @@ class FactoryTest < Minitest::Test
     assert @engine.factory
   end
 
+  def test_object_creation
+    @engine.start
+    o = @engine.factory.create
+    refute o
+
+    o = @engine.factory.create "s", "string"
+    assert o
+    assert_equal "s", o.name
+  end
+
 end

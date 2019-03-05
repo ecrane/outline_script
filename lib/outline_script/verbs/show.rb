@@ -13,27 +13,33 @@ module OutlineScript
       # Run the verb.
       # 
       def run
+        @target = self.determine_target
+        @obj = @target.resolve
+        if @obj
+          self.show_target
+        else
+          $log.warn "Object #{@target} does not exist"
+        end
+      end
+      
+      # Determine the target object for the show command.
+      def determine_target
         if @tokens.token_count == 1
-          ref = $engine.heap.context
+          return $engine.heap.context
         else
-          ref = OutlineScript::Core::ObjRef.new @tokens.second
+          return OutlineScript::Core::ObjRef.new( @tokens.second )
         end
-        
-        # Make sure object exists
-        if ref.obj_exists?
-          # show object(s) at path
-          cnt = $engine.heap.root.count
-          $log.show "#{ref} exists (#{cnt})"
-          
-          $engine.heap.root.each { |o| show_obj( o ) }
-        else
-          $log.warn "Object #{ref} does not exist"
-        end
+      end
+
+      # Show the target object.
+      def show_target
+        show_obj( @obj, "" )
+        @obj.children.each { |o| show_obj( o ) }
       end
       
       # Show object in standard format.
       def show_obj obj, indent="  "
-        $log.show "#{indent}#{obj.name} as #{obj.type_display} : #{obj.value}"
+        $log.show "#{indent}#{obj.name} [#{obj.type_display}] : #{obj.value}"
       end
       
       # 

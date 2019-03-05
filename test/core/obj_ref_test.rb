@@ -34,6 +34,26 @@ class ObjRefTest < Minitest::Test
     assert o.obj_exists?
   end
 
+  def test_conversion_to_segments
+    o = OutlineScript::Core::ObjRef.new( "a.b.c" )
+    segments = o.segments
+    assert_equal 3, segments.count
+    assert_equal 'a', segments[0]
+    assert_equal 'b', segments[1]
+    assert_equal 'c', segments[2]
+    
+    o = OutlineScript::Core::ObjRef.new( "one" )
+    segments = o.segments
+    assert_equal 1, segments.count
+    assert_equal 'one', segments[0]
+
+    o = OutlineScript::Core::ObjRef.new( "" )
+    assert_equal 0, o.segments.count
+
+    o = OutlineScript::Core::ObjRef.new( nil )
+    assert_equal 0, o.segments.count
+  end
+
   def test_obj_exists
     o = OutlineScript::Core::ObjRef.new( "does.not.exist" )
     refute o.obj_exists?

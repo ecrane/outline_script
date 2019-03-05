@@ -10,6 +10,8 @@ class HeapTest < Minitest::Test
     o = OutlineScript::Core::Heap.new
     assert o
     assert o.root
+    assert 0, o.root.child_count
+    
     assert o.context
     assert o.it
   end

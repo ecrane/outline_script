@@ -36,6 +36,32 @@ module OutlineScript
       def type_display
         return self.class.typename
       end
+      
+      # Add a child object to the container.
+      def add_child obj
+        @children << obj
+      end
+      
+      # Get the number of children.
+      def child_count
+        return @children.count
+      end
+      
+      # Does this object contain an object with the given name?
+      def has_child? name
+        @children.each do |o|
+          return true if ( name.downcase == o.name.downcase )
+        end
+        return false
+      end
+
+      # Find a child object with the given name.
+      def find_child name
+        @children.each do |o|
+          return o if ( name.downcase == o.name.downcase )
+        end
+        return nil
+      end
     
     end
   end
