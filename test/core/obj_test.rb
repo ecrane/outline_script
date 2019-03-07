@@ -51,8 +51,39 @@ class ObjTest < Minitest::Test
     o = OutlineScript::Core::Obj.new
     s = OutlineScript::Objs::String.new
     s.name = "str"
+    refute o.find_child( "str" )
     o.add_child s
     assert_same s, o.find_child( "str" )
   end
-    
+
+  def test_find_nonexistant_child
+    o = OutlineScript::Core::Obj.new
+    refute o.find_child( "xtr" )
+    s = OutlineScript::Objs::String.new
+    s.name = "str"
+    o.add_child s
+    assert_same s, o.find_child( "str" )
+    refute o.find_child( "xtr" )
+    refute o.find_child( "stri" )
+    refute o.find_child( "st" )
+  end
+  
+  def test_child_count
+    o = OutlineScript::Core::Obj.new
+    assert_equal 0, o.child_count
+    o = OutlineScript::Objs::Container.new
+    assert_equal 0, o.child_count
+    s = OutlineScript::Objs::String.new
+    s.name = "str"
+    o.add_child s
+    assert_equal 1, o.child_count
+  end
+  
+  def test_type_display
+    o = OutlineScript::Objs::Container.new
+    assert_equal "container", o.type_display
+    s = OutlineScript::Objs::String.new
+    assert_equal "string", s.type_display
+  end
+  
 end

@@ -13,14 +13,26 @@ class FactoryTest < Minitest::Test
     assert @engine.factory
   end
 
-  def test_object_creation
+  def test_unknown_object_creation
     @engine.start
-    o = @engine.factory.create "x", "notatype"
-    refute o
-
     o = @engine.factory.create "s", "string"
     assert o
     assert_equal "s", o.name
+    assert_equal "string", o.type_display
+  end
+
+  def test_unknown_object_creation
+    @engine.start
+    o = @engine.factory.create "x", "notatype"
+    refute o
+  end
+
+  def test_untyped_object_creation
+    @engine.start
+    o = @engine.factory.create "u"
+    assert o
+    assert_equal "u", o.name
+    assert_equal "untyped", o.type_display
   end
 
 end
