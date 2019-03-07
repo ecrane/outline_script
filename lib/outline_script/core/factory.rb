@@ -17,7 +17,9 @@ module OutlineScript
       # One of either name or type is required.
       # All values are optional when considered on their own.
       def create name=nil, type=nil, value=nil
+        type = type ? type : "untyped"
         objtype = $engine.dictionary.find_obj( type )
+        
         if objtype
           o = objtype.new
           o.name = name

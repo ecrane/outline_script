@@ -15,7 +15,7 @@ class FactoryTest < Minitest::Test
 
   def test_object_creation
     @engine.start
-    o = @engine.factory.create
+    o = @engine.factory.create "x", "notatype"
     refute o
 
     o = @engine.factory.create "s", "string"
