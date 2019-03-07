@@ -10,7 +10,14 @@ module OutlineScript
   module Core
     class Heap
       
-      attr_reader :context, :it, :root
+      # The context is a reference to an object, usually a container.
+      # The context will be the root by default.
+      attr_reader :context
+      
+      # TODO:  Do I need a running script context?
+      # how to resolve relative reference.
+      
+      attr_reader :it, :root
       
       # Set up the object heap.
       def initialize()
