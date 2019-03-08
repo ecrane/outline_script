@@ -86,4 +86,10 @@ class ObjTest < Minitest::Test
     assert_equal "string", s.type_display
   end
   
+  def test_value_display
+    s = OutlineScript::Objs::String.new
+    s.value = "test"
+    assert_equal "test", s.value_display
+  end
+  
 end

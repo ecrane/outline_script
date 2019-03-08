@@ -60,6 +60,11 @@ module OutlineScript
         return first
       end
 
+      # Get all tokens except the first.
+      def params
+        return @tokens[ 1..-1 ]
+      end
+
       # Get the first token.
       def first
         return @tokens.first if @tokens

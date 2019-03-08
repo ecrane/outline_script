@@ -11,16 +11,10 @@ class ShowTest < Minitest::Test
     assert_equal "show", OutlineScript::Verbs::Show.keyword
   end
 
-  def test_determine_target
-    assert @engine.running
-    i = @engine.parser.parse_immediate 'show'
-    target = i.determine_target
-    assert_same $engine.heap.context, target
-    
-    i = @engine.parser.parse_immediate 'show me'
-    target = i.determine_target
-    refute_same $engine.heap.context, target
-    assert_equal "me", target.to_s
+  def test_showing_a_string_literal
+    v = @engine.parser.parse_immediate 'show "me"'
+    v.run
+    assert_equal "me", @engine.heap.it.value
   end
 
 end

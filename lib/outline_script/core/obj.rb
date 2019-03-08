@@ -37,6 +37,13 @@ module OutlineScript
         return self.class.typename
       end
       
+      # 
+      # Get the value for display purposes.
+      # 
+      def value_display
+        return self.value.to_s
+      end
+      
       # Add a child object to the container.
       def add_child obj
         @children << obj

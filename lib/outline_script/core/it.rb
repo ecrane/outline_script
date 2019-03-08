@@ -22,7 +22,7 @@ module OutlineScript
 
       # Get the string representation of it.
       def to_s
-        return self.value
+        return @value.to_s
       end
 
     end
