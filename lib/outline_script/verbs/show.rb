@@ -33,7 +33,7 @@ module OutlineScript
       # Get the Verb's keyword shortcut.
       # 
       def self.keyword_shortcut
-        return ','
+        return '='
       end
 
     end

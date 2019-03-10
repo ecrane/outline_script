@@ -12,14 +12,51 @@ module OutlineScript
       def initialize tokens
         @tokens = tokens
         @symbols = []
+        @left = nil
+        @right = nil
+        @op = nil
       end
       
       # Evaluate the expression and return the value.
       def evaluate
         identify_tokens
         
-        # TODO: evaluate all symbols
-        return @symbols.first.value
+        @symbols.each do |sym|
+          if sym.is_a? OutlineScript::Core::Op
+            @op = sym
+          elsif @left == nil
+            @left = sym
+          else
+            @right = sym
+          end
+          
+          perform_op if @left && @right
+        end
+        
+        if @left.is_a? OutlineScript::Core::Literal 
+          return @left.value
+        else
+          return @left
+        end
+      end
+      
+      # Perform the operation.
+      def perform_op
+        @op = OutlineScript::Core::Op.default_op unless @op
+        l = evaluate_sym @left
+        r = evaluate_sym @right
+        @left = @op.perform l, r
+        @right = nil
+        @op = nil
+      end
+      
+      # Evaluate the symbol and get a simple value.
+      def evaluate_sym sym
+        if sym.is_a? OutlineScript::Core::Literal
+          return sym.value
+        else
+          return sym
+        end
       end
       
       # Identify each token in the list.
@@ -33,7 +70,8 @@ module OutlineScript
       # Identify the tokens and create appropriate symbols.
       # 
       def identify_token token
-        return LiteralString.new( token ) if token.start_with?( '"' )
+        return LInteger.new( token ) if LInteger.is_integer?( token )
+        return LString.new( token ) if LString.is_string?( token )
       end
       
     end
