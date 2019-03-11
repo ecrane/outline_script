@@ -35,6 +35,8 @@ module OutlineScript
         
         if @left.is_a? OutlineScript::Core::Literal 
           return @left.value
+        elsif @left.is_a? OutlineScript::Core::ObjRef
+          return resolve_ref @left
         else
           return @left
         end
@@ -54,9 +56,17 @@ module OutlineScript
       def evaluate_sym sym
         if sym.is_a? OutlineScript::Core::Literal
           return sym.value
+        elsif sym.is_a? OutlineScript::Core::ObjRef
+          return resolve_ref sym
         else
           return sym
         end
+      end
+      
+      # resolve an object reference and get the value.
+      def resolve_ref ref
+        ob = ref.resolve
+        return ob.value if ob
       end
       
       # Identify each token in the list.
@@ -72,6 +82,9 @@ module OutlineScript
       def identify_token token
         return LInteger.new( token ) if LInteger.is_integer?( token )
         return LString.new( token ) if LString.is_string?( token )
+        
+        # last chance: an Object reference
+        return OutlineScript::Core::ObjRef.new( token )
       end
       
     end

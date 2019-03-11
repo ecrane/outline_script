@@ -20,6 +20,10 @@ module OutlineScript
         name = @tokens.second
         type = @tokens.after_token( AS )
         value = @tokens.after_token( VAL )
+        
+        if OutlineScript::Expr::LString.is_string?( value )
+          value = OutlineScript::Expr::LString.strip_quotes( value )
+        end
         $engine.factory.create( name, type, value )
       end
       

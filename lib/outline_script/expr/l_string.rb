@@ -13,20 +13,37 @@ module OutlineScript
       def set_value value
         @value = value
         return unless value
-        if @value.start_with?( '"' )
-          @value = @value[ 1..-1 ]
-        end
-        if @value.end_with?( '"' )
-          @value = @value[ 0..-2 ]
-        end        
+        @value = LString.strip_quotes( @value )
       end
       
       # Is the given token a string?
       def self.is_string? token
         return false unless token.is_a? String
-        return token.start_with?( '"' )
+        return true if token.start_with?( '"' )
+        return true if token.start_with?( "'" )
+        return false
       end
-      
+
+      # 
+      # Given a string with leading and trailing quotes,
+      # strip them out.
+      # 
+      def self.strip_quotes str
+        if str.start_with?( '"' )
+          str = str[ 1..-1 ]
+          if str.end_with?( '"' )
+            str = str[ 0..-2 ]
+          end
+          return str
+        elsif str.start_with?( "'" )
+          str = str[ 1..-1 ]
+          if str.end_with?( "'" )
+            str = str[ 0..-2 ]
+          end
+          return str
+        end
+      end
+            
       def to_s
         return self.value
       end
