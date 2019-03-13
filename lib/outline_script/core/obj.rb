@@ -38,6 +38,13 @@ module OutlineScript
       end
       
       # 
+      # Set the value with any necessary type conversions.
+      # 
+      def set_value new_value
+        self.value = new_value
+      end
+      
+      # 
       # Get the value for display purposes.
       # 
       def value_display

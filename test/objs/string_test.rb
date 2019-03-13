@@ -10,5 +10,19 @@ class StringTest < Minitest::Test
     assert_equal "string", OutlineScript::Objs::String.typename
   end
 
+  def test_setting_the_value
+    o = OutlineScript::Objs::String.new
+    o.set_value( "a string" )
+    assert_equal "a string", o.value
+    o.set_value( 3 )
+    assert_equal "3", o.value
+    o.set_value( "177" )
+    assert_equal "177", o.value
+    o.set_value( " 1 " )
+    assert_equal " 1 ", o.value    
+    o.set_value( -13 )
+    assert_equal "-13", o.value    
+  end
+
 
 end

@@ -16,6 +16,13 @@ module OutlineScript
         return "string"
       end
 
+      # 
+      # Set the value with any necessary type conversions.
+      # 
+      def set_value new_value
+        self.value = new_value.to_s
+      end
+
     end
   end
 end

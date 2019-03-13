@@ -16,6 +16,13 @@ module OutlineScript
         return "integer"
       end
 
+      # 
+      # Set the value with any necessary type conversions.
+      # 
+      def set_value new_value
+        self.value = new_value.to_i
+      end
+
     end
   end
 end

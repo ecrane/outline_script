@@ -23,7 +23,7 @@ module OutlineScript
         if objtype
           o = objtype.new
           o.name = name
-          o.value = value
+          o.set_value value
           $engine.heap.root.add_child( o )
           return o          
         else
