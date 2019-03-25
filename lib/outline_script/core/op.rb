@@ -15,7 +15,10 @@ module OutlineScript
       
       # Create the operator for the given token.
       def self.create_op token
-        return OutlineScript::Expr::OpPlus.new
+        return OutlineScript::Expr::OpMinus.new if token == '-'
+        return OutlineScript::Expr::OpPlus.new if token == '+'
+        
+        return default_op
       end
       
       # Get the default operator (+).

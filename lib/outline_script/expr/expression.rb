@@ -44,7 +44,7 @@ module OutlineScript
       
       # Perform the operation.
       def perform_op
-        @op = OutlineScript::Core::Op.default_op unless @op
+        @op = create_op.default_op unless @op
         l = evaluate_sym @left
         r = evaluate_sym @right
         @left = @op.perform l, r
@@ -74,12 +74,20 @@ module OutlineScript
         @tokens.each do |o|
           @symbols << identify_token( o )
         end
+        
+        # @symbols.each do |o|
+        #   puts o.class.name
+        # end
       end
       
       # 
       # Identify the tokens and create appropriate symbols.
       # 
       def identify_token token
+        if OutlineScript::Core::Op.is_op?( token )
+          return OutlineScript::Core::Op.create_op( token )
+        end
+        
         return LInteger.new( token ) if LInteger.is_integer?( token )
         return LString.new( token ) if LString.is_string?( token )
         
