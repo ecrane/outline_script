@@ -24,4 +24,9 @@ class ParserTest < Minitest::Test
     refute i
   end
   
+  def test_parser_run
+    @engine.parser.run '= 10 + 3 - 0'
+    assert_equal 13, @engine.heap.it.value
+  end
+
 end

@@ -26,6 +26,12 @@ module OutlineScript
         return nil
       end
       
+      # Parse a command and then run it if it parsed correctly.
+      def run cmd
+        v = parse_immediate( cmd )
+        v.run if v
+      end
+      
     end
   end
 end

@@ -24,6 +24,12 @@ class OpTest < Minitest::Test
     assert_same OutlineScript::Expr::OpPlus, o.class
   end
 
+  def test_create_op_minus
+    o = OutlineScript::Core::Op.create_op( "-" )
+    assert o
+    assert_same OutlineScript::Expr::OpMinus, o.class
+  end
+
   def test_default_op
     o = OutlineScript::Core::Op.default_op
     assert o
