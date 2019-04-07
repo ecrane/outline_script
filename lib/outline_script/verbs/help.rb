@@ -8,6 +8,9 @@ module OutlineScript
   module Verbs
     class Help < OutlineScript::Core::Verb
       
+      KEYWORD = 'help'
+      KEYWORD_SHORT = '?'
+
       # 
       # Run the verb.
       # 
@@ -19,14 +22,14 @@ module OutlineScript
       # Get the Verb's keyword.
       # 
       def self.keyword
-        return 'help'
+        return KEYWORD
       end
 
       # 
       # Get the Verb's keyword shortcut.
       # 
       def self.keyword_shortcut
-        return '?'
+        return KEYWORD_SHORT
       end
 
     end

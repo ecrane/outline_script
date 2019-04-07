@@ -44,7 +44,7 @@ module OutlineScript
       
       # Perform the operation.
       def perform_op
-        @op = create_op.default_op unless @op
+        @op = OutlineScript::Core::Op.default_op unless @op
         l = evaluate_sym @left
         r = evaluate_sym @right
         @left = @op.perform l, r

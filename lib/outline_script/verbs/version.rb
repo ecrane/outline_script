@@ -8,6 +8,9 @@ module OutlineScript
   module Verbs
     class Version < OutlineScript::Core::Verb
       
+      KEYWORD = 'version'
+      KEYWORD_SHORT = 'v'
+
       # 
       # Run the verb.
       # 
@@ -19,14 +22,14 @@ module OutlineScript
       # Get the Verb's keyword.
       # 
       def self.keyword
-        return 'version'
+        return KEYWORD
       end
       
       # 
       # Get the Verb's keyword shortcut.
       # 
       def self.keyword_shortcut
-        return 'v'
+        return KEYWORD_SHORT
       end
       
     end

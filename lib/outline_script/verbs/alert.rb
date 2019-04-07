@@ -8,6 +8,9 @@ module OutlineScript
   module Verbs
     class Alert < OutlineScript::Core::Verb
       
+      KEYWORD = 'alert'
+      KEYWORD_SHORT = '!'
+
       # 
       # Run the verb.
       # 
@@ -24,14 +27,14 @@ module OutlineScript
       # Get the Verb's keyword.
       # 
       def self.keyword
-        return 'alert'
+        return KEYWORD
       end
 
       # 
       # Get the Verb's keyword shortcut.
       # 
       def self.keyword_shortcut
-        return ''
+        return KEYWORD_SHORT
       end
 
     end

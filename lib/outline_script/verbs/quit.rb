@@ -8,6 +8,9 @@ module OutlineScript
   module Verbs
     class Quit < OutlineScript::Core::Verb
       
+      KEYWORD = 'quit'
+      KEYWORD_SHORT = 'q'
+
       # 
       # Run the verb.
       # 
@@ -22,14 +25,14 @@ module OutlineScript
       # Get the Verb's keyword.
       # 
       def self.keyword
-        return 'quit'
+        return KEYWORD
       end
       
       # 
       # Get the Verb's keyword shortcut.
       # 
       def self.keyword_shortcut
-        return 'q'
+        return KEYWORD_SHORT
       end
 
     end
