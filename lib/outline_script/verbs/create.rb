@@ -25,6 +25,7 @@ module OutlineScript
           value = OutlineScript::Expr::LString.strip_quotes( value )
         end
         $engine.factory.create( name, type, value )
+        $engine.heap.it.set_to value
       end
       
       # 
