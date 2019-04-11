@@ -22,10 +22,19 @@ module OutlineScript
         
         if objtype
           o = objtype.new
-          o.name = name
+          
+          pn = OutlineScript::Core::Pn.new name
+          o.name = pn.name
           o.set_value value
-          $engine.heap.root.add_child( o )
-          return o          
+          
+          parent = pn.get_parent
+          if parent
+            parent.add_child( o )
+            return o          
+          else
+            $log.error "Could not create object.  Bad path: #{name}"
+            return nil
+          end
         else
           $log.warn "Could not find type, '#{type}'"
           return nil

@@ -8,12 +8,21 @@ module OutlineScript
   module Objs
     class Integer < OutlineScript::Core::Obj
       
-      
+      KEYWORD = 'integer'
+      KEYWORD_SHORT = 'int'
+
       # 
       # The name of the object type.
       # 
       def self.typename
-        return "integer"
+        return KEYWORD
+      end
+
+      # 
+      # The short name of the object type.
+      # 
+      def self.short_typename
+        return KEYWORD_SHORT
       end
 
       # 

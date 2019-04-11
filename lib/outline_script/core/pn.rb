@@ -41,6 +41,10 @@ module OutlineScript
         if self.has_path?
           @elements[0..-2].each do |e|
             o = o.find_child( e )
+            if o.nil?
+              $log.error "Object '#{e}' was not found."
+              return nil
+            end
           end
         end
         
@@ -49,6 +53,9 @@ module OutlineScript
       
       # Does the object at the path exist?
       def exists?
+        parent = self.get_parent
+        return false unless parent
+        return parent.has_child? name
       end
             
     end

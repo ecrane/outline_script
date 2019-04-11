@@ -14,6 +14,18 @@ class PnTest < Minitest::Test
     assert_equal 1, o.elements.count
   end
   
+  def test_object_exists
+    i = @engine.parser.parse_immediate '` can as container'
+    i.run
+    i = @engine.parser.parse_immediate '` can.x'
+    i.run
+    
+    o = OutlineScript::Core::Pn.new "can"
+    assert o.exists?
+    o = OutlineScript::Core::Pn.new "can.x"
+    assert o.exists?
+  end
+  
   def test_getting_parent_for_child
     i = @engine.parser.parse_immediate '` can as container'
     i.run
@@ -25,6 +37,13 @@ class PnTest < Minitest::Test
     parent = o.get_parent
     assert parent
     assert_same can, parent
+  end
+  
+  def test_find_child_missing_parent
+    o = OutlineScript::Core::Pn.new "can.x"
+    refute o.get_parent
+    o = OutlineScript::Core::Pn.new "a.b.c"
+    refute o.get_parent
   end
   
   

@@ -8,12 +8,21 @@ module OutlineScript
   module Objs
     class Untyped < OutlineScript::Core::Obj
       
-      
+      KEYWORD = 'untyped'
+      KEYWORD_SHORT = 'un'
+
       # 
       # The name of the object type.
       # 
       def self.typename
-        return "untyped"
+        return KEYWORD
+      end
+
+      # 
+      # The short name of the object type.
+      # 
+      def self.short_typename
+        return KEYWORD_SHORT
       end
 
     end

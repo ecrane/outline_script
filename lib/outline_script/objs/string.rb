@@ -8,12 +8,21 @@ module OutlineScript
   module Objs
     class String < OutlineScript::Core::Obj
       
-      
+      KEYWORD = 'string'
+      KEYWORD_SHORT = 'str'
+
       # 
       # The name of the object type.
       # 
       def self.typename
-        return "string"
+        return KEYWORD
+      end
+
+      # 
+      # The short name of the object type.
+      # 
+      def self.short_typename
+        return KEYWORD_SHORT
       end
 
       # 

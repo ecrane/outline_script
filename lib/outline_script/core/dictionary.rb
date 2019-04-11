@@ -44,6 +44,7 @@ module OutlineScript
         @obj_references.each do |o|
           $log.debug  o
           @objs[ o.typename ] = o
+          @objs[ o.short_typename ] = o
         end
       end
       
