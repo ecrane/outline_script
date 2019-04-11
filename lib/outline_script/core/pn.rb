@@ -14,8 +14,37 @@ module OutlineScript
       # Set up the object given a source string,
       # ie: the full path and name.
       def initialize( src )
-        @src = src
-        @elements = src.split( '.' )
+        set_to src
+      end
+      
+      # Reference to the root object path.
+      def self.root
+        return Pn.new( "root" )
+      end
+      
+      # Does the pathname reference refer to the root?
+      def is_root?
+        return @src.downcase == "root"
+      end
+      
+      # Get the string representation of the pathname.
+      def to_s
+        return @src
+      end
+
+      # Set the object pathname to the given value.
+      def set_to value
+        @src = value.strip unless value.nil?
+        if @src.nil?
+          @elements = []
+        else
+          @elements = @src.split( '.' )
+        end
+      end
+      
+      # Convert the raw string to a list of segments.
+      def segments
+        return @elements
       end
       
       # Get the name element.
@@ -53,11 +82,21 @@ module OutlineScript
       
       # Does the object at the path exist?
       def exists?
+        return true if self.is_root?
+        
         parent = self.get_parent
         return false unless parent
         return parent.has_child? name
       end
-            
+      
+      # Resolve the pathname reference.
+      # Find the object referenced or return nil if it is not found.
+      def resolve
+        return $engine.heap.root if self.is_root?
+        parent = self.get_parent
+        return parent.find_child( self.name )
+      end
+
     end
   end
 end

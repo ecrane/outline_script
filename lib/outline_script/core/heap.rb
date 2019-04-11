@@ -26,7 +26,7 @@ module OutlineScript
         @root = OutlineScript::Objs::Container.new
         @root.name = "root"
         
-        @context = ObjRef.root
+        @context = Pn.root
         @it = It.new
       end
       

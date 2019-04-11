@@ -29,7 +29,7 @@ module OutlineScript
         if @tokens.token_count == 1
           return $engine.heap.context
         else
-          return OutlineScript::Core::ObjRef.new( @tokens.second )
+          return OutlineScript::Core::Pn.new( @tokens.second )
         end
       end
 

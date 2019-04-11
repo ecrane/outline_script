@@ -35,7 +35,7 @@ module OutlineScript
         
         if @left.is_a? OutlineScript::Core::Literal 
           return @left.value
-        elsif @left.is_a? OutlineScript::Core::ObjRef
+        elsif @left.is_a? OutlineScript::Core::Pn
           return resolve_ref @left
         else
           return @left
@@ -56,7 +56,7 @@ module OutlineScript
       def evaluate_sym sym
         if sym.is_a? OutlineScript::Core::Literal
           return sym.value
-        elsif sym.is_a? OutlineScript::Core::ObjRef
+        elsif sym.is_a? OutlineScript::Core::Pn
           return resolve_ref sym
         else
           return sym
@@ -92,7 +92,7 @@ module OutlineScript
         return LString.new( token ) if LString.is_string?( token )
         
         # last chance: an Object reference
-        return OutlineScript::Core::ObjRef.new( token )
+        return OutlineScript::Core::Pn.new( token )
       end
       
     end
