@@ -3,7 +3,7 @@ require "test_helper"
 class OpMinusTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
   end
 

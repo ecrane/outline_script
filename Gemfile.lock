@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    outline_script (0.2.0)
+    gloo (0.2.0)
       activesupport (~> 5.2, >= 5.2.1)
       chronic (~> 0.10, >= 0.10.2)
       colorize (~> 0.8, >= 0.8.1)
@@ -131,8 +131,8 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
+  gloo!
   minitest (~> 5.0)
-  outline_script!
   rake (~> 10.0)
 
 BUNDLED WITH

@@ -3,17 +3,17 @@ require "test_helper"
 class UntypedTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
     @dic = @engine.dictionary
   end
 
   def test_the_typename
-    assert_equal "untyped", OutlineScript::Objs::Untyped.typename
+    assert_equal "untyped", Gloo::Objs::Untyped.typename
   end
 
   def test_the_short_typename
-    assert_equal "un", OutlineScript::Objs::Untyped.short_typename
+    assert_equal "un", Gloo::Objs::Untyped.short_typename
   end
 
   def test_find_type

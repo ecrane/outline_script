@@ -3,16 +3,16 @@ require "test_helper"
 class CreateTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
   end
 
   def test_the_keyword
-    assert_equal "create", OutlineScript::Verbs::Create.keyword
+    assert_equal "create", Gloo::Verbs::Create.keyword
   end
 
   def test_the_keyword_shortcut
-    assert_equal "`", OutlineScript::Verbs::Create.keyword_shortcut
+    assert_equal "`", Gloo::Verbs::Create.keyword_shortcut
   end
 
   def test_object_creation_default_type

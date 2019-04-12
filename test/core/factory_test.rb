@@ -3,7 +3,7 @@ require "test_helper"
 class FactoryTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
   end
 
   def test_factory_built_by_default

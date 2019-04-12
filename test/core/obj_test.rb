@@ -3,44 +3,44 @@ require "test_helper"
 class ObjTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
   end
 
   def test_obj_creation
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     assert o
   end
 
   def test_default_value
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     assert o
     assert o.value
     assert_equal "", o.value
   end
 
   def test_default_container
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     assert o
     assert o.children
     assert_equal 0, o.children.count
   end
   
   def test_setting_value
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     o.value = "test"
     assert_equal "test", o.value
   end
 
   def test_adding_children
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     assert_equal 0, o.child_count
-    o.add_child OutlineScript::Objs::String.new
+    o.add_child Gloo::Objs::String.new
     assert_equal 1, o.child_count
   end
 
   def test_has_child_check
-    o = OutlineScript::Core::Obj.new
-    s = OutlineScript::Objs::String.new
+    o = Gloo::Core::Obj.new
+    s = Gloo::Objs::String.new
     s.name = "str"
     o.add_child s
     assert o.has_child?( "str" )
@@ -48,8 +48,8 @@ class ObjTest < Minitest::Test
   end
 
   def test_find_child
-    o = OutlineScript::Core::Obj.new
-    s = OutlineScript::Objs::String.new
+    o = Gloo::Core::Obj.new
+    s = Gloo::Objs::String.new
     s.name = "str"
     refute o.find_child( "str" )
     o.add_child s
@@ -57,9 +57,9 @@ class ObjTest < Minitest::Test
   end
 
   def test_find_nonexistant_child
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     refute o.find_child( "xtr" )
-    s = OutlineScript::Objs::String.new
+    s = Gloo::Objs::String.new
     s.name = "str"
     o.add_child s
     assert_same s, o.find_child( "str" )
@@ -69,25 +69,25 @@ class ObjTest < Minitest::Test
   end
   
   def test_child_count
-    o = OutlineScript::Core::Obj.new
+    o = Gloo::Core::Obj.new
     assert_equal 0, o.child_count
-    o = OutlineScript::Objs::Container.new
+    o = Gloo::Objs::Container.new
     assert_equal 0, o.child_count
-    s = OutlineScript::Objs::String.new
+    s = Gloo::Objs::String.new
     s.name = "str"
     o.add_child s
     assert_equal 1, o.child_count
   end
   
   def test_type_display
-    o = OutlineScript::Objs::Container.new
+    o = Gloo::Objs::Container.new
     assert_equal "container", o.type_display
-    s = OutlineScript::Objs::String.new
+    s = Gloo::Objs::String.new
     assert_equal "string", s.type_display
   end
   
   def test_value_display
-    s = OutlineScript::Objs::String.new
+    s = Gloo::Objs::String.new
     s.value = "test"
     assert_equal "test", s.value_display
   end

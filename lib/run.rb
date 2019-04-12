@@ -5,9 +5,9 @@
 # From the /lib/ directory:  ruby run.rb
 # 
 path = File.dirname( File.absolute_path( __FILE__ ) )
-root = File.join( path, "outline_script", "**/*.rb" )
+root = File.join( path, "gloo", "**/*.rb" )
 Dir.glob( root ) { |ruby_file| require ruby_file }
 
 params = []
 ( params << "--cli" ) if ARGV.count == 0
-OutlineScript::App::Engine.new( params ).start
+Gloo::App::Engine.new( params ).start

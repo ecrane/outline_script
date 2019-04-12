@@ -3,12 +3,12 @@ require "test_helper"
 class ShowTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
   end
   
   def test_the_keyword
-    assert_equal "show", OutlineScript::Verbs::Show.keyword
+    assert_equal "show", Gloo::Verbs::Show.keyword
   end
   
   def test_showing_a_string_literal

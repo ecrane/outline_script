@@ -3,7 +3,7 @@ require "test_helper"
 class ContextTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
   end
 
@@ -26,11 +26,11 @@ class ContextTest < Minitest::Test
   end
 
   def test_the_keyword
-    assert_equal "context", OutlineScript::Verbs::Context.keyword
+    assert_equal "context", Gloo::Verbs::Context.keyword
   end
 
   def test_the_keyword_shortcut
-    assert_equal "@", OutlineScript::Verbs::Context.keyword_shortcut
+    assert_equal "@", Gloo::Verbs::Context.keyword_shortcut
   end
 
 end

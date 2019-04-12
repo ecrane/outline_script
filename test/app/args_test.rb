@@ -3,53 +3,53 @@ require "test_helper"
 class ArgsTest < Minitest::Test
 
   def test_default_mode
-    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "--quiet" ] )
     assert o
     o.start
-    assert_equal OutlineScript::App::Mode.default_mode, o.mode
+    assert_equal Gloo::App::Mode.default_mode, o.mode
   end
       
   def test_version_mode
-    o = OutlineScript::App::Engine.new( [ "--version", "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "--version", "--quiet" ] )
     assert o
     o.start
-    assert_equal OutlineScript::App::Mode::VERSION, o.mode
+    assert_equal Gloo::App::Mode::VERSION, o.mode
   end
   
   def test_help_mode
-    o = OutlineScript::App::Engine.new( [ "--help", "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "--help", "--quiet" ] )
     assert o
     o.start
-    assert_equal OutlineScript::App::Mode::HELP, o.mode
+    assert_equal Gloo::App::Mode::HELP, o.mode
   end
   
   def test_cli_mode
-    o = OutlineScript::App::Engine.new( [ "--cli", "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "--cli", "--quiet" ] )
     assert o
     o.start
-    assert_equal OutlineScript::App::Mode::CLI, o.mode
+    assert_equal Gloo::App::Mode::CLI, o.mode
   end
   
   def test_embed_mode
-    o = OutlineScript::App::Engine.new( [ "--embed", "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "--embed", "--quiet" ] )
     assert o
     o.start
-    assert_equal OutlineScript::App::Mode::EMBED, o.mode
+    assert_equal Gloo::App::Mode::EMBED, o.mode
   end
   
   def test_script_mode
-    o = OutlineScript::App::Engine.new( [ "file1", "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "file1", "--quiet" ] )
     assert o
     o.start
-    assert_equal OutlineScript::App::Mode::SCRIPT, o.mode
+    assert_equal Gloo::App::Mode::SCRIPT, o.mode
   end
 
   def test_quiet
-    o = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "--quiet" ] )
     assert o
     assert o.args.quiet?
 
-    o = OutlineScript::App::Engine.new
+    o = Gloo::App::Engine.new
     assert o
     refute o.args.quiet?
   end

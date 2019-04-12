@@ -3,17 +3,17 @@ require "test_helper"
 class StringTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
     @dic = @engine.dictionary
   end
 
   def test_the_typename
-    assert_equal "string", OutlineScript::Objs::String.typename
+    assert_equal "string", Gloo::Objs::String.typename
   end
   
   def test_the_short_typename
-    assert_equal "str", OutlineScript::Objs::String.short_typename
+    assert_equal "str", Gloo::Objs::String.short_typename
   end
 
   def test_find_type
@@ -24,7 +24,7 @@ class StringTest < Minitest::Test
   end
 
   def test_setting_the_value
-    o = OutlineScript::Objs::String.new
+    o = Gloo::Objs::String.new
     o.set_value( "a string" )
     assert_equal "a string", o.value
     o.set_value( 3 )

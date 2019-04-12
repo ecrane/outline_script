@@ -3,12 +3,12 @@ require "test_helper"
 class ParserTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
   end
 
   def test_parser_constrution
-    o = OutlineScript::Core::Parser.new
+    o = Gloo::Core::Parser.new
     assert o
   end
 

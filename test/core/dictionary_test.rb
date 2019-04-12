@@ -3,9 +3,9 @@ require "test_helper"
 class DictionaryTest < Minitest::Test
   
   def setup
-    @engine = OutlineScript::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
-    @dic = OutlineScript::Core::Dictionary.instance
+    @dic = Gloo::Core::Dictionary.instance
   end
 
   def test_dictionary_constrution
