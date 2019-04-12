@@ -13,7 +13,7 @@ class InfoTest < Minitest::Test
   def test_the_display_name
     t = Gloo::App::Info.display_title
     assert t
-    assert t.start_with? "Outline"
+    assert t.start_with? "Gloo"
     assert t.end_with? Gloo::App::Info::VERSION
   end
   
