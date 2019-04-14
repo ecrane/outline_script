@@ -16,18 +16,22 @@ module Gloo
       # Create object with given name, type and value.
       # One of either name or type is required.
       # All values are optional when considered on their own.
-      def create name=nil, type=nil, value=nil
+      def create name=nil, type=nil, value=nil, parent=nil
         type = type ? type : "untyped"
         objtype = $engine.dictionary.find_obj( type )
         
         if objtype
           o = objtype.new
           
-          pn = Gloo::Core::Pn.new name
-          o.name = pn.name
-          o.set_value value
+          if parent.nil?
+            pn = Gloo::Core::Pn.new name
+            o.name = pn.name
+            o.set_value value
+            parent = pn.get_parent
+          else
+            o.name = name
+          end
           
-          parent = pn.get_parent
           if parent
             parent.add_child( o )
             return o          

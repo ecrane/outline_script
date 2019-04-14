@@ -6,21 +6,19 @@
 
 module Gloo
   module Verbs
-    class Save < Gloo::Core::Verb
+    class Load < Gloo::Core::Verb
       
-      KEYWORD = 'save'
-      KEYWORD_SHORT = '>'
+      KEYWORD = 'load'
+      KEYWORD_SHORT = '<'
 
       # 
       # Run the verb.
       # 
       def run
         name = @tokens.second
-        pn = Gloo::Core::Pn.new name
-        obj = pn.resolve
         pn = "/Users/ecrane/gloo/projects/helloworld.gloo"
-        fs = Gloo::Persist::FileStorage.new( pn, obj )
-        fs.save
+        fs = Gloo::Persist::FileStorage.new( pn )
+        fs.load
       end
                 
       # 
