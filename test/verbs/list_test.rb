@@ -11,6 +11,10 @@ class ListTest < Minitest::Test
     assert_equal "list", Gloo::Verbs::List.keyword
   end
 
+  def test_the_keyword_shortcut
+    assert_equal ".", Gloo::Verbs::List.keyword_shortcut
+  end
+
   def test_determine_target
     assert @engine.running
     i = @engine.parser.parse_immediate 'list'

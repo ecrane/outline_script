@@ -11,6 +11,10 @@ class ShowTest < Minitest::Test
     assert_equal "show", Gloo::Verbs::Show.keyword
   end
   
+  def test_the_keyword_shortcut
+    assert_equal "=", Gloo::Verbs::Show.keyword_shortcut
+  end
+  
   def test_showing_a_string_literal
     v = @engine.parser.parse_immediate 'show "me"'
     v.run
