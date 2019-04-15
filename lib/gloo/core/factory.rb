@@ -19,18 +19,18 @@ module Gloo
       def create name=nil, type=nil, value=nil, parent=nil
         type = type ? type : "untyped"
         objtype = $engine.dictionary.find_obj( type )
-        
+
         if objtype
           o = objtype.new
           
           if parent.nil?
             pn = Gloo::Core::Pn.new name
             o.name = pn.name
-            o.set_value value
             parent = pn.get_parent
           else
             o.name = name
           end
+          o.set_value value
           
           if parent
             parent.add_child( o )
