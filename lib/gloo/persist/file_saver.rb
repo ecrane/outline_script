@@ -18,7 +18,8 @@ module Gloo
       # Save the object to the file.
       # 
       def save
-        File.write( @pn, get_obj( @obj ) )
+        data = get_obj( @obj )
+        File.write( @pn, data )
       end
       
       # Get string of tabs for indentation.
@@ -29,7 +30,8 @@ module Gloo
       # Convert an object to textual representation.
       # This is a recursive function.
       def get_obj o, indent=0
-        str = "#{tabs}#{o.name} [#{o.type_display}] : #{o.value_display}\n"
+        t = tabs( indent )
+        str = "#{t}#{o.name} [#{o.type_display}] : #{o.value_display}\n"
         o.children.each do |child|
           str << get_obj( child, indent+1 )
         end

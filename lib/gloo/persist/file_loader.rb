@@ -8,10 +8,13 @@ module Gloo
   module Persist
     class FileLoader
       
+      attr_reader :obj
+      
       # Set up a file storage for an object.
       def initialize pn
         @pn = pn
         @tabs = 0
+        @obj = nil
       end
             
       # 
@@ -45,6 +48,7 @@ module Gloo
         
         name, type, value = split_line( line )
         @last = $engine.factory.create( name, type, value, @parent )
+        @obj = @last if @obj.nil?
       end
       
       # Get the number of leading tabs.

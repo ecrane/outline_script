@@ -15,12 +15,7 @@ module Gloo
       # Run the verb.
       # 
       def run
-        name = @tokens.second
-        pn = Gloo::Core::Pn.new name
-        obj = pn.resolve
-        pn = "/Users/ecrane/gloo/projects/helloworld.gloo"
-        fs = Gloo::Persist::FileStorage.new( pn, obj )
-        fs.save
+        $engine.persist_man.save @tokens.second
       end
                 
       # 

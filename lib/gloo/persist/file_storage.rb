@@ -8,11 +8,12 @@ module Gloo
   module Persist
     class FileStorage
       
+      attr_reader :obj, :pn
+      
       # Set up a file storage for an object.
       def initialize pn, obj=nil
         @obj = obj
         @pn = pn
-        @tabs = 0
       end
       
       # 
@@ -29,6 +30,7 @@ module Gloo
       def load
         fl = FileLoader.new @pn
         fl.load
+        @obj = fl.obj
       end
     
     end
