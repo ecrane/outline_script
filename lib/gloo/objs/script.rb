@@ -32,7 +32,12 @@ module Gloo
       def set_value new_value
         self.value = new_value.to_s
       end
+
       
+      # ---------------------------------------------------------------------
+      #    Messages
+      # ---------------------------------------------------------------------
+
       # 
       # Get a list of message names that this object receives.
       # 

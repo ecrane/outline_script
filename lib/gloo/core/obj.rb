@@ -10,12 +10,13 @@ module Gloo
     class Obj < Baseo
       
       attr_accessor :value
-      attr_reader :children
+      attr_reader :children, :parent
 
       # Set up the object.
       def initialize()
         @value = ""
         @children = []
+        @parent = nil
       end
         
       # Register object types when they are loaded.
@@ -38,32 +39,6 @@ module Gloo
       end
       
       # 
-      # Get a list of message names that this object receives.
-      # 
-      def self.messages
-        return [ "unload" ]
-      end
-      
-      # 
-      # Can this object receive a message?
-      # 
-      def can_receive_message? msg
-        msgs = self.class.messages
-        return msgs.include?( msg.strip.downcase )
-      end
-
-      # 
-      # Sent this object the given message.
-      # 
-      def send_message msg
-        if self.can_receive_message? msg
-          $log.info "Sending message: #{msg} to #{self.name}"
-        else
-          $log.error "Object #{self.name} cannot receive message #{msg}"
-        end
-      end
-      
-      # 
       # Set the value with any necessary type conversions.
       # 
       def set_value new_value
@@ -77,9 +52,22 @@ module Gloo
         return self.value.to_s
       end
       
+      # 
+      # Set the parent for the object.
+      # 
+      def set_parent obj
+        @parent = obj
+      end
+      
+
+      # ---------------------------------------------------------------------
+      #    Children
+      # ---------------------------------------------------------------------
+      
       # Add a child object to the container.
       def add_child obj
         @children << obj
+        obj.set_parent self
       end
       
       # Get the number of children.
@@ -102,7 +90,62 @@ module Gloo
         end
         return nil
       end
-    
+      
+      # Remove the object from the children collection.
+      def remove_child obj
+        @children.delete obj
+      end
+      
+      
+      # ---------------------------------------------------------------------
+      #    Messages
+      # ---------------------------------------------------------------------
+
+      # 
+      # Get a list of message names that this object receives.
+      # 
+      def self.messages
+        return [ "unload" ]
+      end
+      
+      # 
+      # Can this object receive a message?
+      # 
+      def can_receive_message? msg
+        msgs = self.class.messages
+        return msgs.include?( msg.strip.downcase )
+      end
+
+      # 
+      # Sent this object the given message.
+      # 
+      def send_message msg
+        if self.can_receive_message? msg
+          self.dispatch msg
+        else
+          $log.error "Object #{self.name} cannot receive message #{msg}"
+        end
+      end
+      
+      # 
+      # Dispatch the message to the object.
+      # 
+      def dispatch msg
+        o = "msg_#{msg}"
+        if self.respond_to? o 
+          self.public_send( o ) 
+        else
+          $log.error "Message #{msg} not implemented"            
+        end
+      end
+      
+      # 
+      # Send the object the unload message.
+      # 
+      def msg_unload
+        $engine.heap.unload self
+      end
+      
     end
   end
 end

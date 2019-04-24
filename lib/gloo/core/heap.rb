@@ -30,6 +30,11 @@ module Gloo
         @it = It.new
       end
       
+      # Unload the given obj--remove it from the heap.
+      def unload obj
+        can = obj.parent.nil? ? @root : obj.parent        
+        can.remove_child obj
+      end
       
     end
   end

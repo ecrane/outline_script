@@ -25,6 +25,11 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      
+      # ---------------------------------------------------------------------
+      #    Messages
+      # ---------------------------------------------------------------------
+
       # 
       # Get a list of message names that this object receives.
       # 
