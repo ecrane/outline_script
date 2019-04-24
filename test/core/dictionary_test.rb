@@ -54,4 +54,16 @@ class DictionaryTest < Minitest::Test
     refute @dic.find_verb( "XXX" )
   end
   
+  def test_getting_verbs_sorted
+    verbs = @dic.get_verbs
+    assert verbs
+    assert verbs.count > 5
+  end
+
+  def test_getting_obj_types_sorted
+    objs = @dic.get_obj_types
+    assert objs
+    assert objs.count > 4
+  end
+  
 end

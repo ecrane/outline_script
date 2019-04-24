@@ -15,7 +15,39 @@ module Gloo
       # Run the verb.
       # 
       def run
-        $engine.run_help( true )
+        opts = @tokens.second if @tokens
+        
+        if opts && opts.strip.downcase == 'verbs'
+          show_verbs
+        elsif opts && opts.strip.downcase == 'objects'
+          show_objs
+        else
+          $engine.run_help( true )
+        end
+      end
+      
+      # 
+      # List the verbs
+      # 
+      def show_verbs
+        return if $engine.args.quiet?
+
+        puts "Verbs:"
+        $engine.dictionary.get_verbs.each do |v|
+          puts " \t #{v.keyword_shortcut} \t #{v.keyword}"
+        end
+      end
+
+      # 
+      # List the object types
+      # 
+      def show_objs
+        return if $engine.args.quiet?
+
+        puts "Object Types:"
+        $engine.dictionary.get_obj_types.each do |v|
+          puts " \t #{v.short_typename} \t #{v.typename}"
+        end
       end
       
       # 

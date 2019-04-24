@@ -86,6 +86,16 @@ module Gloo
         return @verbs[ verb.downcase ]
       end
       
+      # Get the list of verbs, sorted.
+      def get_obj_types
+        return @obj_references.sort{ |a,b| a.typename <=> b.typename }
+      end
+      
+      # Get the list of verbs, sorted.
+      def get_verbs
+        return @verb_references.sort{ |a,b| a.keyword <=> b.keyword }
+      end
+      
     end
   end
 end

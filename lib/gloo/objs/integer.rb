@@ -31,6 +31,14 @@ module Gloo
       def set_value new_value
         self.value = new_value.to_i
       end
+      
+      # 
+      # Get a list of message names that this object receives.
+      # 
+      def self.messages
+        return super # + [ "run" ]
+      end
+
 
     end
   end

@@ -28,6 +28,14 @@ class ScriptTest < Minitest::Test
     o.set_value( "show 2 + 3" )
     assert_equal "show 2 + 3", o.value
   end
+  
+  def test_messages
+    msgs = Gloo::Objs::Script.messages
+    assert msgs
+    assert msgs.include?( "run" )
+    assert msgs.include?( "unload" )
+  end
+
 
 
 end

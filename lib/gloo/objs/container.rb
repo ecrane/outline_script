@@ -25,6 +25,13 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      # 
+      # Get a list of message names that this object receives.
+      # 
+      def self.messages
+        return super # + [ "run" ]
+      end
+
     end
   end
 end

@@ -38,6 +38,32 @@ module Gloo
       end
       
       # 
+      # Get a list of message names that this object receives.
+      # 
+      def self.messages
+        return [ "unload" ]
+      end
+      
+      # 
+      # Can this object receive a message?
+      # 
+      def can_receive_message? msg
+        msgs = self.class.messages
+        return msgs.include?( msg.strip.downcase )
+      end
+
+      # 
+      # Sent this object the given message.
+      # 
+      def send_message msg
+        if self.can_receive_message? msg
+          $log.info "Sending message: #{msg} to #{self.name}"
+        else
+          $log.error "Object #{self.name} cannot receive message #{msg}"
+        end
+      end
+      
+      # 
       # Set the value with any necessary type conversions.
       # 
       def set_value new_value

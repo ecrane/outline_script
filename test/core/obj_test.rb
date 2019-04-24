@@ -92,4 +92,10 @@ class ObjTest < Minitest::Test
     assert_equal "test", s.value_display
   end
   
+  def test_messages
+    msgs = Gloo::Core::Obj.messages
+    assert msgs
+    assert msgs.include?( "unload" )
+  end
+  
 end
