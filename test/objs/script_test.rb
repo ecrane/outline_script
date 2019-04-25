@@ -5,7 +5,6 @@ class ScriptTest < Minitest::Test
   def setup
     @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
-    @dic = @engine.dictionary
   end
 
   def test_the_typename
@@ -17,6 +16,8 @@ class ScriptTest < Minitest::Test
   end
 
   def test_find_type
+    @dic = @engine.dictionary
+
     assert @dic.find_obj( "script" )
     assert @dic.find_obj( "SCRIPT" )
     assert @dic.find_obj( "cmd" )
@@ -36,6 +37,14 @@ class ScriptTest < Minitest::Test
     assert msgs.include?( "unload" )
   end
 
+  def test_running_a_script_obj
+    i = @engine.parser.parse_immediate 'create s as script : "show 3 + 4"'
+    i.run
+    assert_equal 1, @engine.heap.root.child_count
+    i = @engine.parser.parse_immediate 'tell s to run'
+    i.run    
+    assert_equal 7, @engine.heap.it.value
+  end
 
 
 end

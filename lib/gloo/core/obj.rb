@@ -121,9 +121,10 @@ module Gloo
       # 
       def send_message msg
         if self.can_receive_message? msg
-          self.dispatch msg
+          return self.dispatch msg
         else
           $log.error "Object #{self.name} cannot receive message #{msg}"
+          return false
         end
       end
       
@@ -134,8 +135,10 @@ module Gloo
         o = "msg_#{msg}"
         if self.respond_to? o 
           self.public_send( o ) 
+          return true
         else
-          $log.error "Message #{msg} not implemented"            
+          $log.error "Message #{msg} not implemented"
+          return false
         end
       end
       

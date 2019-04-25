@@ -15,5 +15,14 @@ class TellTest < Minitest::Test
     assert_equal "->", Gloo::Verbs::Tell.keyword_shortcut
   end
 
+  def test_sending_message_with_tell
+    o = @engine.parser.parse_immediate "create s as string"
+    o.run
+    assert_equal 1, @engine.heap.root.child_count
+    o = @engine.parser.parse_immediate "tell s to unload"
+    o.run
+    assert_equal 0, @engine.heap.root.child_count
+  end
+
 
 end

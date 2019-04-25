@@ -9,12 +9,15 @@ module Gloo
     class Script
       
       # Set up the script.
-      def initialize()
+      def initialize obj
+        @obj = obj
       end
       
       
       # Run the script.
       def run
+        i = $engine.parser.parse_immediate @obj.value
+        i.run
       end
       
     end

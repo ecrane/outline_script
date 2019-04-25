@@ -32,7 +32,8 @@ module Gloo
       
       # Unload the given obj--remove it from the heap.
       def unload obj
-        can = obj.parent.nil? ? @root : obj.parent        
+        can = obj.parent.nil? ? @root : obj.parent
+        return unless can
         can.remove_child obj
       end
       

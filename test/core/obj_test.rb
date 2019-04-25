@@ -4,6 +4,7 @@ class ObjTest < Minitest::Test
   
   def setup
     @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine.start
   end
 
   def test_obj_creation
@@ -34,8 +35,10 @@ class ObjTest < Minitest::Test
   def test_adding_children
     o = Gloo::Core::Obj.new
     assert_equal 0, o.child_count
-    o.add_child Gloo::Objs::String.new
+    s = Gloo::Objs::String.new
+    o.add_child s
     assert_equal 1, o.child_count
+    assert_equal o, s.parent
   end
 
   def test_has_child_check
@@ -54,6 +57,16 @@ class ObjTest < Minitest::Test
     refute o.find_child( "str" )
     o.add_child s
     assert_same s, o.find_child( "str" )
+  end
+  
+  def test_remove_child
+    o = Gloo::Core::Obj.new
+    s = Gloo::Objs::String.new
+    s.name = "str"
+    o.add_child s
+    assert_equal 1, o.child_count
+    o.remove_child s
+    assert_equal 0, o.child_count
   end
 
   def test_find_nonexistant_child
@@ -96,6 +109,27 @@ class ObjTest < Minitest::Test
     msgs = Gloo::Core::Obj.messages
     assert msgs
     assert msgs.include?( "unload" )
+  end
+  
+  def test_can_receive_message
+    o = Gloo::Core::Obj.new
+    assert o.can_receive_message? "unload"
+    refute o.can_receive_message? "xyz"
+    refute o.can_receive_message? "123"
+  end
+  
+  def test_sending_message
+    o = @engine.factory.create "s", "string"
+    refute o.send_message( "xyz" )
+    refute o.send_message( "abc" )
+    assert o.send_message( "unload" )
+  end
+  
+  def test_dispatch
+    o = @engine.factory.create "s", "string"
+    refute o.dispatch "xyz"
+    refute o.dispatch "abc"
+    assert o.dispatch "unload"
   end
   
 end

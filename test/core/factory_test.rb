@@ -21,6 +21,17 @@ class FactoryTest < Minitest::Test
     assert_equal "string", o.type_display
   end
 
+  def test_parents
+    @engine.start
+    can = @engine.factory.create "can", "container"
+    assert can.parent
+    assert_equal @engine.heap.root, can.parent
+    
+    o = @engine.factory.create "can.s", "string"
+    assert o.parent
+    assert_equal can, o.parent    
+  end
+
   def test_unknown_object_creation
     @engine.start
     o = @engine.factory.create "x", "notatype"
