@@ -56,8 +56,10 @@ module Gloo
 
       # Run
       def run
+        # Open default files
+        self.open_start_file
+        
         # TODO: open any files specifed in args
-        # TODO: run any scripts in open files
         
         unless @mode == Mode::SCRIPT || @args.quiet?
           $prompt = TTY::Prompt.new
@@ -66,6 +68,12 @@ module Gloo
         end
 
         quit
+      end
+      
+      # Get the setting for the start_with file and open it.
+      def open_start_file
+        name = $settings.start_with
+        @persist_man.load( name ) if name
       end
 
       # Prompt for the next command.

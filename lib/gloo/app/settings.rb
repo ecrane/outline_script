@@ -13,6 +13,7 @@ module Gloo
     class Settings
 
       attr_reader :user_root, :log_path, :config_path, :project_path
+      attr_reader :start_with, :list_indent
 
 
       # Load setting from the yml file.
@@ -36,6 +37,8 @@ module Gloo
       def init_user_settings
         settings = get_settings
         @project_path = settings[ 'gloo' ][ 'project_path' ]
+        @start_with = settings[ 'gloo' ][ 'start_with' ]
+        @list_indent = settings[ 'gloo' ][ 'list_indent' ]
       end
       
       # Get the app's required directories.
@@ -57,6 +60,8 @@ module Gloo
         str = <<TEXT
 gloo:
   project_path: #{projects}
+  start_with: 
+  list_indent: 1
 TEXT
         return str
       end
@@ -66,6 +71,8 @@ TEXT
         puts "\nApplication Settings:".blue
         puts "  User Root Path is here:  ".yellow + @user_root.white
         puts "  Projects directory:  ".yellow + @projects.white
+        puts "  Startup with:  ".yellow + @start_with.white
+        puts "  Indent in Listing:  ".yellow + @list_indent.white
         puts ""
         puts "  Screen Lines:  ".yellow + "#{Settings.lines}".white
         puts "  Page Size:  ".yellow + "#{Settings.page_size}".white

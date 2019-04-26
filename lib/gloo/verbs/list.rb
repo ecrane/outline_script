@@ -15,13 +15,24 @@ module Gloo
       # Run the verb.
       # 
       def run
+        levels = determine_levels
         target = self.determine_target
         obj = target.resolve
         if obj
-          self.show_target( obj )
+          self.show_target( obj, levels )
         else
           $log.warn "Object #{target} does not exist"
         end
+      end
+
+      # Determine how many levels to show.
+      def determine_levels
+        # Check settings for the default value.
+        levels = $settings.list_indent
+        return levels if levels
+        
+        # Last chance: use the default
+        return 1
       end
       
       # Determine the target object for the show command.
@@ -34,9 +45,13 @@ module Gloo
       end
 
       # Show the target object.
-      def show_target( obj )
-        show_obj( obj, "" )
-        obj.children.each { |o| show_obj( o ) }
+      def show_target( obj, levels, indent="" )
+        show_obj( obj, indent )
+        
+        return if levels == 0
+        obj.children.each do |o| 
+          show_target( o, levels - 1, "#{indent}  " )
+        end
       end
       
       # Show object in standard format.
