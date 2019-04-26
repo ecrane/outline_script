@@ -14,7 +14,7 @@ module Gloo
 
       attr_reader :args, :mode, :running
       attr_reader :dictionary, :parser, :heap, :factory
-      attr_accessor :last_cmd, :persist_man
+      attr_accessor :last_cmd, :persist_man, :event_manager
       
       # Set up the engine with basic elements.
       def initialize( params = [] )
@@ -38,6 +38,7 @@ module Gloo
         @heap = Gloo::Core::Heap.new
         @factory = Gloo::Core::Factory.new
         @persist_man = Gloo::Persist::PersistMan.new
+        @event_manager = Gloo::Core::EventManager.new
         
         run_mode
       end

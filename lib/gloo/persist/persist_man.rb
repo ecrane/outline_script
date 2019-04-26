@@ -57,7 +57,8 @@ module Gloo
         fs = Gloo::Persist::FileStorage.new( pn )
         fs.load
         @maps << fs
-        show_maps
+        $engine.event_manager.on_load fs.obj
+        # show_maps
       end
       
       # 
@@ -76,6 +77,7 @@ module Gloo
       end
       
       # Print out all object - persistance mappings.
+      # This is a debugging tool.
       def show_maps
         @maps.each do |o|
           puts " \t #{o.pn} \t #{o.obj.name}"

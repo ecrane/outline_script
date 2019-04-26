@@ -53,4 +53,10 @@ class EngineTest < Minitest::Test
     refute o.last_cmd_blank?    
   end
   
+  def test_that_engine_has_event_manager
+    o = Gloo::App::Engine.new( [ "--quiet" ] )
+    o.start
+    assert o.event_manager
+  end
+  
 end

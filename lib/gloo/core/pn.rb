@@ -94,6 +94,7 @@ module Gloo
       def resolve
         return $engine.heap.root if self.is_root?
         parent = self.get_parent
+        return nil unless parent
         return parent.find_child( self.name )
       end
 
