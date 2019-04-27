@@ -17,14 +17,31 @@ module Gloo
 
 
       # Load setting from the yml file.
-      def initialize
+      def initialize mode
+        @mode = mode
+        init_root
         init_path_settings
         init_user_settings
+      end
+      
+      def init_root
+        if in_test_mode?
+          path = File.dirname( File.dirname( File.absolute_path( __FILE__ ) ) )
+          path = File.dirname( File.dirname( path ) )
+          path = File.join( path, "test", "gloo" )
+          @user_root = path
+        else
+          @user_root = File.join( Dir.home, "gloo" )
+        end
+      end
+      
+      # Are we in test mode?
+      def in_test_mode?
+        return @mode == 'TEST'
       end
 
       # Get the app's required directories.
       def init_path_settings
-        @user_root = File.join( Dir.home, "gloo" )
         Dir.mkdir( @user_root ) unless File.exists?( @user_root )
 
         @log_path = File.join( @user_root, "logs" )
@@ -36,7 +53,12 @@ module Gloo
 
       def init_user_settings
         settings = get_settings
-        @project_path = settings[ 'gloo' ][ 'project_path' ]
+        
+        if in_test_mode?
+          @project_path = File.join( @user_root, "projects" )
+        else
+          @project_path = settings[ 'gloo' ][ 'project_path' ]
+        end
         @start_with = settings[ 'gloo' ][ 'start_with' ]
         @list_indent = settings[ 'gloo' ][ 'list_indent' ]
       end

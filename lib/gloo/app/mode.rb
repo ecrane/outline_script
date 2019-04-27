@@ -13,6 +13,7 @@ module Gloo
       SCRIPT = :script    # Run a script
       VERSION = :version  # Show version information
       HELP = :help        # Show the help screen
+      TEST = :test        # Running in Unit Test mode.
             
       # Get the default mode.
       def self.default_mode

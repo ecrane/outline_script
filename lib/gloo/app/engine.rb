@@ -20,7 +20,7 @@ module Gloo
       def initialize( params = [] )
         $engine = self
         @args = Args.new( params )
-        $settings = Settings.new
+        $settings = Settings.new( ENV[ 'GLOO_ENV' ] )
         $log = Log.new( @args.quiet? )
         $log.debug "engine intialized..."
       end

@@ -34,7 +34,9 @@ module Gloo
       # Then finally use the default: embedded mode.
       # 
       def detect_mode
-        if @switches.include?( "version" )
+        if ENV[ 'GLOO_ENV' ] == "test"
+          mode = Mode::TEST
+        elsif @switches.include?( "version" )
           mode = Mode::VERSION
         elsif @switches.include?( "help" )
           mode = Mode::HELP
