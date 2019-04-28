@@ -56,7 +56,14 @@ module Gloo
       
       # Show object in standard format.
       def show_obj obj, indent="  "
-        $log.show "#{indent}#{obj.name} [#{obj.type_display}] : #{obj.value}"
+        if obj.has_multiline_value? && obj.value_is_array?
+          $log.show "#{indent}#{obj.name} [#{obj.type_display}] :"
+          obj.value.each do |line|
+            $log.show "#{indent}  #{line}"
+          end
+        else
+          $log.show "#{indent}#{obj.name} [#{obj.type_display}] : #{obj.value}"
+        end
       end
       
       # 

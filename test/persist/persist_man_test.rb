@@ -29,4 +29,11 @@ class PersistManTest < Minitest::Test
     assert o.start_with? $settings.project_path
   end
 
+  def test_load
+    assert_equal 0, @engine.heap.root.child_count
+    o = @engine.persist_man.load "test"
+    assert_equal 1, @engine.heap.root.child_count
+    assert_equal "test", @engine.heap.root.children.first.name
+  end
+
 end

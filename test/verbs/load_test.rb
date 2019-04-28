@@ -14,6 +14,20 @@ class LoadTest < Minitest::Test
   def test_the_keyword_shortcut
     assert_equal "<", Gloo::Verbs::Load.keyword_shortcut
   end
+  
+  def test_file_load
+    assert_equal 0, @engine.heap.root.child_count
+    i = @engine.parser.parse_immediate 'load test'
+    i.run
+    assert_equal 1, @engine.heap.root.child_count
+  end
 
+  def test_file_load_multiline_script
+    assert_equal 0, @engine.heap.root.child_count
+    i = @engine.parser.parse_immediate '< script'
+    i.run
+    assert_equal 1, @engine.heap.root.child_count
+    assert_equal 5, @engine.heap.it.value
+  end
 
 end

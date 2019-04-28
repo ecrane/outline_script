@@ -32,6 +32,49 @@ module Gloo
       def set_value new_value
         self.value = new_value.to_s
       end
+      
+      # 
+      # Set the value as an array.
+      # 
+      def set_array_value arr
+        self.value = arr
+      end
+      
+      # 
+      # Add a line (cmd) to the script.
+      # 
+      def add_line line
+        if self.value_is_string?
+          first = self.value
+          self.set_array_value []
+          self.value << first unless first.empty?
+        elsif self.value_is_blank?
+          self.set_array_value []
+        end
+        self.value << line.strip
+      end
+
+      # 
+      # Does this object support multi-line values?
+      # Initially only true for scripts.
+      # 
+      def has_multiline_value?
+        return true
+      end
+      
+      # 
+      # Get the number of lines in this script.
+      # 
+      def line_count
+        if self.value_is_array?
+          return self.value.count
+        elsif self.value_is_string?
+          return 0 if ( self.value.strip.empty? )
+          return 1
+        else
+          return 0
+        end
+      end
 
       
       # ---------------------------------------------------------------------

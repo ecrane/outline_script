@@ -37,7 +37,19 @@ module Gloo
       def type_display
         return self.class.typename
       end
+
+      # 
+      # Set the parent for the object.
+      # 
+      def set_parent obj
+        @parent = obj
+      end
       
+      
+      # ---------------------------------------------------------------------
+      #    Value
+      # ---------------------------------------------------------------------
+
       # 
       # Set the value with any necessary type conversions.
       # 
@@ -53,10 +65,33 @@ module Gloo
       end
       
       # 
-      # Set the parent for the object.
+      # Does this object support multi-line values?
+      # Initially only true for scripts.
       # 
-      def set_parent obj
-        @parent = obj
+      def has_multiline_value?
+        return false
+      end
+      
+      # 
+      # Is the value a String?
+      # 
+      def value_is_string?
+        return self.value.is_a? String
+      end
+
+      # 
+      # Is the value an Array?
+      # 
+      def value_is_array?
+        return self.value.is_a? Array
+      end
+      
+      # 
+      # Is the value a blank string?
+      # 
+      def value_is_blank?
+        return true if value.nil?
+        return self.value.to_s.strip.empty?
       end
       
 

@@ -18,6 +18,11 @@ class ObjTest < Minitest::Test
     assert o.value
     assert_equal "", o.value
   end
+  
+  def test_obj_not_multiline_value
+    o = Gloo::Core::Obj.new
+    refute o.has_multiline_value?
+  end
 
   def test_default_container
     o = Gloo::Core::Obj.new
@@ -30,6 +35,32 @@ class ObjTest < Minitest::Test
     o = Gloo::Core::Obj.new
     o.value = "test"
     assert_equal "test", o.value
+  end
+  
+  def test_value_is_string
+    o = Gloo::Core::Obj.new
+    o.set_value "test"
+    assert o.value_is_string?
+    o.set_value 1
+    refute o.value_is_string?
+  end
+
+  def test_value_is_array
+    o = Gloo::Core::Obj.new
+    o.set_value [ "test" ]
+    assert o.value_is_array?
+    o.set_value 1
+    refute o.value_is_array?
+  end
+  
+  def test_value_is_blank
+    o = Gloo::Core::Obj.new
+    o.set_value ""
+    assert o.value_is_blank?
+    o.set_value nil
+    assert o.value_is_blank?
+    o.set_value "boo"
+    refute o.value_is_blank?
   end
 
   def test_adding_children

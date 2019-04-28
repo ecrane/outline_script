@@ -15,6 +15,7 @@ module Gloo
         @pn = pn
         @tabs = 0
         @obj = nil
+        @in_multiline = false
       end
             
       # 
@@ -27,27 +28,59 @@ module Gloo
         @parent_stack.push @parent
         f = File.open( @pn, "r" ) 
         f.each_line do |line|
+          determine_indent line
           process_line line
         end
       end
       
-      # Process one line and add objects.
-      def process_line line
+      # Determine the relative indent level for the line.
+      def determine_indent line
         tabs = tab_count( line )
+        @indent = 0  # same level as prior line
         if tabs > @tabs  # indent
           # TODO:  What if indent is more than one more level?
           @tabs = tabs
-          @parent = @last
-          @parent_stack.push @parent
+          @indent = 1
         elsif tabs < @tabs  # outdent
           while tabs < @tabs
             @tabs -= 1
+            @indent -= 1
+          end
+        end
+      end
+
+      # Process one line and add objects.
+      def process_line line
+        # reset multiline unless we're actually indented
+        if @in_multiline && @multi_indent > @indent
+          @in_multiline = false
+        end
+        
+        if @in_multiline
+          @last.add_line line
+        else
+          process_obj_line line
+        end
+      end
+      
+      # Process one line and add objects.
+      def process_obj_line line
+        if @indent > 0
+          @parent = @last
+          @parent_stack.push @parent
+        elsif @indent < 0
+          @indent.abs.times do
             @parent = @parent_stack.pop
           end
         end
         
         name, type, value = split_line( line )
         @last = $engine.factory.create( name, type, value, @parent )
+        if @last && @last.has_multiline_value?
+          @multi_indent = @indent
+          @in_multiline = true
+        end
+        
         @obj = @last if @obj.nil?
       end
       
