@@ -89,6 +89,15 @@ module Gloo
         end
         return nil
       end
+
+      # Get the item after a given token.
+      def before_token token
+        i = index_of token
+        if i && @tokens && @tokens.size >= ( i ) 
+          return @tokens[ 0..i-1 ]
+        end
+        return nil
+      end
             
     end
   end

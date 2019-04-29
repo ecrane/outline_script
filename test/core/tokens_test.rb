@@ -152,5 +152,12 @@ class TokensTest < Minitest::Test
     assert_equal "string", o.after_token( "as" )
     assert_equal "string", o.after_token( "AS" )
   end
+
+  def test_before_token
+    o = Gloo::Core::Tokens.new( "put 2 + 3 into x" )
+    assert_equal 6, o.token_count
+    before = o.before_token "into"
+    assert_equal 4, before.count
+  end
   
 end
