@@ -41,9 +41,24 @@ module Gloo
       # Get a list of message names that this object receives.
       # 
       def self.messages
-        return super # + [ "run" ]
+        return super + [ "inc", "dec" ]
+      end
+      
+      # Increment the integer
+      def msg_inc
+        i = value + 1
+        set_value i
+        $engine.heap.it.set_to i
+        return i
       end
 
+      # Decrement the integer
+      def msg_dec
+        i = value - 1
+        set_value i
+        $engine.heap.it.set_to i
+        return i
+      end
 
     end
   end

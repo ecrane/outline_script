@@ -41,7 +41,23 @@ module Gloo
       # Get a list of message names that this object receives.
       # 
       def self.messages
-        return super # + [ "run" ]
+        return super + [ "up", "down" ]
+      end
+      
+      # Convert string to upper case
+      def msg_up
+        s = value.upcase
+        set_value s
+        $engine.heap.it.set_to s
+        return s
+      end
+
+      # Convert string to lower case
+      def msg_down
+        s = value.downcase
+        set_value s
+        $engine.heap.it.set_to s
+        return s
       end
 
     end

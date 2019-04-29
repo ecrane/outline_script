@@ -36,4 +36,30 @@ class IntegerTest < Minitest::Test
     assert_equal -13, o.value    
   end
 
+  def test_messages
+    msgs = Gloo::Objs::Integer.messages
+    assert msgs
+    assert msgs.include?( "inc" )
+    assert msgs.include?( "dec" )
+    assert msgs.include?( "unload" )
+  end
+
+  def test_inc_msg
+    o = Gloo::Objs::Integer.new
+    o.set_value 0
+    assert_equal 0, o.value
+    assert_equal 1, o.msg_inc    
+    assert_equal 1, o.value
+    assert_equal 1, $engine.heap.it.value
+  end
+
+  def test_dec_msg
+    o = Gloo::Objs::Integer.new
+    o.set_value 0
+    assert_equal 0, o.value
+    assert_equal -1, o.msg_dec    
+    assert_equal -1, o.value
+    assert_equal -1, $engine.heap.it.value
+  end
+
 end

@@ -34,8 +34,16 @@ module Gloo
       # Get a list of message names that this object receives.
       # 
       def self.messages
-        return super # + [ "run" ]
+        return super + [ "count" ]
       end
+      
+      # Count the number of children in the container.
+      def msg_count
+        i = child_count
+        $engine.heap.it.set_to i
+        return i
+      end
+
 
     end
   end

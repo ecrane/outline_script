@@ -23,5 +23,18 @@ class ContainerTest < Minitest::Test
     assert @dic.find_obj( "CAN" )
   end
 
+  def test_messages
+    msgs = Gloo::Objs::Container.messages
+    assert msgs
+    assert msgs.include?( "count" )
+    assert msgs.include?( "unload" )
+  end
+
+  def test_count_msg
+    o = Gloo::Objs::Container.new
+    assert_equal 0, o.msg_count
+    o.add_child o
+    assert_equal 1, o.msg_count    
+  end
 
 end
