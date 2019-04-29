@@ -21,12 +21,22 @@ module Gloo
       def self.root
         return Pn.new( "root" )
       end
+
+      # Reference to it.
+      def self.it
+        return Pn.new( "it" )
+      end
       
       # Does the pathname reference refer to the root?
       def is_root?
         return @src.downcase == "root"
       end
       
+      # Does the pathname reference refer to the root?
+      def is_it?
+        return @src.downcase == "it"
+      end
+
       # Get the string representation of the pathname.
       def to_s
         return @src
@@ -83,6 +93,7 @@ module Gloo
       # Does the object at the path exist?
       def exists?
         return true if self.is_root?
+        return true if self.is_it?
         
         parent = self.get_parent
         return false unless parent
@@ -93,6 +104,8 @@ module Gloo
       # Find the object referenced or return nil if it is not found.
       def resolve
         return $engine.heap.root if self.is_root?
+        return $engine.heap.it if self.is_it?
+        
         parent = self.get_parent
         return nil unless parent
         return parent.find_child( self.name )

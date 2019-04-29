@@ -185,4 +185,28 @@ class PnTest < Minitest::Test
     assert o.has_path?
   end
 
+  def test_it_reference
+    o = Gloo::Core::Pn.it
+    assert o
+    assert_equal "it", o.src
+  end  
+  
+  def test_it_exists
+    o = Gloo::Core::Pn.it
+    assert o.exists?
+  end
+  
+  def test_is_it
+    o = Gloo::Core::Pn.it
+    assert o.is_it?
+    o.set_to "IT"
+    assert o.is_it?
+    o.set_to "iT"
+    assert o.is_it?
+    o.set_to " it "
+    assert o.is_it?
+    o.set_to "something.else"
+    refute o.is_it?
+  end
+
 end

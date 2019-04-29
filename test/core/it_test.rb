@@ -35,4 +35,11 @@ class ItTest < Minitest::Test
     refute @engine.heap.it.value
   end
   
+  def test_it_after_show
+    v = @engine.parser.parse_immediate 'show 2 + 5'
+    v.run
+    assert_equal 7, @engine.heap.it.value
+  end
+
+  
 end
