@@ -88,6 +88,7 @@ module Gloo
           return Gloo::Core::Op.create_op( token )
         end
         
+        return LBoolean.new( token ) if LBoolean.is_boolean?( token )
         return LInteger.new( token ) if LInteger.is_integer?( token )
         return LString.new( token ) if LString.is_string?( token )
         
