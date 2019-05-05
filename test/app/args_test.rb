@@ -38,7 +38,7 @@ class ArgsTest < Minitest::Test
   end
   
   def test_script_mode
-    o = Gloo::App::Engine.new( [ "file1", "--quiet" ] )
+    o = Gloo::App::Engine.new( [ "test", "--quiet" ] )
     assert o
     o.start
     assert_equal Gloo::App::Mode::SCRIPT, o.mode

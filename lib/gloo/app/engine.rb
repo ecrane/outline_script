@@ -49,9 +49,21 @@ module Gloo
           run_version
         elsif @mode == Mode::HELP
           run_help
+        elsif @mode == Mode::SCRIPT
+          run_files
         else
           run
         end
+      end
+      
+      # Run files specified on the CLI.
+      # Then quit.
+      def run_files
+        @args.files.each do |f|
+          @persist_man.load( f )
+        end
+        
+        quit
       end
 
       # Run
