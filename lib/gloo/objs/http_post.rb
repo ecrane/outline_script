@@ -55,6 +55,27 @@ module Gloo
         return h.to_json
       end
 
+
+      # ---------------------------------------------------------------------
+      #    Children
+      # ---------------------------------------------------------------------
+
+      # Does this object have children to add when an object
+      # is created in interactive mode?
+      # This does not apply during obj load, etc.
+      def add_children_on_create?
+        return true
+      end
+      
+      # Add children to this object.
+      # This is used by containers to add children needed 
+      # for default configurations.
+      def add_default_children
+        fac = $engine.factory
+        fac.create "uri", "string", "https://web.site/", self
+        fac.create "body", "container", nil, self
+      end
+
       
       # ---------------------------------------------------------------------
       #    Messages
@@ -73,7 +94,13 @@ module Gloo
         return unless uri
         
         body = get_body_as_json
-        Gloo::Objs::HttpPost.post_json uri, body
+        
+        if uri.downcase.start_with?( "https" )
+          use_ssl = true
+        else
+          use_ssl = false
+        end
+        Gloo::Objs::HttpPost.post_json uri, body, use_ssl
       end
       
       

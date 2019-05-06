@@ -29,5 +29,9 @@ class HttpPostTest < Minitest::Test
     assert msgs.include?( "unload" )
   end
 
+  def test_adds_children_on_create
+    o = Gloo::Objs::HttpPost.new
+    assert o.add_children_on_create?
+  end
 
 end

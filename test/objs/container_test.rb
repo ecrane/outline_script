@@ -36,5 +36,10 @@ class ContainerTest < Minitest::Test
     o.add_child o
     assert_equal 1, o.msg_count    
   end
+  
+  def test_doesnt_add_children_on_create
+    o = Gloo::Objs::Container.new
+    refute o.add_children_on_create?
+  end
 
 end

@@ -163,4 +163,10 @@ class ObjTest < Minitest::Test
     assert o.dispatch "unload"
   end
   
+  def test_doesnt_add_children_on_create
+    o = Gloo::Core::Obj.new
+    refute o.add_children_on_create?
+  end
+
+  
 end

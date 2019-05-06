@@ -131,6 +131,19 @@ module Gloo
         @children.delete obj
       end
       
+      # Does this object have children to add when an object
+      # is created in interactive mode?
+      # This does not apply during obj load, etc.
+      def add_children_on_create?
+        return false
+      end
+      
+      # Add children to this object.
+      # This is used by containers to add children needed 
+      # for default configurations.
+      def add_default_children
+      end
+
       
       # ---------------------------------------------------------------------
       #    Messages
