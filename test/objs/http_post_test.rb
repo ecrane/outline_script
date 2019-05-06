@@ -34,4 +34,16 @@ class HttpPostTest < Minitest::Test
     assert o.add_children_on_create?
   end
 
+  def test_that_children_are_added_on_create
+    i = @engine.parser.parse_immediate 'create p as post'
+    i.run
+    assert_equal 1, @engine.heap.root.child_count
+    obj = @engine.heap.root.children.first
+    assert obj
+    assert_equal "p", obj.name
+    assert_equal 2, obj.child_count
+    assert_equal "uri", obj.children.first.name
+    assert_equal "body", obj.children.last.name
+  end
+
 end
