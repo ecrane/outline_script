@@ -3,8 +3,8 @@ require "test_helper"
 class FileLoaderTest < Minitest::Test
   
   def setup
-    # @engine = Gloo::App::Engine.new( [ "--quiet" ] )
-    # @engine.start
+    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine.start
   end
 
   def test_splitting_a_line
@@ -33,6 +33,19 @@ class FileLoaderTest < Minitest::Test
     assert_equal 2, fs.tab_count( "\t\ttwo222" )
     assert_equal 3, fs.tab_count( "\t\t\tthree" )
     assert_equal 0, fs.tab_count( "  \t one" )
+  end
+  
+  def test_loading_a_file
+    assert_equal 0, @engine.heap.root.child_count
+    o = @engine.persist_man.load "test"
+    assert_equal 1, @engine.heap.root.child_count
+    assert_equal "test", @engine.heap.root.children.first.name
+  end
+
+  def test_loading_a_file_that_doesnt_exist
+    assert_equal 0, @engine.heap.root.child_count
+    o = @engine.persist_man.load "xyz"
+    assert_equal 0, @engine.heap.root.child_count
   end
 
 end

@@ -22,6 +22,10 @@ module Gloo
       # Load the objects from the file.
       # 
       def load
+        unless File.exists?( @pn )
+          $log.error "File '#{@pn}' does not exist."
+          return
+        end
         @tabs = 0
         @parent_stack = []
         @parent = $engine.heap.root

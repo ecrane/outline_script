@@ -13,7 +13,7 @@ class EventManagerTest < Minitest::Test
     i.run
     
     refute_equal 4, @engine.heap.it.value
-    @engine.event_manager.on_load
+    @engine.event_manager.on_load nil, true
     assert_equal 4, @engine.heap.it.value
   end
 

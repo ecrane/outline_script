@@ -18,7 +18,8 @@ module Gloo
       # Run on_load scripts in the recently loaded object
       # If no obj is given the script will be run in root.
       # 
-      def on_load obj=nil
+      def on_load obj=nil, in_heap=false
+        return unless obj || in_heap
         arr = Gloo::Core::ObjFinder.by_name "on_load", obj
         arr.each do |o|
           if o.can_receive_message? "run"
