@@ -159,5 +159,20 @@ class TokensTest < Minitest::Test
     before = o.before_token "into"
     assert_equal 4, before.count
   end
+
+  def test_tokens_after
+    o = Gloo::Core::Tokens.new( "if true then show 2 + 5" )
+    arr = o.tokens_after( "then" )
+    assert arr
+    assert_equal 4, arr.count
+    assert_equal "show", arr.first
+  end
+
+  def test_expr_after
+    o = Gloo::Core::Tokens.new( "if true then show 2 + 5" )
+    str = o.expr_after( "then" )
+    assert str
+    assert_equal "show 2 + 5", str
+  end
   
 end

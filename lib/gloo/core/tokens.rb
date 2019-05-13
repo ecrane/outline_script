@@ -80,6 +80,25 @@ module Gloo
         return nil unless @tokens
         return @tokens.find_index { |o| o.casecmp( token ) == 0 }
       end
+
+      # Get the list of tokens after the given token
+      def tokens_after token
+        i = index_of token
+        if i && @tokens && @tokens.size > ( i+1 ) 
+          return @tokens[ i+1..-1 ]
+        end
+        return nil
+      end
+
+      # Get the expression after the given token
+      def expr_after token
+        str = ""
+        tokens_after( token ).each do |t|
+          str << " " if ( str.length > 0 )
+          str << "#{t}"
+        end
+        return str
+      end
       
       # Get the item after a given token.
       def after_token token
