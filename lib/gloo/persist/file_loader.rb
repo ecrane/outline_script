@@ -16,6 +16,7 @@ module Gloo
         @tabs = 0
         @obj = nil
         @in_multiline = false
+        @exiting_multiline = false
       end
             
       # 
@@ -58,6 +59,7 @@ module Gloo
         # reset multiline unless we're actually indented
         if @in_multiline && @multi_indent > @indent
           @in_multiline = false
+          @exiting_multiline = true
         end
         
         if @in_multiline
@@ -69,12 +71,15 @@ module Gloo
       
       # Process one line and add objects.
       def process_obj_line line
-        if @indent > 0
+        if @exiting_multiline
+          @exiting_multiline = false
+        elsif @indent > 0
           @parent = @last
           @parent_stack.push @parent
         elsif @indent < 0
           @indent.abs.times do
-            @parent = @parent_stack.pop
+            @parent_stack.pop
+            @parent = @parent_stack.last
           end
         end
         
