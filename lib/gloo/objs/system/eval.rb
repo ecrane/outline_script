@@ -1,18 +1,17 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
-# An object that can make a system call.
+# An object that evaluate a ruby statement.
 #
 
 module Gloo
   module Objs
-    class System < Gloo::Core::Obj
+    class Eval < Gloo::Core::Obj
       
-      KEYWORD = 'system'
-      KEYWORD_SHORT = 'sys'
+      KEYWORD = 'eval'
+      KEYWORD_SHORT = 'ruby'
       CMD = 'command'
       RESULT = 'result'
-      GET_OUTPUT = 'get_output'
 
       # 
       # The name of the object type.
@@ -46,18 +45,7 @@ module Gloo
         return nil unless r
         r.set_value data
       end
-      
-      # 
-      # Should the system call get output?
-      # If so, the system call will run and get output,
-      # otherwise it will just get the result of the call.
-      # 
-      def has_output?
-        o = find_child GET_OUTPUT
-        return false unless o
-        return o.value
-      end
-      
+            
 
       # ---------------------------------------------------------------------
       #    Children
@@ -76,7 +64,6 @@ module Gloo
       def add_default_children
         fac = $engine.factory
         fac.create "command", "string", "date", self
-        fac.create "get_output", "boolean", true, self
         fac.create "result", "string", nil, self
       end
 
@@ -94,27 +81,12 @@ module Gloo
       
       # Run the system command.
       def msg_run
-        if has_output?
-          run_with_output
-        else
-          run_with_result
-        end
+        cmd = get_cmd
+        return unless cmd
+        result = eval cmd
+        set_result result
       end
       
-      def run_with_output
-        cmd = get_cmd
-        return unless cmd
-        result = `#{cmd}`
-        set_result result
-      end
-
-      def run_with_result
-        cmd = get_cmd
-        return unless cmd
-        result = system cmd
-        set_result result
-      end
-
     end
   end
 end
