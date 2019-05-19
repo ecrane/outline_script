@@ -8,6 +8,9 @@ module Gloo
   module Persist
     class FileLoader
       
+      BEGIN_BLOCK = "BEGIN"
+      END_BLOCK = "END"
+      
       attr_reader :obj
       
       # Set up a file storage for an object.
@@ -17,6 +20,8 @@ module Gloo
         @obj = nil
         @in_multiline = false
         @exiting_multiline = false
+        @in_block = false
+        @block_value = ""
       end
             
       # 
@@ -33,8 +38,21 @@ module Gloo
         @parent_stack.push @parent
         f = File.open( @pn, "r" ) 
         f.each_line do |line|
-          determine_indent line
-          process_line line
+          if line.strip.end_with? BEGIN_BLOCK
+            @in_block = true
+            @save_line = line
+          elsif @in_block
+            if line.strip == END_BLOCK
+              @in_block = false
+              determine_indent @save_line
+              process_line @save_line
+            else
+              @block_value << line
+            end
+          else
+            determine_indent line
+            process_line line
+          end
         end
       end
       
@@ -84,6 +102,10 @@ module Gloo
         end
         
         name, type, value = split_line( line )
+        unless @block_value == ""
+          value = @block_value
+          @block_value = ""
+        end
         @last = $engine.factory.create( name, type, value, @parent )
         if @last && @last.has_multiline_value?
           @multi_indent = @indent
