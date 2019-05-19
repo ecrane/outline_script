@@ -27,6 +27,19 @@ module Gloo
           end
         end
       end
+
+      # 
+      # Run on_unload scripts in the object that will be unloaded.
+      # 
+      def on_unload obj
+        return unless obj
+        arr = Gloo::Core::ObjFinder.by_name "on_unload", obj
+        arr.each do |o|
+          if o.can_receive_message? "run"
+            o.send_message "run"
+          end
+        end
+      end
       
     end
   end

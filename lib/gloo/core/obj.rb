@@ -45,6 +45,14 @@ module Gloo
         @parent = obj
       end
       
+      # Is this the root object?
+      def is_root?
+        return false if @parent
+        return false unless name.downcase == "root"
+        return true
+      end
+
+      
       
       # ---------------------------------------------------------------------
       #    Value
@@ -194,6 +202,11 @@ module Gloo
       # Send the object the unload message.
       # 
       def msg_unload
+        if self.is_root?
+          $log.error "Cannot unload the root object."
+          return
+        end
+        $engine.event_manager.on_unload self
         $engine.heap.unload self
       end
       

@@ -167,6 +167,14 @@ class ObjTest < Minitest::Test
     o = Gloo::Core::Obj.new
     refute o.add_children_on_create?
   end
+  
+  def test_is_root_object
+    o = @engine.factory.create "s", "string"
+    refute o.is_root?
+    r = @engine.heap.root
+    assert r
+    assert r.is_root?
+  end
 
   
 end
