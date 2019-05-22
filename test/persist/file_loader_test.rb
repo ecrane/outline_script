@@ -47,5 +47,19 @@ class FileLoaderTest < Minitest::Test
     o = @engine.persist_man.load "xyz"
     assert_equal 0, @engine.heap.root.child_count
   end
+  
+  def test_skip_line
+    o = Gloo::Persist::FileLoader.new( "" )
+    assert o.skip_line? ""
+    assert o.skip_line? "   "
+    assert o.skip_line? "   \n"
+    assert o.skip_line? "\t"
+    assert o.skip_line? "# "
+    assert o.skip_line? " # comment "
+    assert o.skip_line? " \t # "
+    
+    refute o.skip_line? "go [can] :"
+    refute o.skip_line? "s [string] : # "
+  end
 
 end

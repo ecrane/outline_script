@@ -38,6 +38,7 @@ module Gloo
         @parent_stack.push @parent
         f = File.open( @pn, "r" ) 
         f.each_line do |line|
+          next if skip_line? line
           if line.strip.end_with? BEGIN_BLOCK
             @in_block = true
             @save_line = line
@@ -54,6 +55,15 @@ module Gloo
             process_line line
           end
         end
+      end
+      
+      # Is this line a comment or a blank line?
+      # If so we'll skip it.
+      def skip_line? line
+        line = line.strip
+        return true if line.empty?
+        return true if line[0] == "#"
+        return false
       end
       
       # Determine the relative indent level for the line.
