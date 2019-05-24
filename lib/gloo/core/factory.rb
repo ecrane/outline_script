@@ -27,6 +27,10 @@ module Gloo
         end
 
         if objtype
+          unless objtype.can_create?
+            $log.error "'#{type}' cannot be created."
+            return nil
+          end
           if pn.exists? && squash_dups
             o = pn.resolve
             o.set_value value

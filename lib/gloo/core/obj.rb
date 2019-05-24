@@ -52,6 +52,12 @@ module Gloo
         return true
       end
 
+      # Can this object be created?
+      # This is true by default and only false for some special cases
+      # such as the System object.
+      def self.can_create?
+        true
+      end
       
       
       # ---------------------------------------------------------------------

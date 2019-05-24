@@ -36,6 +36,15 @@ module Gloo
       def is_it?
         return @src.downcase == "it"
       end
+      
+      # Does the pathname reference refer to the gloo system object?
+      def is_gloo_sys?
+        return false unless @elements && @elements.count > 0
+        o = @elements.first.downcase
+        return true if o == Gloo::Core::GlooSystem.typename
+        return true if o == Gloo::Core::GlooSystem.short_typename
+        return false
+      end
 
       # Get the string representation of the pathname.
       def to_s
@@ -105,6 +114,9 @@ module Gloo
       def resolve
         return $engine.heap.root if self.is_root?
         return $engine.heap.it if self.is_it?
+        if self.is_gloo_sys?
+          return Gloo::Core::GlooSystem.new( self ) 
+        end
         
         parent = self.get_parent
         return nil unless parent

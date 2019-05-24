@@ -208,5 +208,26 @@ class PnTest < Minitest::Test
     o.set_to "something.else"
     refute o.is_it?
   end
+  
+  def test_is_gloo_sys
+    o = Gloo::Core::Pn.new "$"
+    assert o.is_gloo_sys?
+    o = Gloo::Core::Pn.new "gloo"
+    assert o.is_gloo_sys?
+    o = Gloo::Core::Pn.new "GLOO"
+    assert o.is_gloo_sys?
+
+    o = Gloo::Core::Pn.new "$.hostname"
+    assert o.is_gloo_sys?
+    o = Gloo::Core::Pn.new "$.user.name"
+    assert o.is_gloo_sys?
+    
+    o = Gloo::Core::Pn.new "hostname"
+    refute o.is_gloo_sys?
+    o = Gloo::Core::Pn.new "asdf"
+    refute o.is_gloo_sys?
+    o = Gloo::Core::Pn.new "user.name"
+    refute o.is_gloo_sys?
+  end
 
 end
