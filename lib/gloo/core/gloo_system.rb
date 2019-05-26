@@ -150,11 +150,35 @@ module Gloo
         return Socket.gethostname
       end
       
+      # Get the logged in User.
+      def msg_user
+        return ENV[ 'USER' ]
+      end
+
       # Get the user's home directory.
       def msg_user_home
         return File.expand_path( "~" )
       end
+      
+      # Get the Gloo home directory
+      def msg_gloo_home
+        return $settings.user_root
+      end
 
+      # Get the Gloo home directory
+      def msg_gloo_config
+        return $settings.config_path
+      end
+
+      # Get the Gloo projects directory
+      def msg_gloo_projects
+        return $settings.project_path
+      end
+
+      # Get the Gloo log directory
+      def msg_gloo_log
+        return $settings.log_path
+      end
 
     end
   end

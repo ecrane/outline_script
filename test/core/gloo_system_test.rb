@@ -56,6 +56,35 @@ class GlooSystemTest < Minitest::Test
     i.run
     assert_equal Socket.gethostname, @engine.heap.it.value
   end
+
+  def test_user
+    i = @engine.parser.parse_immediate 'show $.user'
+    i.run
+    assert_equal ENV[ 'USER' ], @engine.heap.it.value
+  end
+
+  def test_gloo_home
+    i = @engine.parser.parse_immediate 'show $.gloo.home'
+    i.run
+    assert_equal $settings.user_root, @engine.heap.it.value
+  end
   
+  def test_gloo_config
+    i = @engine.parser.parse_immediate 'show $.gloo.config'
+    i.run
+    assert_equal $settings.config_path, @engine.heap.it.value
+  end
+
+  def test_gloo_project_path
+    i = @engine.parser.parse_immediate 'show $.gloo.projects'
+    i.run
+    assert_equal $settings.project_path, @engine.heap.it.value
+  end
+
+  def test_gloo_log_path
+    i = @engine.parser.parse_immediate 'show $.gloo.log'
+    i.run
+    assert_equal $settings.log_path, @engine.heap.it.value
+  end
   
 end
