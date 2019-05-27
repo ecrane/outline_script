@@ -5,6 +5,7 @@
 #
 require 'active_support'
 require 'colorize'
+require 'colorized_string'
 
 module Gloo
   module App

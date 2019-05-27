@@ -136,7 +136,8 @@ module Gloo
       
       # Split the line into 3 parts.
       def split_line line
-        line = line[ @tabs..-1].strip
+        line = line[ @tabs..-1]
+				line = line[0..-2] if line[-1] == "\n"
         i = line.index( ' ' )
         name = line[0..i-1]
         
@@ -147,8 +148,12 @@ module Gloo
         type = type[0..-2] if type[-1] == ']'
         
         value = line[i+1..-1]
-        value = value[1..-1] if value[0] == ':'
-        value = value.strip
+				if value[0..1] == ': '
+					value = value[2..-1] 
+				elsif value[0] == ':'
+        	value = value[1..-1] 
+				end
+				# puts "'#{value}'".yellow
         return name, type, value
       end
       

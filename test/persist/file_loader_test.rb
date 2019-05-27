@@ -9,12 +9,12 @@ class FileLoaderTest < Minitest::Test
 
   def test_splitting_a_line
     fs = Gloo::Persist::FileLoader.new( "" )
-    n, t, v = fs.split_line( "name type value" )
+    n, t, v = fs.split_line( "name type value\n" )
     assert_equal "name", n
     assert_equal "type", t
     assert_equal "value", v
 
-    n, t, v = fs.split_line( "name [type] one two three" )
+    n, t, v = fs.split_line( "name [type] one two three\n" )
     assert_equal "name", n
     assert_equal "type", t
     assert_equal "one two three", v

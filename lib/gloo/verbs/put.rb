@@ -17,6 +17,9 @@ module Gloo
       # 
       def run
         value = @tokens.before_token( INTO )
+				if value.nil?
+					$log.error "'put' must include 'into'"
+				end
         if value.count > 1
           # The first token is the verb, so we drop it.
           value = value[1..-1]
