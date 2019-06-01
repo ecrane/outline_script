@@ -22,6 +22,7 @@ module Gloo
         @exiting_multiline = false
         @in_block = false
         @block_value = ""
+				@debug = false
       end
             
       # 
@@ -80,12 +81,14 @@ module Gloo
             @indent -= 1
           end
         end
+				puts "tabs: #{@tabs}, indent: #{@indent}, line: #{line}" if @debug
       end
 
       # Process one line and add objects.
       def process_line line
         # reset multiline unless we're actually indented
         if @in_multiline && @multi_indent > @indent
+					puts "Done multiline mi: #{@multi_indent}, i: #{@indent}" if @debug
           @in_multiline = false
           @exiting_multiline = true
         end
@@ -118,8 +121,9 @@ module Gloo
         end
         @last = $engine.factory.create( name, type, value, @parent )
         if @last && @last.has_multiline_value?
-          @multi_indent = @indent
+          @multi_indent = 0
           @in_multiline = true
+					puts "*** Start multiline. multi_indent: #{@multi_indent}" if @debug
         end
         
         @obj = @last if @obj.nil?
@@ -136,6 +140,7 @@ module Gloo
       
       # Split the line into 3 parts.
       def split_line line
+				puts "splitting line: #{line}" if @debug
         line = line[ @tabs..-1]
 				line = line[0..-2] if line[-1] == "\n"
         i = line.index( ' ' )
@@ -143,15 +148,19 @@ module Gloo
         
         line = line[i+1..-1]
         i = line.index( ' ' )
-        type = line[0..i-1]
+        type = line[0..(i ? i-1 : -1)]
         type = type[1..-1] if type[0] == '['
         type = type[0..-2] if type[-1] == ']'
         
-        value = line[i+1..-1]
-				if value[0..1] == ': '
-					value = value[2..-1] 
-				elsif value[0] == ':'
-        	value = value[1..-1] 
+				if i
+	        value = line[i+1..-1]
+					if value[0..1] == ': '
+						value = value[2..-1] 
+					elsif value[0] == ':'
+	        	value = value[1..-1] 
+					end
+				else
+					value = nil
 				end
 				# puts "'#{value}'".yellow
         return name, type, value
