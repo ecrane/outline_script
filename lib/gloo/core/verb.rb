@@ -11,9 +11,12 @@ module Gloo
   module Core
     class Verb < Baseo
       
+			attr_reader :tokens, :params
+			
       # Set up the verb.
-      def initialize( tokens )
+      def initialize( tokens, params=[] )
         @tokens = tokens
+				@params = params
       end
       
       # Register verbs when they are loaded.

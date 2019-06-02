@@ -28,5 +28,25 @@ class ParserTest < Minitest::Test
     @engine.parser.run '= 10 + 3 - 0'
     assert_equal 13, @engine.heap.it.value
   end
+	
+	def test_splitting_params_with_no_params
+		cmd, params = @engine.parser.split_params "test"
+		assert_equal "test", cmd
+		refute params
+		
+		cmd, params = @engine.parser.split_params "one two three"
+		assert_equal "one two three", cmd		
+		refute params
 
+		cmd, params = @engine.parser.split_params "abc)"
+		assert_equal "abc)", cmd		
+		refute params
+	end
+	
+	def test_splitting_params_with_params
+		cmd, params = @engine.parser.split_params "test (p)"
+		assert_equal "test", cmd
+		assert_equal "p", params
+	end
+	
 end

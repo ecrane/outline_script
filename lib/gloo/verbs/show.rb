@@ -3,6 +3,7 @@
 #
 # Show a single object's value.
 #
+require 'colorized_string'
 
 module Gloo
   module Verbs
@@ -17,8 +18,8 @@ module Gloo
       def run
         if @tokens.token_count > 1
           expr = Gloo::Expr::Expression.new( @tokens.params )
-          result = expr.evaluate
-          $log.show result
+					result = expr.evaluate
+          $log.show get_formatted_string( result )
           $engine.heap.it.set_to result
         else
           $log.show ""
@@ -38,6 +39,14 @@ module Gloo
       def self.keyword_shortcut
         return KEYWORD_SHORT
       end
+			
+			def get_formatted_string str
+				if @params && @params.token_count > 0
+					color = @params.first.to_sym
+					return ColorizedString[ "#{str}" ].colorize( color )
+				end
+				return str
+			end
 
     end
   end
