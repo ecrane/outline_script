@@ -26,22 +26,12 @@ class GitTest < Minitest::Test
     assert msgs
     assert msgs.include?( "validate" )
     assert msgs.include?( "check_changes" )
+		assert msgs.include?( "get_changes" )
   end
 
   def test_adds_children_on_create
     o = Gloo::Objs::Git.new
-    assert o.add_children_on_create?
-  end
-
-  def test_that_children_are_added_on_create
-    i = @engine.parser.parse_immediate 'create o as git'
-    i.run
-    assert_equal 1, @engine.heap.root.child_count
-    obj = @engine.heap.root.children.first
-    assert obj
-    assert_equal "o", obj.name
-    assert_equal 1, obj.child_count
-    assert_equal "path", obj.children.first.name
+    refute o.add_children_on_create?
   end
 
 end

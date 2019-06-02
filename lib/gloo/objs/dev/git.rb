@@ -10,7 +10,6 @@ module Gloo
       
       KEYWORD = 'git_repo'
       KEYWORD_SHORT = 'git'
-      PATH = 'path'
 
       # 
       # The name of the object type.
@@ -30,29 +29,7 @@ module Gloo
       # Get the path to the git repo (locally).
       # 
       def get_path
-        o = find_child PATH
-        return nil unless o
-        return o.value
-      end
-		
-
-      # ---------------------------------------------------------------------
-      #    Children
-      # ---------------------------------------------------------------------
-
-      # Does this object have children to add when an object
-      # is created in interactive mode?
-      # This does not apply during obj load, etc.
-      def add_children_on_create?
-        return true
-      end
-      
-      # Add children to this object.
-      # This is used by containers to add children needed 
-      # for default configurations.
-      def add_default_children
-        fac = $engine.factory
-        fac.create PATH, "string", "", self
+        return value
       end
 
       
@@ -64,7 +41,17 @@ module Gloo
       # Get a list of message names that this object receives.
       # 
       def self.messages
-        return super + [ "validate", "check_changes" ]
+        return super + [ "validate", "check_changes", "get_changes" ]
+      end
+
+			# Check to see if the repo has changes.
+      def msg_get_changes
+        path = get_path
+        if path and File.directory?( path )
+					result = `cd #{path}; git status -s`
+				end
+				result = result ? result : ""
+				$engine.heap.it.set_to result        
       end
 
 			# Check to see if the repo has changes.
