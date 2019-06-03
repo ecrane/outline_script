@@ -22,6 +22,7 @@ module Gloo
         @args = Args.new( params )
         $settings = Settings.new( ENV[ 'GLOO_ENV' ] )
         $log = Log.new( @args.quiet? )
+				$prompt = TTY::Prompt.new
         $log.debug "engine intialized..."
       end
       
@@ -74,7 +75,6 @@ module Gloo
         # TODO: open any files specifed in args
         
         unless @mode == Mode::SCRIPT || @args.quiet?
-          $prompt = TTY::Prompt.new
           @cursor = TTY::Cursor
           self.loop 
         end

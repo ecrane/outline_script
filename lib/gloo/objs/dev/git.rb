@@ -41,7 +41,37 @@ module Gloo
       # Get a list of message names that this object receives.
       # 
       def self.messages
-        return super + [ "validate", "check_changes", "get_changes" ]
+        return super + [ "validate", "check_changes", "get_changes",
+				 	"commit", "get_branch" ]
+      end
+			
+			# Get the current working branch.
+			def msg_get_branch
+				branch = ""
+				path = get_path
+				if path and File.directory?( path )
+					branch = `cd #{path}; git rev-parse --abbrev-ref HEAD`
+					branch = branch.strip
+				end
+
+				$engine.heap.it.set_to branch        
+			end
+
+
+			# Check to see if the repo has changes.
+      def msg_commit
+				msg = "Commit"
+        path = get_path
+        if path and File.directory?( path )
+					if @params && @params.token_count > 0
+						expr = Gloo::Expr::Expression.new( @params.tokens )
+						msg = expr.evaluate
+	        end
+					branch = `cd #{path}; git rev-parse --abbrev-ref HEAD`
+					branch = branch.strip
+					result = `cd #{path}; git add .; git commit -m "#{msg}";git push origin #{branch}`
+				end
+				$engine.heap.it.set_to msg
       end
 
 			# Check to see if the repo has changes.

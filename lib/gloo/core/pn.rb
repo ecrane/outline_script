@@ -108,6 +108,12 @@ module Gloo
         return false unless parent
         return parent.has_child? name
       end
+			
+			# Is the reference to a color?
+			def is_color?
+				colors = [ "red", "blue", "green", "white", "black", "yellow" ]
+				return true if colors.include?( @src.downcase )
+			end
       
       # Resolve the pathname reference.
       # Find the object referenced or return nil if it is not found.

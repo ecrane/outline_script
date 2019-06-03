@@ -22,7 +22,7 @@ module Gloo
         o = pn.resolve
 
         if o
-          o.send_message msg
+          o.send_message( msg, @params )
         else
           $log.error "Could not send message to object.  Bad path: #{name}"
         end

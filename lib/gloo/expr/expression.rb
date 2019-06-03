@@ -65,6 +65,8 @@ module Gloo
       
       # resolve an object reference and get the value.
       def resolve_ref ref
+				return ref.src if ref.is_color?
+
         ob = ref.resolve
         return ob.value if ob
       end

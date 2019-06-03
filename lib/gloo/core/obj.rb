@@ -181,7 +181,8 @@ module Gloo
       # 
       # Sent this object the given message.
       # 
-      def send_message msg
+      def send_message msg, params=nil
+				@params = params
         if self.can_receive_message? msg
           return self.dispatch msg
         else

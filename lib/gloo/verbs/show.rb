@@ -42,7 +42,9 @@ module Gloo
 			
 			def get_formatted_string str
 				if @params && @params.token_count > 0
-					color = @params.first.to_sym
+					expr = Gloo::Expr::Expression.new( @params.tokens )
+					val = expr.evaluate
+					color = val.to_sym
 					return ColorizedString[ "#{str}" ].colorize( color )
 				end
 				return str
