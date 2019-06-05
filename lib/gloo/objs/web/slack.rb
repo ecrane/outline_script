@@ -19,6 +19,10 @@ module Gloo
       CHANNEL = 'channel'
       ICON = 'icon_emoji'
 
+			ATTACHMENT = 'attachment'
+			TITLE = 'title'
+			TEXT = 'text'
+
       # 
       # The name of the object type.
       # 
@@ -42,6 +46,19 @@ module Gloo
         return nil unless uri
         return uri.value
       end
+
+			# 
+      # Get the URI from the child object.
+      # Returns nil if there is none.
+      # 
+      def get_attachment
+        o = find_child ATTACHMENT
+        return nil unless o
+				
+				title = o.find_child TITLE
+				text = o.find_child TEXT
+        return [{ 'title' => title.value, 'text' => text.value }]
+      end
       
       # 
       # Get all the children of the body container and 
@@ -53,7 +70,9 @@ module Gloo
           'channel' => find_child( CHANNEL ).value,
           'icon_emoji' => find_child( ICON ).value,
          }
-        
+				 
+				 o = get_attachment
+				 h[ 'attachments' ] = o if o
         return h.to_json
       end
 
@@ -98,9 +117,7 @@ module Gloo
         uri = get_uri
         return unless uri
         
-        body = get_body_as_json
-        puts body
-        
+        body = get_body_as_json        
         Gloo::Objs::HttpPost.post_json uri, body, true
       end
       
