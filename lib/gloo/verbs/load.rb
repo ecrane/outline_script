@@ -15,7 +15,9 @@ module Gloo
       # Run the verb.
       # 
       def run
-        $engine.persist_man.load @tokens.second
+				fn = @tokens.second
+				$log.debug "Getting ready to load file: #{fn}"
+        $engine.persist_man.load fn
       end
                 
       # 

@@ -39,5 +39,11 @@ class PutTest < Minitest::Test
     assert_equal 147, i.value
   end
 
+	def test_put_into_nonexistent_object
+    o = @engine.parser.parse_immediate "put 1 into x"
+    o.run
+    assert_equal 0, @engine.heap.root.child_count
+  end
+
 
 end

@@ -26,15 +26,21 @@ module Gloo
         end
 
         target = @tokens.after_token( INTO )
+				if target.nil?
+					$log.error "'put' must include 'into' target"
+				end
         pn = Gloo::Core::Pn.new target
         o = pn.resolve
-        
-        if value.count > 0
-          expr = Gloo::Expr::Expression.new( value )
-          result = expr.evaluate
-          o.set_value result
-          $engine.heap.it.set_to result
-        end
+				if o.nil?
+					$log.error "could not find target of put: #{target}"
+				else
+	        if value.count > 0
+	          expr = Gloo::Expr::Expression.new( value )
+	          result = expr.evaluate
+	          o.set_value result
+	          $engine.heap.it.set_to result
+	        end
+				end
       end
       
       # 

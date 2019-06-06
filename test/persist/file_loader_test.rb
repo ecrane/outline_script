@@ -62,4 +62,18 @@ class FileLoaderTest < Minitest::Test
     refute o.skip_line? "s [string] : # "
   end
 
+	def test_load_file_that_loads_second_file
+		i = @engine.parser.parse_immediate 'load sub/a'
+		i.run
+		assert_equal 2, @engine.heap.root.child_count
+    a = @engine.heap.root.children.first
+    assert a
+    assert_equal "a", a.name
+
+		b = @engine.heap.root.children.last
+    assert b
+    assert_equal "b", b.name
+		assert_equal "loaded", b.value
+	end
+	
 end

@@ -31,6 +31,11 @@ module Gloo
         fl = FileLoader.new @pn
         fl.load
         @obj = fl.obj
+				if @obj
+					$log.debug "Loaded object: #{@obj.name}"
+				else
+					$log.error "Error loading file at #{@pn}"
+				end
       end
     
     end

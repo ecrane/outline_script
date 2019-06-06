@@ -54,6 +54,7 @@ module Gloo
       def load name
         pn = get_full_path_name name
         return unless pn
+				$log.debug "Load file at: #{pn}"
         fs = Gloo::Persist::FileStorage.new( pn )
         fs.load
         @maps << fs
