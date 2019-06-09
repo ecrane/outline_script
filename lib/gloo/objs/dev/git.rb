@@ -62,7 +62,7 @@ module Gloo
       def msg_commit
 				msg = "Commit"
         path = get_path
-        if path and File.directory?( path )
+        if path && File.directory?( path )
 					if @params && @params.token_count > 0
 						expr = Gloo::Expr::Expression.new( @params.tokens )
 						msg = expr.evaluate

@@ -159,6 +159,11 @@ module Gloo
       def msg_user_home
         return File.expand_path( "~" )
       end
+
+			# Get the working directory.
+      def msg_working_dir
+        return Dir.pwd
+      end
       
       # Get the Gloo home directory
       def msg_gloo_home
