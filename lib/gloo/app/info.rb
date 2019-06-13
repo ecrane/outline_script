@@ -8,7 +8,7 @@ module Gloo
   module App
     class Info
 
-      VERSION = "0.2.0"
+      VERSION = "0.3.0"
       APP_NAME = "Gloo"
 
       def self.display_title
