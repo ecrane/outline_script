@@ -16,10 +16,11 @@ module Gloo
       # 
       def run
         opts = @tokens.second if @tokens
-        
-        if opts && opts.strip.downcase == 'verbs'
+        opts = opts.strip.downcase if opts
+				
+        if opts && ( ( opts == 'verbs' ) || ( opts == 'v' ) )
           show_verbs
-        elsif opts && opts.strip.downcase == 'objects'
+        elsif opts && ( ( opts == 'objects' ) || ( opts == 'o' ) )
           show_objs
         else
           $engine.run_help( true )
