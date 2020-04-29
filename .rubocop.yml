@@ -1,0 +1,4 @@
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false

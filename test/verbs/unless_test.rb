@@ -1,7 +1,7 @@
 require "test_helper"
 
 class UnlessTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ "--quiet" ] )
     @engine.start
@@ -10,7 +10,7 @@ class UnlessTest < Minitest::Test
   def test_the_keyword
     assert_equal "unless", Gloo::Verbs::Unless.keyword
   end
-  
+
   def test_the_keyword_shortcut
     assert_equal "if!", Gloo::Verbs::Unless.keyword_shortcut
   end
@@ -25,7 +25,7 @@ class UnlessTest < Minitest::Test
     v = @engine.parser.parse_immediate 'show 2 + 3'
     v.run
     assert_equal 5, @engine.heap.it.value
-  
+
     v = @engine.parser.parse_immediate 'unless true do show 2 + 5'
     v.run
     assert_equal 5, @engine.heap.it.value
