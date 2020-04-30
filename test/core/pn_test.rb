@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class PnTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
   end
 
@@ -19,7 +19,7 @@ class PnTest < Minitest::Test
     assert o
     refute o.src
 
-    o = Gloo::Core::Pn.new( "" )
+    o = Gloo::Core::Pn.new( '' )
     assert o
     assert o.src
   end
@@ -63,7 +63,7 @@ class PnTest < Minitest::Test
     assert_equal 1, segments.count
     assert_equal 'one', segments[0]
 
-    o = Gloo::Core::Pn.new( "" )
+    o = Gloo::Core::Pn.new( '' )
     assert_equal 0, o.segments.count
 
     o = Gloo::Core::Pn.new( nil )
@@ -150,8 +150,8 @@ class PnTest < Minitest::Test
   end
   
   def test_getting_name
-    o = Gloo::Core::Pn.new ""
-    assert_equal "", o.name
+    o = Gloo::Core::Pn.new ''
+    assert_equal '', o.name
 
     o = Gloo::Core::Pn.new "a"
     assert_equal "a", o.name
@@ -161,7 +161,7 @@ class PnTest < Minitest::Test
   end
   
   def test_has_name
-    o = Gloo::Core::Pn.new ""
+    o = Gloo::Core::Pn.new ''
     refute o.has_name?
     
     o = Gloo::Core::Pn.new "x"
@@ -172,7 +172,7 @@ class PnTest < Minitest::Test
   end
   
   def test_has_path
-    o = Gloo::Core::Pn.new ""
+    o = Gloo::Core::Pn.new ''
     refute o.has_path?
     
     o = Gloo::Core::Pn.new "x"

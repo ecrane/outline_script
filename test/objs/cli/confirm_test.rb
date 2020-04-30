@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class ConfirmTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
     @dic = @engine.dictionary
   end

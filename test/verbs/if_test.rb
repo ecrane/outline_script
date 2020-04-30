@@ -1,18 +1,18 @@
-require "test_helper"
+require 'test_helper'
 
 class IfTest < Minitest::Test
-  
+
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
   end
 
   def test_the_keyword
-    assert_equal "if", Gloo::Verbs::If.keyword
+    assert_equal 'if', Gloo::Verbs::If.keyword
   end
-  
+
   def test_the_keyword_shortcut
-    assert_equal "if", Gloo::Verbs::If.keyword_shortcut
+    assert_equal 'if', Gloo::Verbs::If.keyword_shortcut
   end
 
   def test_evals_true
@@ -25,7 +25,7 @@ class IfTest < Minitest::Test
     v = @engine.parser.parse_immediate 'show 2 + 3'
     v.run
     assert_equal 5, @engine.heap.it.value
-  
+
     v = @engine.parser.parse_immediate 'if false then show 2 + 5'
     v.run
     assert_equal 5, @engine.heap.it.value

@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class SettingsTest < Minitest::Test
   
   def test_creation
-    Gloo::App::Engine.new( [ "--quiet" ] )
+    Gloo::App::Engine.new( [ '--quiet' ] )
     assert $settings
     assert $settings.user_root
     assert $settings.log_path    

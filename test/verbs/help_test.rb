@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class HelpTest < Minitest::Test
-  
+
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   end
 
   def test_help_verb
@@ -15,12 +15,11 @@ class HelpTest < Minitest::Test
   end
 
   def test_the_keyword
-    assert_equal "help", Gloo::Verbs::Help.keyword
+    assert_equal 'help', Gloo::Verbs::Help.keyword
   end
 
   def test_the_keyword_shortcut
-    assert_equal "?", Gloo::Verbs::Help.keyword_shortcut
+    assert_equal '?', Gloo::Verbs::Help.keyword_shortcut
   end
 
-  
 end

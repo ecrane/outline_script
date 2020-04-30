@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class DictionaryTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
     @dic = Gloo::Core::Dictionary.instance
   end
@@ -20,7 +20,7 @@ class DictionaryTest < Minitest::Test
   def test_is_obj
     assert @dic.is_obj?( "string" )
     refute @dic.is_obj?( "XXXX" )
-    refute @dic.is_obj?( "" )
+    refute @dic.is_obj?( '' )
     refute @dic.is_obj?( nil )
   end
   
@@ -28,7 +28,7 @@ class DictionaryTest < Minitest::Test
     assert @dic.find_obj( "string" )
     assert @dic.find_obj( "STRING" )
     refute @dic.find_obj( nil )
-    refute @dic.find_obj( "" )
+    refute @dic.find_obj( '' )
     refute @dic.find_obj( "XXX" )
   end
 
@@ -42,7 +42,7 @@ class DictionaryTest < Minitest::Test
     assert @dic.is_verb?( "QUIT" )
     assert @dic.is_verb?( "quIT" )
     refute @dic.is_verb?( "XXXX" )
-    refute @dic.is_verb?( "" )
+    refute @dic.is_verb?( '' )
     refute @dic.is_verb?( nil )
   end
   
@@ -50,7 +50,7 @@ class DictionaryTest < Minitest::Test
     assert @dic.find_verb( "quit" )
     assert @dic.find_verb( "QUIT" )
     refute @dic.find_verb( nil )
-    refute @dic.find_verb( "" )
+    refute @dic.find_verb( '' )
     refute @dic.find_verb( "XXX" )
   end
   

@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class ObjTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
   end
 
@@ -16,7 +16,7 @@ class ObjTest < Minitest::Test
     o = Gloo::Core::Obj.new
     assert o
     assert o.value
-    assert_equal "", o.value
+    assert_equal '', o.value
   end
   
   def test_obj_not_multiline_value
@@ -55,7 +55,7 @@ class ObjTest < Minitest::Test
   
   def test_value_is_blank
     o = Gloo::Core::Obj.new
-    o.set_value ""
+    o.set_value ''
     assert o.value_is_blank?
     o.set_value nil
     assert o.value_is_blank?

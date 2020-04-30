@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class FactoryTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   end
 
   def test_factory_built_by_default
@@ -50,7 +50,7 @@ class FactoryTest < Minitest::Test
     @engine.start
     o = @engine.factory.find_type "un"
     assert_equal Gloo::Objs::Untyped, o
-    o = @engine.factory.find_type ""
+    o = @engine.factory.find_type ''
     assert_equal Gloo::Objs::Untyped, o
     o = @engine.factory.find_type "UNTYPED"
     assert_equal Gloo::Objs::Untyped, o

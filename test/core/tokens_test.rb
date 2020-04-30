@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class TokensTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   end
  
   def test_tokenize_with_quotes_trailing_space
@@ -78,7 +78,7 @@ class TokensTest < Minitest::Test
   def test_token_count
     o = Gloo::Core::Tokens.new( "quit" )
     assert_equal 1, o.token_count
-    o = Gloo::Core::Tokens.new( "" )
+    o = Gloo::Core::Tokens.new( '' )
     assert_equal 0, o.token_count
     o = Gloo::Core::Tokens.new( "create thing" )
     assert_equal 2, o.token_count
@@ -128,7 +128,7 @@ class TokensTest < Minitest::Test
   end
   
   def test_empty_token_list
-    o = Gloo::Core::Tokens.new( "" )
+    o = Gloo::Core::Tokens.new( '' )
     refute o.verb
     refute o.first
     refute o.second

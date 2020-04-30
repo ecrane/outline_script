@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class ErbTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
     @dic = @engine.dictionary
   end
@@ -57,7 +57,7 @@ class ErbTest < Minitest::Test
     i.run
 
     result = obj.children.last
-    assert_equal "", result.value
+    assert_equal '', result.value
     i = @engine.parser.parse_immediate 'run e'
     i.run
     assert_equal "wow", result.value

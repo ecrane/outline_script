@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class EvalTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
     @dic = @engine.dictionary
   end
@@ -51,7 +51,7 @@ class EvalTest < Minitest::Test
     obj = @engine.heap.root.children.first
     i = @engine.parser.parse_immediate 'put "2+1" into e.command'
     i.run
-    assert_equal "", obj.children.last.value
+    assert_equal '', obj.children.last.value
 
     i = @engine.parser.parse_immediate 'run e'
     i.run

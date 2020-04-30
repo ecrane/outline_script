@@ -2,3 +2,16 @@ Layout/EmptyLinesAroundClassBody:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Layout/SpaceInsideParens:
+  Enabled: false
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+# Might want to try re-enabling these:
+Metrics/AbcSize:
+  Enabled: false
+Style/GlobalVars:
+  Enabled: false
+Lint/NonDeterministicRequireOrder:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false

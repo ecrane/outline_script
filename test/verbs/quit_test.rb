@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class QuitTest < Minitest::Test
-  
+
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   end
 
   def test_quit_verb
@@ -16,12 +16,11 @@ class QuitTest < Minitest::Test
 
   def test_the_keyword
     o = Gloo::Verbs::Quit.keyword
-    assert_equal "quit", o
+    assert_equal 'quit', o
   end
 
   def test_the_keyword_shortcut
-    assert_equal "q", Gloo::Verbs::Quit.keyword_shortcut
+    assert_equal 'q', Gloo::Verbs::Quit.keyword_shortcut
   end
 
-  
 end

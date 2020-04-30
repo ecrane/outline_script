@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class ExpressionTest < Minitest::Test
   
   # def setup
-  #   @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+  #   @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   # end
 
   def test_expression_construction

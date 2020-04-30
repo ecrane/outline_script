@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class ScriptTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
   end
 
@@ -54,7 +54,7 @@ class ScriptTest < Minitest::Test
   def test_script_line_count_for_string
     o = Gloo::Objs::Script.new
     assert_equal 0, o.line_count
-    o.set_value ""
+    o.set_value ''
     assert_equal 0, o.line_count
     o.set_value "help"
     assert_equal "help", o.value

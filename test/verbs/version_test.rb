@@ -3,7 +3,7 @@ require 'test_helper'
 class VersionTest < Minitest::Test
 
   # def setup
-  #   @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+  #   @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   # end
 
   def test_the_keyword

@@ -1,9 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class SystemTest < Minitest::Test
   
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
     @dic = @engine.dictionary
   end
@@ -53,11 +53,11 @@ class SystemTest < Minitest::Test
     obj = @engine.heap.root.children.first
     i = @engine.parser.parse_immediate 'put "date" into s.command'
     i.run
-    assert_equal "", obj.children.last.value
+    assert_equal '', obj.children.last.value
 
     i = @engine.parser.parse_immediate 'run s'
     i.run
-    refute_equal "", obj.children.last.value
+    refute_equal '', obj.children.last.value
   end
 
 end

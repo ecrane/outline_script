@@ -1,20 +1,20 @@
-require "test_helper"
+require 'test_helper'
 
 class LoadTest < Minitest::Test
-  
+
   def setup
-    @engine = Gloo::App::Engine.new( [ "--quiet" ] )
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
   end
-  
+
   def test_the_keyword
-    assert_equal "load", Gloo::Verbs::Load.keyword
+    assert_equal 'load', Gloo::Verbs::Load.keyword
   end
-  
+
   def test_the_keyword_shortcut
-    assert_equal "<", Gloo::Verbs::Load.keyword_shortcut
+    assert_equal '<', Gloo::Verbs::Load.keyword_shortcut
   end
-  
+
   def test_file_load
     assert_equal 0, @engine.heap.root.child_count
     i = @engine.parser.parse_immediate 'load test'
