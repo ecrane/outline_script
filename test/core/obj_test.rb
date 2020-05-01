@@ -33,13 +33,13 @@ class ObjTest < Minitest::Test
   
   def test_setting_value
     o = Gloo::Core::Obj.new
-    o.value = "test"
-    assert_equal "test", o.value
+    o.value = 'test'
+    assert_equal 'test', o.value
   end
   
   def test_value_is_string
     o = Gloo::Core::Obj.new
-    o.set_value "test"
+    o.set_value 'test'
     assert o.value_is_string?
     o.set_value 1
     refute o.value_is_string?
@@ -47,7 +47,7 @@ class ObjTest < Minitest::Test
 
   def test_value_is_array
     o = Gloo::Core::Obj.new
-    o.set_value [ "test" ]
+    o.set_value [ 'test' ]
     assert o.value_is_array?
     o.set_value 1
     refute o.value_is_array?
@@ -75,25 +75,25 @@ class ObjTest < Minitest::Test
   def test_has_child_check
     o = Gloo::Core::Obj.new
     s = Gloo::Objs::String.new
-    s.name = "str"
+    s.name = 'str'
     o.add_child s
-    assert o.has_child?( "str" )
+    assert o.has_child?( 'str' )
     refute o.has_child?( "x" )
   end
 
   def test_find_child
     o = Gloo::Core::Obj.new
     s = Gloo::Objs::String.new
-    s.name = "str"
-    refute o.find_child( "str" )
+    s.name = 'str'
+    refute o.find_child( 'str' )
     o.add_child s
-    assert_same s, o.find_child( "str" )
+    assert_same s, o.find_child( 'str' )
   end
   
   def test_remove_child
     o = Gloo::Core::Obj.new
     s = Gloo::Objs::String.new
-    s.name = "str"
+    s.name = 'str'
     o.add_child s
     assert_equal 1, o.child_count
     o.remove_child s
@@ -104,9 +104,9 @@ class ObjTest < Minitest::Test
     o = Gloo::Core::Obj.new
     refute o.find_child( "xtr" )
     s = Gloo::Objs::String.new
-    s.name = "str"
+    s.name = 'str'
     o.add_child s
-    assert_same s, o.find_child( "str" )
+    assert_same s, o.find_child( 'str' )
     refute o.find_child( "xtr" )
     refute o.find_child( "stri" )
     refute o.find_child( "st" )
@@ -118,7 +118,7 @@ class ObjTest < Minitest::Test
     o = Gloo::Objs::Container.new
     assert_equal 0, o.child_count
     s = Gloo::Objs::String.new
-    s.name = "str"
+    s.name = 'str'
     o.add_child s
     assert_equal 1, o.child_count
   end
@@ -127,40 +127,40 @@ class ObjTest < Minitest::Test
     o = Gloo::Objs::Container.new
     assert_equal "container", o.type_display
     s = Gloo::Objs::String.new
-    assert_equal "string", s.type_display
+    assert_equal 'string', s.type_display
   end
   
   def test_value_display
     s = Gloo::Objs::String.new
-    s.value = "test"
-    assert_equal "test", s.value_display
+    s.value = 'test'
+    assert_equal 'test', s.value_display
   end
   
   def test_messages
     msgs = Gloo::Core::Obj.messages
     assert msgs
-    assert msgs.include?( "unload" )
+    assert msgs.include?( 'unload' )
   end
   
   def test_can_receive_message
     o = Gloo::Core::Obj.new
-    assert o.can_receive_message? "unload"
+    assert o.can_receive_message? 'unload'
     refute o.can_receive_message? "xyz"
     refute o.can_receive_message? "123"
   end
   
   def test_sending_message
-    o = @engine.factory.create "s", "string"
+    o = @engine.factory.create "s", 'string'
     refute o.send_message( "xyz" )
     refute o.send_message( "abc" )
-    assert o.send_message( "unload" )
+    assert o.send_message( 'unload' )
   end
   
   def test_dispatch
-    o = @engine.factory.create "s", "string"
+    o = @engine.factory.create "s", 'string'
     refute o.dispatch "xyz"
     refute o.dispatch "abc"
-    assert o.dispatch "unload"
+    assert o.dispatch 'unload'
   end
   
   def test_doesnt_add_children_on_create
@@ -169,7 +169,7 @@ class ObjTest < Minitest::Test
   end
   
   def test_is_root_object
-    o = @engine.factory.create "s", "string"
+    o = @engine.factory.create "s", 'string'
     refute o.is_root?
     r = @engine.heap.root
     assert r

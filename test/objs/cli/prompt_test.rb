@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PromptTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -9,23 +9,23 @@ class PromptTest < Minitest::Test
   end
 
   def test_the_typename
-    assert_equal "prompt", Gloo::Objs::Prompt.typename
+    assert_equal 'prompt', Gloo::Objs::Prompt.typename
   end
 
   def test_the_short_typename
-    assert_equal "ask", Gloo::Objs::Prompt.short_typename
+    assert_equal 'ask', Gloo::Objs::Prompt.short_typename
   end
 
   def test_find_type
-    assert @dic.find_obj( "prompt" )
-    assert @dic.find_obj( "ask" )
+    assert @dic.find_obj( 'prompt' )
+    assert @dic.find_obj( 'ask' )
   end
 
   def test_messages
     msgs = Gloo::Objs::Prompt.messages
     assert msgs
-    assert msgs.include?( "run" )
-    assert msgs.include?( "unload" )
+    assert msgs.include?( 'run' )
+    assert msgs.include?( 'unload' )
   end
 
   def test_adds_children_on_create
@@ -39,10 +39,10 @@ class PromptTest < Minitest::Test
     assert_equal 1, @engine.heap.root.child_count
     obj = @engine.heap.root.children.first
     assert obj
-    assert_equal "a", obj.name
+    assert_equal 'a', obj.name
     assert_equal 2, obj.child_count
-    assert_equal "prompt", obj.children.first.name
-    assert_equal "result", obj.children.last.name
+    assert_equal 'prompt', obj.children.first.name
+    assert_equal 'result', obj.children.last.name
   end
 
 end

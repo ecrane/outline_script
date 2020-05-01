@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EvalTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -9,23 +9,23 @@ class EvalTest < Minitest::Test
   end
 
   def test_the_typename
-    assert_equal "eval", Gloo::Objs::Eval.typename
+    assert_equal 'eval', Gloo::Objs::Eval.typename
   end
 
   def test_the_short_typename
-    assert_equal "ruby", Gloo::Objs::Eval.short_typename
+    assert_equal 'ruby', Gloo::Objs::Eval.short_typename
   end
 
   def test_find_type
-    assert @dic.find_obj( "eval" )
-    assert @dic.find_obj( "ruby" )
+    assert @dic.find_obj( 'eval' )
+    assert @dic.find_obj( 'ruby' )
   end
 
   def test_messages
     msgs = Gloo::Objs::Eval.messages
     assert msgs
-    assert msgs.include?( "run" )
-    assert msgs.include?( "unload" )
+    assert msgs.include?( 'run' )
+    assert msgs.include?( 'unload' )
   end
 
   def test_adds_children_on_create
@@ -39,10 +39,10 @@ class EvalTest < Minitest::Test
     assert_equal 1, @engine.heap.root.child_count
     obj = @engine.heap.root.children.first
     assert obj
-    assert_equal "e", obj.name
+    assert_equal 'e', obj.name
     assert_equal 2, obj.child_count
-    assert_equal "command", obj.children.first.name
-    assert_equal "result", obj.children.last.name
+    assert_equal 'command', obj.children.first.name
+    assert_equal 'result', obj.children.last.name
   end
 
   def test_run_eval
@@ -55,6 +55,7 @@ class EvalTest < Minitest::Test
 
     i = @engine.parser.parse_immediate 'run e'
     i.run
-    assert_equal "3", obj.children.last.value
+    assert_equal '3', obj.children.last.value
   end
+
 end

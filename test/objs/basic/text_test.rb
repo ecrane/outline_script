@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TextTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -9,16 +9,16 @@ class TextTest < Minitest::Test
   end
 
   def test_the_typename
-    assert_equal "text", Gloo::Objs::Text.typename
+    assert_equal 'text', Gloo::Objs::Text.typename
   end
-  
+
   def test_the_short_typename
-    assert_equal "txt", Gloo::Objs::Text.short_typename
+    assert_equal 'txt', Gloo::Objs::Text.short_typename
   end
 
   def test_find_type
-    assert @dic.find_obj( "text" )
-    assert @dic.find_obj( "txt" )
+    assert @dic.find_obj( 'text' )
+    assert @dic.find_obj( 'txt' )
   end
 
   def test_setting_the_value

@@ -15,10 +15,10 @@ class FactoryTest < Minitest::Test
 
   def test_unknown_object_creation
     @engine.start
-    o = @engine.factory.create "s", "string"
+    o = @engine.factory.create "s", 'string'
     assert o
     assert_equal "s", o.name
-    assert_equal "string", o.type_display
+    assert_equal 'string', o.type_display
   end
 
   def test_parents
@@ -27,7 +27,7 @@ class FactoryTest < Minitest::Test
     assert can.parent
     assert_equal @engine.heap.root, can.parent
     
-    o = @engine.factory.create "can.s", "string"
+    o = @engine.factory.create "can.s", 'string'
     assert o.parent
     assert_equal can, o.parent    
   end
@@ -54,7 +54,7 @@ class FactoryTest < Minitest::Test
     assert_equal Gloo::Objs::Untyped, o
     o = @engine.factory.find_type "UNTYPED"
     assert_equal Gloo::Objs::Untyped, o
-    o = @engine.factory.find_type "string"
+    o = @engine.factory.find_type 'string'
     assert_equal Gloo::Objs::String, o
 
     refute @engine.factory.find_type "24322343242"

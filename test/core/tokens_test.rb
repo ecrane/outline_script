@@ -49,7 +49,7 @@ class TokensTest < Minitest::Test
     assert_equal "create", o.first
     assert_equal "thing", o.second
     assert_equal "as", o.at( 2 )
-    assert_equal "string", o.at( 3 )
+    assert_equal 'string', o.at( 3 )
     assert_equal ":", o.at( 4 )
     assert_equal "'a string with spaces'", o.last
   end
@@ -62,7 +62,7 @@ class TokensTest < Minitest::Test
     assert_equal "create", o.first
     assert_equal "thing", o.second
     assert_equal "as", o.at( 2 )
-    assert_equal "string", o.at( 3 )
+    assert_equal 'string', o.at( 3 )
     assert_equal ":", o.at( 4 )
     assert_equal '"a string with spaces"', o.last
   end
@@ -146,11 +146,11 @@ class TokensTest < Minitest::Test
   
   def test_after_token
     o = Gloo::Core::Tokens.new( "create thing as string" )
-    assert_equal "string", o.after_token( "as" )
-    assert_equal "string", o.after_token( "AS" )
+    assert_equal 'string', o.after_token( "as" )
+    assert_equal 'string', o.after_token( "AS" )
     o = Gloo::Core::Tokens.new( "AS string" )
-    assert_equal "string", o.after_token( "as" )
-    assert_equal "string", o.after_token( "AS" )
+    assert_equal 'string', o.after_token( "as" )
+    assert_equal 'string', o.after_token( "AS" )
   end
 
   def test_before_token

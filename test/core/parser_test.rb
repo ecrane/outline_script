@@ -30,8 +30,8 @@ class ParserTest < Minitest::Test
   end
 	
 	def test_splitting_params_with_no_params
-		cmd, params = @engine.parser.split_params "test"
-		assert_equal "test", cmd
+		cmd, params = @engine.parser.split_params 'test'
+		assert_equal 'test', cmd
 		refute params
 		
 		cmd, params = @engine.parser.split_params "one two three"
@@ -45,7 +45,7 @@ class ParserTest < Minitest::Test
 	
 	def test_splitting_params_with_params
 		cmd, params = @engine.parser.split_params "test (p)"
-		assert_equal "test", cmd
+		assert_equal 'test', cmd
 		assert_equal "p", params
 	end
 	

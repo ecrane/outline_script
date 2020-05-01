@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SlackTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -9,23 +9,23 @@ class SlackTest < Minitest::Test
   end
 
   def test_the_typename
-    assert_equal "slack", Gloo::Objs::Slack.typename
+    assert_equal 'slack', Gloo::Objs::Slack.typename
   end
 
   def test_the_short_typename
-    assert_equal "slack", Gloo::Objs::Slack.short_typename
+    assert_equal 'slack', Gloo::Objs::Slack.short_typename
   end
 
   def test_find_type
-    assert @dic.find_obj( "slack" )
-    assert @dic.find_obj( "SLACK" )
+    assert @dic.find_obj( 'slack' )
+    assert @dic.find_obj( 'SLACK' )
   end
 
   def test_messages
     msgs = Gloo::Objs::Slack.messages
     assert msgs
-    assert msgs.include?( "run" )
-    assert msgs.include?( "unload" )
+    assert msgs.include?( 'run' )
+    assert msgs.include?( 'unload' )
   end
 
   def test_adds_children_on_create
@@ -39,11 +39,11 @@ class SlackTest < Minitest::Test
     assert_equal 1, @engine.heap.root.child_count
     obj = @engine.heap.root.children.first
     assert obj
-    assert_equal "s", obj.name
+    assert_equal 's', obj.name
     assert_equal 5, obj.child_count
-    assert_equal "uri", obj.children.first.name
-    assert_equal "message", obj.children[1].name
-    assert_equal "icon_emoji", obj.children.last.name
+    assert_equal 'uri', obj.children.first.name
+    assert_equal 'message', obj.children[1].name
+    assert_equal 'icon_emoji', obj.children.last.name
   end
 
 end

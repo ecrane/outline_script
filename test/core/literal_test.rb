@@ -8,9 +8,9 @@ class LiteralTest < Minitest::Test
   # end
 
   def test_literal_constrution
-    o = Gloo::Core::Literal.new( "string" )
+    o = Gloo::Core::Literal.new( 'string' )
     assert o
-    assert_equal "string", o.value
+    assert_equal 'string', o.value
 
     o = Gloo::Core::Literal.new( 77 )
     assert o

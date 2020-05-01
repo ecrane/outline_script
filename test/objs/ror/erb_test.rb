@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ErbTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -9,22 +9,22 @@ class ErbTest < Minitest::Test
   end
 
   def test_the_typename
-    assert_equal "erb", Gloo::Objs::Erb.typename
+    assert_equal 'erb', Gloo::Objs::Erb.typename
   end
 
   def test_the_short_typename
-    assert_equal "erb", Gloo::Objs::Erb.short_typename
+    assert_equal 'erb', Gloo::Objs::Erb.short_typename
   end
 
   def test_find_type
-    assert @dic.find_obj( "erb" )
+    assert @dic.find_obj( 'erb' )
   end
 
   def test_messages
     msgs = Gloo::Objs::Erb.messages
     assert msgs
-    assert msgs.include?( "run" )
-    assert msgs.include?( "unload" )
+    assert msgs.include?( 'run' )
+    assert msgs.include?( 'unload' )
   end
 
   def test_adds_children_on_create
@@ -38,11 +38,11 @@ class ErbTest < Minitest::Test
     assert_equal 1, @engine.heap.root.child_count
     obj = @engine.heap.root.children.first
     assert obj
-    assert_equal "e", obj.name
+    assert_equal 'e', obj.name
     assert_equal 3, obj.child_count
-    assert_equal "template", obj.children.first.name
-    assert_equal "params", obj.children[1].name
-    assert_equal "result", obj.children.last.name
+    assert_equal 'template', obj.children.first.name
+    assert_equal 'params', obj.children[1].name
+    assert_equal 'result', obj.children.last.name
   end
 
   def test_run_eval
@@ -60,6 +60,7 @@ class ErbTest < Minitest::Test
     assert_equal '', result.value
     i = @engine.parser.parse_immediate 'run e'
     i.run
-    assert_equal "wow", result.value
+    assert_equal 'wow', result.value
   end
+
 end

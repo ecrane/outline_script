@@ -18,15 +18,15 @@ class DictionaryTest < Minitest::Test
   end
 
   def test_is_obj
-    assert @dic.is_obj?( "string" )
+    assert @dic.is_obj?( 'string' )
     refute @dic.is_obj?( "XXXX" )
     refute @dic.is_obj?( '' )
     refute @dic.is_obj?( nil )
   end
   
   def test_find_an_obj
-    assert @dic.find_obj( "string" )
-    assert @dic.find_obj( "STRING" )
+    assert @dic.find_obj( 'string' )
+    assert @dic.find_obj( 'string' )
     refute @dic.find_obj( nil )
     refute @dic.find_obj( '' )
     refute @dic.find_obj( "XXX" )
