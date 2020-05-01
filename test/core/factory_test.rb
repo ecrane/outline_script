@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FactoryTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   end
@@ -13,53 +13,53 @@ class FactoryTest < Minitest::Test
     assert @engine.factory
   end
 
-  def test_unknown_object_creation
+  def test_known_object_creation
     @engine.start
-    o = @engine.factory.create "s", 'string'
+    o = @engine.factory.create 's', 'string'
     assert o
-    assert_equal "s", o.name
+    assert_equal 's', o.name
     assert_equal 'string', o.type_display
   end
 
   def test_parents
     @engine.start
-    can = @engine.factory.create "can", "container"
+    can = @engine.factory.create 'can', 'container'
     assert can.parent
     assert_equal @engine.heap.root, can.parent
-    
-    o = @engine.factory.create "can.s", 'string'
+
+    o = @engine.factory.create 'can.s', 'string'
     assert o.parent
-    assert_equal can, o.parent    
+    assert_equal can, o.parent
   end
 
   def test_unknown_object_creation
     @engine.start
-    o = @engine.factory.create "x", "notatype"
+    o = @engine.factory.create 'x', 'notatype'
     refute o
   end
 
   def test_untyped_object_creation
     @engine.start
-    o = @engine.factory.create "u"
+    o = @engine.factory.create 'u'
     assert o
-    assert_equal "u", o.name
-    assert_equal "untyped", o.type_display
+    assert_equal 'u', o.name
+    assert_equal 'untyped', o.type_display
   end
 
   def test_find_type
     @engine.start
-    o = @engine.factory.find_type "un"
+    o = @engine.factory.find_type 'un'
     assert_equal Gloo::Objs::Untyped, o
     o = @engine.factory.find_type ''
     assert_equal Gloo::Objs::Untyped, o
-    o = @engine.factory.find_type "UNTYPED"
+    o = @engine.factory.find_type 'UNTYPED'
     assert_equal Gloo::Objs::Untyped, o
     o = @engine.factory.find_type 'string'
     assert_equal Gloo::Objs::String, o
 
-    refute @engine.factory.find_type "24322343242"
-    refute @engine.factory.find_type "alajsl;j"
-    refute @engine.factory.find_type "xr2"
+    refute @engine.factory.find_type '24322343242'
+    refute @engine.factory.find_type 'alajsl;j'
+    refute @engine.factory.find_type 'xr2'
   end
-  
+
 end

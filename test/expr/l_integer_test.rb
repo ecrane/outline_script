@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LIntegerTest < Minitest::Test
-  
+
   # def setup
   #   @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   # end
@@ -20,8 +20,8 @@ class LIntegerTest < Minitest::Test
   end
 
   def test_is_integer
-    assert Gloo::Expr::LInteger.is_integer?( "23" )
-    refute Gloo::Expr::LInteger.is_integer?( "a" )
+    assert Gloo::Expr::LInteger.is_integer?( '23' )
+    refute Gloo::Expr::LInteger.is_integer?( 'a' )
   end
 
 end

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LBooleanTest < Minitest::Test
-  
+
   # def setup
   #   @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   # end
@@ -22,7 +22,7 @@ class LBooleanTest < Minitest::Test
   def test_is_boolean
     assert Gloo::Expr::LBoolean.is_boolean?( true )
     assert Gloo::Expr::LBoolean.is_boolean?( false )
-    refute Gloo::Expr::LBoolean.is_boolean?( "a" )
+    refute Gloo::Expr::LBoolean.is_boolean?( 'a' )
   end
 
 end

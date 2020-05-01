@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LiteralTest < Minitest::Test
-  
+
   # def setup
   #   @engine = Gloo::App::Engine.new( [ '--quiet' ] )
   #   @engine.start
@@ -16,5 +16,5 @@ class LiteralTest < Minitest::Test
     assert o
     assert_equal 77, o.value
   end
-    
+
 end

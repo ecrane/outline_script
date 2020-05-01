@@ -6,6 +6,9 @@ Layout/SpaceInsideParens:
   Enabled: false
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: false
+
 # Might want to try re-enabling these:
 Metrics/AbcSize:
   Enabled: false
@@ -14,4 +17,6 @@ Style/GlobalVars:
 Lint/NonDeterministicRequireOrder:
   Enabled: false
 Metrics/MethodLength:
+  Enabled: false
+Metrics/ClassLength:
   Enabled: false

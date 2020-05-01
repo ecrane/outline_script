@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OpMultTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -16,5 +16,5 @@ class OpMultTest < Minitest::Test
     @engine.parser.run '= 3 * 7 * 2'
     assert_equal 42, @engine.heap.it.value
   end
-  
+
 end

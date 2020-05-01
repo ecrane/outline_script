@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OpPlusTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -21,5 +21,5 @@ class OpPlusTest < Minitest::Test
     @engine.parser.run '= 4 3'
     assert_equal 7, @engine.heap.it.value
   end
-  
+
 end

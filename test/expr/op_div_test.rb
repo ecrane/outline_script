@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OpDivTest < Minitest::Test
-  
+
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
     @engine.start
@@ -16,5 +16,5 @@ class OpDivTest < Minitest::Test
     @engine.parser.run '= 12 / 3 / 2'
     assert_equal 2, @engine.heap.it.value
   end
-  
+
 end
