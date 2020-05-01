@@ -1,14 +1,14 @@
 require 'test_helper'
 
 class EngineTest < Minitest::Test
-  
+
   def test_engine_constrution
     o = Gloo::App::Engine.new
     assert o
     assert $engine
     assert_equal o, $engine
   end
-  
+
   def test_that_we_can_start_the_engine
     o = Gloo::App::Engine.new( [ '--quiet' ] )
     assert o
@@ -22,7 +22,7 @@ class EngineTest < Minitest::Test
     o.start
     assert o.mode
   end
-  
+
   def test_that_the_engine_has_args
     o = Gloo::App::Engine.new
     assert o.args
@@ -46,17 +46,17 @@ class EngineTest < Minitest::Test
     assert o.last_cmd_blank?
     o.last_cmd = ''
     assert o.last_cmd_blank?
-    o.last_cmd = "  "
+    o.last_cmd = '  '
     assert o.last_cmd_blank?
-    
-    o.last_cmd = "quit"
-    refute o.last_cmd_blank?    
+
+    o.last_cmd = 'quit'
+    refute o.last_cmd_blank?
   end
-  
+
   def test_that_engine_has_event_manager
     o = Gloo::App::Engine.new( [ '--quiet' ] )
     o.start
     assert o.event_manager
   end
-  
+
 end
