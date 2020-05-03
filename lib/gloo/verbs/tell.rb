@@ -7,14 +7,14 @@
 module Gloo
   module Verbs
     class Tell < Gloo::Core::Verb
-      
-      KEYWORD = 'tell'
-      KEYWORD_SHORT = '->'
-      TO = 'to'
-      
-      # 
+
+      KEYWORD = 'tell'.freeze
+      KEYWORD_SHORT = '->'.freeze
+      TO = 'to'.freeze
+
+      #
       # Run the verb.
-      # 
+      #
       def run
         name = @tokens.second
         msg = @tokens.after_token( TO )
@@ -27,17 +27,17 @@ module Gloo
           $log.error "Could not send message to object.  Bad path: #{name}"
         end
       end
-      
-      # 
+
+      #
       # Get the Verb's keyword.
-      # 
+      #
       def self.keyword
         return KEYWORD
       end
 
-      # 
+      #
       # Get the Verb's keyword shortcut.
-      # 
+      #
       def self.keyword_shortcut
         return KEYWORD_SHORT
       end

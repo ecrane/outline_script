@@ -7,29 +7,29 @@
 module Gloo
   module Verbs
     class Load < Gloo::Core::Verb
-      
-      KEYWORD = 'load'
-      KEYWORD_SHORT = '<'
 
-      # 
+      KEYWORD = 'load'.freeze
+      KEYWORD_SHORT = '<'.freeze
+
+      #
       # Run the verb.
-      # 
+      #
       def run
-				fn = @tokens.second
-				$log.debug "Getting ready to load file: #{fn}"
+        fn = @tokens.second
+        $log.debug "Getting ready to load file: #{fn}"
         $engine.persist_man.load fn
       end
-                
-      # 
+
+      #
       # Get the Verb's keyword.
-      # 
+      #
       def self.keyword
         return KEYWORD
       end
 
-      # 
+      #
       # Get the Verb's keyword shortcut.
-      # 
+      #
       def self.keyword_shortcut
         return KEYWORD_SHORT
       end

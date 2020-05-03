@@ -8,6 +8,12 @@ Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 Layout/SpaceInsideReferenceBrackets:
   Enabled: false
+Style/RedundantReturn:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
 
 # Might want to try re-enabling these:
 Metrics/AbcSize:
@@ -19,4 +25,10 @@ Lint/NonDeterministicRequireOrder:
 Metrics/MethodLength:
   Enabled: false
 Metrics/ClassLength:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Naming/MethodParameterName:
   Enabled: false

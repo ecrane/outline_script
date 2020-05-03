@@ -8,24 +8,24 @@ require 'colorized_string'
 module Gloo
   module Objs
     class Colorize < Gloo::Core::Obj
-      
-      KEYWORD = 'colorize'
-      KEYWORD_SHORT = 'color'
 
-      # 
+      KEYWORD = 'colorize'.freeze
+      KEYWORD_SHORT = 'color'.freeze
+
+      #
       # The name of the object type.
-      # 
+      #
       def self.typename
         return KEYWORD
       end
 
-      # 
+      #
       # The short name of the object type.
-      # 
+      #
       def self.short_typename
         return KEYWORD_SHORT
       end
-                  
+
 
       # ---------------------------------------------------------------------
       #    Children
@@ -37,27 +37,27 @@ module Gloo
       def add_children_on_create?
         return true
       end
-      
+
       # Add children to this object.
-      # This is used by containers to add children needed 
+      # This is used by containers to add children needed
       # for default configurations.
       def add_default_children
         fac = $engine.factory
         fac.create "white", "string", "", self
       end
 
-      
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
 
-      # 
+      #
       # Get a list of message names that this object receives.
-      # 
+      #
       def self.messages
         return super + [ "run" ]
       end
-      
+
       # Run the system command.
       def msg_run
 				msg = ""
@@ -67,7 +67,7 @@ module Gloo
 				$log.show msg
 				$engine.heap.it.set_to msg.to_s
       end
-      
+
     end
   end
 end

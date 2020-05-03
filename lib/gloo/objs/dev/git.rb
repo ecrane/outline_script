@@ -7,44 +7,44 @@
 module Gloo
   module Objs
     class Git < Gloo::Core::Obj
-      
-      KEYWORD = 'git_repo'
-      KEYWORD_SHORT = 'git'
 
-      # 
+      KEYWORD = 'git_repo'.freeze
+      KEYWORD_SHORT = 'git'.freeze
+
+      #
       # The name of the object type.
-      # 
+      #
       def self.typename
         return KEYWORD
       end
 
-      # 
+      #
       # The short name of the object type.
-      # 
+      #
       def self.short_typename
         return KEYWORD_SHORT
       end
-      
-      # 
+
+      #
       # Get the path to the git repo (locally).
-      # 
+      #
       def get_path
         return value
       end
 
-      
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
 
-      # 
+      #
       # Get a list of message names that this object receives.
-      # 
+      #
       def self.messages
         return super + [ "validate", "check_changes", "get_changes",
 				 	"commit", "get_branch" ]
       end
-			
+
 			# Get the current working branch.
 			def msg_get_branch
 				branch = ""
@@ -54,7 +54,7 @@ module Gloo
 					branch = branch.strip
 				end
 
-				$engine.heap.it.set_to branch        
+				$engine.heap.it.set_to branch
 			end
 
 
@@ -81,7 +81,7 @@ module Gloo
 					result = `cd #{path}; git status -s`
 				end
 				result = result ? result : ""
-				$engine.heap.it.set_to result        
+				$engine.heap.it.set_to result
       end
 
 			# Check to see if the repo has changes.
@@ -93,9 +93,9 @@ module Gloo
 				  result = true unless ( data.strip.length == 0 )
 				end
 
-				$engine.heap.it.set_to result        
+				$engine.heap.it.set_to result
       end
-      
+
       # Check to make sure this is a valide git repo.
       def msg_validate
 				result = false
@@ -104,9 +104,9 @@ module Gloo
 					result = File.exists? File.join( path, '.git' )
 				end
 
-				$engine.heap.it.set_to result        
+				$engine.heap.it.set_to result
       end
-      
+
     end
   end
 end

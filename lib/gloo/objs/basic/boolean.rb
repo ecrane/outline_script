@@ -7,36 +7,36 @@
 module Gloo
   module Objs
     class Boolean < Gloo::Core::Obj
-      
-      KEYWORD = 'boolean'
-      KEYWORD_SHORT = 'bool'
-      TRUE = 'true'
-      FALSE = 'false'
 
-      # 
+      KEYWORD = 'boolean'.freeze
+      KEYWORD_SHORT = 'bool'.freeze
+      TRUE = 'true'.freeze
+      FALSE = 'false'.freeze
+
+      #
       # The name of the object type.
-      # 
+      #
       def self.typename
         return KEYWORD
       end
 
-      # 
+      #
       # The short name of the object type.
-      # 
+      #
       def self.short_typename
         return KEYWORD_SHORT
       end
 
-      # 
+      #
       # Set the value with any necessary type conversions.
-      # 
+      #
       def set_value new_value
         self.value = Gloo::Objs::Boolean.coerse_to_bool( new_value )
       end
-      
-      # 
+
+      #
       # Coerse the new value to a boolean value.
-      # 
+      #
       def self.coerse_to_bool new_value
         if new_value.nil?
           return false
@@ -52,10 +52,10 @@ module Gloo
           return new_value == true
         end
       end
-      
-      # 
+
+      #
       # Is the given token a boolean?
-      # 
+      #
       def self.is_boolean? token
         return true if token == true
         return true if token == false
@@ -66,26 +66,26 @@ module Gloo
         return false
       end
 
-      
-      # 
+
+      #
       # Get the value for display purposes.
-      # 
+      #
       def value_display
         return value ? TRUE : FALSE
       end
 
-      
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
 
-      # 
+      #
       # Get a list of message names that this object receives.
-      # 
+      #
       def self.messages
         return super + [ "not", "true", "false" ]
       end
-      
+
       # Set the value to the opposite of what it is.
       def msg_not
         v = ! value

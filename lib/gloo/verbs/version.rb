@@ -7,31 +7,31 @@
 module Gloo
   module Verbs
     class Version < Gloo::Core::Verb
-      
-      KEYWORD = 'version'
-      KEYWORD_SHORT = 'v'
 
-      # 
+      KEYWORD = 'version'.freeze
+      KEYWORD_SHORT = 'v'.freeze
+
+      #
       # Run the verb.
-      # 
+      #
       def run
         $log.show Gloo::App::Info.display_title
       end
-      
-      # 
+
+      #
       # Get the Verb's keyword.
-      # 
+      #
       def self.keyword
         return KEYWORD
       end
-      
-      # 
+
+      #
       # Get the Verb's keyword shortcut.
-      # 
+      #
       def self.keyword_shortcut
         return KEYWORD_SHORT
       end
-      
+
     end
   end
 end

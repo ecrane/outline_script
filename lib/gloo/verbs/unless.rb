@@ -7,14 +7,14 @@
 module Gloo
   module Verbs
     class Unless < Gloo::Core::Verb
-      
-      KEYWORD = 'unless'
-      KEYWORD_SHORT = 'if!'
-      THEN = 'do'
-      
-      # 
+
+      KEYWORD = 'unless'.freeze
+      KEYWORD_SHORT = 'if!'.freeze
+      THEN = 'do'.freeze
+
+      #
       # Run the verb.
-      # 
+      #
       def run
         value = @tokens.before_token( THEN )
         if value.count > 1
@@ -23,30 +23,30 @@ module Gloo
         end
 
         evals_false = false
-        if value.count > 0
+        if value.count.positive?
           expr = Gloo::Expr::Expression.new( value )
           result = expr.evaluate
           evals_false = true if result == false
         end
-        
-        if evals_false
-          cmd = @tokens.expr_after( THEN )
-          i = $engine.parser.parse_immediate cmd
-          return unless i
-          i.run
-        end
+        return unless evals_false
+
+        cmd = @tokens.expr_after( THEN )
+        i = $engine.parser.parse_immediate cmd
+        return unless i
+
+        i.run
       end
-      
-      # 
+
+      #
       # Get the Verb's keyword.
-      # 
+      #
       def self.keyword
         return KEYWORD
       end
 
-      # 
+      #
       # Get the Verb's keyword shortcut.
-      # 
+      #
       def self.keyword_shortcut
         return KEYWORD_SHORT
       end

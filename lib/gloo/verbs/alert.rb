@@ -7,32 +7,34 @@
 module Gloo
   module Verbs
     class Alert < Gloo::Core::Verb
-      
-      KEYWORD = 'alert'
-      KEYWORD_SHORT = '!'
 
-      # 
+      KEYWORD = 'alert'.freeze
+      KEYWORD_SHORT = '!'.freeze
+
+      #
       # Run the verb.
-      # 
+      #
       def run
-        if @tokens.token_count > 1
-          expr = Gloo::Expr::Expression.new( @tokens.params )
-          result = expr.evaluate
-          $engine.heap.it.set_to result
-          system( '/usr/bin/osascript -e "display notification \"' + result.to_s + '\" with title \"OutlineScript\" "' ) 
-        end
+        return unless @tokens.token_count > 1
+
+        expr = Gloo::Expr::Expression.new( @tokens.params )
+        result = expr.evaluate
+        $engine.heap.it.set_to result
+        cmd1 = '/usr/bin/osascript -e "display notification \"'
+        cmd2 = '\" with title \"OutlineScript\" "'
+        system( cmd1 + result.to_s + cmd2 )
       end
-                
-      # 
+
+      #
       # Get the Verb's keyword.
-      # 
+      #
       def self.keyword
         return KEYWORD
       end
 
-      # 
+      #
       # Get the Verb's keyword shortcut.
-      # 
+      #
       def self.keyword_shortcut
         return KEYWORD_SHORT
       end

@@ -9,11 +9,11 @@ require 'active_support/inflector'
 module Gloo
   module Utils
     class Words
-      
+
       def self.pluralize( word )
         return word.pluralize
       end
-      
+
     end
   end
 end

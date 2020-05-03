@@ -7,29 +7,29 @@
 module Gloo
   module Persist
     class FileLoader
-      
-      BEGIN_BLOCK = "BEGIN"
-      END_BLOCK = "END"
-      
+
+      BEGIN_BLOCK = 'BEGIN'.freeze
+      END_BLOCK = 'END'.freeze
+
       attr_reader :obj
-      
+
       # Set up a file storage for an object.
-      def initialize pn
+      def initialize( pn )
         @pn = pn
         @tabs = 0
         @obj = nil
         @in_multiline = false
         @exiting_multiline = false
         @in_block = false
-        @block_value = ""
-				@debug = false
+        @block_value = ''
+        @debug = false
       end
-            
-      # 
+
+      #
       # Load the objects from the file.
-      # 
+      #
       def load
-        unless File.exists?( @pn )
+        unless File.exist?( @pn )
           $log.error "File '#{@pn}' does not exist."
           return
         end
@@ -37,9 +37,10 @@ module Gloo
         @parent_stack = []
         @parent = $engine.heap.root
         @parent_stack.push @parent
-        f = File.open( @pn, "r" ) 
+        f = File.open( @pn, 'r' )
         f.each_line do |line|
           next if skip_line? line
+
           if line.strip.end_with? BEGIN_BLOCK
             @in_block = true
             @save_line = line
@@ -57,115 +58,114 @@ module Gloo
           end
         end
       end
-      
+
       # Is this line a comment or a blank line?
       # If so we'll skip it.
-      def skip_line? line
+      def skip_line?( line )
         line = line.strip
         return true if line.empty?
-        return true if line[0] == "#"
+        return true if line[0] == '#'
+
         return false
       end
-      
+
       # Determine the relative indent level for the line.
-      def determine_indent line
+      def determine_indent( line )
         tabs = tab_count( line )
-        @indent = 0  # same level as prior line
-        if tabs > @tabs  # indent
+        @indent = 0 # same level as prior line
+        if tabs > @tabs # indent
           # TODO:  What if indent is more than one more level?
           @tabs = tabs
           @indent = 1
-        elsif tabs < @tabs  # outdent
+        elsif tabs < @tabs # outdent
           while tabs < @tabs
             @tabs -= 1
             @indent -= 1
           end
         end
-				puts "tabs: #{@tabs}, indent: #{@indent}, line: #{line}" if @debug
+        puts "tabs: #{@tabs}, indent: #{@indent}, line: #{line}" if @debug
       end
 
       # Process one line and add objects.
-      def process_line line
+      def process_line( line )
         # reset multiline unless we're actually indented
         if @in_multiline && @multi_indent > @indent
-					puts "Done multiline mi: #{@multi_indent}, i: #{@indent}" if @debug
+          puts "Done multiline mi: #{@multi_indent}, i: #{@indent}" if @debug
           @in_multiline = false
           @exiting_multiline = true
         end
-        
+
         if @in_multiline
           @last.add_line line
         else
           process_obj_line line
         end
       end
-      
+
       # Process one line and add objects.
-      def process_obj_line line
+      def process_obj_line( line )
         if @exiting_multiline
           @exiting_multiline = false
-        elsif @indent > 0
+        elsif @indent.positive?
           @parent = @last
           @parent_stack.push @parent
-        elsif @indent < 0
+        elsif @indent.negative?
           @indent.abs.times do
             @parent_stack.pop
             @parent = @parent_stack.last
           end
         end
-        
+
         name, type, value = split_line( line )
-        unless @block_value == ""
+        unless @block_value == ''
           value = @block_value
-          @block_value = ""
+          @block_value = ''
         end
         @last = $engine.factory.create( name, type, value, @parent )
-        if @last && @last.has_multiline_value?
+        if @last&.has_multiline_value?
           @multi_indent = 0
           @in_multiline = true
-					puts "*** Start multiline. multi_indent: #{@multi_indent}" if @debug
+          puts "*** Start multiline. multi_indent: #{@multi_indent}" if @debug
         end
-        
+
         @obj = @last if @obj.nil?
       end
-      
+
       # Get the number of leading tabs.
-      def tab_count line
+      def tab_count( line )
         i = 0
-        while line[i] == "\t"
-          i += 1
-        end
+        i += 1 while line[i] == "\t"
         return i
       end
-      
+
       # Split the line into 3 parts.
-      def split_line line
-				puts "splitting line: #{line}" if @debug
+      def split_line( line )
+        puts "splitting line: #{line}" if @debug
         line = line[ @tabs..-1]
-				line = line[0..-2] if line[-1] == "\n"
+        line = line[0..-2] if line[-1] == "\n"
         i = line.index( ' ' )
-        name = line[0..i-1]
-        
-        line = line[i+1..-1]
+        name = line[0..i - 1]
+
+        line = line[i + 1..-1]
         i = line.index( ' ' )
-        type = line[0..(i ? i-1 : -1)]
+        type = line[0..(i ? i - 1 : -1)]
         type = type[1..-1] if type[0] == '['
         type = type[0..-2] if type[-1] == ']'
-        
-				if i
-	        value = line[i+1..-1]
-					if value[0..1] == ': '
-						value = value[2..-1] 
-					elsif value[0] == ':'
-	        	value = value[1..-1] 
-					end
-				else
-					value = nil
-				end
-				# puts "'#{value}'".yellow
+
+        if i
+          value = line[ i + 1..-1]
+          if value[0..1] == ': '
+            value = value[2..-1]
+          elsif value[0] == ':'
+            value = value[1..-1]
+          end
+        else
+          value = nil
+        end
+        # puts "'#{value}'".yellow
         return name, type, value
       end
-      
+
     end
   end
 end

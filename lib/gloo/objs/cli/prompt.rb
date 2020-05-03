@@ -7,45 +7,45 @@
 module Gloo
   module Objs
     class Prompt < Gloo::Core::Obj
-      
-      KEYWORD = 'prompt'
-      KEYWORD_SHORT = 'ask'
-      PROMPT = 'prompt'
-      RESULT = 'result'
 
-      # 
+      KEYWORD = 'prompt'.freeze
+      KEYWORD_SHORT = 'ask'.freeze
+      PROMPT = 'prompt'.freeze
+      RESULT = 'result'.freeze
+
+      #
       # The name of the object type.
-      # 
+      #
       def self.typename
         return KEYWORD
       end
 
-      # 
+      #
       # The short name of the object type.
-      # 
+      #
       def self.short_typename
         return KEYWORD_SHORT
       end
-      
-      # 
+
+      #
       # Get the URI from the child object.
       # Returns nil if there is none.
-      # 
+      #
       def get_prompt
         o = find_child PROMPT
         return nil unless o
         return o.value
       end
-      
-      # 
+
+      #
       # Set the result of the system call.
-      # 
+      #
       def set_result data
         r = find_child RESULT
         return nil unless r
         r.set_value data
       end
-            
+
 
       # ---------------------------------------------------------------------
       #    Children
@@ -57,9 +57,9 @@ module Gloo
       def add_children_on_create?
         return true
       end
-      
+
       # Add children to this object.
-      # This is used by containers to add children needed 
+      # This is used by containers to add children needed
       # for default configurations.
       def add_default_children
         fac = $engine.factory
@@ -67,18 +67,18 @@ module Gloo
         fac.create "result", "string", nil, self
       end
 
-      
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
 
-      # 
+      #
       # Get a list of message names that this object receives.
-      # 
+      #
       def self.messages
         return super + [ "run" ]
       end
-      
+
       # Run the system command.
       def msg_run
         prompt = get_prompt
@@ -86,7 +86,7 @@ module Gloo
         result = $prompt.ask( prompt )
         set_result result
       end
-      
+
     end
   end
 end

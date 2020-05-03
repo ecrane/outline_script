@@ -12,40 +12,40 @@
 module Gloo
   module Objs
     class Each < Gloo::Core::Obj
-      
-      KEYWORD = 'each'
-      KEYWORD_SHORT = 'each'
-      WORD = 'word'
-      LINE = 'line'
-      FILE = 'file'
-      REPO = 'repo'
-      IN = 'IN'
-      DO = 'do'
 
-      # 
+      KEYWORD = 'each'.freeze
+      KEYWORD_SHORT = 'each'.freeze
+      WORD = 'word'.freeze
+      LINE = 'line'.freeze
+      FILE = 'file'.freeze
+      REPO = 'repo'.freeze
+      IN = 'IN'.freeze
+      DO = 'do'.freeze
+
+      #
       # The name of the object type.
-      # 
+      #
       def self.typename
         return KEYWORD
       end
 
-      # 
+      #
       # The short name of the object type.
-      # 
+      #
       def self.short_typename
         return KEYWORD_SHORT
       end
-      
-      # 
+
+      #
       # Get the URI from the child object.
       # Returns nil if there is none.
-      # 
+      #
       def get_in
         o = find_child IN
         return nil unless o
         return o.value
       end
-      
+
       # Run the do script once.
       def run_do
         o = find_child DO
@@ -54,7 +54,7 @@ module Gloo
         end
       end
 
-      
+
 
       # ---------------------------------------------------------------------
       #    Children
@@ -66,9 +66,9 @@ module Gloo
       def add_children_on_create?
         return true
       end
-      
+
       # Add children to this object.
-      # This is used by containers to add children needed 
+      # This is used by containers to add children needed
       # for default configurations.
       def add_default_children
         fac = $engine.factory
@@ -77,18 +77,18 @@ module Gloo
         fac.create "do", "script", "", self
       end
 
-      
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
 
-      # 
+      #
       # Get a list of message names that this object receives.
-      # 
+      #
       def self.messages
         return super + [ "run" ]
       end
-      
+
       # Run the system command.
       def msg_run
         if each_word?
@@ -99,8 +99,8 @@ module Gloo
           run_each_repo
         end
       end
-      
-      
+
+
       # ---------------------------------------------------------------------
       #    Word
       # ---------------------------------------------------------------------
@@ -123,14 +123,14 @@ module Gloo
           run_do
         end
       end
-      
+
       # Set the value of the word.
       def set_word word
         o = find_child WORD
         return unless o
         o.set_value word
       end
-      
+
 
       # ---------------------------------------------------------------------
       #    Line
@@ -144,7 +144,7 @@ module Gloo
         return true if o
         return false
       end
-      
+
       # Run for each line.
       def run_each_line
         str = get_in
@@ -154,7 +154,7 @@ module Gloo
           run_do
         end
       end
-      
+
       # Set the value of the word.
       def set_line line
         o = find_child LINE
@@ -176,7 +176,7 @@ module Gloo
         return true if o
         return false
       end
-      
+
       def find_all_git_projects( path )
         path.children.collect do |f|
           if f.directory? && ( File.basename( f ) == '.git' )
@@ -198,7 +198,7 @@ module Gloo
           run_do
         end
       end
-      
+
       # Set the value of the repo.
       # This is a path to the repo.
       def set_repo path

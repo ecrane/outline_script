@@ -7,36 +7,36 @@
 module Gloo
   module Objs
     class Container < Gloo::Core::Obj
-      
-      KEYWORD = 'container'
-      KEYWORD_SHORT = 'can'
 
-      # 
+      KEYWORD = 'container'.freeze
+      KEYWORD_SHORT = 'can'.freeze
+
+      #
       # The name of the object type.
-      # 
+      #
       def self.typename
         return KEYWORD
       end
 
-      # 
+      #
       # The short name of the object type.
-      # 
+      #
       def self.short_typename
         return KEYWORD_SHORT
       end
 
-      
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
 
-      # 
+      #
       # Get a list of message names that this object receives.
-      # 
+      #
       def self.messages
         return super + [ "count" ]
       end
-      
+
       # Count the number of children in the container.
       def msg_count
         i = child_count
