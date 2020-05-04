@@ -15,6 +15,9 @@ Style/Documentation:
 Style/RedundantSelf:
   Enabled: false
 
+Style/HashSyntax:
+  EnforcedStyle: no_mixed_keys
+
 # Might want to try re-enabling these:
 Metrics/AbcSize:
   Enabled: false
@@ -31,4 +34,6 @@ Metrics/PerceivedComplexity:
 Metrics/CyclomaticComplexity:
   Enabled: false
 Naming/MethodParameterName:
+  Enabled: false
+Naming/AccessorMethodName:
   Enabled: false

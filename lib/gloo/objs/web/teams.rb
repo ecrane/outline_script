@@ -36,36 +36,32 @@ module Gloo
       # Get the URI from the child object.
       # Returns nil if there is none.
       #
-      def get_uri
+      def uri_value
         uri = find_child URL
         return nil unless uri
+
         return uri.value
       end
 
-			# Get the color value.
-			def get_color
-				c = find_child COLOR
+      # Get the color value.
+      def color_value
+        c = find_child COLOR
         return nil unless c
+
         return c.value
-			end
+      end
 
       #
       # Get all the children of the body container and
       # convert to JSON that will be sent in the HTTP body.
       #
-      def get_body_as_json
+      def body_as_json
         h = { 'title' => find_child( TITLE ).value,
-          'text' => find_child( MSG ).value
-         }
-
-				color = get_color
-				if color
-				 h[ 'themeColor' ] = color
-			 end
-
+              'text' => find_child( MSG ).value }
+        color = color_value
+        h[ 'themeColor' ] = color if color
         return h.to_json
       end
-
 
       # ---------------------------------------------------------------------
       #    Children
@@ -83,12 +79,11 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create URL, "string", "https://outlook.office.com/webhook/...", self
-        fac.create TITLE, "string", "", self
-				fac.create COLOR, "color", "008000", self
-				fac.create MSG, "string", "", self
+        fac.create URL, 'string', 'https://outlook.office.com/webhook/...', self
+        fac.create TITLE, 'string', '', self
+        fac.create COLOR, 'color', '008000', self
+        fac.create MSG, 'string', '', self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -98,18 +93,15 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Post the content to the endpoint.
       def msg_run
-        uri = get_uri
+        uri = uri_value
         return unless uri
 
-        body = get_body_as_json
-        # puts body
-
-        Gloo::Objs::HttpPost.post_json uri, body, true
+        Gloo::Objs::HttpPost.post_json uri, body_as_json, true
       end
 
     end
