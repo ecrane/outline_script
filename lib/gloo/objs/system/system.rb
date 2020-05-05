@@ -32,18 +32,20 @@ module Gloo
       # Get the URI from the child object.
       # Returns nil if there is none.
       #
-      def get_cmd
+      def cmd_value
         cmd = find_child CMD
         return nil unless cmd
+
         return cmd.value
       end
 
       #
       # Set the result of the system call.
       #
-      def set_result data
+      def set_result( data )
         r = find_child RESULT
         return nil unless r
+
         r.set_value data
       end
 
@@ -52,12 +54,12 @@ module Gloo
       # If so, the system call will run and get output,
       # otherwise it will just get the result of the call.
       #
-      def has_output?
+      def output?
         o = find_child GET_OUTPUT
         return false unless o
+
         return o.value
       end
-
 
       # ---------------------------------------------------------------------
       #    Children
@@ -75,11 +77,10 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create "command", "string", "date", self
-        fac.create "get_output", "boolean", true, self
-        fac.create "result", "string", nil, self
+        fac.create 'command', 'string', 'date', self
+        fac.create 'get_output', 'boolean', true, self
+        fac.create 'result', 'string', nil, self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -89,12 +90,12 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Run the system command.
       def msg_run
-        if has_output?
+        if output?
           run_with_output
         else
           run_with_result
@@ -102,15 +103,17 @@ module Gloo
       end
 
       def run_with_output
-        cmd = get_cmd
+        cmd = cmd_value
         return unless cmd
+
         result = `#{cmd}`
         set_result result
       end
 
       def run_with_result
-        cmd = get_cmd
+        cmd = cmd_value
         return unless cmd
+
         result = system cmd
         set_result result
       end
