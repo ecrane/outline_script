@@ -32,25 +32,27 @@ module Gloo
       #
       # Get the ERB template.
       #
-      def get_template
+      def template_value
         tmpl = find_child TEMPLATE
         return nil unless tmpl
+
         return tmpl.value
       end
 
       #
       # Set the result of the system call.
       #
-      def set_result data
+      def set_result( data )
         r = find_child RESULT
         return nil unless r
+
         r.set_value data
       end
 
       #
       # Get a hash with parameters for the ERB render.
       #
-      def get_param_hash
+      def param_hash
         h = {}
 
         body = find_child PARAMS
@@ -60,8 +62,6 @@ module Gloo
 
         return h
       end
-
-
 
       # ---------------------------------------------------------------------
       #    Children
@@ -79,11 +79,10 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create "template", "text", "", self
-        fac.create "params", "container", nil, self
-        fac.create "result", "text", nil, self
+        fac.create 'template', 'text', '', self
+        fac.create 'params', 'container', nil, self
+        fac.create 'result', 'text', nil, self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -93,15 +92,16 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Run the system command.
       def msg_run
-        tmpl = get_template
+        tmpl = template_value
         return unless tmpl
+
         render = ERB.new( tmpl )
-        set_result render.result_with_hash( get_param_hash )
+        set_result render.result_with_hash( param_hash )
       end
 
     end

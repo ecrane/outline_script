@@ -31,21 +31,22 @@ module Gloo
       # Get the URI from the child object.
       # Returns nil if there is none.
       #
-      def get_cmd
+      def cmd_value
         cmd = find_child CMD
         return nil unless cmd
+
         return cmd.value
       end
 
       #
       # Set the result of the system call.
       #
-      def set_result data
+      def set_result( data )
         r = find_child RESULT
         return nil unless r
+
         r.set_value data
       end
-
 
       # ---------------------------------------------------------------------
       #    Children
@@ -63,10 +64,9 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create "command", "string", "date", self
-        fac.create "result", "string", nil, self
+        fac.create 'command', 'string', 'date', self
+        fac.create 'result', 'string', nil, self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -76,13 +76,14 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Run the system command.
       def msg_run
-        cmd = get_cmd
+        cmd = cmd_value
         return unless cmd
+
         result = eval cmd
         set_result result
       end

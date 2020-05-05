@@ -14,7 +14,9 @@ Style/Documentation:
   Enabled: false
 Style/RedundantSelf:
   Enabled: false
-
+Security/Eval:
+  Enabled: false
+  
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
