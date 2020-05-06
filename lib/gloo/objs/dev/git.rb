@@ -28,10 +28,9 @@ module Gloo
       #
       # Get the path to the git repo (locally).
       #
-      def get_path
+      def path_value
         return value
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -41,70 +40,75 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "validate", "check_changes", "get_changes",
-				 	"commit", "get_branch" ]
+        return super + %w[validate check_changes get_changes commit get_branch]
       end
 
-			# Get the current working branch.
-			def msg_get_branch
-				branch = ""
-				path = get_path
-				if path and File.directory?( path )
-					branch = `cd #{path}; git rev-parse --abbrev-ref HEAD`
-					branch = branch.strip
-				end
+      # Get the current working branch.
+      def msg_get_branch
+        branch = ''
+        path = path_value
+        if path_is_dir?( path )
+          branch = `cd #{path}; git rev-parse --abbrev-ref HEAD`
+          branch = branch.strip
+        end
 
-				$engine.heap.it.set_to branch
-			end
+        $engine.heap.it.set_to branch
+      end
 
-
-			# Check to see if the repo has changes.
+      # Check to see if the repo has changes.
       def msg_commit
-				msg = "Commit"
-        path = get_path
-        if path && File.directory?( path )
-					if @params && @params.token_count > 0
-						expr = Gloo::Expr::Expression.new( @params.tokens )
-						msg = expr.evaluate
-	        end
-					branch = `cd #{path}; git rev-parse --abbrev-ref HEAD`
-					branch = branch.strip
-					result = `cd #{path}; git add .; git commit -m "#{msg}";git push origin #{branch}`
-				end
-				$engine.heap.it.set_to msg
+        msg = 'Commit'
+        path = path_value
+        if path_is_dir?( path )
+          if @params&.token_count&.positive?
+            expr = Gloo::Expr::Expression.new( @params.tokens )
+            msg = expr.evaluate
+          end
+          branch = `cd #{path}; git rev-parse --abbrev-ref HEAD`
+          branch = branch.strip
+          add = 'git add .'
+          cmt = 'git commit -m '
+          psh = 'git push origin '
+          `cd #{path};#{add};#{cmt}"#{msg}";#{psh}#{branch}`
+        end
+        $engine.heap.it.set_to msg
       end
 
-			# Check to see if the repo has changes.
+      # Check to see if the repo has changes.
       def msg_get_changes
-        path = get_path
-        if path and File.directory?( path )
-					result = `cd #{path}; git status -s`
-				end
-				result = result ? result : ""
-				$engine.heap.it.set_to result
+        path = path_value
+        result = `cd #{path}; git status -s` if path_is_dir?( path )
+        result ||= ''
+        $engine.heap.it.set_to result
       end
 
-			# Check to see if the repo has changes.
-      def msg_check_changes
-				result = false
-        path = get_path
-        if path and File.directory?( path )
-					data = `cd #{path}; git status -s`
-				  result = true unless ( data.strip.length == 0 )
-				end
+      # Is the given path non nil and is it a directory?
+      def path_is_dir?( path )
+        return path && File.directory?( path )
+      end
 
-				$engine.heap.it.set_to result
+      # Check to see if the repo has changes.
+      def msg_check_changes
+        result = false
+        path = path_value
+        if path_is_dir?( path )
+          data = `cd #{path}; git status -s`
+          result = true unless data.strip.empty?
+        end
+
+        $engine.heap.it.set_to result
       end
 
       # Check to make sure this is a valide git repo.
       def msg_validate
-				result = false
-        path = get_path
-        if path and File.directory?( path )
-					result = File.exists? File.join( path, '.git' )
-				end
+        result = false
+        path = path_value
+        if path_is_dir?( path )
+          pn = File.join( path, '.git' )
+          result = File.exist? pn
+        end
 
-				$engine.heap.it.set_to result
+        $engine.heap.it.set_to result
       end
 
     end
