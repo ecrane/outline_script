@@ -40,21 +40,18 @@ module Gloo
       # Get the URI from the child object.
       # Returns nil if there is none.
       #
-      def get_in
+      def in_value
         o = find_child IN
         return nil unless o
+
         return o.value
       end
 
       # Run the do script once.
       def run_do
         o = find_child DO
-        if o.can_receive_message? "run"
-          o.send_message "run"
-        end
+        o.send_message( 'run' ) if o.can_receive_message? 'run'
       end
-
-
 
       # ---------------------------------------------------------------------
       #    Children
@@ -72,11 +69,10 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create "word", "string", "", self
-        fac.create "in", "string", "", self
-        fac.create "do", "script", "", self
+        fac.create 'word', 'string', '', self
+        fac.create 'in', 'string', '', self
+        fac.create 'do', 'script', '', self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -86,7 +82,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Run the system command.
@@ -100,7 +96,6 @@ module Gloo
         end
       end
 
-
       # ---------------------------------------------------------------------
       #    Word
       # ---------------------------------------------------------------------
@@ -111,26 +106,28 @@ module Gloo
       def each_word?
         o = find_child WORD
         return true if o
+
         return false
       end
 
       # Run for each word.
       def run_each_word
-        str = get_in
+        str = in_value
         return unless str
-        str.split( " " ).each do |word|
+
+        str.split( ' ' ).each do |word|
           set_word word
           run_do
         end
       end
 
       # Set the value of the word.
-      def set_word word
+      def set_word( word )
         o = find_child WORD
         return unless o
+
         o.set_value word
       end
-
 
       # ---------------------------------------------------------------------
       #    Line
@@ -142,27 +139,28 @@ module Gloo
       def each_line?
         o = find_child LINE
         return true if o
+
         return false
       end
 
       # Run for each line.
       def run_each_line
-        str = get_in
+        str = in_value
         return unless str
-        str.split( "\n" ).each do |line|
+
+        str.split( '\n' ).each do |line|
           set_line line
           run_do
         end
       end
 
       # Set the value of the word.
-      def set_line line
+      def set_line( line )
         o = find_child LINE
         return unless o
+
         o.set_value line
       end
-
-
 
       # ---------------------------------------------------------------------
       #    Git Repo
@@ -174,6 +172,7 @@ module Gloo
       def each_repo?
         o = find_child REPO
         return true if o
+
         return false
       end
 
@@ -189,8 +188,9 @@ module Gloo
 
       # Run for each line.
       def run_each_repo
-        path = get_in
+        path = in_value
         return unless path
+
         path = Pathname.new( path )
         repos = find_all_git_projects( path )
         repos.each do |o|
@@ -201,9 +201,10 @@ module Gloo
 
       # Set the value of the repo.
       # This is a path to the repo.
-      def set_repo path
+      def set_repo( path )
         o = find_child REPO
         return unless o
+
         o.set_value path
       end
 
