@@ -26,7 +26,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-
       # ---------------------------------------------------------------------
       #    Children
       # ---------------------------------------------------------------------
@@ -43,9 +42,8 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create "white", "string", "", self
+        fac.create 'white', 'string', '', self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -55,17 +53,17 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Run the system command.
       def msg_run
-				msg = ""
-				children.each do |o|
-					msg += ColorizedString[ o.value_display ].colorize( o.name.to_sym )
-				end
-				$log.show msg
-				$engine.heap.it.set_to msg.to_s
+        msg = ''
+        children.each do |o|
+          msg += ColorizedString[ o.value_display ].colorize( o.name.to_sym )
+        end
+        $log.show msg
+        $engine.heap.it.set_to msg.to_s
       end
 
     end

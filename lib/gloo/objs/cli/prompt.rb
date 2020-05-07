@@ -31,21 +31,22 @@ module Gloo
       # Get the URI from the child object.
       # Returns nil if there is none.
       #
-      def get_prompt
+      def prompt_value
         o = find_child PROMPT
         return nil unless o
+
         return o.value
       end
 
       #
       # Set the result of the system call.
       #
-      def set_result data
+      def set_result( data )
         r = find_child RESULT
         return nil unless r
+
         r.set_value data
       end
-
 
       # ---------------------------------------------------------------------
       #    Children
@@ -63,10 +64,9 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create "prompt", "string", "> ", self
-        fac.create "result", "string", nil, self
+        fac.create 'prompt', 'string', '> ', self
+        fac.create 'result', 'string', nil, self
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -76,13 +76,14 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       # Run the system command.
       def msg_run
-        prompt = get_prompt
+        prompt = prompt_value
         return unless prompt
+
         result = $prompt.ask( prompt )
         set_result result
       end
