@@ -30,42 +30,41 @@ module Gloo
       #
       # Set the value with any necessary type conversions.
       #
-      def set_value new_value
+      def set_value( new_value )
         self.value = Gloo::Objs::Boolean.coerse_to_bool( new_value )
       end
 
       #
       # Coerse the new value to a boolean value.
       #
-      def self.coerse_to_bool new_value
-        if new_value.nil?
-          return false
-        elsif new_value.class.name == "String"
+      def self.coerse_to_bool( new_value )
+        return false if new_value.nil?
+
+        if new_value.class.name == 'String'
           return true if new_value.strip.downcase == TRUE
           return false if new_value.strip.downcase == FALSE
           return true if new_value.strip.downcase == 't'
           return false if new_value.strip.downcase == 'f'
-        elsif new_value.class.name == "Integer"
-          return false if new_value == 0
-          return true
-        else
-          return new_value == true
+        elsif new_value.class.name == 'Integer'
+          return new_value.zero? ? false : true
         end
+
+        return new_value == true
       end
 
       #
       # Is the given token a boolean?
       #
-      def self.is_boolean? token
+      def self.is_boolean?( token )
         return true if token == true
         return true if token == false
-        if token.class.name == "String"
+
+        if token.class.name == 'String'
           return true if token.strip.downcase == TRUE
           return true if token.strip.downcase == FALSE
         end
         return false
       end
-
 
       #
       # Get the value for display purposes.
@@ -73,7 +72,6 @@ module Gloo
       def value_display
         return value ? TRUE : FALSE
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -83,12 +81,12 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "not", "true", "false" ]
+        return super + %w[not true false]
       end
 
       # Set the value to the opposite of what it is.
       def msg_not
-        v = ! value
+        v = !value
         set_value v
         $engine.heap.it.set_to v
         return v

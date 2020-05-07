@@ -28,10 +28,9 @@ module Gloo
       #
       # Set the value with any necessary type conversions.
       #
-      def set_value new_value
+      def set_value( new_value )
         self.value = new_value.to_s
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -41,7 +40,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "up", "down" ]
+        return super + %w[up down]
       end
 
       # Convert string to upper case

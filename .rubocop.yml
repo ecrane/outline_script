@@ -16,7 +16,7 @@ Style/RedundantSelf:
   Enabled: false
 Security/Eval:
   Enabled: false
-  
+
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
@@ -38,4 +38,6 @@ Metrics/CyclomaticComplexity:
 Naming/MethodParameterName:
   Enabled: false
 Naming/AccessorMethodName:
+  Enabled: false
+Naming/PredicateName:
   Enabled: false

@@ -28,7 +28,7 @@ module Gloo
       #
       # Set the value with any necessary type conversions.
       #
-      def set_value new_value
+      def set_value( new_value )
         self.value = new_value.to_s
       end
 
@@ -46,7 +46,6 @@ module Gloo
       def line_count
         return value.split( "\n" ).count
       end
-
 
       # ---------------------------------------------------------------------
       #    Messages

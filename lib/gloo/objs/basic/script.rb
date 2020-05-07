@@ -29,21 +29,21 @@ module Gloo
       #
       # Set the value with any necessary type conversions.
       #
-      def set_value new_value
+      def set_value( new_value )
         self.value = new_value.to_s
       end
 
       #
       # Set the value as an array.
       #
-      def set_array_value arr
+      def set_array_value( arr )
         self.value = arr
       end
 
       #
       # Add a line (cmd) to the script.
       #
-      def add_line line
+      def add_line( line )
         if self.value_is_string?
           first = self.value
           self.set_array_value []
@@ -66,16 +66,14 @@ module Gloo
       # Get the number of lines in this script.
       #
       def line_count
-        if self.value_is_array?
-          return self.value.count
-        elsif self.value_is_string?
-          return 0 if ( self.value.strip.empty? )
-          return 1
-        else
-          return 0
-        end
-      end
+        return self.value.count if self.value_is_array?
 
+        if self.value_is_string?
+          return self.value.strip.empty? ? 0 : 1
+        end
+
+        return 0
+      end
 
       # ---------------------------------------------------------------------
       #    Messages
@@ -85,7 +83,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ "run" ]
+        return super + [ 'run' ]
       end
 
       #
