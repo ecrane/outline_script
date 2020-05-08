@@ -9,12 +9,10 @@ module Gloo
     class OpDiv < Gloo::Core::Op
 
       # Perform the operation and return the result.
-      def perform left, right
-        if left.is_a? Integer
-          return left / right.to_i
-        end
+      def perform( left, right )
+        return left / right.to_i if left.is_a? Integer
       end
-      
+
     end
   end
 end

@@ -7,20 +7,21 @@
 module Gloo
   module Expr
     class LBoolean < Gloo::Core::Literal
-            
+
       # Is the given token a boolean?
-      def self.is_boolean? token
+      def self.is_boolean?( token )
         return Gloo::Objs::Boolean.is_boolean? token
       end
-      
+
       # Set the value, converting to an boolean.
-      def set_value value
+      def set_value( value )
         @value = Gloo::Objs::Boolean.coerse_to_bool value
       end
 
       # Get string representation
       def to_s
-        return "false" unless @value
+        return 'false' unless @value
+
         return @value.to_s
       end
 

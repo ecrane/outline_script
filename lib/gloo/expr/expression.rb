@@ -7,97 +7,91 @@
 module Gloo
   module Expr
     class Expression
-      
+
       # Create the expression from a list of tokens.
-      def initialize tokens
+      def initialize( tokens )
         @tokens = tokens
         @symbols = []
         @left = nil
         @right = nil
         @op = nil
       end
-      
+
       # Evaluate the expression and return the value.
       def evaluate
         identify_tokens
-        
+
         @symbols.each do |sym|
           if sym.is_a? Gloo::Core::Op
             @op = sym
-          elsif @left == nil
+          elsif @left.nil?
             @left = sym
           else
             @right = sym
           end
-          
+
           perform_op if @left && @right
         end
-        
-        if @left.is_a? Gloo::Core::Literal 
-          return @left.value
-        elsif @left.is_a? Gloo::Core::Pn
-          return resolve_ref @left
-        else
-          return @left
-        end
+
+        return @left.value if @left.is_a? Gloo::Core::Literal
+        return resolve_ref @left if @left.is_a? Gloo::Core::Pn
+
+        return @left
       end
-      
+
       # Perform the operation.
       def perform_op
-        @op = Gloo::Core::Op.default_op unless @op
+        @op ||= Gloo::Core::Op.default_op
         l = evaluate_sym @left
         r = evaluate_sym @right
         @left = @op.perform l, r
         @right = nil
         @op = nil
       end
-      
+
       # Evaluate the symbol and get a simple value.
-      def evaluate_sym sym
-        if sym.is_a? Gloo::Core::Literal
-          return sym.value
-        elsif sym.is_a? Gloo::Core::Pn
-          return resolve_ref sym
-        else
-          return sym
-        end
+      def evaluate_sym( sym )
+        return sym.value if sym.is_a? Gloo::Core::Literal
+        return resolve_ref sym if sym.is_a? Gloo::Core::Pn
+
+        return sym
       end
-      
+
       # resolve an object reference and get the value.
-      def resolve_ref ref
-				return ref.src if ref.is_color?
+      def resolve_ref( ref )
+        return ref.src if ref.is_color?
 
         ob = ref.resolve
         return ob.value if ob
       end
-      
+
       # Identify each token in the list.
       def identify_tokens
         @tokens.each do |o|
           @symbols << identify_token( o )
         end
-        
+
         # @symbols.each do |o|
         #   puts o.class.name
         # end
       end
-      
-      # 
+
+      #
       # Identify the tokens and create appropriate symbols.
-      # 
-      def identify_token token
+      #
+      def identify_token( token )
         if Gloo::Core::Op.is_op?( token )
           return Gloo::Core::Op.create_op( token )
         end
-        
+
         return LBoolean.new( token ) if LBoolean.is_boolean?( token )
         return LInteger.new( token ) if LInteger.is_integer?( token )
         return LString.new( token ) if LString.is_string?( token )
-        
+
         # last chance: an Object reference
         return Gloo::Core::Pn.new( token )
       end
-      
+
     end
   end
 end
