@@ -9,11 +9,9 @@ root = File.join( path, 'gloo', '**/*.rb' )
 Dir.glob( root ) { |ruby_file| require ruby_file }
 
 module Gloo
-
   def self.run
     params = []
     ( params << '--cli' ) if ARGV.count.zero?
     Gloo::App::Engine.new( params ).start
   end
-
 end
