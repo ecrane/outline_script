@@ -8,17 +8,17 @@
 module Gloo
   module Core
     class Baseo
-      
+
       attr_accessor :name
-      
+
       # Set up the object.
-      def initialize()
-        @name = ""
+      def initialize
+        @name = ''
       end
-      
-      # 
+
+      #
       # The object type, suitable for display.
-      # 
+      #
       def type_display
         raise 'this method should be overriden'
       end

@@ -7,16 +7,16 @@
 module Gloo
   module Core
     class It
-      
+
       attr_accessor :value
-      
+
       # Set up the object.
-      def initialize()
+      def initialize
         @value = nil
       end
-            
+
       # Set the value of it.
-      def set_to new_value
+      def set_to( new_value )
         @value = new_value
       end
 

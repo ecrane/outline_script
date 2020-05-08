@@ -7,13 +7,12 @@
 module Gloo
   module Core
     class Script
-      
+
       # Set up the script.
-      def initialize obj
+      def initialize( obj )
         @obj = obj
       end
-      
-      
+
       # Run the script.
       def run
         if @obj.value.is_a? String
@@ -24,14 +23,15 @@ module Gloo
           end
         end
       end
-      
+
       # Run a single line of the script.
-      def run_line line
+      def run_line( line )
         i = $engine.parser.parse_immediate line
         return unless i
+
         i.run
       end
-      
+
     end
   end
 end

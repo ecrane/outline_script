@@ -10,50 +10,50 @@
 module Gloo
   module Core
     class Verb < Baseo
-      
-			attr_reader :tokens, :params
-			
+
+      attr_reader :tokens, :params
+
       # Set up the verb.
-      def initialize( tokens, params=[] )
+      def initialize( tokens, params = [] )
         @tokens = tokens
-				@params = params
+        @params = params
       end
-      
+
       # Register verbs when they are loaded.
       def self.inherited( subclass )
         Dictionary.instance.register_verb( subclass )
       end
-      
-      # 
+
+      #
       # Run the verb.
-      # 
+      #
       # We'll mark the application as not running and let the
       # engine stop gracefully next time through the loop.
-      # 
+      #
       def run
         raise 'this method should be overriden'
       end
-      
-      # 
+
+      #
       # Get the Verb's keyword.
-      # 
+      #
       # The keyword will be in lower case only.
       # It is used by the parser.
-      # 
+      #
       def self.keyword
         raise 'this method should be overriden'
       end
 
-      # 
+      #
       # Get the Verb's keyword shortcut.
-      # 
+      #
       def self.keyword_shortcut
         raise 'this method should be overriden'
       end
-      
-      # 
+
+      #
       # The object type, suitable for display.
-      # 
+      #
       def type_display
         return self.class.keyword
       end

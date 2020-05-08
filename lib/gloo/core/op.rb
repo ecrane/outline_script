@@ -7,27 +7,27 @@
 module Gloo
   module Core
     class Op
-                  
+
       # Is the token an operator?
-      def self.is_op? token
-        return [ "+", "-", "*", "/" ].include?( token.strip )
+      def self.is_op?( token )
+        return [ '+', '-', '*', '/' ].include?( token.strip )
       end
-      
+
       # Create the operator for the given token.
-      def self.create_op token
+      def self.create_op( token )
         return Gloo::Expr::OpMinus.new if token == '-'
         return Gloo::Expr::OpMult.new if token == '*'
         return Gloo::Expr::OpDiv.new if token == '/'
         return Gloo::Expr::OpPlus.new if token == '+'
-        
+
         return default_op
       end
-      
+
       # Get the default operator (+).
       def self.default_op
         return Gloo::Expr::OpPlus.new
       end
-      
+
     end
   end
 end

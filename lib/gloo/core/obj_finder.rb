@@ -7,29 +7,24 @@
 module Gloo
   module Core
     class ObjFinder
-                  
-      # 
+
+      #
       # Find all objects in the given container that have
       # the given name.
       # If the container isn't provided, root will be used.
-      # 
-      def self.by_name name, container=nil
-        if container.nil?
-          container = $engine.heap.root
-        end
+      #
+      def self.by_name( name, container = nil )
+        container = $engine.heap.root if container.nil?
         arr = []
-        
+
         container.children.each do |o|
           arr << o if o.name == name
-          if o.child_count > 0
-            arr += by_name( name, o )
-          end
+          arr += by_name( name, o ) if o.child_count.positive?
         end
-        
+
         return arr
       end
-      
-      
+
     end
   end
 end
