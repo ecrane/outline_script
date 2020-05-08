@@ -11,19 +11,25 @@ module Gloo
       # Get text to display when the application is run
       # in HELP mode.
       def self.get_help_text
-        str = "\nNAME\n\tgloo\n\n"
-        str << "\nDESCRIPTION\n\tGloo scripting language.  A scripting language built on ruby.\n"
-        str << "\tMore information coming soon.\n\n"
-        str << "\nSYNOPSIS\n\tgloo [global option] [file]\n\n"
-        str << "\nGLOBAL OPTIONS\n"
-        str << "\t--cli \t\t - Run in CLI mode\n"
-        str << "\t--version \t - Show application version\n"
-        str << "\t--help \t\t - Show this help page\n"
-        str << "\n"
-        return str
+        return <<~TEXT
+          NAME
+          \tgloo
+
+          DESCRIPTION
+          \tGloo scripting language.  A scripting language built on ruby.
+          \tMore information coming soon.
+
+          SYNOPSIS
+          \tgloo [global option] [file]
+
+          GLOBAL OPTIONS
+          \t--cli \t\t - Run in CLI mode
+          \t--version \t - Show application version
+          \t--help \t\t - Show this help page
+
+        TEXT
       end
 
     end
   end
 end
-

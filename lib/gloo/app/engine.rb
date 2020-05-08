@@ -15,24 +15,24 @@ module Gloo
       attr_reader :args, :mode, :running
       attr_reader :dictionary, :parser, :heap, :factory
       attr_accessor :last_cmd, :persist_man, :event_manager
-      
+
       # Set up the engine with basic elements.
       def initialize( params = [] )
         $engine = self
         @args = Args.new( params )
         $settings = Settings.new( ENV[ 'GLOO_ENV' ] )
         $log = Log.new( @args.quiet? )
-				$prompt = TTY::Prompt.new
-        $log.debug "engine intialized..."
+        $prompt = TTY::Prompt.new
+        $log.debug 'engine intialized...'
       end
-      
+
       # Start the engine.
       def start
-        $log.debug "starting the engine..."
+        $log.debug 'starting the engine...'
         $log.debug Info.display_title
         @mode = @args.detect_mode
         @running = true
-        
+
         @dictionary = Gloo::Core::Dictionary.instance
         @dictionary.init
         @parser = Gloo::Core::Parser.new
@@ -40,10 +40,10 @@ module Gloo
         @factory = Gloo::Core::Factory.new
         @persist_man = Gloo::Persist::PersistMan.new
         @event_manager = Gloo::Core::EventManager.new
-        
+
         run_mode
       end
-      
+
       # Run the selected mode.
       def run_mode
         if @mode == Mode::VERSION
@@ -56,14 +56,14 @@ module Gloo
           run
         end
       end
-      
+
       # Run files specified on the CLI.
       # Then quit.
       def run_files
         @args.files.each do |f|
           @persist_man.load( f )
         end
-        
+
         quit
       end
 
@@ -71,17 +71,17 @@ module Gloo
       def run
         # Open default files
         self.open_start_file
-        
+
         # TODO: open any files specifed in args
-        
+
         unless @mode == Mode::SCRIPT || @args.quiet?
           @cursor = TTY::Cursor
-          self.loop 
+          self.loop
         end
 
         quit
       end
-      
+
       # Get the setting for the start_with file and open it.
       def open_start_file
         name = $settings.start_with
@@ -96,7 +96,7 @@ module Gloo
 
         @last_cmd = $prompt.ask( "#{d.yellow} #{t.white} >" )
       end
-      
+
       # Is the last command entered blank?
       def last_cmd_blank?
         return true if @last_cmd.nil?
@@ -110,28 +110,28 @@ module Gloo
           process_cmd
         end
       end
-      
+
       # Process the command.
       def process_cmd
         if last_cmd_blank?
           clear_screen
           return
         end
-        
+
         @immediate = @parser.parse_immediate @last_cmd
-        @immediate.run if @immediate
+        @immediate&.run
       end
 
       # Request the engine to stop running.
       def stop_running
         @running = false
       end
-      
+
       # Do any clean up and quit.
       def quit
-        $log.debug "quitting..."
+        $log.debug 'quitting...'
       end
-      
+
       # Show the version information and then quit.
       def run_version
         puts Info.display_title unless @args.quiet?
@@ -139,20 +139,20 @@ module Gloo
       end
 
       # Show the help information and then quit.
-      def run_help keep_running=false
+      def run_help( keep_running = false )
         unless @args.quiet?
           puts Info.display_title
           puts Help.get_help_text
         end
         quit unless keep_running
       end
-      
+
       # Clear the screen.
       def clear_screen
         print @cursor.clear_screen
         print @cursor.move_to( 0, 0 )
       end
-      
+
     end
   end
 end

@@ -8,9 +8,10 @@ module Gloo
   module App
     class Info
 
-      VERSION = "0.3.0"
-      APP_NAME = "Gloo"
+      VERSION = '0.3.0'.freeze
+      APP_NAME = 'Gloo'.freeze
 
+      # Get the application display title.
       def self.display_title
         return "#{APP_NAME}, version #{VERSION}"
       end
@@ -18,4 +19,3 @@ module Gloo
     end
   end
 end
-
