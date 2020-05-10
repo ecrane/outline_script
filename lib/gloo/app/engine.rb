@@ -119,7 +119,7 @@ module Gloo
         end
 
         @immediate = @parser.parse_immediate @last_cmd
-        @immediate&.run
+        Runner.go( @immediate ) if @immediate
       end
 
       # Request the engine to stop running.
@@ -151,6 +151,11 @@ module Gloo
       def clear_screen
         print @cursor.clear_screen
         print @cursor.move_to( 0, 0 )
+      end
+
+      # Did the last command result in an error?
+      def error?
+        return !@heap.error.value.nil?
       end
 
     end

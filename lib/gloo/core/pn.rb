@@ -9,6 +9,10 @@ module Gloo
   module Core
     class Pn < Baseo
 
+      ROOT = 'root'.freeze
+      IT = 'it'.freeze
+      ERROR = 'error'.freeze
+
       attr_reader :src, :elements
 
       # Set up the object given a source string,
@@ -19,22 +23,32 @@ module Gloo
 
       # Reference to the root object path.
       def self.root
-        return Pn.new( 'root' )
+        return Pn.new( ROOT )
       end
 
       # Reference to it.
       def self.it
-        return Pn.new( 'it' )
+        return Pn.new( IT )
+      end
+
+      # Reference to the error message.
+      def self.error
+        return Pn.new( ERROR )
       end
 
       # Does the pathname reference refer to the root?
       def is_root?
-        return @src.downcase == 'root'
+        return @src.downcase == ROOT
       end
 
-      # Does the pathname reference refer to the root?
+      # Does the pathname reference refer to it?
       def is_it?
-        return @src.downcase == 'it'
+        return @src.downcase == IT
+      end
+
+      # Does the pathname reference refer to error?
+      def is_error?
+        return @src.downcase == ERROR
       end
 
       # Does the pathname reference refer to the gloo system object?
@@ -102,6 +116,7 @@ module Gloo
       def exists?
         return true if self.is_root?
         return true if self.is_it?
+        return true if self.is_error?
 
         parent = self.get_parent
         return false unless parent
@@ -120,6 +135,7 @@ module Gloo
       def resolve
         return $engine.heap.root if self.is_root?
         return $engine.heap.it if self.is_it?
+        return $engine.heap.it.error if self.is_error?
         return Gloo::Core::GlooSystem.new( self ) if self.is_gloo_sys?
 
         parent = self.get_parent

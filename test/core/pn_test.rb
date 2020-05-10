@@ -207,6 +207,30 @@ class PnTest < Minitest::Test
     refute o.is_it?
   end
 
+  def test_error_reference
+    o = Gloo::Core::Pn.error
+    assert o
+    assert_equal 'error', o.src
+  end
+
+  def test_error_exists
+    o = Gloo::Core::Pn.error
+    assert o.exists?
+  end
+
+  def test_is_error
+    o = Gloo::Core::Pn.error
+    assert o.is_error?
+    o.set_to 'ERROR'
+    assert o.is_error?
+    o.set_to 'eRRor'
+    assert o.is_error?
+    o.set_to ' erroR '
+    assert o.is_error?
+    o.set_to 'something.else'
+    refute o.is_error?
+  end
+
   def test_is_gloo_sys
     o = Gloo::Core::Pn.new '$'
     assert o.is_gloo_sys?

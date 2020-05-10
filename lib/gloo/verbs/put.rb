@@ -21,14 +21,16 @@ module Gloo
 
         target = @tokens.after_token( INTO )
         if target.nil?
-          $log.error "'put' must include 'into' target"
+          msg = "'put' must include 'into' target"
+          $log.error msg, nil, $engine
           return
         end
-        
+
         pn = Gloo::Core::Pn.new target
         o = pn.resolve
         if o.nil?
-          $log.error "could not find target of put: #{target}"
+          msg = "could not find target of put: #{target}"
+          $log.error msg, nil, $engine
         elsif value.count.positive?
           expr = Gloo::Expr::Expression.new( value )
           result = expr.evaluate
@@ -59,7 +61,8 @@ module Gloo
       def fetch_value_tokens
         value = @tokens.before_token( INTO )
         if value.nil?
-          $log.error "'put' must include 'into'"
+          msg = "'put' must include 'into'"
+          $log.error msg, nil, $engine
           return nil
         end
 

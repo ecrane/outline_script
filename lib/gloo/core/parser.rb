@@ -43,7 +43,7 @@ module Gloo
       # Parse a command and then run it if it parsed correctly.
       def run( cmd )
         v = parse_immediate( cmd )
-        v&.run
+        Runner.go( v ) if v
       end
 
     end

@@ -39,7 +39,8 @@ module Gloo
         puts msg.yellow unless @quiet
       end
 
-      def error( msg, e = nil )
+      def error( msg, e = nil, engine = nil )
+        engine&.heap&.error&.set_to msg
         @logger.error msg
         if e
           @logger.error e.message

@@ -59,16 +59,19 @@ class PutTest < Minitest::Test
   def test_putting_without_src
     o = @engine.parser.parse_immediate 'put into b'
     o.run
+    assert $engine.error?
   end
 
   def test_putting_without_with
     o = @engine.parser.parse_immediate 'put a'
     o.run
+    assert $engine.error?
   end
 
   def test_putting_without_dst
     o = @engine.parser.parse_immediate 'put a into'
     o.run
+    assert $engine.error?
   end
 
 end
