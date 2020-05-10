@@ -38,6 +38,10 @@ Security/Eval:
 
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
+Metrics/MethodLength:
+  # Default is 10. I'm starting high and will work down.
+  Max: 31
+  Enabled: true
 
 # Might want to try re-enabling these:
 Metrics/AbcSize:
@@ -45,8 +49,6 @@ Metrics/AbcSize:
 Style/GlobalVars:
   Enabled: false
 Lint/NonDeterministicRequireOrder:
-  Enabled: false
-Metrics/MethodLength:
   Enabled: false
 Metrics/ClassLength:
   Enabled: false

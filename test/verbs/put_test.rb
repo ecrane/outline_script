@@ -45,4 +45,30 @@ class PutTest < Minitest::Test
     assert_equal 0, @engine.heap.root.child_count
   end
 
+  def test_fetching_the_value_tokens
+    o = @engine.parser.parse_immediate 'put x into y'
+    value = o.fetch_value_tokens
+    assert value
+    assert 1, value.count
+
+    o = @engine.parser.parse_immediate 'put x'
+    value = o.fetch_value_tokens
+    refute value
+  end
+
+  def test_putting_without_src
+    o = @engine.parser.parse_immediate 'put into b'
+    o.run
+  end
+
+  def test_putting_without_with
+    o = @engine.parser.parse_immediate 'put a'
+    o.run
+  end
+
+  def test_putting_without_dst
+    o = @engine.parser.parse_immediate 'put a into'
+    o.run
+  end
+
 end
