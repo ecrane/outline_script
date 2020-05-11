@@ -121,7 +121,9 @@ module Gloo
           value = @block_value
           @block_value = ''
         end
-        @last = $engine.factory.create( name, type, value, @parent )
+        params = { name: name, type: type, value: value, parent: @parent }
+        @last = $engine.factory.create( params )
+
         if @last&.has_multiline_value?
           @multi_indent = 0
           @in_multiline = true

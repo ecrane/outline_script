@@ -64,8 +64,14 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create 'prompt', 'string', '> ', self
-        fac.create 'result', 'boolean', nil, self
+        fac.create( { :name => 'prompt',
+                      :type => 'string',
+                      :value => '> ',
+                      :parent => self } )
+        fac.create( { :name => 'result',
+                      :type => 'boolean',
+                      :value => nil,
+                      :parent => self } )
       end
 
       # ---------------------------------------------------------------------

@@ -150,14 +150,14 @@ class ObjTest < Minitest::Test
   end
 
   def test_sending_message
-    o = @engine.factory.create 's', 'string'
+    o = @engine.factory.create( { :name => 's', :type => 'string' } )
     refute o.send_message( 'xyz' )
     refute o.send_message( 'abc' )
     assert o.send_message( 'unload' )
   end
 
   def test_dispatch
-    o = @engine.factory.create 's', 'string'
+    o = @engine.factory.create( { :name => 's', :type => 'string' } )
     refute o.dispatch 'xyz'
     refute o.dispatch 'abc'
     assert o.dispatch 'unload'
@@ -169,7 +169,7 @@ class ObjTest < Minitest::Test
   end
 
   def test_is_root_object
-    o = @engine.factory.create 's', 'string'
+    o = @engine.factory.create( { :name => 's', :type => 'string' } )
     refute o.is_root?
     r = @engine.heap.root
     assert r

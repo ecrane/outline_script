@@ -42,7 +42,10 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create 'white', 'string', '', self
+        fac.create( { :name => 'white',
+                      :type => 'string',
+                      :value => '',
+                      :parent => self } )
       end
 
       # ---------------------------------------------------------------------

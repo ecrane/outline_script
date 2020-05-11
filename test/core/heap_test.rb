@@ -18,7 +18,7 @@ class HeapTest < Minitest::Test
   end
 
   def test_unload_object
-    o = @engine.factory.create 's', 'string'
+    o = @engine.factory.create( { :name => 's', :type => 'string' } )
     assert_equal 1, @engine.heap.root.child_count
     @engine.heap.unload o
     assert_equal 0, @engine.heap.root.child_count

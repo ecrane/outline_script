@@ -83,9 +83,18 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create 'uri', 'string', 'https://web.site/', self
-        fac.create 'params', 'container', nil, self
-        fac.create 'result', 'string', nil, self
+        fac.create( { :name => 'uri',
+                      :type => 'string',
+                      :value => 'https://web.site/',
+                      :parent => self } )
+        fac.create( { :name => 'params',
+                      :type => 'container',
+                      :value => nil,
+                      :parent => self } )
+        fac.create( { :name => 'result',
+                      :type => 'string',
+                      :value => nil,
+                      :parent => self } )
       end
 
       # ---------------------------------------------------------------------

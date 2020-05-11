@@ -15,7 +15,7 @@ class FactoryTest < Minitest::Test
 
   def test_known_object_creation
     @engine.start
-    o = @engine.factory.create 's', 'string'
+    o = @engine.factory.create( { :name => 's', :type => 'string' } )
     assert o
     assert_equal 's', o.name
     assert_equal 'string', o.type_display
@@ -23,24 +23,24 @@ class FactoryTest < Minitest::Test
 
   def test_parents
     @engine.start
-    can = @engine.factory.create 'can', 'container'
+    can = @engine.factory.create( { :name => 'can', :type => 'container' } )
     assert can.parent
     assert_equal @engine.heap.root, can.parent
 
-    o = @engine.factory.create 'can.s', 'string'
+    o = @engine.factory.create( { :name => 'can.s', :type => 'string' } )
     assert o.parent
     assert_equal can, o.parent
   end
 
   def test_unknown_object_creation
     @engine.start
-    o = @engine.factory.create 'x', 'notatype'
+    o = @engine.factory.create( { :name => 'x', :type => 'notatype' } )
     refute o
   end
 
   def test_untyped_object_creation
     @engine.start
-    o = @engine.factory.create 'u'
+    o = @engine.factory.create( { :name => 'u' } )
     assert o
     assert_equal 'u', o.name
     assert_equal 'untyped', o.type_display

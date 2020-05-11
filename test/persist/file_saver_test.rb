@@ -8,7 +8,8 @@ class FileSaverTest < Minitest::Test
   end
 
   def test_getting_simple_object
-    o = @engine.factory.create 's', 'str', 'one'
+    o = @engine.factory.create(
+      { :name => 's', :type => 'str', :value => 'one' } )
     assert o
 
     fs = Gloo::Persist::FileSaver.new( '', nil )

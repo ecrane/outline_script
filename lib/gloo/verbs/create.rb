@@ -24,7 +24,7 @@ module Gloo
         if Gloo::Expr::LString.is_string?( value )
           value = Gloo::Expr::LString.strip_quotes( value )
         end
-        obj = $engine.factory.create( name, type, value )
+        obj = $engine.factory.create( { name: name, type: type, value: value } )
 
         obj.add_default_children if obj&.add_children_on_create?
         $engine.heap.it.set_to value

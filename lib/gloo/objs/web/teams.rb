@@ -79,10 +79,22 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create URL, 'string', 'https://outlook.office.com/webhook/...', self
-        fac.create TITLE, 'string', '', self
-        fac.create COLOR, 'color', '008000', self
-        fac.create MSG, 'string', '', self
+        fac.create( { :name => URL,
+                      :type => 'string',
+                      :value => 'https://outlook.office.com/webhook/...',
+                      :parent => self } )
+        fac.create( { :name => TITLE,
+                      :type => 'string',
+                      :value => '',
+                      :parent => self } )
+        fac.create( { :name => COLOR,
+                      :type => 'color',
+                      :value => '008000',
+                      :parent => self } )
+        fac.create( { :name => MSG,
+                      :type => 'string',
+                      :value => '',
+                      :parent => self } )
       end
 
       # ---------------------------------------------------------------------
