@@ -41,21 +41,28 @@ module Gloo
         f.each_line do |line|
           next if skip_line? line
 
-          if line.strip.end_with? BEGIN_BLOCK
-            @in_block = true
-            @save_line = line
-          elsif @in_block
-            if line.strip == END_BLOCK
-              @in_block = false
-              determine_indent @save_line
-              process_line @save_line
-            else
-              @block_value << line
-            end
+          handle_one_line line
+        end
+      end
+
+      #
+      # Process one one of the file we're loading.
+      #
+      def handle_one_line( line )
+        if line.strip.end_with? BEGIN_BLOCK
+          @in_block = true
+          @save_line = line
+        elsif @in_block
+          if line.strip == END_BLOCK
+            @in_block = false
+            determine_indent @save_line
+            process_line @save_line
           else
-            determine_indent line
-            process_line line
+            @block_value << line
           end
+        else
+          determine_indent line
+          process_line line
         end
       end
 
@@ -98,12 +105,15 @@ module Gloo
         if @in_multiline
           @last.add_line line
         else
+          setup_process_obj_line
           process_obj_line line
         end
       end
 
-      # Process one line and add objects.
-      def process_obj_line( line )
+      #
+      # Setup and get ready to process an object line.
+      #
+      def setup_process_obj_line
         if @exiting_multiline
           @exiting_multiline = false
         elsif @indent.positive?
@@ -115,7 +125,12 @@ module Gloo
             @parent = @parent_stack.last
           end
         end
+      end
 
+      #
+      # Process one line and add objects.
+      #
+      def process_obj_line( line )
         name, type, value = split_line( line )
         unless @block_value == ''
           value = @block_value
@@ -133,16 +148,19 @@ module Gloo
         @obj = @last if @obj.nil?
       end
 
+      #
       # Get the number of leading tabs.
+      #
       def tab_count( line )
         i = 0
         i += 1 while line[i] == "\t"
         return i
       end
 
+      #
       # Split the line into 3 parts.
+      #
       def split_line( line )
-        puts "splitting line: #{line}" if @debug
         line = line[ @tabs..-1]
         line = line[0..-2] if line[-1] == "\n"
         i = line.index( ' ' )
@@ -164,7 +182,6 @@ module Gloo
         else
           value = nil
         end
-        # puts "'#{value}'".yellow
         return name, type, value
       end
 
