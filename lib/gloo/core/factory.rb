@@ -8,7 +8,9 @@ module Gloo
   module Core
     class Factory < Baseo
 
+      #
       # Set up the object factory.
+      #
       def initialize
         $log.debug 'object factory intialized...'
       end
@@ -37,22 +39,37 @@ module Gloo
         end
 
         if pn.exists? && params[ :squash_duplicates ]
-          o = pn.resolve
-          o.set_value params[ :value ]
-          return o
-        else
-          o = objtype.new
-          o.name = obj_name
-          o.set_value params[ :value ]
-
-          if parent
-            parent.add_child( o )
-            return o
-          else
-            $log.error "Could not create object.  Bad path: #{name}"
-            return nil
-          end
+          $log.debug "Updating existing object: #{name}"
+          return self.update_existing pn, params[ :value ]
         end
+
+        $log.debug "Creating new object: #{name}"
+        return create_new obj_name, params[ :value ], objtype, parent
+      end
+
+      #
+      # Create a new object.
+      #
+      def create_new( name, value, type, parent )
+        unless parent
+          $log.error "Could not create object.  Bad path: #{name}"
+          return nil
+        end
+
+        o = type.new
+        o.name = name
+        o.set_value value
+        parent.add_child( o )
+        return o
+      end
+
+      #
+      # Find and Update an existing object.
+      #
+      def update_existing( pn, value )
+        o = pn.resolve
+        o.set_value value
+        return o
       end
 
       #
