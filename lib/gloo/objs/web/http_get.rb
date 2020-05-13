@@ -45,7 +45,7 @@ module Gloo
       #
       # Set the result of the API call.
       #
-      def set_result( data )
+      def update_result( data )
         r = find_child RESULT
         return nil unless r
 
@@ -112,8 +112,7 @@ module Gloo
       def msg_run
         url = full_url_value
         $log.debug url
-        result = Gloo::Objs::HttpGet.get_response url
-        set_result result
+        update_result Gloo::Objs::HttpGet.invoke_request url
       end
 
       # ---------------------------------------------------------------------
@@ -121,9 +120,9 @@ module Gloo
       # ---------------------------------------------------------------------
 
       # Post the content to the endpoint.
-      def self.get_response( url )
+      def self.invoke_request( url )
         uri = URI( url )
-        use_ssl = uri.scheme.downcase.equals?( 'https' )
+        use_ssl = uri.scheme.downcase.equal?( 'https' )
         Net::HTTP.start( uri.host, uri.port, :use_ssl => use_ssl ) do |http|
           request = Net::HTTP::Get.new uri
           response = http.request request # Net::HTTPResponse object
