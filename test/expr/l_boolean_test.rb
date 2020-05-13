@@ -20,9 +20,9 @@ class LBooleanTest < Minitest::Test
   end
 
   def test_is_boolean
-    assert Gloo::Expr::LBoolean.is_boolean?( true )
-    assert Gloo::Expr::LBoolean.is_boolean?( false )
-    refute Gloo::Expr::LBoolean.is_boolean?( 'a' )
+    assert Gloo::Expr::LBoolean.boolean?( true )
+    assert Gloo::Expr::LBoolean.boolean?( false )
+    refute Gloo::Expr::LBoolean.boolean?( 'a' )
   end
 
 end

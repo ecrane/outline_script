@@ -44,7 +44,7 @@ module Gloo
       # Add a line (cmd) to the script.
       #
       def add_line( line )
-        if self.value_is_string?
+        if self.value_string?
           first = self.value
           self.set_array_value []
           self.value << first unless first.empty?
@@ -68,7 +68,7 @@ module Gloo
       def line_count
         return self.value.count if self.value_is_array?
 
-        if self.value_is_string?
+        if self.value_string?
           return self.value.strip.empty? ? 0 : 1
         end
 

@@ -18,7 +18,7 @@ module Gloo
       end
 
       # Is the given token a string?
-      def self.is_string?( token )
+      def self.string?( token )
         return false unless token.is_a? String
         return true if token.start_with?( '"' )
         return true if token.start_with?( "'" )

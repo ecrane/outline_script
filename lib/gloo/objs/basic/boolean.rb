@@ -55,7 +55,7 @@ module Gloo
       #
       # Is the given token a boolean?
       #
-      def self.is_boolean?( token )
+      def self.boolean?( token )
         return true if token == true
         return true if token == false
 

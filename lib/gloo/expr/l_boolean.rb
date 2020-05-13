@@ -9,8 +9,8 @@ module Gloo
     class LBoolean < Gloo::Core::Literal
 
       # Is the given token a boolean?
-      def self.is_boolean?( token )
-        return Gloo::Objs::Boolean.is_boolean? token
+      def self.boolean?( token )
+        return Gloo::Objs::Boolean.boolean? token
       end
 
       # Set the value, converting to an boolean.

@@ -40,9 +40,9 @@ class ObjTest < Minitest::Test
   def test_value_is_string
     o = Gloo::Core::Obj.new
     o.set_value 'test'
-    assert o.value_is_string?
+    assert o.value_string?
     o.set_value 1
-    refute o.value_is_string?
+    refute o.value_string?
   end
 
   def test_value_is_array

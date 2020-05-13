@@ -27,9 +27,9 @@ class LStringTest < Minitest::Test
   end
 
   def test_is_string
-    assert Gloo::Expr::LString.is_string?( '"one"' )
-    assert Gloo::Expr::LString.is_string?( '" two"' )
-    refute Gloo::Expr::LString.is_string?( '1' )
+    assert Gloo::Expr::LString.string?( '"one"' )
+    assert Gloo::Expr::LString.string?( '" two"' )
+    refute Gloo::Expr::LString.string?( '1' )
   end
 
 end

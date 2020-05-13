@@ -17,14 +17,14 @@ class BooleanTest < Minitest::Test
   end
 
   def test_is_boolean
-    assert Gloo::Expr::LBoolean.is_boolean?( true )
-    assert Gloo::Expr::LBoolean.is_boolean?( false )
-    assert Gloo::Expr::LBoolean.is_boolean?( 'true' )
-    assert Gloo::Expr::LBoolean.is_boolean?( 'false' )
-    assert Gloo::Expr::LBoolean.is_boolean?( 'TRUE' )
-    assert Gloo::Expr::LBoolean.is_boolean?( 'False' )
-    refute Gloo::Expr::LBoolean.is_boolean?( 'a' )
-    refute Gloo::Expr::LBoolean.is_boolean?( 1 )
+    assert Gloo::Expr::LBoolean.boolean?( true )
+    assert Gloo::Expr::LBoolean.boolean?( false )
+    assert Gloo::Expr::LBoolean.boolean?( 'true' )
+    assert Gloo::Expr::LBoolean.boolean?( 'false' )
+    assert Gloo::Expr::LBoolean.boolean?( 'TRUE' )
+    assert Gloo::Expr::LBoolean.boolean?( 'False' )
+    refute Gloo::Expr::LBoolean.boolean?( 'a' )
+    refute Gloo::Expr::LBoolean.boolean?( 1 )
   end
 
   def test_find_type

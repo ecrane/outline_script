@@ -89,7 +89,7 @@ module Gloo
       #
       # Is the value a String?
       #
-      def value_is_string?
+      def value_string?
         return self.value.is_a? String
       end
 

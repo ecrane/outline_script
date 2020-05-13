@@ -21,7 +21,7 @@ module Gloo
         type = @tokens.after_token( AS )
         value = @tokens.after_token( VAL )
 
-        if Gloo::Expr::LString.is_string?( value )
+        if Gloo::Expr::LString.string?( value )
           value = Gloo::Expr::LString.strip_quotes( value )
         end
         obj = $engine.factory.create( { name: name, type: type, value: value } )

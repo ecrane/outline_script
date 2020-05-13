@@ -9,7 +9,7 @@ module Gloo
     class LInteger < Gloo::Core::Literal
 
       # Is the given token an integer?
-      def self.is_integer?( token )
+      def self.integer?( token )
         return true if token.is_a? Integer
 
         s = token.strip

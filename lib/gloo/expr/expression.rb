@@ -82,9 +82,9 @@ module Gloo
       def identify_token( token )
         return Gloo::Core::Op.create_op( token ) if Gloo::Core::Op.op?( token )
 
-        return LBoolean.new( token ) if LBoolean.is_boolean?( token )
-        return LInteger.new( token ) if LInteger.is_integer?( token )
-        return LString.new( token ) if LString.is_string?( token )
+        return LBoolean.new( token ) if LBoolean.boolean?( token )
+        return LInteger.new( token ) if LInteger.integer?( token )
+        return LString.new( token ) if LString.string?( token )
 
         # last chance: an Object reference
         return Gloo::Core::Pn.new( token )

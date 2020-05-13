@@ -20,8 +20,8 @@ class LIntegerTest < Minitest::Test
   end
 
   def test_is_integer
-    assert Gloo::Expr::LInteger.is_integer?( '23' )
-    refute Gloo::Expr::LInteger.is_integer?( 'a' )
+    assert Gloo::Expr::LInteger.integer?( '23' )
+    refute Gloo::Expr::LInteger.integer?( 'a' )
   end
 
 end
