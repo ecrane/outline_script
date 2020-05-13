@@ -9,7 +9,7 @@ module Gloo
     class Op
 
       # Is the token an operator?
-      def self.is_op?( token )
+      def self.op?( token )
         return [ '+', '-', '*', '/' ].include?( token.strip )
       end
 

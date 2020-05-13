@@ -37,22 +37,22 @@ module Gloo
       end
 
       # Does the pathname reference refer to the root?
-      def is_root?
+      def root?
         return @src.downcase == ROOT
       end
 
       # Does the pathname reference refer to it?
-      def is_it?
+      def it?
         return @src.downcase == IT
       end
 
       # Does the pathname reference refer to error?
-      def is_error?
+      def error?
         return @src.downcase == ERROR
       end
 
       # Does the pathname reference refer to the gloo system object?
-      def is_gloo_sys?
+      def gloo_sys?
         return false unless @elements&.count&.positive?
 
         o = @elements.first.downcase
@@ -80,18 +80,18 @@ module Gloo
 
       # Get the name element.
       def name
-        return '' unless self.has_name?
+        return '' unless self.named?
 
         return @elements.last
       end
 
       # Does the value include path elements?
-      def has_name?
+      def named?
         return @elements.count.positive?
       end
 
       # Does the value include a name?
-      def has_path?
+      def includes_path?
         return @elements.count > 1
       end
 
@@ -99,7 +99,7 @@ module Gloo
       def get_parent
         o = $engine.heap.root
 
-        if self.has_path?
+        if self.includes_path?
           @elements[0..-2].each do |e|
             o = o.find_child( e )
             if o.nil?
@@ -114,18 +114,18 @@ module Gloo
 
       # Does the object at the path exist?
       def exists?
-        return true if self.is_root?
-        return true if self.is_it?
-        return true if self.is_error?
+        return true if self.root?
+        return true if self.it?
+        return true if self.error?
 
         parent = self.get_parent
         return false unless parent
 
-        return parent.has_child? name
+        return parent.contains_child? name
       end
 
       # Is the reference to a color?
-      def is_color?
+      def named_color?
         colors = %w[red blue green white black yellow]
         return true if colors.include?( @src.downcase )
       end
@@ -133,10 +133,10 @@ module Gloo
       # Resolve the pathname reference.
       # Find the object referenced or return nil if it is not found.
       def resolve
-        return $engine.heap.root if self.is_root?
-        return $engine.heap.it if self.is_it?
-        return $engine.heap.it.error if self.is_error?
-        return Gloo::Core::GlooSystem.new( self ) if self.is_gloo_sys?
+        return $engine.heap.root if self.root?
+        return $engine.heap.it if self.it?
+        return $engine.heap.it.error if self.error?
+        return Gloo::Core::GlooSystem.new( self ) if self.gloo_sys?
 
         parent = self.get_parent
         return nil unless parent

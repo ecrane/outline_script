@@ -49,7 +49,7 @@ module Gloo
       end
 
       # Is the given word an object type?
-      def is_obj?( word )
+      def obj?( word )
         return false unless word
 
         return @objs.key?( word.downcase )
@@ -58,7 +58,7 @@ module Gloo
       # Find the object type by name.
       def find_obj( word )
         return nil unless word
-        return nil unless is_obj?( word )
+        return nil unless obj?( word )
 
         return @objs[ word.downcase ]
       end
@@ -75,7 +75,7 @@ module Gloo
       end
 
       # Is the given word a verb?
-      def is_verb?( word )
+      def verb?( word )
         return false unless word
 
         return @verbs.key?( word.downcase )
@@ -84,7 +84,7 @@ module Gloo
       # Find the verb by name.
       def find_verb( verb )
         return nil unless verb
-        return nil unless is_verb?( verb )
+        return nil unless verb?( verb )
 
         return @verbs[ verb.downcase ]
       end

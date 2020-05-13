@@ -59,7 +59,7 @@ module Gloo
 
       # resolve an object reference and get the value.
       def resolve_ref( ref )
-        return ref.src if ref.is_color?
+        return ref.src if ref.named_color?
 
         ob = ref.resolve
         return ob.value if ob
@@ -80,9 +80,7 @@ module Gloo
       # Identify the tokens and create appropriate symbols.
       #
       def identify_token( token )
-        if Gloo::Core::Op.is_op?( token )
-          return Gloo::Core::Op.create_op( token )
-        end
+        return Gloo::Core::Op.create_op( token ) if Gloo::Core::Op.op?( token )
 
         return LBoolean.new( token ) if LBoolean.is_boolean?( token )
         return LInteger.new( token ) if LInteger.is_integer?( token )

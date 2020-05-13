@@ -83,19 +83,19 @@ class PnTest < Minitest::Test
 
   def test_is_root
     o = Gloo::Core::Pn.root
-    assert o.is_root?
+    assert o.root?
     o.set_to 'ROOT'
-    assert o.is_root?
+    assert o.root?
     o.set_to 'rOOt'
-    assert o.is_root?
+    assert o.root?
     o.set_to 'root '
-    assert o.is_root?
+    assert o.root?
     o.set_to 'not_root'
-    refute o.is_root?
+    refute o.root?
     o.set_to 'root!'
-    refute o.is_root?
+    refute o.root?
     o.set_to 'something.else'
-    refute o.is_root?
+    refute o.root?
   end
 
   def test_to_s
@@ -160,27 +160,27 @@ class PnTest < Minitest::Test
 
   def test_has_name
     o = Gloo::Core::Pn.new ''
-    refute o.has_name?
+    refute o.named?
 
     o = Gloo::Core::Pn.new 'x'
-    assert o.has_name?
+    assert o.named?
 
     o = Gloo::Core::Pn.new 'x.y'
-    assert o.has_name?
+    assert o.named?
   end
 
   def test_has_path
     o = Gloo::Core::Pn.new ''
-    refute o.has_path?
+    refute o.includes_path?
 
     o = Gloo::Core::Pn.new 'x'
-    refute o.has_path?
+    refute o.includes_path?
 
     o = Gloo::Core::Pn.new 'x.y'
-    assert o.has_path?
+    assert o.includes_path?
 
     o = Gloo::Core::Pn.new 'x.y.z'
-    assert o.has_path?
+    assert o.includes_path?
   end
 
   def test_it_reference
@@ -196,15 +196,15 @@ class PnTest < Minitest::Test
 
   def test_is_it
     o = Gloo::Core::Pn.it
-    assert o.is_it?
+    assert o.it?
     o.set_to 'IT'
-    assert o.is_it?
+    assert o.it?
     o.set_to 'iT'
-    assert o.is_it?
+    assert o.it?
     o.set_to ' it '
-    assert o.is_it?
+    assert o.it?
     o.set_to 'something.else'
-    refute o.is_it?
+    refute o.it?
   end
 
   def test_error_reference
@@ -220,36 +220,52 @@ class PnTest < Minitest::Test
 
   def test_is_error
     o = Gloo::Core::Pn.error
-    assert o.is_error?
+    assert o.error?
     o.set_to 'ERROR'
-    assert o.is_error?
+    assert o.error?
     o.set_to 'eRRor'
-    assert o.is_error?
+    assert o.error?
     o.set_to ' erroR '
-    assert o.is_error?
+    assert o.error?
     o.set_to 'something.else'
-    refute o.is_error?
+    refute o.error?
   end
 
   def test_is_gloo_sys
     o = Gloo::Core::Pn.new '$'
-    assert o.is_gloo_sys?
+    assert o.gloo_sys?
     o = Gloo::Core::Pn.new 'gloo'
-    assert o.is_gloo_sys?
+    assert o.gloo_sys?
     o = Gloo::Core::Pn.new 'GLOO'
-    assert o.is_gloo_sys?
+    assert o.gloo_sys?
 
     o = Gloo::Core::Pn.new '$.hostname'
-    assert o.is_gloo_sys?
+    assert o.gloo_sys?
     o = Gloo::Core::Pn.new '$.user.name'
-    assert o.is_gloo_sys?
+    assert o.gloo_sys?
 
     o = Gloo::Core::Pn.new 'hostname'
-    refute o.is_gloo_sys?
+    refute o.gloo_sys?
     o = Gloo::Core::Pn.new 'asdf'
-    refute o.is_gloo_sys?
+    refute o.gloo_sys?
     o = Gloo::Core::Pn.new 'user.name'
-    refute o.is_gloo_sys?
+    refute o.gloo_sys?
+  end
+
+  def test_named_color
+    o = Gloo::Core::Pn.new 'zyx'
+    refute o.named_color?
+    o = Gloo::Core::Pn.new 'name'
+    refute o.named_color?
+    o = Gloo::Core::Pn.new 'banana'
+    refute o.named_color?
+
+    o = Gloo::Core::Pn.new 'red'
+    assert o.named_color?
+    o = Gloo::Core::Pn.new 'black'
+    assert o.named_color?
+    o = Gloo::Core::Pn.new 'blue'
+    assert o.named_color?
   end
 
 end

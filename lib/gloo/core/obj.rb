@@ -46,7 +46,7 @@ module Gloo
       end
 
       # Is this the root object?
-      def is_root?
+      def root?
         return false if @parent
         return false unless name.downcase == 'root'
 
@@ -82,7 +82,7 @@ module Gloo
       # Does this object support multi-line values?
       # Initially only true for scripts.
       #
-      def has_multiline_value?
+      def multiline_value?
         return false
       end
 
@@ -125,7 +125,7 @@ module Gloo
       end
 
       # Does this object contain an object with the given name?
-      def has_child?( name )
+      def contains_child?( name )
         @children.each do |o|
           return true if name.downcase == o.name.downcase
         end
@@ -207,7 +207,7 @@ module Gloo
       # Send the object the unload message.
       #
       def msg_unload
-        if self.is_root?
+        if self.root?
           $log.error 'Cannot unload the root object.'
           return
         end

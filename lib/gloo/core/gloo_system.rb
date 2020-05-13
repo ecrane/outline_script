@@ -43,7 +43,7 @@ module Gloo
       end
 
       # Is this the root object?
-      def is_root?
+      def root?
         return false
       end
 

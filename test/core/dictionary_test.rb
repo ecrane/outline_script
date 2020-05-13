@@ -18,10 +18,10 @@ class DictionaryTest < Minitest::Test
   end
 
   def test_is_obj
-    assert @dic.is_obj?( 'string' )
-    refute @dic.is_obj?( 'XXXX' )
-    refute @dic.is_obj?( '' )
-    refute @dic.is_obj?( nil )
+    assert @dic.obj?( 'string' )
+    refute @dic.obj?( 'XXXX' )
+    refute @dic.obj?( '' )
+    refute @dic.obj?( nil )
   end
 
   def test_find_an_obj
@@ -38,12 +38,12 @@ class DictionaryTest < Minitest::Test
   end
 
   def test_is_verb
-    assert @dic.is_verb?( 'quit' )
-    assert @dic.is_verb?( 'QUIT' )
-    assert @dic.is_verb?( 'quIT' )
-    refute @dic.is_verb?( 'XXXX' )
-    refute @dic.is_verb?( '' )
-    refute @dic.is_verb?( nil )
+    assert @dic.verb?( 'quit' )
+    assert @dic.verb?( 'QUIT' )
+    assert @dic.verb?( 'quIT' )
+    refute @dic.verb?( 'XXXX' )
+    refute @dic.verb?( '' )
+    refute @dic.verb?( nil )
   end
 
   def test_find_a_verb

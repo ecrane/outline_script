@@ -58,7 +58,7 @@ module Gloo
       # Does this object support multi-line values?
       # Initially only true for scripts.
       #
-      def has_multiline_value?
+      def multiline_value?
         return true
       end
 

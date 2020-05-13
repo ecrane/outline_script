@@ -32,7 +32,7 @@ class ScriptTest < Minitest::Test
 
   def test_has_multiline_value
     o = Gloo::Objs::Script.new
-    assert o.has_multiline_value?
+    assert o.multiline_value?
   end
 
   def test_messages

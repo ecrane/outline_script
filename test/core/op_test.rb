@@ -7,15 +7,15 @@ class OpTest < Minitest::Test
   #   @engine.start
   # end
 
-  def test_is_op?
-    assert Gloo::Core::Op.is_op?( ' + ' )
-    assert Gloo::Core::Op.is_op?( '+' )
-    assert Gloo::Core::Op.is_op?( '- ' )
-    assert Gloo::Core::Op.is_op?( ' *' )
-    assert Gloo::Core::Op.is_op?( '/' )
-    refute Gloo::Core::Op.is_op?( 'asdf' )
-    refute Gloo::Core::Op.is_op?( '++++' )
-    refute Gloo::Core::Op.is_op?( '23' )
+  def test_op?
+    assert Gloo::Core::Op.op?( ' + ' )
+    assert Gloo::Core::Op.op?( '+' )
+    assert Gloo::Core::Op.op?( '- ' )
+    assert Gloo::Core::Op.op?( ' *' )
+    assert Gloo::Core::Op.op?( '/' )
+    refute Gloo::Core::Op.op?( 'asdf' )
+    refute Gloo::Core::Op.op?( '++++' )
+    refute Gloo::Core::Op.op?( '23' )
   end
 
   def test_create_op_plus

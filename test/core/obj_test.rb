@@ -21,7 +21,7 @@ class ObjTest < Minitest::Test
 
   def test_obj_not_multiline_value
     o = Gloo::Core::Obj.new
-    refute o.has_multiline_value?
+    refute o.multiline_value?
   end
 
   def test_default_container
@@ -77,8 +77,8 @@ class ObjTest < Minitest::Test
     s = Gloo::Objs::String.new
     s.name = 'str'
     o.add_child s
-    assert o.has_child?( 'str' )
-    refute o.has_child?( 'x' )
+    assert o.contains_child?( 'str' )
+    refute o.contains_child?( 'x' )
   end
 
   def test_find_child
@@ -170,10 +170,10 @@ class ObjTest < Minitest::Test
 
   def test_is_root_object
     o = @engine.factory.create( { :name => 's', :type => 'string' } )
-    refute o.is_root?
+    refute o.root?
     r = @engine.heap.root
     assert r
-    assert r.is_root?
+    assert r.root?
   end
 
 end

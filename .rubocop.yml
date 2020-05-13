@@ -16,6 +16,8 @@ Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
   Enabled: true
+Naming/PredicateName:
+  Enabled: true
 
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
@@ -59,6 +61,4 @@ Metrics/CyclomaticComplexity:
 Naming/MethodParameterName:
   Enabled: false
 Naming/AccessorMethodName:
-  Enabled: false
-Naming/PredicateName:
   Enabled: false
