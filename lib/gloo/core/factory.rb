@@ -8,12 +8,33 @@ module Gloo
   module Core
     class Factory < Baseo
 
+      # ---------------------------------------------------------------------
+      #    Initializer
+      # ---------------------------------------------------------------------
+
       #
       # Set up the object factory.
       #
       def initialize
         $log.debug 'object factory intialized...'
       end
+
+      # ---------------------------------------------------------------------
+      #    Factory Helpers
+      # ---------------------------------------------------------------------
+
+      # Helper shortcut to create a string.
+      def create_string( name, value, parent )
+        params = { :name => name,
+                   :type => 'string',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
+      # ---------------------------------------------------------------------
+      #    Object Factory
+      # ---------------------------------------------------------------------
 
       # Create object with given name, type and value.
       # One of either name or type is required.

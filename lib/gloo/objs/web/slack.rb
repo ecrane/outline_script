@@ -93,26 +93,11 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => URL,
-                      :type => 'string',
-                      :value => 'https://hooks.slack.com/services/...',
-                      :parent => self } )
-        fac.create( { :name => MSG,
-                      :type => 'string',
-                      :value => 'textual message',
-                      :parent => self } )
-        fac.create( { :name => USER,
-                      :type => 'string',
-                      :value => 'Slack Bot',
-                      :parent => self } )
-        fac.create( { :name => CHANNEL,
-                      :type => 'string',
-                      :value => 'general',
-                      :parent => self } )
-        fac.create( { :name => ICON,
-                      :type => 'string',
-                      :value => ':ghost:',
-                      :parent => self } )
+        fac.create_string URL, 'https://hooks.slack.com/services/...', self
+        fac.create_string MSG, 'textual message', self
+        fac.create_string USER, 'Slack Bot', self
+        fac.create_string CHANNEL, 'general', self
+        fac.create_string ICON, ':ghost:', self
       end
 
       # ---------------------------------------------------------------------
