@@ -39,15 +39,15 @@ module Gloo
         puts msg.yellow unless @quiet
       end
 
-      def error( msg, e = nil, engine = nil )
+      def error( msg, ex = nil, engine = nil )
         engine&.heap&.error&.set_to msg
         @logger.error msg
-        if e
-          @logger.error e.message
-          @logger.error e.backtrace
+        if ex
+          @logger.error ex.message
+          @logger.error ex.backtrace
           puts msg.red unless @quiet
-          puts e.message.red unless @quiet
-          puts e.backtrace unless @quiet
+          puts ex.message.red unless @quiet
+          puts ex.backtrace unless @quiet
         else
           puts msg.red unless @quiet
         end

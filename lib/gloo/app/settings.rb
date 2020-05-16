@@ -75,8 +75,8 @@ module Gloo
       end
 
       # Create settings file.
-      def create_settings( f )
-        IO.write( f, get_default_settings )
+      def create_settings( file )
+        IO.write( file, get_default_settings )
       end
 
       # Get the value for default settings.

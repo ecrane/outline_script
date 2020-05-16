@@ -29,10 +29,10 @@ module Gloo
 
       # Convert an object to textual representation.
       # This is a recursive function.
-      def get_obj( o, indent = 0 )
+      def get_obj( obj, indent = 0 )
         t = tabs( indent )
-        str = "#{t}#{o.name} [#{o.type_display}] : #{o.value_display}\n"
-        o.children.each do |child|
+        str = "#{t}#{obj.name} [#{obj.type_display}] : #{obj.value_display}\n"
+        obj.children.each do |child|
           str << get_obj( child, indent + 1 )
         end
         return str

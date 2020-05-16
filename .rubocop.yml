@@ -44,6 +44,12 @@ Metrics/MethodLength:
   # Default is 10. I'm starting high and will work down.
   Max: 17
   Enabled: true
+Metrics/CyclomaticComplexity:
+  # Default is 6
+  Max: 9
+Naming/MethodParameterName:
+  # Default value is 3
+  MinNameLength: 2
 
 # Might want to try re-enabling these:
 Metrics/AbcSize:
@@ -55,10 +61,6 @@ Lint/NonDeterministicRequireOrder:
 Metrics/ClassLength:
   Enabled: false
 Metrics/PerceivedComplexity:
-  Enabled: false
-Metrics/CyclomaticComplexity:
-  Enabled: false
-Naming/MethodParameterName:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
