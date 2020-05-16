@@ -42,7 +42,7 @@ Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 Metrics/MethodLength:
   # Default is 10. I'm starting high and will work down.
-  Max: 19
+  Max: 17
   Enabled: true
 
 # Might want to try re-enabling these:

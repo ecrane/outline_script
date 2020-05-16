@@ -19,12 +19,8 @@ module Gloo
         value = fetch_value_tokens
         return if value.nil?
 
-        target = @tokens.after_token( INTO )
-        if target.nil?
-          msg = "'put' must include 'into' target"
-          $log.error msg, nil, $engine
-          return
-        end
+        target = lookup_target
+        return if target.nil?
 
         pn = Gloo::Core::Pn.new target
         o = pn.resolve
@@ -71,6 +67,16 @@ module Gloo
           value = value[1..-1]
         end
         return value
+      end
+
+      # Lookup the target of the put command.
+      def lookup_target
+        target = @tokens.after_token( INTO )
+        return target if target
+
+        msg = "'put' must include 'into' target"
+        $log.error msg, nil, $engine
+        return nil
       end
 
     end
