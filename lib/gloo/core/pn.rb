@@ -100,7 +100,7 @@ module Gloo
         o = $engine.heap.root
 
         if self.includes_path?
-          @elements[0..-2].each do |e|
+          @elements[ 0..-2 ].each do |e|
             o = o.find_child( e )
             if o.nil?
               $log.error "Object '#{e}' was not found."

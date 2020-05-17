@@ -64,7 +64,7 @@ module Gloo
 
         if value.count > 1
           # The first token is the verb, so we drop it.
-          value = value[1..-1]
+          value = value[ 1..-1 ]
         end
         return value
       end

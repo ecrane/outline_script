@@ -9,6 +9,11 @@ Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: empty_lines
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: space
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: true
+  EnforcedStyle: space
 
 # -------------- Style -------------- #
 Style/HashSyntax:
@@ -23,10 +28,20 @@ Style/HashTransformValues:
   Enabled: true
 Style/RedundantReturn:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GlobalVars:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
 
 # -------------- Naming -------------- #
 Naming/PredicateName:
   Enabled: true
+Naming/AccessorMethodName:
+  Enabled: false
 
 # -------------- Metrics -------------- #
 Metrics/MethodLength:
@@ -48,30 +63,11 @@ Lint/RaiseException:
   Enabled: true
 Lint/StructNewOverride:
   Enabled: true
+Lint/NonDeterministicRequireOrder:
+  Enabled: false
 
 # -------------- Security -------------- #
 Security/Eval:
   Enabled: false  # This is disabled because I need to do eval.
                   # But I might look to enable it, put extra safety checks
                   # and disable it only in particular functions.
-
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Layout/SpaceInsideArrayLiteralBrackets:
-  Enabled: false
-Layout/SpaceInsideReferenceBrackets:
-  Enabled: false
-Style/Documentation:
-  Enabled: false
-Style/RedundantSelf:
-  Enabled: false
-
-
-# Might want to try re-enabling these:
-Style/GlobalVars:
-  Enabled: false
-Lint/NonDeterministicRequireOrder:
-  Enabled: false
-Naming/AccessorMethodName:
-  Enabled: false

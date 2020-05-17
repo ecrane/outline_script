@@ -68,11 +68,11 @@ module Gloo
 
       # Get the second token.
       def second
-        return @tokens[1] if @tokens&.size&.positive?
+        return @tokens[ 1 ] if @tokens&.size&.positive?
       end
 
       def at( index )
-        return @tokens[index] if @tokens && @tokens.size >= index
+        return @tokens[ index ] if @tokens && @tokens.size >= index
       end
 
       # Get the index of the given token.

@@ -35,21 +35,21 @@ module Gloo
       # Detect the object name.
       #
       def detect_name
-        @line = @line[ @tabs..-1]
-        @line = @line[0..-2] if @line[-1] == "\n"
+        @line = @line[ @tabs..-1 ]
+        @line = @line[ 0..-2 ] if @line[ -1 ] == "\n"
         @idx = @line.index( ' ' )
-        @name = @line[0..@idx - 1]
+        @name = @line[ 0..@idx - 1 ]
       end
 
       #
       # Detect the object type.
       #
       def detect_type
-        @line = @line[@idx + 1..-1]
+        @line = @line[ @idx + 1..-1 ]
         @idx = @line.index( ' ' )
-        @type = @line[0..( @idx ? @idx - 1 : -1 )]
-        @type = @type[1..-1] if @type[0] == '['
-        @type = @type[0..-2] if @type[-1] == ']'
+        @type = @line[ 0..( @idx ? @idx - 1 : -1 ) ]
+        @type = @type[ 1..-1 ] if @type[ 0 ] == '['
+        @type = @type[ 0..-2 ] if @type[ -1 ] == ']'
       end
 
       #
@@ -58,11 +58,11 @@ module Gloo
       #
       def detect_value
         if @idx
-          @value = @line[ @idx + 1..-1]
-          if @value[0..1] == ': '
-            @value = @value[2..-1]
-          elsif @value[0] == ':'
-            @value = @value[1..-1]
+          @value = @line[ @idx + 1..-1 ]
+          if @value[ 0..1 ] == ': '
+            @value = @value[ 2..-1 ]
+          elsif @value[ 0 ] == ':'
+            @value = @value[ 1..-1 ]
           end
         else
           @value = nil

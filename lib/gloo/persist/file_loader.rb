@@ -71,7 +71,7 @@ module Gloo
       def skip_line?( line )
         line = line.strip
         return true if line.empty?
-        return true if line[0] == '#'
+        return true if line[ 0 ] == '#'
 
         return false
       end
@@ -153,7 +153,7 @@ module Gloo
       #
       def tab_count( line )
         i = 0
-        i += 1 while line[i] == "\t"
+        i += 1 while line[ i ] == "\t"
         return i
       end
 
