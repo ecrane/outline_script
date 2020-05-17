@@ -16,6 +16,8 @@ Layout/SpaceInsideReferenceBrackets:
   EnforcedStyle: space
 
 # -------------- Style -------------- #
+Style/RescueStandardError:
+  EnforcedStyle: implicit
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 Style/ExponentialNotation:
@@ -68,6 +70,4 @@ Lint/NonDeterministicRequireOrder:
 
 # -------------- Security -------------- #
 Security/Eval:
-  Enabled: false  # This is disabled because I need to do eval.
-                  # But I might look to enable it, put extra safety checks
-                  # and disable it only in particular functions.
+  Enabled: true

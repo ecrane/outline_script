@@ -16,8 +16,9 @@ module Gloo
       # is done running.
       #
       def self.go( verb )
-        $engine.heap.error.clear
+        $engine.heap.error.start_tracking
         verb&.run
+        $engine.heap.error.clear_if_no_errors
       end
 
     end

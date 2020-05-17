@@ -66,7 +66,7 @@ module Gloo
         fac = $engine.factory
         fac.create( { :name => 'command',
                       :type => 'string',
-                      :value => 'date',
+                      :value => '1+2',
                       :parent => self } )
         fac.create( { :name => 'result',
                       :type => 'string',
@@ -90,8 +90,16 @@ module Gloo
         cmd = cmd_value
         return unless cmd
 
-        result = eval cmd
-        set_result result
+        begin
+          # rubocop:disable Security/Eval
+          result = eval cmd
+          # rubocop:enable Security/Eval
+          set_result result
+          $engine.heap.it.set_to result
+        rescue => e
+          $log.error e.message
+          $engine.heap.error.set_to e.message
+        end
       end
 
     end

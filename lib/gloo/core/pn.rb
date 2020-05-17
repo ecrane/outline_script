@@ -135,7 +135,7 @@ module Gloo
       def resolve
         return $engine.heap.root if self.root?
         return $engine.heap.it if self.it?
-        return $engine.heap.it.error if self.error?
+        return $engine.heap.error if self.error?
         return Gloo::Core::GlooSystem.new( self ) if self.gloo_sys?
 
         parent = self.get_parent

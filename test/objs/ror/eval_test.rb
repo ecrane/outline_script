@@ -48,14 +48,14 @@ class EvalTest < Minitest::Test
   def test_run_eval
     i = @engine.parser.parse_immediate 'create e as eval'
     i.run
-    obj = @engine.heap.root.children.first
+    e = @engine.heap.root.children.last
     i = @engine.parser.parse_immediate 'put "2+1" into e.command'
     i.run
-    assert_equal '', obj.children.last.value
+    assert_equal '', e.children.last.value
 
     i = @engine.parser.parse_immediate 'run e'
     i.run
-    assert_equal '3', obj.children.last.value
+    assert_equal '3', e.children.last.value
   end
 
 end

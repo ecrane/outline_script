@@ -72,4 +72,27 @@ class ErrorTest < Minitest::Test
     refute @engine.error?
   end
 
+  def test_run_eval_with_error
+    i = @engine.parser.parse_immediate 'create e as eval'
+    i.run
+    e = @engine.heap.root.children.last
+    i = @engine.parser.parse_immediate 'put "x+1" into e.command'
+    i.run
+    assert_equal '', e.children.last.value
+
+    i = @engine.parser.parse_immediate 'run e'
+    i.run
+    assert_equal '', e.children.last.value
+    assert @engine.error?
+    assert @engine.heap.error.value.start_with? "undefined local variable"
+  end
+
+  def test_error_after_show
+    @engine.heap.error.set_to 'err string'
+    refute @engine.heap.it.value
+    v = @engine.parser.parse_immediate 'show error'
+    v.run
+    assert_equal 'err string', @engine.heap.it.value
+  end
+
 end
