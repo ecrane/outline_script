@@ -2,12 +2,17 @@ AllCops:
   Exclude:
     - 'gloo.gemspec'
 
+# -------------- Layout -------------- #
+Layout/SpaceInsideParens:
+  EnforcedStyle: space
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
+
+# -------------- Style -------------- #
+Style/HashSyntax:
+  EnforcedStyle: no_mixed_keys
 Style/ExponentialNotation:
   Enabled: true
 Style/HashEachMethods:
@@ -16,51 +21,57 @@ Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
   Enabled: true
+Style/RedundantReturn:
+  Enabled: false
+
+# -------------- Naming -------------- #
 Naming/PredicateName:
   Enabled: true
 
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
+# -------------- Metrics -------------- #
+Metrics/MethodLength:
+  Max: 17   # Default is 10
+  Enabled: true
+Metrics/CyclomaticComplexity:
+  Max: 9   # Default is 6
+Naming/MethodParameterName:
+  MinNameLength: 2   # Default value is 3
+Metrics/PerceivedComplexity:
+  Max: 10   # default value is 7
+Metrics/ClassLength:
+  Max: 119   # default is 100
+Metrics/AbcSize:
+  Max: 37   # default is 15
+
+# -------------- Lint -------------- #
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+
+# -------------- Security -------------- #
+Security/Eval:
+  Enabled: false  # This is disabled because I need to do eval.
+                  # But I might look to enable it, put extra safety checks
+                  # and disable it only in particular functions.
+
+
 Style/FrozenStringLiteralComment:
-  Enabled: false
-Layout/SpaceInsideParens:
   Enabled: false
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 Layout/SpaceInsideReferenceBrackets:
   Enabled: false
-Style/RedundantReturn:
-  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/RedundantSelf:
   Enabled: false
-Security/Eval:
-  Enabled: false
 
-Style/HashSyntax:
-  EnforcedStyle: no_mixed_keys
-Metrics/MethodLength:
-  # Default is 10. I'm starting high and will work down.
-  Max: 17
-  Enabled: true
-Metrics/CyclomaticComplexity:
-  # Default is 6
-  Max: 9
-Naming/MethodParameterName:
-  # Default value is 3
-  MinNameLength: 2
 
 # Might want to try re-enabling these:
-Metrics/AbcSize:
-  Enabled: false
 Style/GlobalVars:
   Enabled: false
 Lint/NonDeterministicRequireOrder:
-  Enabled: false
-Metrics/ClassLength:
-  Enabled: false
-Metrics/PerceivedComplexity:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false

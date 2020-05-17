@@ -161,7 +161,7 @@ module Gloo
       # Split the line into 3 parts.
       #
       def split_line( line )
-        o = LineSplitter.new( line, @tabs)
+        o = LineSplitter.new( line, @tabs )
         return o.split
       end
 

@@ -47,7 +47,7 @@ module Gloo
       def detect_type
         @line = @line[@idx + 1..-1]
         @idx = @line.index( ' ' )
-        @type = @line[0..(@idx ? @idx - 1 : -1)]
+        @type = @line[0..( @idx ? @idx - 1 : -1 )]
         @type = @type[1..-1] if @type[0] == '['
         @type = @type[0..-2] if @type[-1] == ']'
       end
