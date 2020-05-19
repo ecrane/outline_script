@@ -39,12 +39,29 @@ module Gloo
       # Dispatch the help to the right place.
       #
       def dispatch( opts )
-        begin
-          cmd = DISPATCH[ opts.downcase.to_sym ]
+        cmd = DISPATCH[ opts.to_sym ]
+        if cmd
           send cmd
-        rescue
-          report_help_error opts
+        else
+          entity_help opts
         end
+      rescue
+        report_help_error opts
+      end
+
+      #
+      # Dispatch the help command to a verb or object
+      # if we can find one matching the request.
+      #
+      def entity_help( opts )
+        report_help_error opts
+      end
+
+      #
+      # Lookup the opts in the dispatch table.
+      #
+      def lookup_opts( opts )
+        return DISPATCH[ opts.to_sym ]
       end
 
       #
@@ -52,7 +69,7 @@ module Gloo
       #
       def report_help_error( opts )
         msg = "Help command '#{opts}' could not be found"
-        $log.error msg
+        $log.warn msg
         $engine.heap.error.set_to msg
       end
 

@@ -22,4 +22,17 @@ class HelpTest < Minitest::Test
     assert_equal '?', Gloo::Verbs::Help.keyword_shortcut
   end
 
+  def test_looking_up_the_help_option
+    v = Gloo::Verbs::Help.new( nil )
+    assert_equal 'show_verbs', v.lookup_opts( 'v' )
+    assert_equal 'show_verbs', v.lookup_opts( 'verb' )
+    assert_equal 'show_verbs', v.lookup_opts( 'verbs' )
+    assert_equal 'show_objs', v.lookup_opts( 'o' )
+    assert_equal 'show_objs', v.lookup_opts( 'obj' )
+    assert_equal 'show_objs', v.lookup_opts( 'objects' )
+
+    refute v.lookup_opts( 'xyz' )
+    refute v.lookup_opts( '2342342jsfd' )
+  end
+
 end
