@@ -11,6 +11,16 @@ module Gloo
       KEYWORD = 'help'.freeze
       KEYWORD_SHORT = '?'.freeze
 
+      DISPATCH = {
+        verb: 'show_verbs',
+        verbs: 'show_verbs',
+        v: 'show_verbs',
+        obj: 'show_objs',
+        object: 'show_objs',
+        objects: 'show_objs',
+        o: 'show_objs'
+      }.freeze
+
       #
       # Run the verb.
       #
@@ -18,13 +28,39 @@ module Gloo
         opts = @tokens.second if @tokens
         opts = opts.strip.downcase if opts
 
-        if opts && ( ( opts == 'verbs' ) || ( opts == 'v' ) )
-          show_verbs
-        elsif opts && ( ( opts == 'objects' ) || ( opts == 'o' ) )
-          show_objs
+        if opts
+          self.dispatch opts
         else
-          $engine.run_help( true )
+          show_default
         end
+      end
+
+      #
+      # Dispatch the help to the right place.
+      #
+      def dispatch( opts )
+        begin
+          cmd = DISPATCH[ opts.downcase.to_sym ]
+          send cmd
+        rescue
+          report_help_error opts
+        end
+      end
+
+      #
+      # Report an error with the inline help.
+      #
+      def report_help_error( opts )
+        msg = "Help command '#{opts}' could not be found"
+        $log.error msg
+        $engine.heap.error.set_to msg
+      end
+
+      #
+      # If no parameter is given, show the default help page.
+      #
+      def show_default
+        $engine.run_help( true )
       end
 
       #
