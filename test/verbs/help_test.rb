@@ -4,6 +4,7 @@ class HelpTest < Minitest::Test
 
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
+    @engine.start
   end
 
   def test_help_verb
@@ -33,6 +34,24 @@ class HelpTest < Minitest::Test
 
     refute v.lookup_opts( 'xyz' )
     refute v.lookup_opts( '2342342jsfd' )
+  end
+
+  def test_help_with_error
+    o = @engine.parser.parse_immediate 'help zsf234'
+    o.run
+    assert $engine.error?
+  end
+
+  def test_running_help_verbs
+    o = @engine.parser.parse_immediate 'help verbs'
+    o.run
+    refute $engine.error?
+  end
+
+  def test_running_help_objects
+    o = @engine.parser.parse_immediate 'help obj'
+    o.run
+    refute $engine.error?
   end
 
 end
