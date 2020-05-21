@@ -113,24 +113,40 @@ module Gloo
       # List the verbs
       #
       def show_verbs
-        return if $engine.args.quiet?
+        out = self.get_verb_list
+        $engine.heap.it.set_to out
+        puts out unless $engine.args.quiet?
+      end
 
-        puts 'Verbs:'
+      #
+      # Get the text for the list of verbs.
+      #
+      def get_verb_list
+        out = "Verbs:\n"
         $engine.dictionary.get_verbs.each do |v|
-          puts " \t #{v.keyword_shortcut} \t #{v.keyword}"
+          out << " \t #{v.keyword_shortcut} \t #{v.keyword}\n"
         end
+        return out
       end
 
       #
       # List the object types
       #
       def show_objs
-        return if $engine.args.quiet?
+        out = self.get_obj_list
+        $engine.heap.it.set_to out
+        puts out unless $engine.args.quiet?
+      end
 
-        puts 'Object Types:'
+      #
+      # Get the text for the list of verbs.
+      #
+      def get_obj_list
+        out = "Object Types:\n"
         $engine.dictionary.get_obj_types.each do |v|
-          puts " \t #{v.short_typename} \t #{v.typename}"
+          out << " \t #{v.short_typename} \t #{v.typename}\n"
         end
+        return out
       end
 
       #

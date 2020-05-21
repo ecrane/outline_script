@@ -57,13 +57,15 @@ class HelpTest < Minitest::Test
   def test_running_help_verbs
     o = @engine.parser.parse_immediate 'help verbs'
     o.run
-    refute $engine.error?
+    refute @engine.error?
+    assert @engine.heap.it.value.start_with? 'Verbs:'
   end
 
   def test_running_help_objects
     o = @engine.parser.parse_immediate 'help obj'
     o.run
-    refute $engine.error?
+    refute @engine.error?
+    assert @engine.heap.it.value.start_with? 'Object Types:'
   end
 
 end
