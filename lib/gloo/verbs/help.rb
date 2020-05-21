@@ -54,7 +54,36 @@ module Gloo
       # if we can find one matching the request.
       #
       def entity_help( opts )
+        return if try_verb_help opts
+        return if try_object_help opts
+
         report_help_error opts
+      end
+
+      #
+      # See if there is a verb we can show help
+      # information about.
+      #
+      def try_verb_help( opts )
+        if $engine.dictionary.verb?( opts )
+          # TODO:  Show help for the verb specified.
+          return true
+        end
+
+        return false
+      end
+
+      #
+      # See if there is a verb we can show help
+      # information about.
+      #
+      def try_object_help( opts )
+        if $engine.dictionary.obj?( opts )
+          # TODO:  Show help for the object specified.
+          return true
+        end
+
+        return false
       end
 
       #

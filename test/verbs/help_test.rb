@@ -42,6 +42,18 @@ class HelpTest < Minitest::Test
     assert $engine.error?
   end
 
+  def test_help_with_verb_help
+    o = @engine.parser.parse_immediate 'help put'
+    o.run
+    refute $engine.error?
+  end
+
+  def test_help_with_object_help
+    o = @engine.parser.parse_immediate 'help string'
+    o.run
+    refute $engine.error?
+  end
+
   def test_running_help_verbs
     o = @engine.parser.parse_immediate 'help verbs'
     o.run
