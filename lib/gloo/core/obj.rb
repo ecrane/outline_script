@@ -216,6 +216,17 @@ module Gloo
         $engine.heap.unload self
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object.
+      #
+      def self.help
+        return 'No help found.'
+      end
+
     end
   end
 end

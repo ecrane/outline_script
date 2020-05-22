@@ -66,7 +66,9 @@ module Gloo
       #
       def try_verb_help( opts )
         if $engine.dictionary.verb?( opts )
-          # TODO:  Show help for the verb specified.
+          t = $engine.dictionary.find_verb( opts )
+          out = t.send 'help'
+          self.show_output out
           return true
         end
 
@@ -79,7 +81,9 @@ module Gloo
       #
       def try_object_help( opts )
         if $engine.dictionary.obj?( opts )
-          # TODO:  Show help for the object specified.
+          t = $engine.dictionary.find_obj( opts )
+          out = t.send 'help'
+          self.show_output out
           return true
         end
 
@@ -114,8 +118,7 @@ module Gloo
       #
       def show_verbs
         out = self.get_verb_list
-        $engine.heap.it.set_to out
-        puts out unless $engine.args.quiet?
+        self.show_output out
       end
 
       #
@@ -134,8 +137,7 @@ module Gloo
       #
       def show_objs
         out = self.get_obj_list
-        $engine.heap.it.set_to out
-        puts out unless $engine.args.quiet?
+        self.show_output out
       end
 
       #
@@ -147,6 +149,15 @@ module Gloo
           out << " \t #{v.short_typename} \t #{v.typename}\n"
         end
         return out
+      end
+
+      #
+      # Write output to it and show it unless we are in
+      # silent mode.
+      #
+      def show_output( out )
+        $engine.heap.it.set_to out
+        puts out unless $engine.args.quiet?
       end
 
       #

@@ -140,10 +140,10 @@ module Gloo
 
       # Show the help information and then quit.
       def run_help( keep_running = false )
-        unless @args.quiet?
-          puts Info.display_title
-          puts Help.get_help_text
-        end
+        out = "#{Info.display_title}\n"
+        out << Help.get_help_text
+        $engine.heap.it.set_to out
+        puts out unless @args.quiet?
         quit unless keep_running
       end
 

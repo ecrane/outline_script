@@ -58,6 +58,17 @@ module Gloo
         return self.class.keyword
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return 'No help found.'
+      end
+
     end
   end
 end
