@@ -25,4 +25,9 @@ class RunTest < Minitest::Test
     assert_equal 7, @engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Run.help
+    refute_equal 'No help found.', Gloo::Verbs::Run.help
+  end
+
 end

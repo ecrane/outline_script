@@ -61,6 +61,7 @@ class StringTest < Minitest::Test
 
   def test_help_text
     assert Gloo::Objs::String.help
+    refute_equal 'No help found.', Gloo::Objs::String.help
   end
 
 end
