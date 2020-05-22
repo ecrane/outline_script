@@ -59,4 +59,8 @@ class StringTest < Minitest::Test
     assert_equal 'test', $engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Objs::String.help
+  end
+
 end

@@ -59,6 +59,32 @@ module Gloo
         return s
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          OBJECT TYPE
+          \tNAME: string
+          \tSHORTCUT: str
+
+          DESCRIPTION
+          \tA string value.
+
+          CHILDREN
+          \t<none>
+
+          MESSAGES
+          \tup \t - Convert the string to uppercase.
+          \tdown \t - Convert the string to lowercase.
+
+        TEXT
+      end
+
     end
   end
 end
