@@ -44,4 +44,8 @@ class IfTest < Minitest::Test
     assert_equal false, @engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Verbs::If.help.start_with? 'IF VERB'
+  end
+
 end
