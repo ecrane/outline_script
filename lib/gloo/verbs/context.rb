@@ -16,14 +16,18 @@ module Gloo
       # Run the verb.
       #
       def run
-        if @tokens.token_count == 1
-          show_context
-        else
-          path = @tokens.second
-          $engine.heap.context.set_to path
-          $engine.heap.it.set_to path
-          $log.debug "Context set to #{$engine.heap.context}"
-        end
+        set_context if @tokens.token_count > 1
+        show_context
+      end
+
+      #
+      # Set the context to the given path.
+      #
+      def set_context
+        path = @tokens.second
+        $engine.heap.context.set_to path
+        $engine.heap.it.set_to path
+        $log.debug "Context set to #{$engine.heap.context}"
       end
 
       #
@@ -45,6 +49,42 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          CONTEXT VERB
+            NAME: context
+            SHORTCUT: @
+
+          DESCRIPTION
+            Get or set the current context.
+            When no parameter is provided, the context will be shown.
+            Whe the optional path paramter is provided, the context will
+            be set to that path.
+            Use 'context root' to set the context back to the root level.
+
+          SYNTAX
+            context <path.to.new.context>
+
+          PARAMETERS
+            path.to.new.context - Optional.  The path to the new context.
+
+          RESULT
+            Context is optionally set.
+            <it> will be set to the new context path when we are changing context.
+            Context is show in either case.
+
+          ERRORS
+            None
+        TEXT
       end
 
     end

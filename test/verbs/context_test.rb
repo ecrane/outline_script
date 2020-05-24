@@ -33,4 +33,8 @@ class ContextTest < Minitest::Test
     assert_equal '@', Gloo::Verbs::Context.keyword_shortcut
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Context.help.start_with? 'CONTEXT VERB'
+  end
+
 end
