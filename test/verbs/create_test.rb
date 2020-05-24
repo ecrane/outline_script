@@ -35,4 +35,8 @@ class CreateTest < Minitest::Test
     assert_equal 0, @engine.heap.root.child_count
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Create.help.start_with? 'CREATE VERB'
+  end
+
 end
