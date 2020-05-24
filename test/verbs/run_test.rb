@@ -26,8 +26,7 @@ class RunTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Run.help
-    refute_equal 'No help found.', Gloo::Verbs::Run.help
+    assert Gloo::Verbs::Run.help.start_with? 'RUN VERB'
   end
 
 end

@@ -20,9 +20,26 @@ module Gloo
         expr = Gloo::Expr::Expression.new( @tokens.params )
         result = expr.evaluate
         $engine.heap.it.set_to result
+        self.post_alert result
+      end
+
+      #
+      # Post the alert for the specific platform.
+      # Notice is not posted if we're in quiet mode.
+      #
+      def post_alert( msg )
+        return if $engine.args.quiet?
+
+        post_osx msg
+      end
+
+      #
+      # Post the alert on the Mac OSX.
+      #
+      def post_osx( msg )
         cmd1 = '/usr/bin/osascript -e "display notification \"'
-        cmd2 = '\" with title \"OutlineScript\" "'
-        system( cmd1 + result.to_s + cmd2 )
+        cmd2 = '\" with title \"Gloo\" "'
+        system( cmd1 + msg.to_s + cmd2 )
       end
 
       #
@@ -37,6 +54,38 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          ALERT VERB
+            NAME: alert
+            SHORTCUT: !
+
+          DESCRIPTION
+            Show a pop-up notification.
+            This has only been implemented for the Mac OSX as of yet.
+
+          SYNTAX
+            alert <messsage>
+
+          PARAMETERS
+            messsage - The message that will be displayed in the alert.
+
+          RESULT
+            On the Mac, a notification will popup on screen.
+            <it> will be set to the message.
+
+          ERRORS
+            None
+        TEXT
       end
 
     end
