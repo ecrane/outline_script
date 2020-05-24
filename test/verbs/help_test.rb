@@ -68,4 +68,8 @@ class HelpTest < Minitest::Test
     assert @engine.heap.it.value.start_with? 'Object Types:'
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Help.help.start_with? 'HELP VERB'
+  end
+
 end
