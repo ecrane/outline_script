@@ -78,6 +78,39 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          LIST VERB
+            NAME: list
+            SHORTCUT: .
+
+          DESCRIPTION
+            List out objects (and children) at the current context.
+            When a path is provided, it will be listed instead of the
+            current context.
+
+          SYNTAX
+            list <path.to.object>
+
+          PARAMETERS
+            path.to.object - Optional path to object that will be listed.
+                             When no path is provided, the current context is used.
+
+          RESULT
+            Object and children are listed out in the CLI.
+
+          ERRORS
+            None
+        TEXT
+      end
+
     end
   end
 end

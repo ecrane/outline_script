@@ -27,4 +27,8 @@ class ListTest < Minitest::Test
     assert_equal 'me', target.to_s
   end
 
+  def test_help_text
+    assert Gloo::Verbs::List.help.start_with? 'LIST VERB'
+  end
+
 end
