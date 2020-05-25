@@ -30,4 +30,8 @@ class LoadTest < Minitest::Test
     assert_equal 5, @engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Load.help.start_with? 'LOAD VERB'
+  end
+
 end

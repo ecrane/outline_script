@@ -34,6 +34,40 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          LOAD VERB
+            NAME: load
+            SHORTCUT: <
+
+          DESCRIPTION
+            Load an object file.
+            The file's path should be provided from the gloo project folder
+            as the root directory.
+
+          SYNTAX
+            load <file_name>
+
+          PARAMETERS
+            file_name - Name of the object file that is to be loaded.
+
+          RESULT
+            Objects are loaded into the heap.
+            on_load scripts are run within the loaded objects.
+
+          ERRORS
+            If the file specified can't be found or can't be loaded,
+            an error condition will result.
+        TEXT
+      end
+
     end
   end
 end
