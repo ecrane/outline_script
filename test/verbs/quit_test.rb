@@ -23,4 +23,8 @@ class QuitTest < Minitest::Test
     assert_equal 'q', Gloo::Verbs::Quit.keyword_shortcut
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Quit.help.start_with? 'QUIT VERB'
+  end
+
 end

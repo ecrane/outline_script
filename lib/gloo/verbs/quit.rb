@@ -35,6 +35,37 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          QUIT VERB
+            NAME: quit
+            SHORTCUT: q
+
+          DESCRIPTION
+            Stop running the gloo application.
+            Cleanup and shutdown.
+
+          SYNTAX
+            quit
+
+          PARAMETERS
+            None
+
+          RESULT
+            None
+
+          ERRORS
+            None
+        TEXT
+      end
+
     end
   end
 end
