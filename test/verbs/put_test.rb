@@ -74,4 +74,8 @@ class PutTest < Minitest::Test
     assert $engine.error?
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Put.help.start_with? 'PUT VERB'
+  end
+
 end
