@@ -14,4 +14,8 @@ class VersionTest < Minitest::Test
     assert_equal 'v', Gloo::Verbs::Version.keyword_shortcut
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Version.help.start_with? 'VERSION VERB'
+  end
+
 end

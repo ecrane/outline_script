@@ -42,6 +42,38 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          TELL VERB
+            NAME: tell
+            SHORTCUT: ->
+
+          DESCRIPTION
+            Send a message to an object.
+            Ask the object to perform an action.
+
+          SYNTAX
+            tell <path.to.object> to <message>
+
+          PARAMETERS
+            path.to.object - The object that we want to see.
+            message - The message to send.
+
+          RESULT
+            The result depends on the message that is sent.
+
+          ERRORS
+            Errors depend on the message that is sent.
+        TEXT
+      end
+
     end
   end
 end

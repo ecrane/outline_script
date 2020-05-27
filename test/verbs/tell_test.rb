@@ -24,4 +24,8 @@ class TellTest < Minitest::Test
     assert_equal 0, @engine.heap.root.child_count
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Tell.help.start_with? 'TELL VERB'
+  end
+
 end

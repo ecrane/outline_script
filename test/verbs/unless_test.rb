@@ -44,4 +44,8 @@ class UnlessTest < Minitest::Test
     assert_equal true, @engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Unless.help.start_with? 'UNLESS VERB'
+  end
+
 end

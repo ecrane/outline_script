@@ -32,6 +32,36 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this verb.
+      #
+      def self.help
+        return <<~TEXT
+          VERSION VERB
+            NAME: version
+            SHORTCUT: v
+
+          DESCRIPTION
+            Show the application version information.
+
+          SYNTAX
+            version
+
+          PARAMETERS
+            None
+
+          RESULT
+            None
+
+          ERRORS
+            None
+        TEXT
+      end
+
     end
   end
 end
