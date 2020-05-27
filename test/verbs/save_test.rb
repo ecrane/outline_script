@@ -15,4 +15,8 @@ class SaveTest < Minitest::Test
     assert_equal '>', Gloo::Verbs::Save.keyword_shortcut
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Save.help.start_with? 'SAVE VERB'
+  end
+
 end
