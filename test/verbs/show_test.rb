@@ -47,4 +47,8 @@ class ShowTest < Minitest::Test
     assert_equal 'boo', @engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Verbs::Show.help.start_with? 'SHOW VERB'
+  end
+
 end
