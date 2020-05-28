@@ -70,4 +70,8 @@ class BooleanTest < Minitest::Test
     assert msgs.include?( 'false' )
   end
 
+  def test_help_text
+    assert Gloo::Objs::Boolean.help.start_with? 'BOOLEAN OBJECT TYPE'
+  end
+
 end

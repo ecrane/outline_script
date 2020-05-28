@@ -43,6 +43,36 @@ module Gloo
         return i
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          CONTAINER OBJECT TYPE
+            NAME: container
+            SHORTCUT: can
+
+          DESCRIPTION
+            A container of other objects.
+            A container is similar to a folder in a file system.
+            It can contain any number of objects including other containers.
+            The container structure provides direct access to any object
+            within it through the object.object.object path-name structure.
+
+          CHILDREN
+            None by default.  But any container can have any number of
+            objects added to it.
+
+          MESSAGES
+            count - Count the number of children objects in the container.
+                    The result is put in <it>.
+        TEXT
+      end
+
     end
   end
 end

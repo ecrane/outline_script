@@ -68,20 +68,19 @@ module Gloo
       #
       def self.help
         return <<~TEXT
-          OBJECT TYPE
-          \tNAME: string
-          \tSHORTCUT: str
+          STRING OBJECT TYPE
+            NAME: string
+            SHORTCUT: str
 
           DESCRIPTION
-          \tA string value.
+            A string value.
 
           CHILDREN
-          \t<none>
+            None
 
           MESSAGES
-          \tup \t - Convert the string to uppercase.
-          \tdown \t - Convert the string to lowercase.
-
+            up - Convert the string to uppercase.
+            down - Convert the string to lowercase.
         TEXT
       end
 

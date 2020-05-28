@@ -61,4 +61,8 @@ class IntegerTest < Minitest::Test
     assert_equal( -1, $engine.heap.it.value )
   end
 
+  def test_help_text
+    assert Gloo::Objs::Integer.help.start_with? 'INTEGER OBJECT TYPE'
+  end
+
 end

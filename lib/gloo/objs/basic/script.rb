@@ -94,6 +94,32 @@ module Gloo
         s.run
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          SCRIPT OBJECT TYPE
+            NAME: script
+            SHORTCUT: cmd
+
+          DESCRIPTION
+            An exectutable script.
+
+          CHILDREN
+            None
+
+          MESSAGES
+            run - Run the script.
+                  The script can be run by telling the object or run.
+                  It can all be executed with the run verb.
+        TEXT
+      end
+
     end
   end
 end

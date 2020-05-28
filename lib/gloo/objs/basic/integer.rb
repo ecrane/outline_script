@@ -59,6 +59,31 @@ module Gloo
         return i
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          INTEGER OBJECT TYPE
+            NAME: integer
+            SHORTCUT: int
+
+          DESCRIPTION
+            An integer (numeric) value.
+
+          CHILDREN
+            None
+
+          MESSAGES
+            inc - Increment the integer value by 1.
+            dec - Decrement the integer value by 1.
+        TEXT
+      end
+
     end
   end
 end

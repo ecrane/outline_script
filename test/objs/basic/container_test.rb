@@ -42,4 +42,8 @@ class ContainerTest < Minitest::Test
     refute o.add_children_on_create?
   end
 
+  def test_help_text
+    assert Gloo::Objs::Container.help.start_with? 'CONTAINER OBJECT TYPE'
+  end
+
 end

@@ -93,4 +93,8 @@ class ScriptTest < Minitest::Test
     assert_equal 3, @engine.heap.it.value
   end
 
+  def test_help_text
+    assert Gloo::Objs::Script.help.start_with? 'SCRIPT OBJECT TYPE'
+  end
+
 end

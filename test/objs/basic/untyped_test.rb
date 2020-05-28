@@ -23,4 +23,8 @@ class UntypedTest < Minitest::Test
     assert @dic.find_obj( 'UN' )
   end
 
+  def test_help_text
+    assert Gloo::Objs::Untyped.help.start_with? 'UNTYPED OBJECT TYPE'
+  end
+
 end

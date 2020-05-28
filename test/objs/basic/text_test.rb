@@ -33,4 +33,8 @@ class TextTest < Minitest::Test
     assert_equal 3, o.line_count
   end
 
+  def test_help_text
+    assert Gloo::Objs::Text.help.start_with? 'TEXT OBJECT TYPE'
+  end
+
 end
