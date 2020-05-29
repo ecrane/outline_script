@@ -94,6 +94,33 @@ module Gloo
         set_result result
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          CONFIRM OBJECT TYPE
+            NAME: confirm
+            SHORTCUT: confirm
+
+          DESCRIPTION
+            CLI confirmation prompt.
+
+          CHILDREN
+            prompt - string - '> '
+              The confirmation prompt.
+            result - boolean - none
+              The result of the prompt.
+
+          MESSAGES
+            run - Prompt the user and then set the result.
+        TEXT
+      end
+
     end
   end
 end

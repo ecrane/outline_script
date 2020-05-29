@@ -45,4 +45,8 @@ class PromptTest < Minitest::Test
     assert_equal 'result', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::Prompt.help.start_with? 'PROMPT OBJECT TYPE'
+  end
+
 end

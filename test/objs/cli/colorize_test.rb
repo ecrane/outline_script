@@ -33,4 +33,8 @@ class ColorizeTest < Minitest::Test
     assert o.add_children_on_create?
   end
 
+  def test_help_text
+    assert Gloo::Objs::Colorize.help.start_with? 'COLORIZE OBJECT TYPE'
+  end
+
 end

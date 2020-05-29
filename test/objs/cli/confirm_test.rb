@@ -45,4 +45,8 @@ class ConfirmTest < Minitest::Test
     assert_equal 'result', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::Confirm.help.start_with? 'CONFIRM OBJECT TYPE'
+  end
+
 end

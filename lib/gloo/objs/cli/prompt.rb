@@ -94,6 +94,33 @@ module Gloo
         set_result result
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          PROMPT OBJECT TYPE
+            NAME: prompt
+            SHORTCUT: ask
+
+          DESCRIPTION
+            CLI prompt for user input.
+
+          CHILDREN
+            prompt - string - '> '
+              The prompt displayed to the user.
+            result - string - none
+              The result with the user's input.
+
+          MESSAGES
+            run - Prompt the user and then set the result.
+        TEXT
+      end
+
     end
   end
 end
