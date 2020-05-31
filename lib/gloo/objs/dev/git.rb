@@ -55,7 +55,7 @@ module Gloo
         $engine.heap.it.set_to branch
       end
 
-      # Check to see if the repo has changes.
+      # Commit pending changes.
       def msg_commit
         msg = 'Commit'
         path = path_value
@@ -74,7 +74,7 @@ module Gloo
         $engine.heap.it.set_to msg
       end
 
-      # Check to see if the repo has changes.
+      # Get the pending changes.
       def msg_get_changes
         path = path_value
         result = `cd #{path}; git status -s` if path_is_dir?( path )
@@ -109,6 +109,36 @@ module Gloo
         end
 
         $engine.heap.it.set_to result
+      end
+
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          GIT OBJECT TYPE
+            NAME: git_repo
+            SHORTCUT: git
+
+          DESCRIPTION
+            Reference to a git repository in the file system.
+            The value of the git_repo objectd is a string.
+            There are no children needed.
+
+          CHILDREN
+            None
+
+          MESSAGES
+            validate - Validate that this is a git repo.
+            check_changes - Check to see if there are any pending changes.
+            get_changes - Get the list of pending changes.
+            commit - Commit changes.
+            get_branch - Get the current branch.
+        TEXT
       end
 
     end

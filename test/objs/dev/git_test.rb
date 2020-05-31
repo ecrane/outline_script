@@ -34,4 +34,8 @@ class GitTest < Minitest::Test
     refute o.add_children_on_create?
   end
 
+  def test_help_text
+    assert Gloo::Objs::Git.help.start_with? 'GIT OBJECT TYPE'
+  end
+
 end
