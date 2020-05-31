@@ -44,4 +44,8 @@ class EachTest < Minitest::Test
     assert_equal 'do', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::Each.help.start_with? 'EACH OBJECT TYPE'
+  end
+
 end
