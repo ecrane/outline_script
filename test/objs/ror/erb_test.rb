@@ -63,4 +63,8 @@ class ErbTest < Minitest::Test
     assert_equal 'wow', result.value
   end
 
+  def test_help_text
+    assert Gloo::Objs::Erb.help.start_with? 'ERB OBJECT TYPE'
+  end
+
 end
