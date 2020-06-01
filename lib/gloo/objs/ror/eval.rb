@@ -102,6 +102,33 @@ module Gloo
         end
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          EVAL OBJECT TYPE
+            NAME: eval
+            SHORTCUT: ruby
+
+          DESCRIPTION
+            Execute a ruby expression.
+
+          CHILDREN
+            command - string
+              The ruby expression or command that will be run.
+            result - string
+              The result of the command or expression after it is run.
+
+          MESSAGES
+            run - Execute the ruby command and update the result.
+        TEXT
+      end
+
     end
   end
 end

@@ -58,4 +58,8 @@ class EvalTest < Minitest::Test
     assert_equal '3', e.children.last.value
   end
 
+  def test_help_text
+    assert Gloo::Objs::Eval.help.start_with? 'EVAL OBJECT TYPE'
+  end
+
 end
