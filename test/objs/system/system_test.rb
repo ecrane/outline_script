@@ -60,4 +60,8 @@ class SystemTest < Minitest::Test
     refute_equal '', obj.children.last.value
   end
 
+  def test_help_text
+    assert Gloo::Objs::System.help.start_with? 'SYSTEM OBJECT TYPE'
+  end
+
 end
