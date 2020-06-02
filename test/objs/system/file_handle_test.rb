@@ -34,4 +34,8 @@ class FileHandleTest < Minitest::Test
     refute o.add_children_on_create?
   end
 
+  def test_help_text
+    assert Gloo::Objs::FileHandle.help.start_with? 'FILE OBJECT TYPE'
+  end
+
 end
