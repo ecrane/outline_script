@@ -116,6 +116,37 @@ module Gloo
         Gloo::Objs::HttpPost.post_json uri, body_as_json, true
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          TEAMS OBJECT TYPE
+            NAME: teams
+            SHORTCUT: team
+
+          DESCRIPTION
+            Send message to channel in Teams.
+
+          CHILDREN
+            uri - string - 'https://outlook.office.com/webhook/...'
+              The URI with access to the Teams channel.
+            title - string
+              Message title; header.
+            color - string - '008000'
+              Color theme for the message.
+            message - string
+              The message to post in Teams.
+
+          MESSAGES
+            run - Post the message to Teams.
+        TEXT
+      end
+
     end
   end
 end

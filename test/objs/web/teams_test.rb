@@ -47,4 +47,8 @@ class TeamsTest < Minitest::Test
     assert_equal 'message', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::Teams.help.start_with? 'TEAMS OBJECT TYPE'
+  end
+
 end
