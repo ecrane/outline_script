@@ -46,4 +46,8 @@ class HttpPostTest < Minitest::Test
     assert_equal 'body', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::HttpPost.help.start_with? 'HTTP_POST OBJECT TYPE'
+  end
+
 end
