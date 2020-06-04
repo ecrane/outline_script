@@ -47,4 +47,8 @@ class HttpGetTest < Minitest::Test
     assert_equal 'result', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::HttpGet.help.start_with? 'HTTP_GET OBJECT TYPE'
+  end
+
 end

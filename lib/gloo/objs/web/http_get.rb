@@ -130,6 +130,36 @@ module Gloo
         end
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          HTTP_GET OBJECT TYPE
+            NAME: http_get
+            SHORTCUT: get
+
+          DESCRIPTION
+            Perform an HTTP Get.
+
+          CHILDREN
+            uri - string - 'https://web.site/'
+              The URI for the HTTP Get request.
+            params - container
+              Collection of parameters for the HTTP Get.
+            result - string
+              The result of the request.  Whatever was returned from
+              the HTTP Get call.
+
+          MESSAGES
+            run - Run the HTTP Get and update the result.
+        TEXT
+      end
+
     end
   end
 end
