@@ -119,6 +119,39 @@ module Gloo
         Gloo::Objs::HttpPost.post_json uri, body_as_json, true
       end
 
+      # ---------------------------------------------------------------------
+      #    Help
+      # ---------------------------------------------------------------------
+
+      #
+      # Get help for this object type.
+      #
+      def self.help
+        return <<~TEXT
+          SLACK OBJECT TYPE
+            NAME: slack
+            SHORTCUT: slack
+
+          DESCRIPTION
+            Send message to channel in Slack.
+
+          CHILDREN
+            uri - string - 'https://hooks.slack.com/services/...'
+              The URI with access to the Slack channel.
+            message - string - 'textual message'
+              Message to send to Slack.
+            username - string - 'Slack Bot'
+              Attribute the message to this user.
+            channel - string - 'general'
+              The name of the channel for the post.
+            icon_emoji - string - ':ghost:'
+              The emoji to use for the attribution.
+
+          MESSAGES
+            run - Post the message to Slack.
+        TEXT
+      end
+
     end
   end
 end

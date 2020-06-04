@@ -46,4 +46,8 @@ class SlackTest < Minitest::Test
     assert_equal 'icon_emoji', obj.children.last.name
   end
 
+  def test_help_text
+    assert Gloo::Objs::Slack.help.start_with? 'SLACK OBJECT TYPE'
+  end
+
 end
