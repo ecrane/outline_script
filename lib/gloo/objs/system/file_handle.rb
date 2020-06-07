@@ -1,7 +1,7 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
-# An object that can make a system call.
+# An object that points to a file in the system.
 #
 
 module Gloo
