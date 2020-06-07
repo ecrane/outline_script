@@ -18,7 +18,7 @@ module Gloo
       # engine stop gracefully next time through the loop.
       #
       def run
-        puts 7.chr
+        print 7.chr
       end
 
       #
