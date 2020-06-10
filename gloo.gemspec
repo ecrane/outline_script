@@ -31,7 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'rake', '~> 10.0'
 
-  spec.add_dependency 'activesupport', '~> 5.2', '>= 5.2.1'
+  spec.add_dependency "activesupport", '~> 5.2', ">= 5.2.4.3"
+  # spec.add_dependency 'activesupport', '~> 5.2', '>= 5.2.1'
   spec.add_dependency 'chronic', '~> 0.10', '>= 0.10.2'
   spec.add_dependency 'colorize', '~> 0.8', '>= 0.8.1'
   spec.add_dependency 'tty', '~> 0.8', '>= 0.8.1'
