@@ -42,8 +42,8 @@ class TeamsTest < Minitest::Test
     assert_equal 't', obj.name
     assert_equal 4, obj.child_count
     assert_equal 'uri', obj.children.first.name
-    assert_equal 'title', obj.children[1].name
-    assert_equal 'color', obj.children[2].name
+    assert_equal 'title', obj.children[ 1 ].name
+    assert_equal 'color', obj.children[ 2 ].name
     assert_equal 'message', obj.children.last.name
   end
 

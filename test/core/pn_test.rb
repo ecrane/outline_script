@@ -54,14 +54,14 @@ class PnTest < Minitest::Test
     o = Gloo::Core::Pn.new( 'a.b.c' )
     segments = o.segments
     assert_equal 3, segments.count
-    assert_equal 'a', segments[0]
-    assert_equal 'b', segments[1]
-    assert_equal 'c', segments[2]
+    assert_equal 'a', segments[ 0 ]
+    assert_equal 'b', segments[ 1 ]
+    assert_equal 'c', segments[ 2 ]
 
     o = Gloo::Core::Pn.new( 'one' )
     segments = o.segments
     assert_equal 1, segments.count
-    assert_equal 'one', segments[0]
+    assert_equal 'one', segments[ 0 ]
 
     o = Gloo::Core::Pn.new( '' )
     assert_equal 0, o.segments.count

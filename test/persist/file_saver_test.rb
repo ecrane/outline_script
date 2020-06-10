@@ -23,9 +23,9 @@ class FileSaverTest < Minitest::Test
     fs = Gloo::Persist::FileSaver.new( '', nil )
 
     assert_equal '', fs.tabs
-    assert_equal '', fs.tabs(0)
-    assert_equal "\t", fs.tabs(1)
-    assert_equal "\t\t", fs.tabs(2)
+    assert_equal '', fs.tabs( 0 )
+    assert_equal "\t", fs.tabs( 1 )
+    assert_equal "\t\t", fs.tabs( 2 )
   end
 
 end

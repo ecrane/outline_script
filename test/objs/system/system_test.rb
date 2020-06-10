@@ -43,7 +43,7 @@ class SystemTest < Minitest::Test
     assert_equal 's', obj.name
     assert_equal 3, obj.child_count
     assert_equal 'command', obj.children.first.name
-    assert_equal 'get_output', obj.children[1].name
+    assert_equal 'get_output', obj.children[ 1 ].name
     assert_equal 'result', obj.children.last.name
   end
 

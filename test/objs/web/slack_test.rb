@@ -42,7 +42,7 @@ class SlackTest < Minitest::Test
     assert_equal 's', obj.name
     assert_equal 5, obj.child_count
     assert_equal 'uri', obj.children.first.name
-    assert_equal 'message', obj.children[1].name
+    assert_equal 'message', obj.children[ 1 ].name
     assert_equal 'icon_emoji', obj.children.last.name
   end
 

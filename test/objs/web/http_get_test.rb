@@ -43,7 +43,7 @@ class HttpGetTest < Minitest::Test
     assert_equal 'g', obj.name
     assert_equal 3, obj.child_count
     assert_equal 'uri', obj.children.first.name
-    assert_equal 'params', obj.children[1].name
+    assert_equal 'params', obj.children[ 1 ].name
     assert_equal 'result', obj.children.last.name
   end
 

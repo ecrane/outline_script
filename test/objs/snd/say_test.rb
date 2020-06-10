@@ -41,7 +41,7 @@ class SayTest < Minitest::Test
     assert_equal 's', obj.name
     assert_equal 2, obj.child_count
     assert_equal 'voice', obj.children.first.name
-    assert_equal 'message', obj.children[1].name
+    assert_equal 'message', obj.children[ 1 ].name
   end
 
   def test_run_say
