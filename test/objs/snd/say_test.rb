@@ -47,7 +47,7 @@ class SayTest < Minitest::Test
   def test_run_say
     i = @engine.parser.parse_immediate 'create s as say'
     i.run
-    obj = @engine.heap.root.children.first
+    # obj = @engine.heap.root.children.first
     i = @engine.parser.parse_immediate 'put "running tests" into s.message'
     i.run
     i = @engine.parser.parse_immediate 'run s'

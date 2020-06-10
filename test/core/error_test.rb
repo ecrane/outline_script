@@ -87,7 +87,7 @@ class ErrorTest < Minitest::Test
     assert @engine.heap.error.value.start_with? "undefined local variable"
   end
 
-  def test_error_after_show
+  def test_error_string
     @engine.heap.error.set_to 'err string'
     refute @engine.heap.it.value
     v = @engine.parser.parse_immediate 'show error'

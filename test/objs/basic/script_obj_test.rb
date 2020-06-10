@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ScriptTest < Minitest::Test
+class ScriptObjTest < Minitest::Test
 
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
