@@ -35,6 +35,28 @@ module Gloo
       end
 
       #
+      # Helper shortcut to create a boolean child object.
+      #
+      def create_bool( name, value, parent )
+        params = { :name => name,
+                   :type => 'boolean',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
+      #
+      # Helper shortcut to create a container child object.
+      #
+      def create_can( name, parent )
+        params = { :name => name,
+                   :type => 'container',
+                   :value => nil,
+                   :parent => parent }
+        create params
+      end
+
+      #
       # Helper shortcut to create a script child object.
       #
       def create_script( name, value, parent )

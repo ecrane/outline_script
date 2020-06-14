@@ -1,17 +1,18 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
-# Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
+# Copyright:: Copyright (c) 2020 Eric Crane.  All rights reserved.
 #
-# Show a CLI prompt and collect user input.
+# A CLI menu item.  One element in a CLI menu.
 #
 
 module Gloo
   module Objs
-    class Prompt < Gloo::Core::Obj
+    class MenuItem < Gloo::Core::Obj
 
-      KEYWORD = 'prompt'.freeze
-      KEYWORD_SHORT = 'ask'.freeze
-      PROMPT = 'prompt'.freeze
-      RESULT = 'result'.freeze
+      KEYWORD = 'menu_item'.freeze
+      KEYWORD_SHORT = 'mitem'.freeze
+      SHORTCUT = 'shortcut'.freeze
+      DESCRIPTION = 'description'.freeze
+      DO = 'do'.freeze
 
       #
       # The name of the object type.
@@ -28,24 +29,33 @@ module Gloo
       end
 
       #
-      # Get the prompt from the child object.
+      # Get the value of the menu item shortcut.
       # Returns nil if there is none.
       #
-      def prompt_value
-        o = find_child PROMPT
+      def shortcut_value
+        o = find_child SHORTCUT
         return nil unless o
 
         return o.value
       end
 
       #
-      # Set the result of the system call.
+      # Get the action's description.
+      # Returns nil if there is none.
       #
-      def set_result( data )
-        r = find_child RESULT
-        return nil unless r
+      def description_value
+        o = find_child DESCRIPTION
+        return nil unless o
 
-        r.set_value data
+        return o.value
+      end
+
+      #
+      # Get the action's script.
+      # Returns nil if there is none.
+      #
+      def do_script
+        return find_child DO
       end
 
       # ---------------------------------------------------------------------
@@ -64,14 +74,9 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'prompt',
-                      :type => 'string',
-                      :value => '> ',
-                      :parent => self } )
-        fac.create( { :name => 'result',
-                      :type => 'string',
-                      :value => nil,
-                      :parent => self } )
+        fac.create_string SHORTCUT, '', self
+        fac.create_string DESCRIPTION, '', self
+        fac.create_script DO, '', self
       end
 
       # ---------------------------------------------------------------------
@@ -82,18 +87,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ 'run' ]
-      end
-
-      #
-      # Show the prompt and get the user's input.
-      #
-      def msg_run
-        prompt = prompt_value
-        return unless prompt
-
-        result = $prompt.ask( prompt )
-        set_result result
+        return super
       end
 
       # ---------------------------------------------------------------------
@@ -105,21 +99,23 @@ module Gloo
       #
       def self.help
         return <<~TEXT
-          PROMPT OBJECT TYPE
-            NAME: prompt
-            SHORTCUT: ask
+          MENU_ITEM OBJECT TYPE
+            NAME: menu_item
+            SHORTCUT: mitem
 
           DESCRIPTION
-            CLI prompt for user input.
+            A CLI menu item.  One element in a CLI menu.
 
           CHILDREN
-            prompt - string - '> '
-              The prompt displayed to the user.
-            result - string - none
-              The result with the user's input.
+            shortcut - string
+              The shortcut may be used to select the  menu item.
+            description - string
+              A textual description of the menu item action.
+            do - script
+              The script that will be run if the menu item is selected.
 
           MESSAGES
-            run - Prompt the user and then set the result.
+            None
         TEXT
       end
 
