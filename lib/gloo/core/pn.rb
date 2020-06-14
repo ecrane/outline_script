@@ -69,7 +69,7 @@ module Gloo
 
       # Set the object pathname to the given value.
       def set_to( value )
-        @src = value.strip unless value.nil?
+        @src = value.nil? ? nil : value.strip
         @elements = @src.nil? ? [] : @src.split( '.' )
       end
 

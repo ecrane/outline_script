@@ -23,10 +23,23 @@ module Gloo
       #    Factory Helpers
       # ---------------------------------------------------------------------
 
-      # Helper shortcut to create a string.
+      #
+      # Helper shortcut to create a string child object.
+      #
       def create_string( name, value, parent )
         params = { :name => name,
                    :type => 'string',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
+      #
+      # Helper shortcut to create a script child object.
+      #
+      def create_script( name, value, parent )
+        params = { :name => name,
+                   :type => 'script',
                    :value => value,
                    :parent => parent }
         create params
