@@ -32,7 +32,9 @@ class FileLoaderTest < Minitest::Test
     assert_equal 1, fs.tab_count( "\tone" )
     assert_equal 2, fs.tab_count( "\t\ttwo222" )
     assert_equal 3, fs.tab_count( "\t\t\tthree" )
-    assert_equal 0, fs.tab_count( "  \t one" )
+    assert_equal 1, fs.tab_count( "  one" )
+    assert_equal 2, fs.tab_count( "    two" )
+    assert_equal 3, fs.tab_count( "      three" )
   end
 
   def test_loading_a_file

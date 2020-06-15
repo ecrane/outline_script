@@ -10,6 +10,7 @@ module Gloo
 
       BEGIN_BLOCK = 'BEGIN'.freeze
       END_BLOCK = 'END'.freeze
+      SPACE_CNT = 2
 
       attr_reader :obj
 
@@ -85,10 +86,9 @@ module Gloo
           @tabs = tabs
           @indent = 1
         elsif tabs < @tabs # outdent
-          while tabs < @tabs
-            @tabs -= 1
-            @indent -= 1
-          end
+          diff = @tabs - tabs
+          @tabs -= diff
+          @indent -= diff
         end
         puts "tabs: #{@tabs}, indent: #{@indent}, line: #{line}" if @debug
       end
@@ -116,7 +116,10 @@ module Gloo
       def setup_process_obj_line
         if @exiting_multiline
           @exiting_multiline = false
-        elsif @indent.positive?
+          @indent += 1
+        end
+
+        if @indent.positive?
           @parent = @last
           @parent_stack.push @parent
         elsif @indent.negative?
@@ -153,6 +156,14 @@ module Gloo
       #
       def tab_count( line )
         i = 0
+
+        if line[ i ] == ' '
+          i += 1 while line[ i ] == ' '
+          tab_equiv = ( i / SPACE_CNT ).to_i
+          puts "Found #{i} spaces => #{tab_equiv}" if @debug
+          return tab_equiv
+        end
+
         i += 1 while line[ i ] == "\t"
         return i
       end
