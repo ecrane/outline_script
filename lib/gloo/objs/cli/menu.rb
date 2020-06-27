@@ -15,6 +15,8 @@ module Gloo
       PROMPT = 'prompt'.freeze
       ITEMS = 'items'.freeze
       LOOP = 'loop'.freeze
+      HIDE_ITEMS = 'hide_items'.freeze
+      BEFORE_MENU = 'before_menu'.freeze
 
       #
       # The name of the object type.
@@ -36,7 +38,7 @@ module Gloo
       #
       def prompt_value
         o = find_child PROMPT
-        return '> ' unless o
+        return '' unless o
 
         return o.value
       end
@@ -89,9 +91,16 @@ module Gloo
       #
       def msg_run
         loop do
-          show_options
-          cmd = $prompt.ask( prompt_value )
-          run_command cmd
+          begin_menu
+          if prompt_value.empty?
+            dt = DateTime.now
+            d = dt.strftime( '%Y.%m.%d' )
+            t = dt.strftime( '%I:%M:%S' )
+            cmd = $prompt.ask( "#{d.yellow} #{t.white} >" )
+          else
+            cmd = $prompt.ask( prompt_value )
+          end
+          run_command cmd if cmd
           break unless loop?
         end
       end
@@ -101,6 +110,30 @@ module Gloo
       # ---------------------------------------------------------------------
 
       #
+      # Begin the menu execution.
+      # Run the before menu script if there is one,
+      # then show options unless we are hiding them by default.
+      #
+      def begin_menu
+        run_before_menu
+
+        # Check to see if we should show items at all.
+        o = find_child HIDE_ITEMS
+        return if o && o.value == true
+        show_options
+      end
+
+      #
+      # If there is a before menu script, run it now.
+      #
+      def run_before_menu
+        o = find_child BEFORE_MENU
+        return unless o
+
+        o.send_message 'run' if o.can_receive_message? 'run'
+      end
+
+      #
       # Show the list of menu options.
       #
       def show_options
@@ -108,7 +141,7 @@ module Gloo
         return unless o
 
         o.children.each do |mitem|
-          puts " #{mitem.shortcut_value} - #{mitem.description_value}"
+          puts "  #{mitem.shortcut_value} - #{mitem.description_value}"
         end
       end
 
@@ -133,7 +166,11 @@ module Gloo
         obj = find_cmd cmd
 
         unless obj
-          puts "#{cmd} is not a valid option"
+          if cmd == '?'
+            show_options
+          else
+            puts "#{cmd} is not a valid option"
+          end
           return
         end
 

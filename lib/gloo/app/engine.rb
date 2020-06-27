@@ -94,7 +94,7 @@ module Gloo
         d = dt.strftime( '%Y.%m.%d' )
         t = dt.strftime( '%I:%M:%S' )
 
-        @last_cmd = $prompt.ask( "#{d.yellow} #{t.white} >" )
+        @last_cmd = $prompt.ask( "#{'gloo'.blue} #{d.yellow} #{t.white} >" )
       end
 
       # Is the last command entered blank?
@@ -149,6 +149,7 @@ module Gloo
 
       # Clear the screen.
       def clear_screen
+        @cursor = TTY::Cursor unless @cursor
         print @cursor.clear_screen
         print @cursor.move_to( 0, 0 )
       end
