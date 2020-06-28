@@ -149,7 +149,7 @@ module Gloo
 
       # Clear the screen.
       def clear_screen
-        @cursor = TTY::Cursor unless @cursor
+        @cursor ||= TTY::Cursor
         print @cursor.clear_screen
         print @cursor.move_to( 0, 0 )
       end

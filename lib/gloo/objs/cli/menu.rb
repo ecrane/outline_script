@@ -120,6 +120,7 @@ module Gloo
         # Check to see if we should show items at all.
         o = find_child HIDE_ITEMS
         return if o && o.value == true
+
         show_options
       end
 
