@@ -35,8 +35,7 @@ module Gloo
       # Detect the object name.
       #
       def detect_name
-        @line = @line[ @tabs..-1 ]
-        @line = @line[ 0..-2 ] if @line[ -1 ] == "\n"
+        @line = @line.strip
         @idx = @line.index( ' ' )
         @name = @line[ 0..@idx - 1 ]
       end
