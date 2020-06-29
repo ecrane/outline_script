@@ -51,6 +51,7 @@ module Gloo
             Load an object file.
             The file's path should be provided from the gloo project folder
             as the root directory.
+            Using * instead of a file name will load all gloo files in the folder.
 
           SYNTAX
             load <file_name>

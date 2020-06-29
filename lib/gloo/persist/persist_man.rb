@@ -50,26 +50,38 @@ module Gloo
       # Load the object from the file.
       #
       def load( name )
-        pn = get_full_path_name name
-        return unless pn
+        pns = get_full_path_names name
+        return unless pns
 
-        $log.debug "Load file at: #{pn}"
-        fs = Gloo::Persist::FileStorage.new( pn )
-        fs.load
-        @maps << fs
-        $engine.event_manager.on_load fs.obj
-        # show_maps
+        pns.each do |pn|
+          $log.debug "Load file(s) at: #{pn}"
+          fs = Gloo::Persist::FileStorage.new( pn )
+          fs.load
+          @maps << fs
+          $engine.event_manager.on_load fs.obj
+        end
       end
 
       #
       # Get the full path and name of the file.
       #
-      def get_full_path_name( name )
+      def get_full_path_names( name )
         return nil if name.strip.empty?
 
+        pns = []
         path = $settings.project_path
-        full_name = "#{name}#{file_ext}"
-        return File.join( path, full_name )
+
+        if name.strip[ -1 ] == '*'
+          dir = File.join( path, name[0..-2] )
+          Dir.glob( "#{dir}*.gloo" ).each do |f|
+            pns << f
+          end
+        else
+          full_name = "#{name}#{file_ext}"
+          pns << File.join( path, full_name )
+        end
+
+        return pns
       end
 
       # Get the default file extention.
