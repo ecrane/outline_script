@@ -6,6 +6,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'openssl'
 
 module Gloo
   module Objs
@@ -122,8 +123,9 @@ module Gloo
       # Post the content to the endpoint.
       def self.invoke_request( url )
         uri = URI( url )
-        use_ssl = uri.scheme.downcase.equal?( 'https' )
-        Net::HTTP.start( uri.host, uri.port, :use_ssl => use_ssl ) do |http|
+        params = { use_ssl: uri.scheme == 'https',
+          verify_mode: ::OpenSSL::SSL::VERIFY_NONE }
+        Net::HTTP.start( uri.host, uri.port, params ) do |http|
           request = Net::HTTP::Get.new uri
           response = http.request request # Net::HTTPResponse object
           return response.body
