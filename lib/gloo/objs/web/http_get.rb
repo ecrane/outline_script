@@ -124,7 +124,7 @@ module Gloo
       def self.invoke_request( url )
         uri = URI( url )
         params = { use_ssl: uri.scheme == 'https',
-          verify_mode: ::OpenSSL::SSL::VERIFY_NONE }
+                   verify_mode: ::OpenSSL::SSL::VERIFY_NONE }
         Net::HTTP.start( uri.host, uri.port, params ) do |http|
           request = Net::HTTP::Get.new uri
           response = http.request request # Net::HTTPResponse object

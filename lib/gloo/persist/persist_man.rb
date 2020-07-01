@@ -72,7 +72,7 @@ module Gloo
         path = $settings.project_path
 
         if name.strip[ -1 ] == '*'
-          dir = File.join( path, name[0..-2] )
+          dir = File.join( path, name[ 0..-2 ] )
           Dir.glob( "#{dir}*.gloo" ).each do |f|
             pns << f
           end

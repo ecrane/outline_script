@@ -22,11 +22,14 @@ class PersistManTest < Minitest::Test
     assert_equal '.gloo', o
   end
 
-  def test_full_path_name
-    o = @engine.persist_man.get_full_path_name 'test'
+  def test_full_path_names
+    o = @engine.persist_man.get_full_path_names 'test'
     assert o
-    assert o.end_with? '/test.gloo'
-    assert o.start_with? $settings.project_path
+    assert_equal 1, o.count
+    e = o.first
+    assert e
+    assert e.end_with? '/test.gloo'
+    assert e.start_with? $settings.project_path
   end
 
   def test_load
