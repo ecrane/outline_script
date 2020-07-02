@@ -68,20 +68,32 @@ module Gloo
       def get_full_path_names( name )
         return nil if name.strip.empty?
 
-        pns = []
-        path = $settings.project_path
-
         if name.strip[ -1 ] == '*'
-          dir = File.join( path, name[ 0..-2 ] )
+          pns = []
+          dir = File.join( $settings.project_path, name[ 0..-2 ] )
           Dir.glob( "#{dir}*.gloo" ).each do |f|
             pns << f
           end
+          return pns
         else
-          full_name = "#{name}#{file_ext}"
-          pns << File.join( path, full_name )
-        end
+          ext_path = File.expand_path( name )
+          return [ ext_path ] if self.gloo_file?( ext_path )
 
-        return pns
+          full_name = "#{name}#{file_ext}"
+          return [ File.join( $settings.project_path, full_name ) ]
+        end
+      end
+
+      #
+      # Check to see if a given path name refers to a gloo object file.
+      #
+      def gloo_file?( name )
+        return false unless name
+        return false unless File.exist?( name )
+        return false unless File.file?( name )
+        return false unless name.end_with?( self.file_ext )
+
+        return true
       end
 
       # Get the default file extention.

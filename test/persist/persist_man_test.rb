@@ -39,4 +39,13 @@ class PersistManTest < Minitest::Test
     assert_equal 'test', @engine.heap.root.children.first.name
   end
 
+  def test_if_file_is_gloo_file
+    refute @engine.persist_man.gloo_file? '/a/b/c'
+    refute @engine.persist_man.gloo_file? 'gloo'
+    refute @engine.persist_man.gloo_file? $settings.project_path
+
+    o = @engine.persist_man.get_full_path_names 'test'
+    assert @engine.persist_man.gloo_file? o[ 0 ]
+  end
+
 end

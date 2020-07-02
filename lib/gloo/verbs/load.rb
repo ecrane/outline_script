@@ -49,8 +49,8 @@ module Gloo
 
           DESCRIPTION
             Load an object file.
-            The file's path should be provided from the gloo project folder
-            as the root directory.
+            There are two ways to specify the file.  Give either the full path and file name or use a relative path from the gloo project folder.  For the latter, the extension is not needed.  For the former, the
+            file extension is necessary.
             Using * instead of a file name will load all gloo files in the folder.
 
           SYNTAX
