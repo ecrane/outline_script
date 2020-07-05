@@ -3,6 +3,7 @@
 #
 # JSON data.
 #
+require 'json'
 
 module Gloo
   module Objs
@@ -55,7 +56,23 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super
+        return super + %w[get]
+      end
+
+      #
+      # Get a value from the JSON data.
+      #
+      def msg_get
+        if @params&.token_count&.positive?
+          expr = Gloo::Expr::Expression.new( @params.tokens )
+          data = expr.evaluate
+        end
+        return unless data
+
+        h = JSON.parse( self.value )
+        field = h[ data ]
+        $engine.heap.it.set_to field
+        return field
       end
 
       # ---------------------------------------------------------------------

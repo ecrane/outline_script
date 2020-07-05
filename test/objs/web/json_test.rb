@@ -37,4 +37,14 @@ class TextTest < Minitest::Test
     assert Gloo::Objs::Text.help.start_with? 'TEXT OBJECT TYPE'
   end
 
+  def test_getting_json_value
+    o = @engine.parser.parse_immediate "create j as json"
+    o.run
+    j = @engine.heap.root.children.first
+    j.set_value "{\"title\":\"BOO\"}"
+    o = @engine.parser.parse_immediate 'tell j to get ("title")'
+    o.run
+    assert_equal 'BOO', @engine.heap.it.value
+  end
+
 end
