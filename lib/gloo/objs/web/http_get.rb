@@ -62,6 +62,8 @@ module Gloo
         params.children.each do |child|
           p << ( p.empty? ? '?' : '&' )
 
+          child = Gloo::Objs::Alias.resolve_alias( child )
+
           # TODO: Quote URL params for safety
           p << "#{child.name}=#{child.value}"
         end

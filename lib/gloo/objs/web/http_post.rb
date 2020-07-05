@@ -50,6 +50,7 @@ module Gloo
 
         body = find_child BODY
         body.children.each do |child|
+          child = Gloo::Objs::Alias.resolve_alias( child )
           h[ child.name ] = child.value
         end
 

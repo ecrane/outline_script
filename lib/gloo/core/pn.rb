@@ -141,7 +141,8 @@ module Gloo
         parent = self.get_parent
         return nil unless parent
 
-        return parent.find_child( self.name )
+        obj = parent.find_child( self.name )
+        return Gloo::Objs::Alias.resolve_alias( obj, self.src )
       end
 
     end

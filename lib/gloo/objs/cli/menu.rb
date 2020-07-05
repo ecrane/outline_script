@@ -142,6 +142,7 @@ module Gloo
         return unless o
 
         o.children.each do |mitem|
+          mitem = Gloo::Objs::Alias.resolve_alias( mitem )
           puts "  #{mitem.shortcut_value} - #{mitem.description_value}"
         end
       end
@@ -154,6 +155,7 @@ module Gloo
         return nil unless o
 
         o.children.each do |mitem|
+          mitem = Gloo::Objs::Alias.resolve_alias( mitem )
           return mitem if mitem.shortcut_value.downcase == cmd.downcase
         end
 

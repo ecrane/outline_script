@@ -134,6 +134,10 @@ module Gloo
 
       # Find a child object with the given name.
       def find_child( name )
+        if name.end_with?( Gloo::Objs::Alias::ALIAS_REFERENCE )
+          name = name[ 0..-2 ]
+        end
+
         @children.each do |o|
           return o if name.downcase == o.name.downcase
         end
