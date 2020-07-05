@@ -17,6 +17,7 @@ module Gloo
       URL = 'uri'.freeze
       PARAMS = 'params'.freeze
       RESULT = 'result'.freeze
+      SKIP_SSL_VERIFY = 'skip_ssl_verify'.freeze
 
       #
       # The name of the object type.
@@ -41,6 +42,16 @@ module Gloo
         return nil unless uri
 
         return uri.value
+      end
+
+      #
+      # Should we skip SSL verification during the request?
+      #
+      def skip_ssl_verify?
+        skip = find_child SKIP_SSL_VERIFY
+        return false unless skip
+
+        return skip.value
       end
 
       #
@@ -115,7 +126,8 @@ module Gloo
       def msg_run
         url = full_url_value
         $log.debug url
-        update_result Gloo::Objs::HttpGet.invoke_request url
+        r = Gloo::Objs::HttpGet.invoke_request( url, self.skip_ssl_verify? )
+        update_result r
       end
 
       # ---------------------------------------------------------------------
@@ -123,10 +135,12 @@ module Gloo
       # ---------------------------------------------------------------------
 
       # Post the content to the endpoint.
-      def self.invoke_request( url )
+      def self.invoke_request( url, skip_ssl_verify = false )
         uri = URI( url )
-        params = { use_ssl: uri.scheme == 'https',
-                   verify_mode: ::OpenSSL::SSL::VERIFY_NONE }
+        params = { use_ssl: uri.scheme == 'https' }
+
+        params[ :verify_mode ] = ::OpenSSL::SSL::VERIFY_NONE if skip_ssl_verify
+
         Net::HTTP.start( uri.host, uri.port, params ) do |http|
           request = Net::HTTP::Get.new uri
           response = http.request request # Net::HTTPResponse object
@@ -158,6 +172,8 @@ module Gloo
             result - string
               The result of the request.  Whatever was returned from
               the HTTP Get call.
+            skip_ssl_verify - boolean (optional)
+              Skip the SSL verification as part of the request.
 
           MESSAGES
             run - Run the HTTP Get and update the result.
