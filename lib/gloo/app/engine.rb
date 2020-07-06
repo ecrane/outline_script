@@ -44,6 +44,10 @@ module Gloo
         run_mode
       end
 
+      # ---------------------------------------------------------------------
+      #    Run
+      # ---------------------------------------------------------------------
+
       # Run the selected mode.
       def run_mode
         if @mode == Mode::VERSION
@@ -132,6 +136,10 @@ module Gloo
         $log.debug 'quitting...'
       end
 
+      # ---------------------------------------------------------------------
+      #    Helpers
+      # ---------------------------------------------------------------------
+
       # Show the version information and then quit.
       def run_version
         puts Info.display_title unless @args.quiet?
@@ -157,6 +165,28 @@ module Gloo
       # Did the last command result in an error?
       def error?
         return !@heap.error.value.nil?
+      end
+
+      # ---------------------------------------------------------------------
+      #    Convert
+      # ---------------------------------------------------------------------
+
+      #
+      # Convert the given value to the specified type,
+      # or if no conversion is available, revert to default.
+      #
+      def convert( value, to_type, default = nil )
+        begin
+          name = "Gloo::Convert::#{value.class}To#{to_type}"
+          clazz = name.split( '::' ).inject( Object ) { |o, c| o.const_get c }
+          o = clazz.new
+          return o.convert( value )
+        rescue => e
+          $log.error e.message
+          $engine.heap.error.set_to e.message
+        end
+
+        return default
       end
 
     end

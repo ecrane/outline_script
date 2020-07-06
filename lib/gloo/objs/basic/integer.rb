@@ -29,6 +29,11 @@ module Gloo
       # Set the value with any necessary type conversions.
       #
       def set_value( new_value )
+        unless new_value.is_a? Numeric
+          self.value = $engine.convert( new_value, 'Integer', 0 )
+          return
+        end
+
         self.value = new_value.to_i
       end
 
