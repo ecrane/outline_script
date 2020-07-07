@@ -113,6 +113,21 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
+      # Find a child of the given name.
+      # If found, return it.  If not found create it.
+      #
+      def find_add_child( name, type )
+        child = self.find_child( name )
+        return child if child
+
+        params = { :name => name,
+                   :type => type,
+                   :value => nil,
+                   :parent => self }
+        return $engine.factory.create params
+      end
+
       # Add a child object to the container.
       def add_child( obj )
         @children << obj

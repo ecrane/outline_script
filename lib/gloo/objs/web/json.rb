@@ -56,11 +56,12 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[get]
+        return super + %w[get parse]
       end
 
       #
       # Get a value from the JSON data.
+      # The additional parameter is the path to the value.
       #
       def msg_get
         if @params&.token_count&.positive?
@@ -73,6 +74,30 @@ module Gloo
         field = h[ data ]
         $engine.heap.it.set_to field
         return field
+      end
+
+      #
+      # Parse the JSON data and put it in objects.
+      # The additional parameter is the path to the destination
+      # for the parsed objects.
+      #
+      def msg_parse
+        if @params&.token_count&.positive?
+          pn = Gloo::Core::Pn.new @params.tokens.first
+          unless pn&.exists?
+            $engine.err 'Destination path for parsed objects does not exist'
+            return
+          end
+        else
+          $engine.err 'Destination path for parsed objects is required'
+          return
+        end
+        parent = pn.resolve
+
+        JSON.parse( self.value ).each do |k, v|
+          o = parent.find_add_child( k, 'untyped' )
+          o.set_value v
+        end
       end
 
       # ---------------------------------------------------------------------
@@ -95,7 +120,12 @@ module Gloo
             None
 
           MESSAGES
-            None
+            get - get a value from the JSON data
+              Example: tell myjson to get ("title")
+              The additional parameter is the path to the value.
+            parse - parse the JSON data and put values in the
+              object specified by the additional parameter
+              Example: tell myjson to parse ("path.to.objects")
         TEXT
       end
 

@@ -26,6 +26,17 @@ module Gloo
       #
       # Helper shortcut to create a string child object.
       #
+      def create_untyped( name, value, parent )
+        params = { :name => name,
+                   :type => 'untyped',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
+      #
+      # Helper shortcut to create a string child object.
+      #
       def create_string( name, value, parent )
         params = { :name => name,
                    :type => 'string',

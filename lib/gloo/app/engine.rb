@@ -162,9 +162,24 @@ module Gloo
         print @cursor.move_to( 0, 0 )
       end
 
+      # ---------------------------------------------------------------------
+      #    Error Handling
+      # ---------------------------------------------------------------------
+
+      #
       # Did the last command result in an error?
+      #
       def error?
         return !@heap.error.value.nil?
+      end
+
+      #
+      # Report an error.
+      # Write it to the log and set the heap error value.
+      #
+      def err( msg )
+        $log.error msg
+        self.heap.error.set_to msg
       end
 
       # ---------------------------------------------------------------------
