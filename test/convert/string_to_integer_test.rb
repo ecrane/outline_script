@@ -12,7 +12,7 @@ class StringToIntegerTest < Minitest::Test
     assert o
     assert_equal 3, o.convert( '3' )
     assert_equal 0, o.convert( '0' )
-    assert_equal -98765, o.convert( '-98765' )
+    assert_equal 98765, o.convert( '98765' )
   end
 
   def test_with_engine

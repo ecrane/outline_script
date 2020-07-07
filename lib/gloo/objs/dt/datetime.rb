@@ -25,6 +25,18 @@ module Gloo
         return KEYWORD_SHORT
       end
 
+      #
+      # Set the value with any necessary type conversions.
+      #
+      def set_value( new_value )
+        unless new_value.is_a? DateTime
+          self.value = $engine.convert( new_value, 'DateTime', nil )
+          return
+        end
+
+        self.value = new_value
+      end
+
       # ---------------------------------------------------------------------
       #    Messages
       # ---------------------------------------------------------------------
