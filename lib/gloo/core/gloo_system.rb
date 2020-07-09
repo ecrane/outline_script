@@ -6,6 +6,7 @@
 # system level variables and functions.  But it is not
 # actually an object in the normal sense of the word.
 #
+require 'tty-platform'
 
 module Gloo
   module Core
@@ -178,6 +179,52 @@ module Gloo
       # Get the Gloo log directory
       def msg_gloo_log
         return $settings.log_path
+      end
+
+      # ---------------------------------------------------------------------
+      #    Platform Messages
+      # ---------------------------------------------------------------------
+
+      # Get the platform CPU
+      def msg_platform_cpu
+        platform = TTY::Platform.new
+        return platform.cpu
+      end
+
+      # Get the platform Operating System
+      def msg_platform_os
+        platform = TTY::Platform.new
+        return platform.os
+      end
+
+      # Get the platform version
+      def msg_platform_version
+        platform = TTY::Platform.new
+        return platform.version
+      end
+
+      # Is the platform Windows?
+      def msg_platform_windows?
+        platform = TTY::Platform.new
+        return platform.windows?
+      end
+
+      # Is the platform Unix?
+      def msg_platform_unix?
+        platform = TTY::Platform.new
+        return platform.unix?
+      end
+
+      # Is the platform Linux?
+      def msg_platform_linux?
+        platform = TTY::Platform.new
+        return platform.linux?
+      end
+
+      # Is the platform Mac?
+      def msg_platform_mac?
+        platform = TTY::Platform.new
+        return platform.mac?
       end
 
     end
