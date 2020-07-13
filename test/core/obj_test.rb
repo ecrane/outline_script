@@ -176,4 +176,21 @@ class ObjTest < Minitest::Test
     assert r.root?
   end
 
+  def test_getting_pn_for_obj
+    o = @engine.parser.parse_immediate "create can as can"
+    o.run
+    j = @engine.heap.root.children.first
+    assert_equal 'can', j.pn
+
+    o = @engine.parser.parse_immediate "create can.one as can"
+    o.run
+    j = j.children.first
+    assert_equal 'can.one', j.pn
+
+    o = @engine.parser.parse_immediate "create can.one.two as can"
+    o.run
+    j = j.children.first
+    assert_equal 'can.one.two', j.pn
+  end
+
 end

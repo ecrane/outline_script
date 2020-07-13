@@ -15,6 +15,7 @@ module Gloo
 
       KEYWORD = 'each'.freeze
       KEYWORD_SHORT = 'each'.freeze
+      CHILD = 'child'.freeze
       WORD = 'word'.freeze
       LINE = 'line'.freeze
       FILE = 'file'.freeze
@@ -85,13 +86,47 @@ module Gloo
 
       # Run the system command.
       def msg_run
-        if each_word?
+        if each_child?
+          run_each_child
+        elsif each_word?
           run_each_word
         elsif each_line?
           run_each_line
         elsif each_repo?
           run_each_repo
         end
+      end
+
+      # ---------------------------------------------------------------------
+      #    Child Object
+      # ---------------------------------------------------------------------
+
+      # Is it set up to run for each word?
+      # If there is a child object by the name "word"
+      # then we will loop for each word in the string.
+      def each_child?
+        return true if find_child CHILD
+
+        return false
+      end
+
+      # Run for each word.
+      def run_each_child
+        o = find_child IN
+        return unless o
+
+        o.children.each do |child|
+          set_child child
+          run_do
+        end
+      end
+
+      # Set the child alias.
+      def set_child( obj )
+        o = find_child CHILD
+        return unless o
+
+        o.set_value obj.pn
       end
 
       # ---------------------------------------------------------------------
