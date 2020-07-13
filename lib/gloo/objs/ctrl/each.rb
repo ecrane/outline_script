@@ -144,7 +144,7 @@ module Gloo
         str = in_value
         return unless str
 
-        str.split( '\n' ).each do |line|
+        str.each_line do |line|
           set_line line
           run_do
         end
