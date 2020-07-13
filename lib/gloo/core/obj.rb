@@ -169,6 +169,12 @@ module Gloo
         @children.each do |o|
           return o if name.downcase == o.name.downcase
         end
+
+        if self.type_display == Gloo::Objs::Alias.typename
+          ln = Gloo::Core::Pn.new( self.value )
+          redirect = ln.resolve
+          return redirect.find_child( name )
+        end
         return nil
       end
 

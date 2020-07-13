@@ -114,6 +114,7 @@ module Gloo
       def run_each_child
         o = find_child IN
         return unless o
+        o = Gloo::Objs::Alias.resolve_alias( o )
 
         o.children.each do |child|
           set_child child
