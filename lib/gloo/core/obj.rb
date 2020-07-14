@@ -66,7 +66,7 @@ module Gloo
       def pn
         str = self.name
         p = self.parent
-        while p && ( ! p.root? )
+        while p && !p.root?
           str = "#{p.name}.#{str}"
           p = p.parent
         end

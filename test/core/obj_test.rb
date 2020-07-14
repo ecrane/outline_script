@@ -82,7 +82,7 @@ class ObjTest < Minitest::Test
   end
 
   def test_find_child
-    o = Gloo::Core::Obj.new
+    o = Gloo::Objs::Container.new
     s = Gloo::Objs::String.new
     s.name = 'str'
     refute o.find_child( 'str' )
@@ -101,7 +101,7 @@ class ObjTest < Minitest::Test
   end
 
   def test_find_nonexistant_child
-    o = Gloo::Core::Obj.new
+    o = Gloo::Objs::Container.new
     refute o.find_child( 'xtr' )
     s = Gloo::Objs::String.new
     s.name = 'str'

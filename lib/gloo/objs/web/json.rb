@@ -95,7 +95,7 @@ module Gloo
         parent = pn.resolve
 
         json = JSON.parse( self.value )
-        self.handle_json( json, parent)
+        self.handle_json( json, parent )
       end
 
       #
