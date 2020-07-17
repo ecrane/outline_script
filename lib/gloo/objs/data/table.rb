@@ -126,7 +126,7 @@ module Gloo
             end
           end
         end
-        puts rendered
+        puts "\n#{rendered}\n\n"
       end
 
       # ---------------------------------------------------------------------
