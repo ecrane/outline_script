@@ -64,14 +64,8 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'prompt',
-                      :type => 'string',
-                      :value => '> ',
-                      :parent => self } )
-        fac.create( { :name => 'result',
-                      :type => 'string',
-                      :value => nil,
-                      :parent => self } )
+        fac.create_string PROMPT, '>', self
+        fac.create_string RESULT, nil, self
       end
 
       # ---------------------------------------------------------------------
@@ -82,7 +76,18 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ 'run' ]
+        return super + %w[run multiline]
+      end
+
+      #
+      # Show a multiline prompt and get the user's input.
+      #
+      def msg_multiline
+        prompt = prompt_value
+        return unless prompt
+
+        result = $prompt.multiline( prompt )
+        set_result result.join
       end
 
       #
@@ -120,6 +125,7 @@ module Gloo
 
           MESSAGES
             run - Prompt the user and then set the result.
+            multiline - Show a multiline prompt.
         TEXT
       end
 

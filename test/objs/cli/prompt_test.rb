@@ -25,6 +25,7 @@ class PromptTest < Minitest::Test
     msgs = Gloo::Objs::Prompt.messages
     assert msgs
     assert msgs.include?( 'run' )
+    assert msgs.include?( 'multiline' )
     assert msgs.include?( 'unload' )
   end
 
