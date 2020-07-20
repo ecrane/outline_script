@@ -87,4 +87,24 @@ class GlooSystemTest < Minitest::Test
     assert_equal $settings.log_path, @engine.heap.it.value
   end
 
+  def test_screen_lines
+    i = @engine.parser.parse_immediate 'show $.screen.lines'
+    i.run
+    assert_equal Gloo::App::Settings.lines, @engine.heap.it.value
+
+    i = @engine.parser.parse_immediate 'show $.screen_lines'
+    i.run
+    assert_equal Gloo::App::Settings.lines, @engine.heap.it.value
+  end
+
+  def test_screen_cols
+    i = @engine.parser.parse_immediate 'show $.screen.cols'
+    i.run
+    assert_equal Gloo::App::Settings.cols, @engine.heap.it.value
+
+    i = @engine.parser.parse_immediate 'show $.screen_cols'
+    i.run
+    assert_equal Gloo::App::Settings.cols, @engine.heap.it.value
+  end
+
 end
