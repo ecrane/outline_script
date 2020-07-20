@@ -3,6 +3,7 @@
 #
 # A [multiline] block of text.
 #
+require 'tty-editor'
 
 module Gloo
   module Objs
@@ -10,6 +11,7 @@ module Gloo
 
       KEYWORD = 'text'.freeze
       KEYWORD_SHORT = 'txt'.freeze
+      DEFAULT_TMP_FILE = 'tmp.txt'.freeze
 
       #
       # The name of the object type.
@@ -55,7 +57,17 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super
+        return super + %w[edit]
+      end
+
+      #
+      # Edit the text in the default editor.
+      #
+      def msg_edit
+        tmp = File.join( $settings.tmp_path, DEFAULT_TMP_FILE )
+        File.open( tmp, 'w' ) { |file| file.write( self.value ) }
+        TTY::Editor.open( tmp )
+        set_value File.read( tmp )
       end
 
       # ---------------------------------------------------------------------
@@ -78,7 +90,7 @@ module Gloo
             None
 
           MESSAGES
-            None
+            edit - Edit the text field in the default editor.
         TEXT
       end
 

@@ -13,7 +13,7 @@ module Gloo
     class Settings
 
       attr_reader :user_root, :log_path, :config_path, :project_path
-      attr_reader :start_with, :list_indent
+      attr_reader :start_with, :list_indent, :tmp_path
 
       # Load setting from the yml file.
       def initialize( mode )
@@ -55,6 +55,9 @@ module Gloo
 
         @config_path = File.join( @user_root, 'config' )
         Dir.mkdir( @config_path ) unless File.exist?( @config_path )
+
+        @tmp_path = File.join( @user_root, 'tmp' )
+        Dir.mkdir( @tmp_path ) unless File.exist?( @tmp_path )
       end
 
       # Initialize the user settings for the currently
@@ -91,16 +94,20 @@ module Gloo
         return str
       end
 
+      #
       # Show the current application settings.
+      # Can be seen in app with 'help settings'
+      #
       def show
         puts "\nApplication Settings:".blue
         puts '  User Root Path is here:  '.yellow + @user_root.white
-        puts '  Projects directory:  '.yellow + @projects.white
+        puts '  Projects directory:  '.yellow + @project_path.white
+        puts '  Tmp directory:  '.yellow + @tmp_path.white
         puts '  Startup with:  '.yellow + @start_with.white
-        puts '  Indent in Listing:  '.yellow + @list_indent.white
+        puts '  Indent in Listing:  '.yellow + @list_indent.to_s.white
         puts ''
-        puts '  Screen Lines:  '.yellow + Settings.lines.to_s.white
-        puts '  Page Size:  '.yellow + Settings.page_size.to_s.white
+        puts '  Screen Lines:  '.yellow + Gloo::App::Settings.lines.to_s.white
+        puts '  Page Size:  '.yellow + Gloo::App::Settings.page_size.to_s.white
         puts ''
       end
 

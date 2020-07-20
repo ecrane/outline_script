@@ -12,6 +12,7 @@ module Gloo
       KEYWORD_SHORT = '?'.freeze
 
       DISPATCH = {
+        settings: 'show_settings',
         verb: 'show_verbs',
         verbs: 'show_verbs',
         v: 'show_verbs',
@@ -114,6 +115,13 @@ module Gloo
       end
 
       #
+      # Show application settings.
+      #
+      def show_settings
+        $settings.show
+      end
+
+      #
       # List the verbs
       #
       def show_verbs
@@ -199,6 +207,7 @@ module Gloo
           PARAMETERS
             about - Optional parameter.
                     If no parameter is given, shows the default help screen
+                    settings - Show application settings
                     verbs - List available verbs
                     objects - List available objects
                     <verb> - Look up detail about a verb
