@@ -27,6 +27,8 @@ class FileHandleTest < Minitest::Test
     assert msgs
     assert msgs.include?( 'read' )
     assert msgs.include?( 'write' )
+    assert msgs.include?( 'page' )
+    assert msgs.include?( 'show' )
   end
 
   def test_adds_children_on_create

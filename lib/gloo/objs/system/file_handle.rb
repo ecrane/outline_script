@@ -3,6 +3,7 @@
 #
 # An object that points to a file in the system.
 #
+require 'tty-pager'
 
 module Gloo
   module Objs
@@ -33,9 +34,34 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[read write check_exists check_is_file check_is_dir]
+        basic = %w[read write]
+        checks = %w[check_exists check_is_file check_is_dir]
+        show = %w[show page]
+        return super + basic + show + checks
       end
 
+      #
+      # Show the contents of the file, paginated.
+      #
+      def msg_page
+        return unless value && File.file?( value )
+
+        pager = TTY::Pager.new
+        pager.page( path: value )
+      end
+
+      #
+      # Show the contents of the file.
+      #
+      def msg_show
+        return unless value && File.file?( value )
+
+        puts File.read( value )
+      end
+
+      #
+      # Read the contents of the file into the object.
+      #
       def msg_read
         return unless value && File.file?( value )
 
@@ -49,6 +75,9 @@ module Gloo
         end
       end
 
+      #
+      # Write the given data out to the file.
+      #
       def msg_write
         data = ''
         return unless value
@@ -60,19 +89,25 @@ module Gloo
         File.write( value, data )
       end
 
+      #
       # Check to see if the file exists.
+      #
       def msg_check_exists
         result = File.exist? value
         $engine.heap.it.set_to result
       end
 
+      #
       # Check to see if the file is a file.
+      #
       def msg_check_is_file
         result = File.file? value
         $engine.heap.it.set_to result
       end
 
+      #
       # Check to see if the file is a directory.
+      #
       def msg_check_is_dir
         result = File.directory? value
         $engine.heap.it.set_to result
@@ -100,6 +135,7 @@ module Gloo
             None.
 
           MESSAGES
+            show - Show the contents of the file.
             read <into.obj> - Read file and put data in the specified object.
               If the <into.obj> is not specified, the data will be in <it>.
             write <from.obj> - Write the data in the <from.object> into
