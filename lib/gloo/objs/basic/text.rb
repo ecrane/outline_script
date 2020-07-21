@@ -4,6 +4,7 @@
 # A [multiline] block of text.
 #
 require 'tty-editor'
+require 'tty-pager'
 
 module Gloo
   module Objs
@@ -57,7 +58,17 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[edit]
+        return super + %w[edit page]
+      end
+
+      #
+      # Show the contents of the file, paginated.
+      #
+      def msg_page
+        return unless value
+
+        pager = TTY::Pager.new
+        pager.page( value )
       end
 
       #
@@ -91,6 +102,7 @@ module Gloo
 
           MESSAGES
             edit - Edit the text field in the default editor.
+            page - Show the text, paginated.
         TEXT
       end
 

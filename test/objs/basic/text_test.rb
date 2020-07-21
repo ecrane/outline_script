@@ -37,6 +37,7 @@ class TextTest < Minitest::Test
     msgs = Gloo::Objs::Text.messages
     assert msgs
     assert msgs.include?( 'edit' )
+    assert msgs.include?( 'page' )
   end
 
   def test_help_text
