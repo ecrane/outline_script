@@ -85,6 +85,7 @@ module Gloo
         return LBoolean.new( token ) if LBoolean.boolean?( token )
         return LInteger.new( token ) if LInteger.integer?( token )
         return LString.new( token ) if LString.string?( token )
+        return LDecimal.new( token ) if LDecimal.decimal?( token )
 
         # last chance: an Object reference
         return Gloo::Core::Pn.new( token )

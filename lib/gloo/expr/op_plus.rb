@@ -13,6 +13,8 @@ module Gloo
         return left + right.to_s if left.is_a? String
 
         return left + right.to_i if left.is_a? Integer
+
+        return left + right.to_f if left.is_a? Numeric
       end
 
     end
