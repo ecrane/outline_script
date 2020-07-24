@@ -105,8 +105,13 @@ module Gloo
       def handle_json( json, parent )
         if json.class == Hash
           json.each do |k, v|
-            o = parent.find_add_child( k, 'untyped' )
-            o.set_value v
+            if v.class == Array
+              o = parent.find_add_child( k, 'can' )
+              handle_json( v, o )
+            else
+              o = parent.find_add_child( k, 'untyped' )
+              o.set_value v
+            end
           end
         elsif json.class == Array
           json.each_with_index do |o, index|
