@@ -105,7 +105,7 @@ module Gloo
       # If there is a child object by the name "word"
       # then we will loop for each word in the string.
       def each_child?
-        return true if find_child CHILD
+        return true if contains_child? CHILD
 
         return false
       end
@@ -256,7 +256,7 @@ module Gloo
             Perform an action for each item in a collection.
 
           CHILDREN
-            word | line | repo - string - none
+            child | word | line | repo - string - none
               The entity we want to loop for.
               It will hold the current value while the script is running.
             in - string - none
