@@ -39,10 +39,11 @@ class MenuTest < Minitest::Test
     obj = @engine.heap.root.children.first
     assert obj
     assert_equal 'o', obj.name
-    assert_equal 3, obj.child_count
+    assert_equal 4, obj.child_count
     assert_equal 'prompt', obj.children.first.name
     assert_equal 'items', obj.children[1].name
-    assert_equal 'loop', obj.children.last.name
+    assert_equal 'loop', obj.children[2].name
+    assert_equal 'default', obj.children.last.name
   end
 
   def test_the_default_prompt_value
@@ -63,7 +64,7 @@ class MenuTest < Minitest::Test
     obj = @engine.heap.root.children.first
     assert obj
     assert obj.loop?
-    loop = obj.children.last
+    loop = obj.children[2]
     assert_equal 'loop', loop.name
     assert_equal true, loop.value
   end

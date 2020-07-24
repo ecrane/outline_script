@@ -17,6 +17,7 @@ module Gloo
       LOOP = 'loop'.freeze
       HIDE_ITEMS = 'hide_items'.freeze
       BEFORE_MENU = 'before_menu'.freeze
+      DEFAULT = 'default'.freeze
 
       #
       # The name of the object type.
@@ -73,6 +74,7 @@ module Gloo
         fac.create_string PROMPT, '> ', self
         fac.create_can ITEMS, self
         fac.create_bool LOOP, true, self
+        fac.create_script DEFAULT, '', self
       end
 
       # ---------------------------------------------------------------------
@@ -100,7 +102,7 @@ module Gloo
           else
             cmd = $prompt.ask( prompt_value )
           end
-          run_command cmd if cmd
+          cmd ? run_command( cmd ) : run_default
           break unless loop?
         end
       end
@@ -163,6 +165,17 @@ module Gloo
       end
 
       #
+      # Run the default option.
+      #
+      def run_default
+        obj = find_child DEFAULT
+        return unless obj
+
+        s = Gloo::Core::Script.new obj
+        s.run
+      end
+
+      #
       # Run the selected command.
       #
       def run_command( cmd )
@@ -208,6 +221,8 @@ module Gloo
               A textual description of the menu item action.
             loop - boolean
               The script that will be run if the menu item is selected.
+            default - script
+              Optional script element. Run this if no other option selected.
 
           MESSAGES
             run - Show the options and the the prompt.
