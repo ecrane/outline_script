@@ -34,7 +34,7 @@ module Gloo
       #
       def shortcut_value
         o = find_child SHORTCUT
-        return nil unless o
+        return self.name unless o
 
         return o.value
       end
@@ -45,7 +45,7 @@ module Gloo
       #
       def description_value
         o = find_child DESCRIPTION
-        return nil unless o
+        return self.value unless o
 
         return o.value
       end
@@ -109,8 +109,12 @@ module Gloo
           CHILDREN
             shortcut - string
               The shortcut may be used to select the  menu item.
+              The shortcut child is optional.  If it is not provided,
+              the name of the menu item will be used instead.
             description - string
               A textual description of the menu item action.
+              The description child is optional.  If it is not provided,
+              the value of the menu item will be used instead.
             do - script
               The script that will be run if the menu item is selected.
 
