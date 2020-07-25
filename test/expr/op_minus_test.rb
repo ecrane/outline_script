@@ -17,4 +17,9 @@ class OpMinusTest < Minitest::Test
     assert_equal 7, @engine.heap.it.value
   end
 
+  def test_subtracting_decimal_numbers
+    @engine.parser.run '= 19.75 - 10.5'
+    assert_equal 9.25, @engine.heap.it.value.round( 2 )
+  end
+
 end

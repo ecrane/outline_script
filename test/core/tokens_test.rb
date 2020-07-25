@@ -134,6 +134,11 @@ class TokensTest < Minitest::Test
     assert_equal 'string', o.after_token( 'AS' )
   end
 
+  def test_tokens_with_decimal
+    o = Gloo::Core::Tokens.new( '= 2.3 + 3.4' )
+    assert_equal 4, o.token_count
+  end
+
   def test_before_token
     o = Gloo::Core::Tokens.new( 'put 2 + 3 into x' )
     assert_equal 6, o.token_count

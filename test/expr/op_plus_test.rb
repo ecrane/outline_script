@@ -22,4 +22,9 @@ class OpPlusTest < Minitest::Test
     assert_equal 7, @engine.heap.it.value
   end
 
+  def test_adding_two_decimal_numbers
+    @engine.parser.run '= 2.1 + 3.4'
+    assert_equal 5.5, @engine.heap.it.value
+  end
+
 end

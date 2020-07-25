@@ -17,4 +17,9 @@ class OpDivTest < Minitest::Test
     assert_equal 2, @engine.heap.it.value
   end
 
+  def test_dividing_decimal_numbers
+    @engine.parser.run '= 10.5 / 2'
+    assert_equal 5.25, @engine.heap.it.value.round( 2 )
+  end
+
 end

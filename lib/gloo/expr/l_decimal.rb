@@ -12,11 +12,16 @@ module Gloo
       # Is the given token a decimal?
       #
       def self.decimal?( token )
-        return token.is_a? Numeric
+        return true if token.is_a? Numeric
+
+        s = token.strip
+        return s.to_f.to_s == s
       end
 
       # Set the value, converting to an integer.
       def set_value( value )
+        value = value.to_s if value.is_a? Numeric
+
         @value = value.to_f
       end
 
