@@ -16,6 +16,18 @@ module Gloo
       # Run the verb.
       #
       def run
+        if @tokens.second == '~>'
+          run_expression
+          return
+        end
+
+        run_script
+      end
+
+      #
+      # Run a script specified by pathname
+      #
+      def run_script
         name = @tokens.second
         pn = Gloo::Core::Pn.new name
         o = pn.resolve
@@ -24,6 +36,16 @@ module Gloo
           o.send_message 'run'
         else
           $log.error "Could not send message to object.  Bad path: #{name}"
+        end
+      end
+
+      #
+      # Evaluate an expression and run that.
+      #
+      def run_expression
+        if @tokens.token_count > 1
+          expr = Gloo::Expr::Expression.new( @tokens.params[1..-1] )
+          $engine.parser.run expr.evaluate
         end
       end
 
