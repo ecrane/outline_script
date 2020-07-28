@@ -43,10 +43,10 @@ module Gloo
       # Evaluate an expression and run that.
       #
       def run_expression
-        if @tokens.token_count > 1
-          expr = Gloo::Expr::Expression.new( @tokens.params[1..-1] )
-          $engine.parser.run expr.evaluate
-        end
+        return unless @tokens.token_count > 1
+
+        expr = Gloo::Expr::Expression.new( @tokens.params[ 1..-1 ] )
+        $engine.parser.run expr.evaluate
       end
 
       #
