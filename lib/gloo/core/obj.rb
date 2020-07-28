@@ -178,7 +178,18 @@ module Gloo
         return nil
       end
 
+      #
+      # Delete all children from the container.
+      #
+      def delete_children
+        @children.reverse.each do |o|
+          self.remove_child o
+        end
+      end
+
+      #
       # Remove the object from the children collection.
+      #
       def remove_child( obj )
         @children.delete obj
       end
@@ -205,7 +216,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return [ 'unload' ]
+        return %w[unload]
       end
 
       #

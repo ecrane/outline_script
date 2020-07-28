@@ -90,6 +90,22 @@ class ObjTest < Minitest::Test
     assert_same s, o.find_child( 'str' )
   end
 
+  def test_delete_children
+    o = Gloo::Objs::Container.new
+    s = Gloo::Objs::String.new
+    s.name = 'one'
+    o.add_child s
+    assert_equal 1, o.child_count
+
+    s = Gloo::Objs::String.new
+    s.name = 'two'
+    o.add_child s
+    assert_equal 2, o.child_count
+
+    o.delete_children
+    assert_equal 0, o.child_count
+  end
+
   def test_remove_child
     o = Gloo::Core::Obj.new
     s = Gloo::Objs::String.new

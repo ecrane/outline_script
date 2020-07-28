@@ -33,14 +33,23 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ 'count' ]
+        return super + %w[count delete_children]
       end
 
+      #
       # Count the number of children in the container.
+      #
       def msg_count
         i = child_count
         $engine.heap.it.set_to i
         return i
+      end
+
+      #
+      # Delete all children in the container.
+      #
+      def msg_delete_children
+        self.delete_children
       end
 
       # ---------------------------------------------------------------------
@@ -70,6 +79,7 @@ module Gloo
           MESSAGES
             count - Count the number of children objects in the container.
                     The result is put in <it>.
+            delete_children - Delete all children objects from the container.
         TEXT
       end
 

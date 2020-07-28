@@ -27,6 +27,7 @@ class ContainerTest < Minitest::Test
     msgs = Gloo::Objs::Container.messages
     assert msgs
     assert msgs.include?( 'count' )
+    assert msgs.include?( 'delete_children' )
     assert msgs.include?( 'unload' )
   end
 
@@ -40,6 +41,25 @@ class ContainerTest < Minitest::Test
   def test_doesnt_add_children_on_create
     o = Gloo::Objs::Container.new
     refute o.add_children_on_create?
+  end
+
+  def test_running_evaluated_string
+    s = 'create c as can'
+    @engine.parser.parse_immediate( s ).run
+    can = @engine.heap.root.children.first
+
+    s = 'create c.x as int'
+    @engine.parser.parse_immediate( s ).run
+    s = 'create c.y as int'
+    @engine.parser.parse_immediate( s ).run
+    s = 'create c.z as int'
+    @engine.parser.parse_immediate( s ).run
+
+    assert_equal 3, can.child_count
+
+    s = 'tell c to delete_children'
+    @engine.parser.parse_immediate( s ).run
+    assert_equal 0, can.child_count
   end
 
   def test_help_text
