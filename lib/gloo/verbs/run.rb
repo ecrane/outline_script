@@ -11,17 +11,17 @@ module Gloo
 
       KEYWORD = 'run'.freeze
       KEYWORD_SHORT = 'r'.freeze
+      EVALUATE_RUN = '~>'.freeze
 
       #
       # Run the verb.
       #
       def run
-        if @tokens.second == '~>'
+        if @tokens.second == EVALUATE_RUN
           run_expression
-          return
+        else
+          run_script
         end
-
-        run_script
       end
 
       #
@@ -43,7 +43,7 @@ module Gloo
       # Evaluate an expression and run that.
       #
       def run_expression
-        return unless @tokens.token_count > 1
+        return unless @tokens.token_count > 2
 
         expr = Gloo::Expr::Expression.new( @tokens.params[ 1..-1 ] )
         $engine.parser.run expr.evaluate

@@ -25,6 +25,16 @@ class RunTest < Minitest::Test
     assert_equal 7, @engine.heap.it.value
   end
 
+  def test_running_evaluated_string
+    s = 'create s as string : "show 3 + 4"'
+    i = @engine.parser.parse_immediate s
+    i.run
+    assert_equal 1, @engine.heap.root.child_count
+    i = @engine.parser.parse_immediate 'run ~> s'
+    i.run
+    assert_equal 7, @engine.heap.it.value
+  end
+
   def test_help_text
     assert Gloo::Verbs::Run.help.start_with? 'RUN VERB'
   end
