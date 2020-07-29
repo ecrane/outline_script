@@ -27,6 +27,7 @@ module Gloo
           expr = Gloo::Expr::Expression.new( value )
           result = expr.evaluate
           evals_false = true if result == false
+          evals_false = true if result.is_a?( Numeric ) && result.zero?
         end
         return unless evals_false
 
