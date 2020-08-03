@@ -113,7 +113,7 @@ module Gloo
       # Show the given table data.
       #
       def self.show( headers, data, title = nil )
-        pastel = Pastel.new
+        pastel = ::Pastel.new
         table = TTY::Table.new headers, data
         pad = [ 0, 1, 0, 1 ]
         rendered = table.render( :ascii, indent: 2, padding: pad ) do |r|

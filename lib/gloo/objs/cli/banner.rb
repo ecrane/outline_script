@@ -4,6 +4,7 @@
 # Show a large-text banner.
 #
 require 'tty-font'
+require 'pastel'
 
 module Gloo
   module Objs
@@ -97,7 +98,7 @@ module Gloo
       def msg_show
         font = TTY::Font.new self.style_value
         t = font.write( self.text_value )
-        pastel = Pastel.new
+        pastel = ::Pastel.new
         c = self.color_value.split( ' ' ).map( &:to_sym )
         puts pastel.decorate( t, *c )
       end
