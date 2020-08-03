@@ -1,16 +1,18 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2020 Eric Crane.  All rights reserved.
 #
-# Show colorized output.
+# Show colorized output with the pastel gem.
 #
-require 'colorized_string'
+require 'pastel'
 
 module Gloo
   module Objs
-    class Colorize < Gloo::Core::Obj
+    class Pastel < Gloo::Core::Obj
 
-      KEYWORD = 'colorize'.freeze
-      KEYWORD_SHORT = 'color'.freeze
+      KEYWORD = 'pastel'.freeze
+      KEYWORD_SHORT = 'pastel'.freeze
+      TEXT = 'text'.freeze
+      COLOR = 'color'.freeze
 
       #
       # The name of the object type.
@@ -24,6 +26,26 @@ module Gloo
       #
       def self.short_typename
         return KEYWORD_SHORT
+      end
+
+      #
+      # Get the text from the child object.
+      #
+      def text_value
+        o = find_child TEXT
+        return '' unless o
+
+        return o.value
+      end
+
+      #
+      # Get the color from the child object.
+      #
+      def color_value
+        o = find_child COLOR
+        return '' unless o
+
+        return o.value
       end
 
       # ---------------------------------------------------------------------
@@ -42,10 +64,8 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'white',
-                      :type => 'string',
-                      :value => '',
-                      :parent => self } )
+        fac.create_string TEXT, '', self
+        fac.create_string COLOR, '', self
       end
 
       # ---------------------------------------------------------------------
@@ -56,17 +76,16 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ 'run' ]
+        return super + %w[show]
       end
 
-      # Run the system command.
-      def msg_run
-        msg = ''
-        children.each do |o|
-          msg += ColorizedString[ o.value_display ].colorize( o.name.to_sym )
-        end
-        $log.show msg
-        $engine.heap.it.set_to msg.to_s
+      #
+      # Show the banner bar
+      #
+      def msg_show
+        pastel = ::Pastel.new
+        c = self.color_value.split( ' ' ).map( &:to_sym )
+        puts pastel.decorate( self.text_value, *c )
       end
 
       # ---------------------------------------------------------------------
@@ -78,23 +97,21 @@ module Gloo
       #
       def self.help
         return <<~TEXT
-          COLORIZE OBJECT TYPE
-            NAME: colorize
-            SHORTCUT: color
+          PASTEL OBJECT TYPE
+            NAME: pastel
+            SHORTCUT: pastel
 
           DESCRIPTION
-            The Colorize object can be used to write output in color.
-            The Colorize container can contain multiple strings, each
-            one can have a different color as specified by the names
-            of the children.
+            Show colorized text with the pastel gem.
 
           CHILDREN
-            <color> - string - no default value
-              The name of the child or children is the color.
-              The string's value is what will be written out.
+            text - string
+              The text that will be colorized.
+            color - string
+              The colors.  See pastel for options.
 
           MESSAGES
-            run - Output the string in the color specified.
+            show - Show the colorized text.
         TEXT
       end
 
