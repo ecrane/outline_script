@@ -4,6 +4,7 @@
 # An object that points to a file in the system.
 #
 require 'tty-pager'
+require 'os'
 
 module Gloo
   module Objs
@@ -36,8 +37,20 @@ module Gloo
       def self.messages
         basic = %w[read write]
         checks = %w[check_exists check_is_file check_is_dir]
-        show = %w[show page]
+        show = %w[show page open]
         return super + basic + show + checks
+      end
+
+      #
+      # Open the file in the default application for the file type.
+      #
+      def msg_open
+        return unless value && File.exist?( value )
+
+        # xdg-open is the linux variant
+        cmd = OS.mac? ? 'open' : 'xdg-open'
+        cmd_with_param = "#{cmd} \"#{value}\""
+        `#{cmd_with_param}`
       end
 
       #
@@ -135,11 +148,13 @@ module Gloo
             None.
 
           MESSAGES
-            show - Show the contents of the file.
             read <into.obj> - Read file and put data in the specified object.
               If the <into.obj> is not specified, the data will be in <it>.
             write <from.obj> - Write the data in the <from.object> into
               the file.
+            show - Show the contents of the file.
+            page - Show the contents of the file, paginated
+            open - Open the file with the default application for the type.
             check_exists - Check to see if the file exists.
               <It> will be true or false.
             check_is_file - Check to see if the file specified is a

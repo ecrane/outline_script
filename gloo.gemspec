@@ -37,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'chronic', '~> 0.10', '>= 0.10.2'
   spec.add_dependency 'colorize', '~> 0.8', '>= 0.8.1'
   spec.add_dependency 'tty', '~> 0.8', '>= 0.8.1'
+  spec.add_dependency 'os', '~> 1.1', '>= 1.1.1'
 end
