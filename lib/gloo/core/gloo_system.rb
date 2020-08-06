@@ -241,6 +241,17 @@ module Gloo
         return platform.mac?
       end
 
+      #
+      # Get the command to open a file on this platform.
+      #
+      def self.open_for_platform
+        platform = TTY::Platform.new
+        return 'open' if platform.mac?
+        return 'xdg-open' if platform.linux?
+
+        return nil
+      end
+
     end
   end
 end

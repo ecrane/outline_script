@@ -4,7 +4,6 @@
 # An object that points to a file in the system.
 #
 require 'tty-pager'
-require 'os'
 
 module Gloo
   module Objs
@@ -47,8 +46,7 @@ module Gloo
       def msg_open
         return unless value && File.exist?( value )
 
-        # xdg-open is the linux variant
-        cmd = OS.mac? ? 'open' : 'xdg-open'
+        cmd = Gloo::Core::GlooSystem.open_for_platform
         cmd_with_param = "#{cmd} \"#{value}\""
         `#{cmd_with_param}`
       end
