@@ -67,6 +67,7 @@ module Gloo
       def msg_page
         return unless value
 
+        # pager = TTY::Pager::SystemPager.new command: 'less -R'
         pager = TTY::Pager.new
         pager.page( value )
       end

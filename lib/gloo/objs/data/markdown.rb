@@ -71,7 +71,10 @@ module Gloo
       # Show the markdown data in the terminal, paginated.
       #
       def msg_page
+        return unless self.value
+
         md = TTY::Markdown.parse self.value
+        # pager = TTY::Pager::SystemPager.new command: 'less -R'
         pager = TTY::Pager.new
         pager.page( md )
       end
