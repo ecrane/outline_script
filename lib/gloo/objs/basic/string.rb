@@ -40,7 +40,14 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[up down]
+        return super + %w[up down size]
+      end
+
+      # Get the size of the string.
+      def msg_size
+        s = value.size
+        $engine.heap.it.set_to s
+        return s
       end
 
       # Convert string to upper case
@@ -81,6 +88,7 @@ module Gloo
           MESSAGES
             up - Convert the string to uppercase.
             down - Convert the string to lowercase.
+            size - Get the size of the string.
         TEXT
       end
 

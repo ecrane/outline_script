@@ -45,6 +45,12 @@ class StringTest < Minitest::Test
     assert msgs.include?( 'unload' )
   end
 
+  def test_size_msg
+    o = Gloo::Objs::String.new
+    o.set_value 'one'
+    assert_equal 3, o.msg_size
+  end
+
   def test_up_msg
     o = Gloo::Objs::String.new
     o.set_value 'test'
