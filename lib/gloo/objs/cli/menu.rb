@@ -133,7 +133,7 @@ module Gloo
         o = find_child BEFORE_MENU
         return unless o
 
-        o.send_message 'run' if o.can_receive_message? 'run'
+        Gloo::Exec::Dispatch.message 'run', o
       end
 
       #

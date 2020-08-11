@@ -49,7 +49,9 @@ module Gloo
       # Run the do script once.
       def run_do
         o = find_child DO
-        o.send_message( 'run' ) if o.can_receive_message? 'run'
+        return unless o
+
+        Gloo::Exec::Dispatch.message 'run', o
       end
 
       # ---------------------------------------------------------------------

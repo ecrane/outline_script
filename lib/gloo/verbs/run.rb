@@ -28,15 +28,7 @@ module Gloo
       # Run a script specified by pathname
       #
       def run_script
-        name = @tokens.second
-        pn = Gloo::Core::Pn.new name
-        o = pn.resolve
-
-        if o
-          o.send_message 'run'
-        else
-          $log.error "Could not send message to object.  Bad path: #{name}"
-        end
+        Gloo::Exec::Runner.run @tokens.second
       end
 
       #

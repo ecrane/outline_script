@@ -22,9 +22,7 @@ module Gloo
         return unless obj || in_heap
 
         arr = Gloo::Core::ObjFinder.by_name 'on_load', obj
-        arr.each do |o|
-          o.send_message 'run' if o.can_receive_message? 'run'
-        end
+        arr.each { |o| Gloo::Exec::Dispatch.message 'run', o }
       end
 
       #
@@ -34,9 +32,7 @@ module Gloo
         return unless obj
 
         arr = Gloo::Core::ObjFinder.by_name 'on_unload', obj
-        arr.each do |o|
-          o.send_message 'run' if o.can_receive_message? 'run'
-        end
+        arr.each { |o| Gloo::Exec::Dispatch.message 'run', o }
       end
 
     end

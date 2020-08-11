@@ -42,10 +42,10 @@ module Gloo
 
       #
       # Parse a command and then run it if it parsed correctly.
-      # 
+      #
       def run( cmd )
         v = parse_immediate( cmd )
-        Runner.go( v ) if v
+        Gloo::Exec::Runner.go( v ) if v
       end
 
     end
