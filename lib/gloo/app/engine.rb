@@ -122,8 +122,7 @@ module Gloo
           return
         end
 
-        @immediate = @parser.parse_immediate @last_cmd
-        Gloo::Core::Runner.go( @immediate ) if @immediate
+        @parser.run @last_cmd
       end
 
       # Request the engine to stop running.

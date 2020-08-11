@@ -1,5 +1,5 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
-# Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
+# Copyright:: Copyright (c) 2020 Eric Crane.  All rights reserved.
 #
 # The Runner is a static helper function.
 # It is used to send the run command to verbs.
