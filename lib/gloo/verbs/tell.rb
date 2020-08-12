@@ -22,7 +22,7 @@ module Gloo
         o = pn.resolve
 
         if o
-          Gloo::Exec::Dispatch.message 'run', o, @params
+          Gloo::Exec::Dispatch.message msg, o, @params
         else
           $log.error "Could not send message to object.  Bad path: #{name}"
         end
