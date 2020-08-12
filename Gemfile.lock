@@ -5,6 +5,8 @@ PATH
       activesupport (~> 5.2, >= 5.2.4.3)
       chronic (~> 0.10, >= 0.10.2)
       colorize (~> 0.8, >= 0.8.1)
+      json (~> 2.1, >= 2.1.0)
+      openssl (~> 2.1, >= 2.1.0)
       tty (~> 0.8, >= 0.8.1)
 
 GEM
@@ -22,9 +24,11 @@ GEM
     equatable (0.6.1)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    json (2.3.1)
     kramdown (1.16.2)
     minitest (5.11.3)
     necromancer (0.5.1)
+    openssl (2.2.0)
     pastel (0.7.4)
       equatable (~> 0.6)
       tty-color (~> 0.5)
