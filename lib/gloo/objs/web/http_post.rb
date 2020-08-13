@@ -50,8 +50,8 @@ module Gloo
 
         body = find_child BODY
         body.children.each do |child|
-          child = Gloo::Objs::Alias.resolve_alias( child )
-          h[ child.name ] = child.value
+          child_val = Gloo::Objs::Alias.resolve_alias( child )
+          h[ child.name ] = child_val.value
         end
 
         return h.to_json
