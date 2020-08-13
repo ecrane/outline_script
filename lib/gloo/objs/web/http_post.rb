@@ -73,14 +73,8 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'uri',
-                      :type => 'string',
-                      :value => 'https://web.site/',
-                      :parent => self } )
-        fac.create( { :name => 'body',
-                      :type => 'container',
-                      :value => nil,
-                      :parent => self } )
+        fac.create_string URL, 'https://web.site/', self
+        fac.create_can BODY, self
       end
 
       # ---------------------------------------------------------------------
@@ -99,8 +93,11 @@ module Gloo
         uri = uri_value
         return unless uri
 
+        $log.debug "posting to: #{uri}"
+        body = self.body_as_json
+        $log.debug "posting body: #{body}"
         use_ssl = uri.downcase.start_with?( 'https' )
-        Gloo::Objs::HttpPost.post_json uri, body_as_json, use_ssl
+        Gloo::Objs::HttpPost.post_json uri, body, use_ssl
       end
 
       # ---------------------------------------------------------------------
@@ -118,7 +115,9 @@ module Gloo
         n.use_ssl = use_ssl
 
         # Send the payload to the endpoint.
-        n.start { |http| http.request( request ) }
+        result = n.start { |http| http.request( request ) }
+        $log.debug result.code
+        $log.debug result.message
       end
 
       # ---------------------------------------------------------------------
