@@ -29,6 +29,7 @@ class ContainerTest < Minitest::Test
     assert msgs.include?( 'count' )
     assert msgs.include?( 'delete_children' )
     assert msgs.include?( 'unload' )
+    assert msgs.include?( 'show_key_value_table' )
   end
 
   def test_count_msg

@@ -94,7 +94,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + [ 'show' ]
+        return super + %w[show]
       end
 
       #
