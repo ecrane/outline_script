@@ -15,6 +15,7 @@ module Gloo
       KEYWORD_SHORT = 'post'.freeze
       URL = 'uri'.freeze
       BODY = 'body'.freeze
+      RESULT = 'result'.freeze
 
       #
       # The name of the object type.
@@ -57,6 +58,16 @@ module Gloo
         return h.to_json
       end
 
+      #
+      # Set the result of the API call.
+      #
+      def update_result( data )
+        r = find_child RESULT
+        return nil unless r
+
+        r.set_value data
+      end
+
       # ---------------------------------------------------------------------
       #    Children
       # ---------------------------------------------------------------------
@@ -97,7 +108,8 @@ module Gloo
         body = self.body_as_json
         $log.debug "posting body: #{body}"
         use_ssl = uri.downcase.start_with?( 'https' )
-        Gloo::Objs::HttpPost.post_json uri, body, use_ssl
+        data = Gloo::Objs::HttpPost.post_json uri, body, use_ssl
+        self.update_result data
       end
 
       # ---------------------------------------------------------------------
@@ -118,6 +130,7 @@ module Gloo
         result = n.start { |http| http.request( request ) }
         $log.debug result.code
         $log.debug result.message
+        return result.body
       end
 
       # ---------------------------------------------------------------------
@@ -141,6 +154,9 @@ module Gloo
               The URI for the HTTP Post.
             body - container
               Collection of parameters for the HTTP Post.
+            result - string - Optional parameter
+              The result of the request.  Whatever was returned in the body
+              of the HTTP POST.
 
           MESSAGES
             run - Run the HTTP Post sending the body data to the
