@@ -117,11 +117,11 @@ module Gloo
         end
 
         if pn.exists? && params[ :squash_duplicates ]
-          $log.debug "Updating existing object: #{name}"
+          $log.debug "Updating existing object: #{obj_name}"
           return self.update_existing pn, params[ :value ]
         end
 
-        $log.debug "Creating new object: #{name}"
+        $log.debug "Creating new object: #{obj_name}"
         return create_new obj_name, params[ :value ], objtype, parent
       end
 
