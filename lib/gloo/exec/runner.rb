@@ -18,7 +18,9 @@ module Gloo
       def self.go( verb )
         $log.debug "**** Running verb #{verb.type_display}"
         $engine.heap.error.start_tracking
+        $engine.stack.vpush verb
         verb&.run
+        $engine.stack.vpop
         $engine.heap.error.clear_if_no_errors
       end
 

@@ -14,6 +14,7 @@ module Gloo
 
       attr_reader :user_root, :log_path, :config_path, :project_path
       attr_reader :start_with, :list_indent, :tmp_path
+      attr_reader :debug_path
 
       # Load setting from the yml file.
       def initialize( mode )
@@ -58,6 +59,9 @@ module Gloo
 
         @tmp_path = File.join( @user_root, 'tmp' )
         Dir.mkdir( @tmp_path ) unless File.exist?( @tmp_path )
+
+        @debug_path = File.join( @user_root, 'debug' )
+        Dir.mkdir( @debug_path ) unless File.exist?( @debug_path )
       end
 
       # Initialize the user settings for the currently
@@ -100,15 +104,23 @@ module Gloo
       #
       def show
         puts "\nApplication Settings:".blue
-        puts '  User Root Path is here:  '.yellow + @user_root.white
-        puts '  Projects directory:  '.yellow + @project_path.white
-        puts '  Tmp directory:  '.yellow + @tmp_path.white
         puts '  Startup with:  '.yellow + @start_with.white
         puts '  Indent in Listing:  '.yellow + @list_indent.to_s.white
-        puts ''
         puts '  Screen Lines:  '.yellow + Gloo::App::Settings.lines.to_s.white
         puts '  Page Size:  '.yellow + Gloo::App::Settings.page_size.to_s.white
         puts ''
+        self.show_paths
+        puts ''
+      end
+
+      #
+      # Show path settings
+      #
+      def show_paths
+        puts '  User Root Path is here:  '.yellow + @user_root.white
+        puts '  Projects Path:  '.yellow + @project_path.white
+        puts '  Tmp Path:  '.yellow + @tmp_path.white
+        puts '  Debug Path:  '.yellow + @debug_path.white
       end
 
       # Get the number of lines on screen.

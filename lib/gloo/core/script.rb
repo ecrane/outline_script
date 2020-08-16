@@ -8,28 +8,26 @@ module Gloo
   module Core
     class Script
 
+      #
       # Set up the script.
+      #
       def initialize( obj )
         @obj = obj
       end
 
+      #
       # Run the script.
+      # The script might be a single string or an array
+      # of lines.
+      #
       def run
         if @obj.value.is_a? String
-          run_line @obj.value
+          $engine.parser.run @obj.value
         elsif @obj.value.is_a? Array
           @obj.value.each do |line|
-            run_line line
+            $engine.parser.run line
           end
         end
-      end
-
-      # Run a single line of the script.
-      def run_line( line )
-        i = $engine.parser.parse_immediate line
-        return unless i
-
-        i.run
       end
 
     end
