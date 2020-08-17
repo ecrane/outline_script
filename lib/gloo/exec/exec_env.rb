@@ -11,7 +11,7 @@ module Gloo
 
       attr_accessor :verbs, :actions, :scripts
 
-      VERB_STACK = 'verb'.freeze
+      VERB_STACK = 'verbs'.freeze
       ACTION_STACK = 'actions'.freeze
       SCRIPT_STACK = 'scripts'.freeze
 
