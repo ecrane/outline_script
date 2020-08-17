@@ -171,7 +171,7 @@ module Gloo
         obj = find_child DEFAULT
         return unless obj
 
-        s = Gloo::Core::Script.new obj
+        s = Gloo::Exec::Script.new obj
         s.run
       end
 
@@ -193,7 +193,7 @@ module Gloo
         script = obj.do_script
         return unless script
 
-        s = Gloo::Core::Script.new script
+        s = Gloo::Exec::Script.new script
         s.run
       end
 

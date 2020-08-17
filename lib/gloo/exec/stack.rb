@@ -1,62 +1,74 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
 # Copyright:: Copyright (c) 2020 Eric Crane.  All rights reserved.
 #
-# The running object stack.
+# A stack of items, a call stack.
 #
 
 module Gloo
   module Exec
     class Stack
 
-      VERB_DEBUG = 'verb'.freeze
-
       #
       # Set up the stack.
       #
-      def initialize
-        $log.debug 'stack intialized...'
-
-        @verbs = []
-        update_stack
+      def initialize( name )
+        @name = name
+        clear_stack
+        $log.debug "#{name} stack intialized..."
       end
 
       #
-      # Push a verb onto the stack.
+      # Push an item onto the stack.
       #
-      def vpush( verb )
-        $log.debug "push #{verb.type_display}"
-        @verbs.push verb
-        update_stack
+      def push( obj )
+        $log.debug "#{@name}:push #{obj.display_value}"
+        @stack.push obj
+        self.update_out_file
       end
 
       #
-      # Pop a verb from the stack.
+      # Pop an item from the stack.
       #
-      def vpop
-        v = @verbs.pop
-        $log.debug "pop #{v.type_display}"
-        update_stack
+      def pop
+        o = @stack.pop
+        $log.debug "#{@name}:pop #{o.display_value}"
+        self.update_out_file
       end
 
       #
-      # Get Verb stack data.
+      # Get the current size of the call stack.
       #
-      def verb_data
-        return @verbs.map( &:type_display ).join( "\n" )
+      def size
+        return @stack.size
       end
 
       #
-      # Get the file we'll write debug information to for the verb stack.
+      # Get stack data for output.
       #
-      def verb_debug_file
-        return File.join( $settings.debug_path, VERB_DEBUG )
+      def out_data
+        return @stack.map( &:display_value ).join( "\n" )
+      end
+
+      #
+      # Get the file we'll write debug information for the stack.
+      #
+      def out_file
+        return File.join( $settings.debug_path, @name )
       end
 
       #
       # Update the stack trace file.
       #
-      def update_stack
-        File.write( verb_debug_file, verb_data )
+      def update_out_file
+        File.write( self.out_file, self.out_data )
+      end
+
+      #
+      # Clear the stack and the output file.
+      #
+      def clear_stack
+        @stack = []
+        self.update_out_file
       end
 
     end

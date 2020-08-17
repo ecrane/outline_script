@@ -90,7 +90,7 @@ module Gloo
       # Send the object the unload message.
       #
       def msg_run
-        s = Gloo::Core::Script.new self
+        s = Gloo::Exec::Script.new self
         s.run
       end
 

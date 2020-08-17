@@ -8,3 +8,4 @@
 /tmp/
 *.gem
 *.log
+test/gloo/debug/*

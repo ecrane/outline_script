@@ -11,7 +11,7 @@ class ScriptTest < Minitest::Test
     o = Gloo::Objs::Script.new
     o.set_value( 'show 2 + 3' )
 
-    s = Gloo::Core::Script.new( o )
+    s = Gloo::Exec::Script.new( o )
     assert s
     s.run
     assert_equal 5, @engine.heap.it.value

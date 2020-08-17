@@ -5,7 +5,7 @@
 #
 
 module Gloo
-  module Core
+  module Exec
     class Script
 
       #
@@ -21,6 +21,8 @@ module Gloo
       # of lines.
       #
       def run
+        $engine.exec_env.scripts.push self
+
         if @obj.value.is_a? String
           $engine.parser.run @obj.value
         elsif @obj.value.is_a? Array
@@ -28,6 +30,16 @@ module Gloo
             $engine.parser.run line
           end
         end
+
+        $engine.exec_env.scripts.pop
+      end
+
+      #
+      # Generic function to get display value.
+      # Can be used for debugging, etc.
+      #
+      def display_value
+        return @obj.pn
       end
 
     end

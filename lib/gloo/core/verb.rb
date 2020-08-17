@@ -58,6 +58,14 @@ module Gloo
         return self.class.keyword
       end
 
+      #
+      # Generic function to get display value.
+      # Can be used for debugging, etc.
+      #
+      def display_value
+        return self.class.keyword
+      end
+
       # ---------------------------------------------------------------------
       #    Help
       # ---------------------------------------------------------------------

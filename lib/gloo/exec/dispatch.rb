@@ -16,13 +16,23 @@ module Gloo
       # Dispatch the given message to the given object.
       #
       def self.message( msg, to_obj, params = nil )
-        $log.debug "----- Sending message #{msg} to #{to_obj.name}"
+        $log.debug "Dispatch message #{msg} to #{to_obj.name}"
+        a = Gloo::Exec::Action.new msg, to_obj, params
+        Gloo::Exec::Dispatch.action a
+      end
 
-        if to_obj.can_receive_message? msg
-          to_obj.send_message msg, params
-        else
-          $log.warn "Object #{to_obj.name} does not respond to #{msg}"
+      #
+      # Dispatch an action.
+      #
+      def self.action( action )
+        unless action.valid?
+          $log.warn "Object #{action.to.name} does not respond to #{action.msg}"
         end
+
+        $engine.exec_env.actions.push action
+        $log.debug "Sending message #{action.msg} to #{action.to.name}"
+        action.dispatch
+        $engine.exec_env.actions.pop
       end
 
     end

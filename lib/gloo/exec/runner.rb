@@ -16,11 +16,11 @@ module Gloo
       # is done running.
       #
       def self.go( verb )
-        $log.debug "**** Running verb #{verb.type_display}"
+        $log.debug "running verb #{verb.type_display}"
         $engine.heap.error.start_tracking
-        $engine.stack.vpush verb
+        $engine.exec_env.verbs.push verb
         verb&.run
-        $engine.stack.vpop
+        $engine.exec_env.verbs.pop
         $engine.heap.error.clear_if_no_errors
       end
 
@@ -29,7 +29,7 @@ module Gloo
       # Resolve the path_name and then send the run message.
       #
       def self.run( path_name )
-        $log.debug "**** Running script at #{path_name}"
+        $log.debug "running script at #{path_name}"
         pn = Gloo::Core::Pn.new path_name
         o = pn.resolve
 
