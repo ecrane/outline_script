@@ -40,7 +40,7 @@ module Gloo
       # Can be used for debugging, etc.
       #
       def display_value
-        return "#{@msg} -> #{@to.name}"
+        return "#{@msg} -> #{@to.pn}"
       end
 
     end
