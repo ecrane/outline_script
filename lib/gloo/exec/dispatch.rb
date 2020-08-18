@@ -29,10 +29,10 @@ module Gloo
           $log.warn "Object #{action.to.name} does not respond to #{action.msg}"
         end
 
-        $engine.exec_env.actions.push action
+        $engine.exec_env.push_action action
         $log.debug "Sending message #{action.msg} to #{action.to.name}"
         action.dispatch
-        $engine.exec_env.actions.pop
+        $engine.exec_env.pop_action
       end
 
     end

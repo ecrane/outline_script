@@ -8,6 +8,8 @@ module Gloo
   module Exec
     class Script
 
+      attr_accessor :obj
+      
       #
       # Set up the script.
       #
@@ -21,7 +23,7 @@ module Gloo
       # of lines.
       #
       def run
-        $engine.exec_env.scripts.push self
+        $engine.exec_env.push_script self
 
         if @obj.value.is_a? String
           $engine.parser.run @obj.value
@@ -31,7 +33,7 @@ module Gloo
           end
         end
 
-        $engine.exec_env.scripts.pop
+        $engine.exec_env.pop_script
       end
 
       #

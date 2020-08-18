@@ -8,6 +8,8 @@ module Gloo
   module Exec
     class Stack
 
+      attr_accessor :stack
+      
       #
       # Set up the stack.
       #
