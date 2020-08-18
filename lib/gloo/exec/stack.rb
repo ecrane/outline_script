@@ -23,7 +23,7 @@ module Gloo
       def push( obj )
         $log.debug "#{@name}:push #{obj.display_value}"
         @stack.push obj
-        self.update_out_file
+        self.update_out_file if $settings.debug
       end
 
       #
@@ -32,7 +32,7 @@ module Gloo
       def pop
         o = @stack.pop
         $log.debug "#{@name}:pop #{o.display_value}"
-        self.update_out_file
+        self.update_out_file if $settings.debug
       end
 
       #

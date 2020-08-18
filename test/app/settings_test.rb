@@ -32,4 +32,8 @@ class SettingsTest < Minitest::Test
     assert( o < 999 )
   end
 
+  def test_debug_not_on_for_test
+    refute $settings.debug
+  end
+
 end
