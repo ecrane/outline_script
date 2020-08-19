@@ -268,18 +268,4 @@ class PnTest < Minitest::Test
     assert o.named_color?
   end
 
-  def test_includes_here_ref
-    o = Gloo::Core::Pn.new 'abc'
-    refute o.includes_here_ref?
-
-    o = Gloo::Core::Pn.new 'z.y.x'
-    refute o.includes_here_ref?
-
-    o = Gloo::Core::Pn.new '^^.zyx'
-    assert o.includes_here_ref?
-
-    o = Gloo::Core::Pn.new '^.one.two'
-    assert o.includes_here_ref?
-  end
-
 end

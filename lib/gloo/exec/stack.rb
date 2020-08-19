@@ -9,7 +9,7 @@ module Gloo
     class Stack
 
       attr_accessor :stack
-      
+
       #
       # Set up the stack.
       #

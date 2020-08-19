@@ -31,13 +31,13 @@ module Gloo
       #
       # Get the here object.
       #
-      def here
+      def here_obj
         return nil if @here.stack.empty?
 
         return @here.stack.last
       end
 
-      def push_script script
+      def push_script( script )
         @scripts.push script
         @here.push script.obj
       end
@@ -47,7 +47,7 @@ module Gloo
         @here.pop
       end
 
-      def push_action action
+      def push_action( action )
         @actions.push action
         # @here.push action.to
       end

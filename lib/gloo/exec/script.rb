@@ -9,7 +9,7 @@ module Gloo
     class Script
 
       attr_accessor :obj
-      
+
       #
       # Set up the script.
       #

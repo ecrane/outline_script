@@ -12,7 +12,6 @@ module Gloo
       ROOT = 'root'.freeze
       IT = 'it'.freeze
       ERROR = 'error'.freeze
-      HERE = '^'.freeze
 
       attr_reader :src, :elements
 
@@ -139,33 +138,13 @@ module Gloo
         return $engine.heap.error if self.error?
         return Gloo::Core::GlooSystem.new( self ) if self.gloo_sys?
 
-        expand_here if includes_here_ref?
+        Here.expand_here( self ) if Here.includes_here_ref?( @elements )
 
         parent = self.get_parent
         return nil unless parent
 
         obj = parent.find_child( self.name )
         return Gloo::Objs::Alias.resolve_alias( obj, self.src )
-      end
-
-      #
-      # Does the pathname start with here reference?
-      #
-      def includes_here_ref?
-        return @elements.first.start_with?( HERE )
-      end
-
-      #
-      # Expand here reference if present.
-      #
-      def expand_here
-        target = $engine.exec_env.here
-
-        here = @elements.first
-        remainder = @elements[ 1..-1 ].join( '.' )
-
-        here.length.times { target = target.parent }
-        self.set_to "#{target.pn}.#{remainder}"
       end
 
     end
