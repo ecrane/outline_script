@@ -8,7 +8,7 @@ module Gloo
   module App
     class Info
 
-      VERSION = '0.6.0'.freeze
+      VERSION = '0.6.1'.freeze
       APP_NAME = 'Gloo'.freeze
 
       # Get the application display title.

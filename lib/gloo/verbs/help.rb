@@ -10,6 +10,7 @@ module Gloo
 
       KEYWORD = 'help'.freeze
       KEYWORD_SHORT = '?'.freeze
+      DEFAULT_HELP = 'default_help'.freeze
 
       DISPATCH = {
         settings: 'show_settings',
@@ -32,7 +33,7 @@ module Gloo
         if opts
           self.dispatch opts
         else
-          show_default
+          $engine.help.page_topic DEFAULT_HELP
         end
       end
 
@@ -40,6 +41,13 @@ module Gloo
       # Dispatch the help to the right place.
       #
       def dispatch( opts )
+        if $engine.help.topic? opts
+          $log.debug 'found expanded help topic'
+          $engine.help.page_topic opts
+          return
+        end
+
+        $log.debug 'looking for built in help topic'
         cmd = DISPATCH[ opts.to_sym ]
         if cmd
           send cmd
@@ -105,13 +113,6 @@ module Gloo
         msg = "Help command '#{opts}' could not be found"
         $log.warn msg
         $engine.heap.error.set_to msg
-      end
-
-      #
-      # If no parameter is given, show the default help page.
-      #
-      def show_default
-        $engine.run_help( true )
       end
 
       #

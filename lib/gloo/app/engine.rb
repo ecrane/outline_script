@@ -15,7 +15,7 @@ module Gloo
       attr_reader :args, :mode, :running
       attr_reader :dictionary, :parser, :heap, :factory
       attr_accessor :last_cmd, :persist_man, :event_manager
-      attr_accessor :exec_env
+      attr_accessor :exec_env, :help
 
       # Set up the engine with basic elements.
       def initialize( params = [] )
@@ -43,6 +43,7 @@ module Gloo
         @event_manager = Gloo::Core::EventManager.new
 
         @exec_env = Gloo::Exec::ExecEnv.new
+        @help = Gloo::App::Help.new
 
         run_mode
       end
@@ -56,7 +57,7 @@ module Gloo
         if @mode == Mode::VERSION
           run_version
         elsif @mode == Mode::HELP
-          run_help
+          show_help_and_quit
         elsif @mode == Mode::SCRIPT
           run_files
         else
@@ -149,12 +150,9 @@ module Gloo
       end
 
       # Show the help information and then quit.
-      def run_help( keep_running = false )
-        out = "#{Info.display_title}\n"
-        out << Help.get_help_text
-        $engine.heap.it.set_to out
-        puts out unless @args.quiet?
-        quit unless keep_running
+      def show_help_and_quit
+        @help.show_app_help
+        quit
       end
 
       # Clear the screen.
