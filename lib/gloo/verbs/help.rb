@@ -41,9 +41,10 @@ module Gloo
       # Dispatch the help to the right place.
       #
       def dispatch( opts )
-        if $engine.help.topic? opts
+        key = $engine.dictionary.lookup_keyword opts
+        if $engine.help.topic? key
           $log.debug 'found expanded help topic'
-          $engine.help.page_topic opts
+          $engine.help.page_topic key
           return
         end
 

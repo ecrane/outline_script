@@ -99,6 +99,20 @@ module Gloo
         return @verb_references.sort { |a, b| a.keyword <=> b.keyword }
       end
 
+      #
+      # Lookup the keyword by name or shortcut.
+      # Return the keyword (name) or nil if it is not found.
+      #
+      def lookup_keyword( key )
+        v = find_verb key
+        return v.keyword if v
+
+        o = find_obj key
+        return o.typename if o
+
+        return nil
+      end
+
     end
   end
 end

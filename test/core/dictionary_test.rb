@@ -66,4 +66,18 @@ class DictionaryTest < Minitest::Test
     assert objs.count > 4
   end
 
+  def test_keyword_lookup
+    refute @dic.lookup_keyword( 'aaabbbccc' )
+    refute @dic.lookup_keyword( 'blark' )
+    refute @dic.lookup_keyword( '' )
+
+    assert_equal 'quit', @dic.lookup_keyword( 'quit' )
+    assert_equal 'quit', @dic.lookup_keyword( 'q' )
+    assert_equal 'quit', @dic.lookup_keyword( 'QUIT' )
+
+    assert_equal 'string', @dic.lookup_keyword( 'STRING' )
+    assert_equal 'string', @dic.lookup_keyword( 'STR' )
+    assert_equal 'string', @dic.lookup_keyword( 'str' )
+  end
+
 end
