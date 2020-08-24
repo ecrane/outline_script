@@ -54,6 +54,7 @@ module Gloo
 
         if data.lines.count < Settings.page_size
           puts md
+          puts
         else
           pager = TTY::Pager.new
           pager.page( md )
@@ -68,6 +69,7 @@ module Gloo
 
         data = self.get_topic_data( topic )
         puts TTY::Markdown.parse data
+        puts
       end
 
       #
