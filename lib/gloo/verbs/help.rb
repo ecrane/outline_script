@@ -14,6 +14,7 @@ module Gloo
 
       DISPATCH = {
         settings: 'show_settings',
+        keywords: 'show_keywords',
         verb: 'show_verbs',
         verbs: 'show_verbs',
         v: 'show_verbs',
@@ -121,6 +122,13 @@ module Gloo
       #
       def show_settings
         $settings.show
+      end
+
+      #
+      # Show all keywords: verbs and objects.
+      #
+      def show_keywords
+        $engine.dictionary.show_keywords
       end
 
       #

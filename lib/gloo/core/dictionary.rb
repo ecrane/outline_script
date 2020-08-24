@@ -11,7 +11,7 @@ module Gloo
 
       include Singleton
 
-      attr_reader :verbs, :objs
+      attr_reader :verbs, :objs, :keywords
 
       # Set up the object dictionary.
       def initialize
@@ -19,6 +19,7 @@ module Gloo
         @objs = {}
         @verb_references = []
         @obj_references = []
+        @keywords = []
       end
 
       # Register a verb.
@@ -45,7 +46,21 @@ module Gloo
           $log.debug o
           @objs[ o.typename ] = o
           @objs[ o.short_typename ] = o
+          self.add_key o.typename
+          self.add_key o.short_typename if o.typename != o.short_typename
         end
+      end
+
+      #
+      # Add a keyword to the keyword list.
+      # Report an error if the keyword is already in the list.
+      def add_key( keyword )
+        if @keywords.include?( keyword )
+          $log.error "duplicate keyword '#{keyword}'"
+          return
+        end
+
+        @keywords << keyword
       end
 
       # Is the given word an object type?
@@ -71,6 +86,8 @@ module Gloo
           @verbs[ v.keyword ] = v
           @verbs[ v.keyword_shortcut ] = v
           # v.send( :new ).run
+          self.add_key v.keyword
+          self.add_key v.keyword_shortcut if v.keyword != v.keyword_shortcut
         end
       end
 
@@ -111,6 +128,21 @@ module Gloo
         return o.typename if o
 
         return nil
+      end
+
+      #
+      # Show a list of all keywords.
+      # This includes verbs and objects, names and shortcuts.
+      #
+      def show_keywords
+        str = ''
+        @keywords.sort.each_with_index do |k, i|
+          str << k.ljust( 20, ' ' )
+          if ( ( i + 1 ) % 6 ).zero?
+            puts str
+            str = ''
+          end
+        end
       end
 
     end
