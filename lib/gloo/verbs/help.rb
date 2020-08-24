@@ -52,8 +52,10 @@ module Gloo
         $log.debug 'looking for built in help topic'
         cmd = DISPATCH[ opts.to_sym ]
         if cmd
+          $log.debug 'found help index'
           send cmd
         else
+          $log.debug 'looking for entity help'
           entity_help opts
         end
       rescue
@@ -144,9 +146,17 @@ module Gloo
       #
       def get_verb_list
         out = "Verbs:\n"
-        $engine.dictionary.get_verbs.each do |v|
-          out << "  #{v.keyword_shortcut} -  #{v.keyword}\n"
+        str = ''
+        verbs = $engine.dictionary.get_verbs.sort_by( &:keyword )
+        verbs.each_with_index do |v, i|
+          cut = v.keyword_shortcut.ljust( 5, ' ' )
+          str << " #{cut} #{v.keyword.ljust( 20, ' ' )}"
+          if ( ( i + 1 ) % 3 ).zero?
+            out << "#{str}\n"
+            str = ''
+          end
         end
+
         return out
       end
 
@@ -163,9 +173,20 @@ module Gloo
       #
       def get_obj_list
         out = "Object Types:\n"
-        $engine.dictionary.get_obj_types.each do |v|
-          out << "  #{v.short_typename} - #{v.typename}\n"
+        str = ''
+        objs = $engine.dictionary.get_obj_types.sort_by( &:typename )
+        objs.each_with_index do |o, i|
+          name = o.typename
+          if o.short_typename != o.typename
+            name = "#{name} (#{o.short_typename})"
+          end
+          str << " #{name.ljust( 30, ' ' )}"
+          if ( ( i + 1 ) % 4 ).zero?
+            out << "#{str}\n"
+            str = ''
+          end
         end
+
         return out
       end
 
