@@ -1,9 +1,11 @@
-# gloo help
+GLOO HELP
 
 TODO:  write this article
 
-## Lists
+ LISTS
+
   Show options for object and verb lists
 
-## Detail
+ DETAIL
+
   How to get help detail

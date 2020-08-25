@@ -42,12 +42,7 @@ module Gloo
       # Dispatch the help to the right place.
       #
       def dispatch( opts )
-        key = $engine.dictionary.lookup_keyword opts
-        if $engine.help.topic? key
-          $log.debug 'found expanded help topic'
-          $engine.help.page_topic key
-          return
-        end
+        return if dispatch_help_page( opts )
 
         $log.debug 'looking for built in help topic'
         cmd = DISPATCH[ opts.to_sym ]
@@ -60,6 +55,26 @@ module Gloo
         end
       rescue
         report_help_error opts
+      end
+
+      #
+      # Dispatch to a help page if we can find one.
+      #
+      def dispatch_help_page( opts )
+        if $engine.help.topic? opts
+          $log.debug 'found expanded help topic'
+          $engine.help.page_topic opts
+          return true
+        end
+
+        key = $engine.dictionary.lookup_keyword opts
+        if $engine.help.topic? key
+          $log.debug 'found expanded help topic'
+          $engine.help.page_topic key
+          return true
+        end
+
+        return false
       end
 
       #
