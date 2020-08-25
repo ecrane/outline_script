@@ -42,6 +42,14 @@ module Gloo
       end
 
       #
+      # Is the current topic Markdown?
+      #
+      def topic_is_md?( name )
+        topic_file = @topics[ name ]
+        return topic_file.end_with? '.md'
+      end
+
+      #
       # Show a help topic, optionally paginaged.
       # If the content of the help page fits on a single
       # screen, it won't paginate.
@@ -50,14 +58,11 @@ module Gloo
         return if $engine.args.quiet?
 
         data = self.get_topic_data( topic )
-        md = TTY::Markdown.parse data
-
-        if data.lines.count < Settings.page_size
-          puts md
-          puts
+        page = data.lines.count > Settings.page_size
+        if topic_is_md?( topic )
+          show_markdown_data( data, page )
         else
-          pager = TTY::Pager.new
-          pager.page( md )
+          show_text_data( data, page )
         end
       end
 
@@ -68,8 +73,39 @@ module Gloo
         return if $engine.args.quiet?
 
         data = self.get_topic_data( topic )
-        puts TTY::Markdown.parse data
-        puts
+        if topic_is_md?( topic )
+          show_markdown_data data
+        else
+          show_text_data data
+        end
+      end
+
+      #
+      # Show the markdown data.
+      #
+      def show_text_data( data, page = false )
+        if page
+          pager = TTY::Pager.new
+          pager.page( data )
+        else
+          puts data.white
+          puts
+        end
+      end
+
+      #
+      # Show the markdown data.
+      #
+      def show_markdown_data( data, page = false )
+        md = TTY::Markdown.parse data
+
+        if page
+          pager = TTY::Pager.new
+          pager.page( md )
+        else
+          puts md
+          puts
+        end
       end
 
       #
@@ -95,11 +131,16 @@ module Gloo
 
         pn = File.dirname( File.absolute_path( __FILE__ ) )
         pn = File.dirname( pn )
+
+        root = File.join( pn, 'help', '**/*.txt' )
+        Dir.glob( root ).each do |txt_file|
+          key = File.basename( txt_file, '.txt' )
+          @topics[ key ] = txt_file
+        end
+
         root = File.join( pn, 'help', '**/*.md' )
         Dir.glob( root ).each do |md_file|
-          $log.debug md_file
           key = File.basename( md_file, '.md' )
-          $log.debug "Key:  #{key}  | value: #{md_file}"
           @topics[ key ] = md_file
         end
 
