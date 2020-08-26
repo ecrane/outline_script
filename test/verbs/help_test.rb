@@ -72,4 +72,31 @@ class HelpTest < Minitest::Test
     assert $engine.help.topic? Gloo::Verbs::Help.keyword
   end
 
+  def test_getting_topics
+    @engine.help.lazy_load_index
+    h = Gloo::Verbs::Help.new( nil )
+    assert h
+    o = h.get_topics
+    assert o
+    assert o.start_with? 'Help Topics:'
+  end
+
+  def test_getting_verbs
+    @engine.help.lazy_load_index
+    h = Gloo::Verbs::Help.new( nil )
+    assert h
+    o = h.get_verb_list
+    assert o
+    assert o.start_with? 'Verbs:'
+  end
+
+  def test_getting_objects
+    @engine.help.lazy_load_index
+    h = Gloo::Verbs::Help.new( nil )
+    assert h
+    o = h.get_obj_list
+    assert o
+    assert o.start_with? 'Object Types:'
+  end
+
 end

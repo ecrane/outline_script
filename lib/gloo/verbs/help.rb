@@ -21,7 +21,8 @@ module Gloo
         obj: 'show_objs',
         object: 'show_objs',
         objects: 'show_objs',
-        o: 'show_objs'
+        o: 'show_objs',
+        topics: 'show_topics'
       }.freeze
 
       #
@@ -196,6 +197,32 @@ module Gloo
             name = "#{name} (#{o.short_typename})"
           end
           str << " #{name.ljust( 30, ' ' )}"
+          if ( ( i + 1 ) % 4 ).zero?
+            out << "#{str}\n"
+            str = ''
+          end
+        end
+
+        return out
+      end
+
+      #
+      # List all help topics (articles)
+      #
+      def show_topics
+        out = self.get_topics
+        self.show_output out
+      end
+
+      #
+      # Get the list of help topics.
+      #
+      def get_topics
+        out = "Help Topics:\n"
+        str = ''
+        objs = $engine.help.topics.keys.sort
+        objs.each_with_index do |o, i|
+          str << " #{o.ljust( 30, ' ' )}"
           if ( ( i + 1 ) % 4 ).zero?
             out << "#{str}\n"
             str = ''
