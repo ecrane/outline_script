@@ -12,8 +12,14 @@ module Gloo
   module App
     class Args
 
+      QUIET = 'quiet'.freeze
+      GLOO_ENV = 'GLOO_ENV'.freeze
+
       attr_reader :switches, :files
 
+      #
+      # Create arguments and setup.
+      #
       def initialize( params = [] )
         @switches = []
         @files = []
@@ -22,9 +28,39 @@ module Gloo
         ARGV.each { |o| process_one_arg( o ) }
       end
 
+      #
       # Was the --quiet arg passed?
+      #
       def quiet?
-        return @switches.include?( 'quiet' )
+        return @switches.include?( QUIET )
+      end
+
+      #
+      # Is the version switch set?
+      #
+      def version?
+        @switches.include?( Gloo::App::Mode::VERSION.to_s )
+      end
+
+      #
+      # Is the help switch set?
+      #
+      def help?
+        @switches.include?( Gloo::App::Mode::HELP.to_s )
+      end
+
+      #
+      # Is the cli switch set?
+      #
+      def cli?
+        @switches.include?( Gloo::App::Mode::CLI.to_s )
+      end
+
+      #
+      # Is the embed switch set?
+      #
+      def embed?
+        @switches.include?( Gloo::App::Mode::EMBED.to_s )
       end
 
       #
@@ -34,15 +70,15 @@ module Gloo
       # Then finally use the default: embedded mode.
       #
       def detect_mode
-        mode = if ENV[ 'GLOO_ENV' ] == 'test'
+        mode = if ENV[ GLOO_ENV ] == Gloo::App::Mode::TEST.to_s
                  Mode::TEST
-               elsif @switches.include?( 'version' )
+               elsif version?
                  Mode::VERSION
-               elsif @switches.include?( 'help' )
+               elsif help?
                  Mode::HELP
-               elsif @switches.include?( 'cli' )
+               elsif cli?
                  Mode::CLI
-               elsif @switches.include?( 'embed' )
+               elsif embed?
                  Mode::EMBED
                elsif @files.count.positive?
                  Mode::SCRIPT
@@ -56,7 +92,9 @@ module Gloo
 
       private
 
+      #
       # Process one argument or parameter.
+      #
       def process_one_arg( arg )
         if arg.start_with? '--'
           switches << arg[ 2..-1 ]

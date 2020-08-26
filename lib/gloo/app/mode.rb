@@ -15,7 +15,9 @@ module Gloo
       HELP = :help        # Show the help screen
       TEST = :test        # Running in Unit Test mode.
 
+      #
       # Get the default mode.
+      #
       def self.default_mode
         return EMBED
       end

@@ -2,6 +2,30 @@ require 'test_helper'
 
 class ArgsTest < Minitest::Test
 
+  def test_version_present
+    o = Gloo::App::Args.new( [ '--version' ] )
+    assert o.version?
+    refute o.help?
+  end
+
+  def test_help_present
+    o = Gloo::App::Args.new( [ '--help' ] )
+    assert o.help?
+    refute o.version?
+  end
+
+  def test_cli_present
+    o = Gloo::App::Args.new( [ '--cli' ] )
+    assert o.cli?
+    refute o.help?
+  end
+
+  def test_embed_present
+    o = Gloo::App::Args.new( [ '--embed' ] )
+    assert o.embed?
+    refute o.help?
+  end
+
   def test_default_mode
     o = Gloo::App::Engine.new( [ '--quiet' ] )
     assert o

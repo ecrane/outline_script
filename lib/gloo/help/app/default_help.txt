@@ -1,11 +1,14 @@
 GLOO HELP
 
-TODO:  write this article
+  TODO:  write this article
 
- LISTS
+  LISTS
+    Show options for object and verb lists
 
-  Show options for object and verb lists
+  DETAIL
+    How to get help detail for verbs and objects
+    How to see a help pages
+    How to see a list of help pages (topics)
 
- DETAIL
-
-  How to get help detail
+  SEE ALSO
+    application, configuration

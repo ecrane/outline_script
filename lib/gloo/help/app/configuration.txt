@@ -1,0 +1,7 @@
+CONFIGURATION
+
+  DESCRIPTION
+    TODO: document the application configuration and settings
+
+  SEE ALSO
+    application, help
