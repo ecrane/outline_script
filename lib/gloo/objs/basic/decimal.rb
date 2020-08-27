@@ -35,7 +35,7 @@ module Gloo
         end
 
         unless new_value.is_a? Numeric
-          self.value = $engine.convert( new_value, 'Decimal', 0.0 )
+          self.value = $engine.converter.convert( new_value, 'Decimal', 0.0 )
           return
         end
 

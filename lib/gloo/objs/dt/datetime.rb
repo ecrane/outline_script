@@ -30,7 +30,7 @@ module Gloo
       #
       def set_value( new_value )
         unless new_value.is_a? DateTime
-          self.value = $engine.convert( new_value, 'DateTime', nil )
+          self.value = $engine.converter.convert( new_value, 'DateTime', nil )
           return
         end
 

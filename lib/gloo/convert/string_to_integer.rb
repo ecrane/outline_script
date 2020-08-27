@@ -1,5 +1,5 @@
 # Author::    Eric Crane  (mailto:eric.crane@mac.com)
-# Copyright:: Copyright (c) 202 Eric Crane.  All rights reserved.
+# Copyright:: Copyright (c) 2020 Eric Crane.  All rights reserved.
 #
 # Conversion tool:  String to Integer.
 #

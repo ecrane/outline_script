@@ -2,6 +2,9 @@
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
 # The Gloo Script Engine.
+# The Engine aggregates all the elements needed to run gloo.
+# The Engine runs the main event loop and delegates processing
+# to the relevant element.
 #
 
 require 'tty-prompt'
@@ -15,9 +18,11 @@ module Gloo
       attr_reader :args, :mode, :running
       attr_reader :dictionary, :parser, :heap, :factory
       attr_accessor :last_cmd, :persist_man, :event_manager
-      attr_accessor :exec_env, :help
+      attr_accessor :exec_env, :help, :converter
 
+      #
       # Set up the engine with basic elements.
+      #
       def initialize( params = [] )
         $engine = self
         @args = Args.new( params )
@@ -27,7 +32,10 @@ module Gloo
         $log.debug 'engine intialized...'
       end
 
+      #
       # Start the engine.
+      # Load object and verb definitions and setup engine elements.
+      #
       def start
         $log.debug 'starting the engine...'
         $log.debug Info.display_title
@@ -44,7 +52,9 @@ module Gloo
 
         @exec_env = Gloo::Exec::ExecEnv.new
         @help = Gloo::App::Help.new
+        @converter = Gloo::Convert::Converter.new
 
+        $log.debug 'the engine has started'
         run_mode
       end
 
@@ -52,8 +62,12 @@ module Gloo
       #    Run
       # ---------------------------------------------------------------------
 
-      # Run the selected mode.
+      #
+      # Run gloo in the selected mode.
+      #
       def run_mode
+        $log.debug "running gloo in #{@mode} mode"
+
         if @mode == Mode::VERSION
           run_version
         elsif @mode == Mode::HELP
@@ -65,19 +79,20 @@ module Gloo
         end
       end
 
+      #
       # Run files specified on the CLI.
       # Then quit.
+      #
       def run_files
-        @args.files.each do |f|
-          @persist_man.load( f )
-        end
-
+        @args.files.each { |f| @persist_man.load( f ) }
         quit
       end
 
-      # Run
+      #
+      # Run in interactive mode.
+      #
       def run
-        # Open default files
+        # Open default file(s)
         self.open_start_file
 
         # TODO: open any files specifed in args
@@ -90,28 +105,44 @@ module Gloo
         quit
       end
 
+      #
       # Get the setting for the start_with file and open it.
+      #
       def open_start_file
         name = $settings.start_with
         @persist_man.load( name ) if name
       end
 
+      #
       # Prompt for the next command.
+      #
       def prompt_cmd
+        @last_cmd = $prompt.ask( default_prompt )
+      end
+
+      #
+      # Get the default prompt text.
+      #
+      def default_prompt
         dt = DateTime.now
         d = dt.strftime( '%Y.%m.%d' )
         t = dt.strftime( '%I:%M:%S' )
-
-        @last_cmd = $prompt.ask( "#{'gloo'.blue} #{d.yellow} #{t.white} >" )
+        return "#{'gloo'.blue} #{d.yellow} #{t.white} >"
       end
 
+      #
       # Is the last command entered blank?
+      #
       def last_cmd_blank?
         return true if @last_cmd.nil?
         return true if @last_cmd.strip.empty?
+
+        return false
       end
 
+      #
       # Prompt, Get input, process.
+      #
       def loop
         while @running
           prompt_cmd
@@ -119,7 +150,9 @@ module Gloo
         end
       end
 
+      #
       # Process the command.
+      #
       def process_cmd
         if last_cmd_blank?
           clear_screen
@@ -129,12 +162,16 @@ module Gloo
         @parser.run @last_cmd
       end
 
+      #
       # Request the engine to stop running.
+      #
       def stop_running
         @running = false
       end
 
+      #
       # Do any clean up and quit.
+      #
       def quit
         $log.debug 'quitting...'
       end
@@ -143,19 +180,25 @@ module Gloo
       #    Helpers
       # ---------------------------------------------------------------------
 
+      #
       # Show the version information and then quit.
+      #
       def run_version
         puts Info.display_title unless @args.quiet?
         quit
       end
 
+      #
       # Show the help information and then quit.
+      #
       def show_help_and_quit
         @help.show_app_help
         quit
       end
 
+      #
       # Clear the screen.
+      #
       def clear_screen
         @cursor ||= TTY::Cursor
         print @cursor.clear_screen
@@ -180,28 +223,6 @@ module Gloo
       def err( msg )
         $log.error msg
         self.heap.error.set_to msg
-      end
-
-      # ---------------------------------------------------------------------
-      #    Convert
-      # ---------------------------------------------------------------------
-
-      #
-      # Convert the given value to the specified type,
-      # or if no conversion is available, revert to default.
-      #
-      def convert( value, to_type, default = nil )
-        begin
-          name = "Gloo::Convert::#{value.class}To#{to_type}"
-          clazz = name.split( '::' ).inject( Object ) { |o, c| o.const_get c }
-          o = clazz.new
-          return o.convert( value )
-        rescue => e
-          $log.error e.message
-          $engine.heap.error.set_to e.message
-        end
-
-        return default
       end
 
     end

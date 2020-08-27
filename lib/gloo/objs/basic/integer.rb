@@ -30,7 +30,7 @@ module Gloo
       #
       def set_value( new_value )
         unless new_value.is_a? Numeric
-          self.value = $engine.convert( new_value, 'Integer', 0 )
+          self.value = $engine.converter.convert( new_value, 'Integer', 0 )
           return
         end
 

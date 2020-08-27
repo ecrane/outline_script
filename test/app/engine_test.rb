@@ -53,10 +53,74 @@ class EngineTest < Minitest::Test
     refute o.last_cmd_blank?
   end
 
+  def test_that_engine_has_object_factory
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    o.start
+    assert o.factory
+  end
+
+  def test_that_engine_has_persistence_manager
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    o.start
+    assert o.persist_man
+  end
+
+  def test_that_engine_has_help
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    o.start
+    assert o.help
+  end
+
+  def test_that_engine_has_an_execution_environment
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    o.start
+    assert o.exec_env
+  end
+
   def test_that_engine_has_event_manager
     o = Gloo::App::Engine.new( [ '--quiet' ] )
     o.start
     assert o.event_manager
+  end
+
+  def test_that_engine_has_converter
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    o.start
+    assert o.converter
+  end
+
+  def test_getting_the_default_prompt
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    p = o.default_prompt
+    assert p
+    assert p.end_with?( '>' )
+  end
+
+  def test_last_cmd_blank
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    o.last_cmd = ''
+    assert o.last_cmd_blank?
+
+    o.last_cmd = nil
+    assert o.last_cmd_blank?
+
+    o.last_cmd = "  \n \t "
+    assert o.last_cmd_blank?
+
+    o.last_cmd = 'quit'
+    refute o.last_cmd_blank?
+
+    o.last_cmd = 'show 2 + 5'
+    refute o.last_cmd_blank?
+  end
+
+  def test_stopping
+    o = Gloo::App::Engine.new( [ '--quiet' ] )
+    refute o.running
+    o.start
+    assert o.running
+    o.stop_running
+    refute o.running
   end
 
 end
