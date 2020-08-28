@@ -45,6 +45,8 @@ module Gloo
       # Is the current topic Markdown?
       #
       def topic_is_md?( name )
+        lazy_load_index
+
         topic_file = @topics[ name ]
         return topic_file.end_with? '.md'
       end
@@ -115,6 +117,8 @@ module Gloo
         lazy_load_index
 
         topic_file = @topics[ topic ]
+        return nil unless topic_file
+
         File.read topic_file
       end
 
