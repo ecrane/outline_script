@@ -18,7 +18,7 @@ class LogTest < Minitest::Test
     assert $log.quiet
   end
 
-  def test_noisy_logging
+  def test_noisy_logging_by_default
     Gloo::App::Engine.new
     refute $log.quiet
   end
