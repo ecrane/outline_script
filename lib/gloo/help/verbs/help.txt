@@ -16,6 +16,7 @@ HELP VERB
       If no parameter is given, shows the default help screen
       verbs    - List available verbs
       objects  - List available objects
+      settings - List application settings
       topics   - List all help topics
       <verb>   - Look up detail about a verb
       <object> - Look up detail about an object

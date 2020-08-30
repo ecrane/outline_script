@@ -2,8 +2,21 @@ require 'test_helper'
 
 class SettingsTest < Minitest::Test
 
+  def setup
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
+    @engine.start
+  end
+
   def test_creation
-    Gloo::App::Engine.new( [ '--quiet' ] )
+    s = Gloo::App::Settings.new 'TEST'
+    assert s
+    assert s.user_root
+    assert s.log_path
+    assert s.config_path
+    assert s.project_path
+  end
+
+  def test_engine_settings
     assert $settings
     assert $settings.user_root
     assert $settings.log_path
@@ -34,6 +47,10 @@ class SettingsTest < Minitest::Test
 
   def test_debug_not_on_for_test
     refute $settings.debug
+  end
+
+  def test_in_test_mode
+    assert $settings.in_test_mode?
   end
 
 end

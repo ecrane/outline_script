@@ -18,26 +18,13 @@ module Gloo
 
       #
       # Load setting from the yml file.
+      # The mode parameter is used to determine if we are running in TEST.
       #
       def initialize( mode )
         @mode = mode
         init_root
         init_path_settings
         init_user_settings
-      end
-
-      #
-      # Initialize gloo's root path.
-      #
-      def init_root
-        if in_test_mode?
-          path = File.dirname( File.dirname( File.absolute_path( __FILE__ ) ) )
-          path = File.dirname( File.dirname( path ) )
-          path = File.join( path, 'test', 'gloo' )
-          @user_root = path
-        else
-          @user_root = File.join( Dir.home, 'gloo' )
-        end
       end
 
       #
@@ -54,6 +41,80 @@ module Gloo
         return File.join( @user_root, 'projects' ) if in_test_mode?
 
         return settings[ 'gloo' ][ 'project_path' ]
+      end
+
+      #
+      # Show the current application settings.
+      # Can be seen in app with 'help settings'
+      #
+      def show
+        puts "\nApplication Settings:".blue
+        puts '  Startup with:  '.yellow + @start_with.white
+        puts '  Indent in Listing:  '.yellow + @list_indent.to_s.white
+        puts '  Screen Lines:  '.yellow + Gloo::App::Settings.lines.to_s.white
+        puts '  Page Size:  '.yellow + Gloo::App::Settings.page_size.to_s.white
+        puts ''
+        self.show_paths
+        puts ''
+      end
+
+      #
+      # Show path settings
+      #
+      def show_paths
+        puts '  User Root Path is here:  '.yellow + @user_root.white
+        puts '  Projects Path:  '.yellow + @project_path.white
+        puts '  Tmp Path:  '.yellow + @tmp_path.white
+        puts '  Debug Path:  '.yellow + @debug_path.white
+      end
+
+      #
+      # Get the number of vertical lines on screen.
+      #
+      def self.lines
+        TTY::Screen.rows
+      end
+
+      #
+      # Get the number of horizontal columns on screen.
+      #
+      def self.cols
+        TTY::Screen.cols
+      end
+
+      #
+      # Get the default page size.
+      # This is the number of lines of text we can show.
+      #
+      def self.page_size
+        Settings.lines - 3
+      end
+
+      #
+      # How many lines should we use for a preview?
+      #
+      def self.preview_lines
+        return 7
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Initialize gloo's root path.
+      #
+      def init_root
+        if in_test_mode?
+          path = File.dirname( File.dirname( File.absolute_path( __FILE__ ) ) )
+          path = File.dirname( File.dirname( path ) )
+          path = File.join( path, 'test', 'gloo' )
+          @user_root = path
+        else
+          @user_root = File.join( Dir.home, 'gloo' )
+        end
       end
 
       #
@@ -118,60 +179,6 @@ module Gloo
             debug: false
         TEXT
         return str
-      end
-
-      #
-      # Show the current application settings.
-      # Can be seen in app with 'help settings'
-      #
-      def show
-        puts "\nApplication Settings:".blue
-        puts '  Startup with:  '.yellow + @start_with.white
-        puts '  Indent in Listing:  '.yellow + @list_indent.to_s.white
-        puts '  Screen Lines:  '.yellow + Gloo::App::Settings.lines.to_s.white
-        puts '  Page Size:  '.yellow + Gloo::App::Settings.page_size.to_s.white
-        puts ''
-        self.show_paths
-        puts ''
-      end
-
-      #
-      # Show path settings
-      #
-      def show_paths
-        puts '  User Root Path is here:  '.yellow + @user_root.white
-        puts '  Projects Path:  '.yellow + @project_path.white
-        puts '  Tmp Path:  '.yellow + @tmp_path.white
-        puts '  Debug Path:  '.yellow + @debug_path.white
-      end
-
-      #
-      # Get the number of vertical lines on screen.
-      #
-      def self.lines
-        TTY::Screen.rows
-      end
-
-      #
-      # Get the number of horizontal columns on screen.
-      #
-      def self.cols
-        TTY::Screen.cols
-      end
-
-      #
-      # Get the default page size.
-      # This is the number of lines of text we can show.
-      #
-      def self.page_size
-        Settings.lines - 3
-      end
-
-      #
-      # How many lines should we use for a preview?
-      #
-      def self.preview_lines
-        return 7
       end
 
     end

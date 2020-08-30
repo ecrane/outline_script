@@ -13,7 +13,7 @@ module Gloo
 
       #
       # Get the application display title.
-      # 
+      #
       def self.display_title
         return "#{APP_NAME}, version #{VERSION}"
       end
