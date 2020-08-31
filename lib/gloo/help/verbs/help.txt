@@ -14,6 +14,7 @@ HELP VERB
   PARAMETERS
     about - Optional parameter.
       If no parameter is given, shows the default help screen
+      keywords - List all keywords
       verbs    - List available verbs
       objects  - List available objects
       settings - List application settings
