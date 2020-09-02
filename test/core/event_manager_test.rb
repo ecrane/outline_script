@@ -17,4 +17,19 @@ class EventManagerTest < Minitest::Test
     assert_equal 4, @engine.heap.it.value
   end
 
+  def test_on_unload
+    cmd = '` can as can'
+    i = @engine.parser.parse_immediate cmd
+    i.run
+
+    cmd = '` can.on_unload as script : "show 2 + 3"'
+    i = @engine.parser.parse_immediate cmd
+    i.run
+    refute_equal 5, @engine.heap.it.value
+
+    i = @engine.parser.parse_immediate 'tell can to unload'
+    i.run
+    assert_equal 5, @engine.heap.it.value
+  end
+
 end

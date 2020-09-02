@@ -9,7 +9,9 @@ module Gloo
   module Core
     class EventManager
 
+      #
       # Set up the event manager.
+      #
       def initialize
         $log.debug 'event manager intialized...'
       end
@@ -21,6 +23,7 @@ module Gloo
       def on_load( obj = nil, in_heap = false )
         return unless obj || in_heap
 
+        $log.debug 'on_load event'
         arr = Gloo::Core::ObjFinder.by_name 'on_load', obj
         arr.each { |o| Gloo::Exec::Dispatch.message 'run', o }
       end
@@ -31,6 +34,7 @@ module Gloo
       def on_unload( obj )
         return unless obj
 
+        $log.debug 'on_unload event'
         arr = Gloo::Core::ObjFinder.by_name 'on_unload', obj
         arr.each { |o| Gloo::Exec::Dispatch.message 'run', o }
       end
