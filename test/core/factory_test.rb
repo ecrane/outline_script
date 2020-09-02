@@ -13,6 +13,67 @@ class FactoryTest < Minitest::Test
     assert @engine.factory
   end
 
+  # ---------------------------------------------------------------------
+  #    Factory Helpers
+  # ---------------------------------------------------------------------
+
+  def test_create_untyped
+    @engine.start
+    o = @engine.factory.create_untyped( 'o', 'bla', nil )
+    assert o
+    assert_equal 'o', o.name
+    assert_equal 'bla', o.value
+    assert_equal 'untyped', o.type_display
+  end
+
+  def test_create_string
+    @engine.start
+    o = @engine.factory.create_string( 'o', 'bla', nil )
+    assert o
+    assert_equal 'o', o.name
+    assert_equal 'bla', o.value
+    assert_equal 'string', o.type_display
+  end
+
+  def test_create_int
+    @engine.start
+    o = @engine.factory.create_int( 'o', 31, nil )
+    assert o
+    assert_equal 'o', o.name
+    assert_equal 31, o.value
+    assert_equal 'integer', o.type_display
+  end
+
+  def test_create_bool
+    @engine.start
+    o = @engine.factory.create_bool( 'o', true, nil )
+    assert o
+    assert_equal 'o', o.name
+    assert_equal true, o.value
+    assert_equal 'boolean', o.type_display
+  end
+
+  def test_create_can
+    @engine.start
+    o = @engine.factory.create_can( 'o', nil )
+    assert o
+    assert_equal 'o', o.name
+    assert_equal 'container', o.type_display
+  end
+
+  def test_create_script
+    @engine.start
+    o = @engine.factory.create_script( 'o', 'show 2 + 2', nil )
+    assert o
+    assert_equal 'o', o.name
+    assert_equal 'show 2 + 2', o.value
+    assert_equal 'script', o.type_display
+  end
+
+  # ---------------------------------------------------------------------
+  #    Object Factory
+  # ---------------------------------------------------------------------
+
   def test_known_object_creation
     @engine.start
     o = @engine.factory.create( { :name => 's', :type => 'string' } )
