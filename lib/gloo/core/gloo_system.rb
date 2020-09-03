@@ -166,7 +166,7 @@ module Gloo
         return $settings.user_root
       end
 
-      # Get the Gloo home directory
+      # Get the Gloo configuration directory
       def msg_gloo_config
         return $settings.config_path
       end

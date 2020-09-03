@@ -60,13 +60,29 @@ class GlooSystemTest < Minitest::Test
   def test_user
     i = @engine.parser.parse_immediate 'show $.user'
     i.run
-    assert_equal ENV[ 'USER' ], @engine.heap.it.value
+    i = @engine.heap.it.value
+    assert_equal ENV[ 'USER' ], i
+
+    # same as this
+    j = @engine.parser.parse_immediate 'show gloo.user'
+    j.run
+    j = @engine.heap.it.value
+    assert_equal ENV[ 'USER' ], j
+    assert_equal i, j
   end
 
   def test_gloo_home
     i = @engine.parser.parse_immediate 'show $.gloo.home'
     i.run
-    assert_equal $settings.user_root, @engine.heap.it.value
+    i = @engine.heap.it.value
+    assert_equal $settings.user_root, i
+
+    # same as this
+    j = @engine.parser.parse_immediate 'show gloo.gloo_home'
+    j.run
+    j = @engine.heap.it.value
+    assert_equal $settings.user_root, j
+    assert_equal i, j
   end
 
   def test_gloo_config
