@@ -15,6 +15,24 @@ class HeapTest < Minitest::Test
 
     assert o.context
     assert o.it
+    assert o.error
+  end
+
+  def test_the_default_context
+    o = @engine.heap.context
+    assert o
+    assert_equal Gloo::Core::Pn, o.class
+    assert o.root?
+  end
+
+  def test_it_default
+    assert @engine.heap.it
+    refute @engine.heap.it.value
+  end
+
+  def test_error_default
+    assert @engine.heap.error
+    refute @engine.heap.error.value
   end
 
   def test_unload_object

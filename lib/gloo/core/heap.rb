@@ -14,12 +14,11 @@ module Gloo
       # The context will be the root by default.
       attr_reader :context
 
-      # TODO:  Do I need a running script context?
-      # how to resolve relative reference.
-
       attr_reader :it, :root, :error
 
+      #
       # Set up the object heap.
+      #
       def initialize
         $log.debug 'object heap intialized...'
 
@@ -31,7 +30,9 @@ module Gloo
         @error = Error.new
       end
 
+      #
       # Unload the given obj--remove it from the heap.
+      #
       def unload( obj )
         can = obj.parent.nil? ? @root : obj.parent
         return unless can
