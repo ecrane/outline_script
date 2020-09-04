@@ -2,6 +2,7 @@
 # Copyright:: Copyright (c) 2019 Eric Crane.  All rights reserved.
 #
 # A Literal value.
+# Base class for all literal values.
 #
 
 module Gloo
@@ -10,12 +11,16 @@ module Gloo
 
       attr_reader :value
 
+      #
       # Create the expression from a list of tokens.
+      #
       def initialize( value )
         set_value( value )
       end
 
+      #
       # Set the literal value.
+      #
       def set_value( value )
         @value = value
       end
