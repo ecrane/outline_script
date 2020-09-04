@@ -41,4 +41,10 @@ class ItTest < Minitest::Test
     assert_equal 7, @engine.heap.it.value
   end
 
+  def test_show_it
+    @engine.parser.run 'show 72 + 18'
+    @engine.parser.run 'show it'
+    assert_equal 90, @engine.heap.it.value
+  end
+
 end
