@@ -192,6 +192,10 @@ class ObjTest < Minitest::Test
     assert r.root?
   end
 
+  def test_object_can_be_created_by_default
+    assert Gloo::Core::Obj.can_create?
+  end
+
   def test_getting_pn_for_obj
     o = @engine.parser.parse_immediate "create can as can"
     o.run
@@ -207,6 +211,25 @@ class ObjTest < Minitest::Test
     o.run
     j = j.children.first
     assert_equal 'can.one.two', j.pn
+  end
+
+  def test_display_value
+    @engine.parser.run "create can as can"
+    j = @engine.heap.root.children.first
+    assert_equal 'can', j.display_value
+  end
+
+  def test_find_add_child
+    o = Gloo::Objs::Container.new
+    assert 0, o.child_count
+    child = o.find_add_child( 's', 'string' )
+    assert child
+    assert 1, o.child_count
+
+    c2 = o.find_add_child( 's', 'string' )
+    assert c2
+    assert 1, o.child_count
+    assert_same child, c2
   end
 
 end

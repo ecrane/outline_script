@@ -12,14 +12,18 @@ module Gloo
       attr_accessor :value
       attr_reader :children, :parent
 
+      #
       # Set up the object.
+      #
       def initialize
         @value = ''
         @children = []
         @parent = nil
       end
 
+      #
       # Register object types when they are loaded.
+      #
       def self.inherited( subclass )
         Dictionary.instance.register_obj( subclass )
       end
@@ -45,7 +49,9 @@ module Gloo
         @parent = obj
       end
 
+      #
       # Is this the root object?
+      #
       def root?
         return false if @parent
         return false unless name.downcase == 'root'
@@ -149,18 +155,24 @@ module Gloo
         return $engine.factory.create params
       end
 
+      #
       # Add a child object to the container.
+      #
       def add_child( obj )
         @children << obj
         obj.set_parent self
       end
 
+      #
       # Get the number of children.
+      #
       def child_count
         return @children.count
       end
 
+      #
       # Does this object contain an object with the given name?
+      #
       def contains_child?( name )
         @children.each do |o|
           return true if name.downcase == o.name.downcase
@@ -168,7 +180,9 @@ module Gloo
         return false
       end
 
+      #
       # Find a child object with the given name.
+      #
       def find_child( name )
         if name.end_with?( Gloo::Objs::Alias::ALIAS_REFERENCE )
           name = name[ 0..-2 ]
