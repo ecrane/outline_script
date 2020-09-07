@@ -30,6 +30,18 @@ class OpTest < Minitest::Test
     assert_same Gloo::Expr::OpMinus, o.class
   end
 
+  def test_create_op_div
+    o = Gloo::Core::Op.create_op( '/' )
+    assert o
+    assert_same Gloo::Expr::OpDiv, o.class
+  end
+
+  def test_create_op_mult
+    o = Gloo::Core::Op.create_op( '*' )
+    assert o
+    assert_same Gloo::Expr::OpMult, o.class
+  end
+
   def test_default_op
     o = Gloo::Core::Op.default_op
     assert o
