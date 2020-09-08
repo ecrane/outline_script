@@ -32,8 +32,7 @@ class PnTest < Minitest::Test
   end
 
   def test_resolve
-    i = @engine.parser.parse_immediate '` one'
-    i.run
+    @engine.parser.run '` one'
     o = Gloo::Core::Pn.new( 'one' ).resolve
     assert o
     assert_equal 'one', o.name

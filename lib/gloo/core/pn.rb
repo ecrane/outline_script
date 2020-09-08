@@ -15,43 +15,59 @@ module Gloo
 
       attr_reader :src, :elements
 
+      #
       # Set up the object given a source string,
       # ie: the full path and name.
+      #
       def initialize( src )
         set_to src
       end
 
+      #
       # Reference to the root object path.
+      #
       def self.root
         return Pn.new( ROOT )
       end
 
+      #
       # Reference to it.
+      #
       def self.it
         return Pn.new( IT )
       end
 
+      #
       # Reference to the error message.
+      #
       def self.error
         return Pn.new( ERROR )
       end
 
+      #
       # Does the pathname reference refer to the root?
+      #
       def root?
         return @src.downcase == ROOT
       end
 
+      #
       # Does the pathname reference refer to it?
+      #
       def it?
         return @src.downcase == IT
       end
 
+      #
       # Does the pathname reference refer to error?
+      #
       def error?
         return @src.downcase == ERROR
       end
 
+      #
       # Does the pathname reference refer to the gloo system object?
+      #
       def gloo_sys?
         return false unless @elements&.count&.positive?
 
@@ -62,40 +78,54 @@ module Gloo
         return false
       end
 
+      #
       # Get the string representation of the pathname.
+      #
       def to_s
         return @src
       end
 
+      #
       # Set the object pathname to the given value.
+      #
       def set_to( value )
         @src = value.nil? ? nil : value.strip
         @elements = @src.nil? ? [] : @src.split( '.' )
       end
 
+      #
       # Convert the raw string to a list of segments.
+      #
       def segments
         return @elements
       end
 
+      #
       # Get the name element.
+      #
       def name
         return '' unless self.named?
 
         return @elements.last
       end
 
+      #
       # Does the value include path elements?
+      #
       def named?
         return @elements.count.positive?
       end
 
+      #
       # Does the value include a name?
+      #
       def includes_path?
         return @elements.count > 1
       end
 
+      #
       # Get the parent that contains the object referenced.
+      #
       def get_parent
         o = $engine.heap.root
 
@@ -112,7 +142,9 @@ module Gloo
         return o
       end
 
+      #
       # Does the object at the path exist?
+      #
       def exists?
         return true if self.root?
         return true if self.it?
@@ -124,14 +156,18 @@ module Gloo
         return parent.contains_child? name
       end
 
+      #
       # Is the reference to a color?
+      #
       def named_color?
         colors = %w[red blue green white black yellow]
         return true if colors.include?( @src.downcase )
       end
 
+      #
       # Resolve the pathname reference.
       # Find the object referenced or return nil if it is not found.
+      #
       def resolve
         return $engine.heap.root if self.root?
         return $engine.heap.it if self.it?
