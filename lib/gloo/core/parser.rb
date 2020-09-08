@@ -9,12 +9,16 @@ module Gloo
   module Core
     class Parser
 
+      #
       # Set up the parser.
+      #
       def initialize
         $log.debug 'parser intialized...'
       end
 
+      #
       # Parse a command from the immediate execution context.
+      #
       def parse_immediate( cmd )
         cmd, params = split_params cmd
         params = Gloo::Core::Tokens.new( params ) if params
@@ -27,8 +31,10 @@ module Gloo
         return nil
       end
 
+      #
       # If additional params were provided, split them out
       # from the token list.
+      #
       def split_params( cmd )
         params = nil
         i = cmd.rindex( '(' )
