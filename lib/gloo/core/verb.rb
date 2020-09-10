@@ -13,13 +13,17 @@ module Gloo
 
       attr_reader :tokens, :params
 
+      #
       # Set up the verb.
+      #
       def initialize( tokens, params = [] )
         @tokens = tokens
         @params = params
       end
 
+      #
       # Register verbs when they are loaded.
+      #
       def self.inherited( subclass )
         Dictionary.instance.register_verb( subclass )
       end
