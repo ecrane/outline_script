@@ -17,7 +17,7 @@ module Gloo
       HERE_STACK = 'here'.freeze
 
       #
-      # Set up the stack.
+      # Set up the execution environment.
       #
       def initialize
         $log.debug 'exec env intialized...'
@@ -37,21 +37,33 @@ module Gloo
         return @here.stack.last
       end
 
+      #
+      # Push a script onto the stack.
+      #
       def push_script( script )
         @scripts.push script
         @here.push script.obj
       end
 
+      #
+      # Pop a script off the stack.
+      #
       def pop_script
         @scripts.pop
         @here.pop
       end
 
+      #
+      # Push an action onto the stack.
+      #
       def push_action( action )
         @actions.push action
         # @here.push action.to
       end
 
+      #
+      # Pop an action off the stack.
+      #
       def pop_action
         @actions.pop
         # @here.pop

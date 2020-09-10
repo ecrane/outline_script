@@ -14,6 +14,7 @@ class ActionTest < Minitest::Test
     assert o
     assert_equal 'run', o.msg
     assert_equal s, o.to
+    refute o.params
   end
 
   def test_valid_action
