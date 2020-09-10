@@ -79,6 +79,27 @@ class TokensTest < Minitest::Test
     assert_equal 'quit', o.verb
   end
 
+  def test_empty_params
+    o = Gloo::Core::Tokens.new( 'quit' )
+    assert o
+    assert_equal [], o.params
+  end
+
+  def test_one_param
+    o = Gloo::Core::Tokens.new( 'show me' )
+    assert o
+    assert_equal 1, o.params.count
+    assert_equal 'me', o.params.first
+  end
+
+  def test_two_param
+    o = Gloo::Core::Tokens.new( 'show me more' )
+    assert o
+    assert_equal 2, o.params.count
+    assert_equal 'me', o.params.first
+    assert_equal 'more', o.params.last
+  end
+
   def test_first_token
     o = Gloo::Core::Tokens.new( 'create thing' )
     assert_equal 'create', o.first
@@ -98,10 +119,16 @@ class TokensTest < Minitest::Test
     assert_equal 'thing', o.second
   end
 
+  def test_token_at_wrong_index
+    o = Gloo::Core::Tokens.new( 'create thing' )
+    refute o.at( 13 )
+  end
+
   def test_token_at
     o = Gloo::Core::Tokens.new( 'create thing' )
     assert_equal 'create', o.at( 0 )
     assert_equal 'thing', o.at( 1 )
+
     o = Gloo::Core::Tokens.new( 'one two three 4 5' )
     assert_equal 'one', o.at( 0 )
     assert_equal '4', o.at( 3 )
