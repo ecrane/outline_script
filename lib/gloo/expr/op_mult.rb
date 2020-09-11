@@ -8,7 +8,9 @@ module Gloo
   module Expr
     class OpMult < Gloo::Core::Op
 
+      #
       # Perform the operation and return the result.
+      #
       def perform( left, right )
         return left * right.to_i if left.is_a? Integer
 

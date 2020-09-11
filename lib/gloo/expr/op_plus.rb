@@ -8,7 +8,9 @@ module Gloo
   module Expr
     class OpPlus < Gloo::Core::Op
 
+      #
       # Perform the operation and return the result.
+      #
       def perform( left, right )
         return left + right.to_s if left.is_a? String
 
