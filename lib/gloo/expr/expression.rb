@@ -8,7 +8,13 @@ module Gloo
   module Expr
     class Expression
 
+      # ---------------------------------------------------------------------
+      #    Constructor
+      # ---------------------------------------------------------------------
+
+      #
       # Create the expression from a list of tokens.
+      #
       def initialize( tokens )
         @tokens = tokens
         @symbols = []
@@ -17,7 +23,13 @@ module Gloo
         @op = nil
       end
 
+      # ---------------------------------------------------------------------
+      #    Evaluate Expression
+      # ---------------------------------------------------------------------
+
+      #
       # Evaluate the expression and return the value.
+      #
       def evaluate
         identify_tokens
 
@@ -39,7 +51,15 @@ module Gloo
         return @left
       end
 
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
       # Perform the operation.
+      #
       def perform_op
         @op ||= Gloo::Core::Op.default_op
         l = evaluate_sym @left
@@ -49,7 +69,9 @@ module Gloo
         @op = nil
       end
 
+      #
       # Evaluate the symbol and get a simple value.
+      #
       def evaluate_sym( sym )
         return sym.value if sym.is_a? Gloo::Core::Literal
         return resolve_ref sym if sym.is_a? Gloo::Core::Pn
@@ -57,7 +79,9 @@ module Gloo
         return sym
       end
 
+      #
       # resolve an object reference and get the value.
+      #
       def resolve_ref( ref )
         return ref.src if ref.named_color?
 
@@ -65,15 +89,13 @@ module Gloo
         return ob.value if ob
       end
 
+      #
       # Identify each token in the list.
+      #
       def identify_tokens
         @tokens.each do |o|
           @symbols << identify_token( o )
         end
-
-        # @symbols.each do |o|
-        #   puts o.class.name
-        # end
       end
 
       #

@@ -133,6 +133,8 @@ module Gloo
       #    Private functions
       # ---------------------------------------------------------------------
 
+      private
+
       #
       # Create a list of token from the given string.
       #
