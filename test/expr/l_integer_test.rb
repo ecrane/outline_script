@@ -24,4 +24,20 @@ class LIntegerTest < Minitest::Test
     refute Gloo::Expr::LInteger.integer?( 'a' )
   end
 
+  def test_setting_value
+    e = Gloo::Expr::LInteger.new( 32 )
+    assert_equal 32, e.value
+
+    e.set_value 0
+    assert_equal 0, e.value
+  end
+
+  def test_to_string
+    e = Gloo::Expr::LInteger.new( 43 )
+    assert_equal '43', e.to_s
+
+    e.set_value 100
+    assert_equal '100', e.to_s
+  end
+
 end

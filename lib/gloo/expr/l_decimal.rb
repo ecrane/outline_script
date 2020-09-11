@@ -18,13 +18,18 @@ module Gloo
         return s.to_f.to_s == s
       end
 
+      #
       # Set the value, converting to an integer.
+      #
       def set_value( value )
         value = value.to_s if value.is_a? Numeric
 
         @value = value.to_f
       end
 
+      #
+      # Get string representation
+      #
       def to_s
         return self.value.to_s
       end

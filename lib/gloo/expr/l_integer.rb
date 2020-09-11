@@ -8,7 +8,9 @@ module Gloo
   module Expr
     class LInteger < Gloo::Core::Literal
 
+      #
       # Is the given token an integer?
+      #
       def self.integer?( token )
         return true if token.is_a? Integer
 
@@ -16,11 +18,16 @@ module Gloo
         return s.to_i.to_s == s
       end
 
+      #
       # Set the value, converting to an integer.
+      #
       def set_value( value )
         @value = value.to_i
       end
 
+      #
+      # Get string representation
+      #
       def to_s
         return self.value.to_s
       end

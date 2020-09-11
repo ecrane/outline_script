@@ -8,8 +8,10 @@ module Gloo
   module Expr
     class LString < Gloo::Core::Literal
 
+      #
       # Set the value, triming opening and closing
       # quotations if necessary.
+      #
       def set_value( value )
         @value = value
         return unless value
@@ -17,7 +19,9 @@ module Gloo
         @value = LString.strip_quotes( @value )
       end
 
+      #
       # Is the given token a string?
+      #
       def self.string?( token )
         return false unless token.is_a? String
         return true if token.start_with?( '"' )
@@ -42,6 +46,9 @@ module Gloo
         end
       end
 
+      #
+      # Get string representation
+      #
       def to_s
         return self.value
       end
