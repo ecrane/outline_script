@@ -40,6 +40,13 @@ module Gloo
         can.remove_child obj
       end
 
+      #
+      # Is there one or more errors?
+      #
+      def error?
+        return @error.error_count.positive?
+      end
+
     end
   end
 end

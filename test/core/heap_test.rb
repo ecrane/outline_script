@@ -42,4 +42,13 @@ class HeapTest < Minitest::Test
     assert_equal 0, @engine.heap.root.child_count
   end
 
+  def test_error
+    refute @engine.heap.error?
+    @engine.heap.error.set_to( 'fail!' )
+    assert @engine.heap.error?
+
+    @engine.heap.error.clear
+    refute @engine.heap.error?
+  end
+
 end

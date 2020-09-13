@@ -8,7 +8,7 @@ module Gloo
   module Core
     class Error
 
-      attr_accessor :value
+      attr_accessor :value, :error_count
 
       #
       # Set up the error object.
