@@ -31,7 +31,7 @@ class LoadTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Load.help.start_with? 'LOAD VERB'
+    assert @engine.help.topic? Gloo::Verbs::Load.keyword
   end
 
 end

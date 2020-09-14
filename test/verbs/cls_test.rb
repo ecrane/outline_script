@@ -4,6 +4,7 @@ class ClsTest < Minitest::Test
 
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
+    @engine.start
   end
 
   def test_the_keyword
@@ -16,7 +17,7 @@ class ClsTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Cls.help.start_with? 'CLS VERB'
+    assert @engine.help.topic? Gloo::Verbs::Cls.keyword
   end
 
 end

@@ -4,6 +4,7 @@ class BeepTest < Minitest::Test
 
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
+    @engine.start
   end
 
   def test_beep_verb
@@ -23,7 +24,7 @@ class BeepTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Beep.help.start_with? 'BEEP VERB'
+    assert @engine.help.topic? Gloo::Verbs::Beep.keyword
   end
 
 end

@@ -35,36 +35,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          BEEP VERB
-            NAME: beep
-            SHORTCUT: b
-
-          DESCRIPTION
-            Play a standard system beep sound.
-
-          SYNTAX
-            beep
-
-          PARAMETERS
-            None
-
-          RESULT
-            None
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

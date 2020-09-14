@@ -53,37 +53,6 @@ module Gloo
         return str
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          SHOW VERB
-            NAME: show
-            SHORTCUT: =
-
-          DESCRIPTION
-            Show an object's value.
-
-          SYNTAX
-            show <path.to.object>
-
-          PARAMETERS
-            path.to.object - The object that we want to see.
-
-          RESULT
-            The object's value is shown.
-            <it> will contain the object's value.
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

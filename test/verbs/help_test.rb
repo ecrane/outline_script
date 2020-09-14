@@ -69,7 +69,7 @@ class HelpTest < Minitest::Test
   end
 
   def test_help_text
-    assert $engine.help.topic? Gloo::Verbs::Help.keyword
+    assert @engine.help.topic? Gloo::Verbs::Help.keyword
   end
 
   def test_getting_topics

@@ -51,42 +51,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          CONTEXT VERB
-            NAME: context
-            SHORTCUT: @
-
-          DESCRIPTION
-            Get or set the current context.
-            When no parameter is provided, the context will be shown.
-            Whe the optional path paramter is provided, the context will
-            be set to that path.
-            Use 'context root' to set the context back to the root level.
-
-          SYNTAX
-            context <path.to.new.context>
-
-          PARAMETERS
-            path.to.new.context - Optional.  The path to the new context.
-
-          RESULT
-            Context is optionally set.
-            <it> will be set to the new context path when we are changing context.
-            Context is show in either case.
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

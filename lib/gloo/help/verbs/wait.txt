@@ -1,0 +1,19 @@
+WAIT VERB
+  NAME: wait
+  SHORTCUT: w
+
+DESCRIPTION
+  Wait for the given number of seconds.
+
+SYNTAX
+  wait <seconds>
+
+PARAMETERS
+  seconds - The number of seconds.
+    If no value is given, we'll wait for 1 second.
+
+RESULT
+  None
+
+ERRORS
+  None

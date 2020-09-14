@@ -32,36 +32,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          CLS VERB
-            NAME: cls
-            SHORTCUT: cls
-
-          DESCRIPTION
-            Clear the console screen.
-
-          SYNTAX
-            cls
-
-          PARAMETERS
-            None
-
-          RESULT
-            The screen is cleared and cursor set to the top.
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

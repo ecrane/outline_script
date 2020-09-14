@@ -34,39 +34,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          SAVE VERB
-            NAME: save
-            SHORTCUT: >
-
-          DESCRIPTION
-            Stop running the gloo application.
-            Cleanup and shutdown.
-
-          SYNTAX
-            save <path.to.object>
-            Save a previously loaded object.  The path will be for the
-            root level object that was loaded earlier.
-
-          PARAMETERS
-            path.to.object - Name of the object file that is to be saved.
-
-          RESULT
-            The file is updated with the latest object state.
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

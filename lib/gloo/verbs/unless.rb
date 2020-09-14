@@ -52,40 +52,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          UNLESS VERB
-            NAME: unless
-            SHORTCUT: if!
-
-          DESCRIPTION
-            Unless an expression is true, do something.
-            This is the opposite of the if verb.
-
-          SYNTAX
-            unless <true> do <do>
-
-          PARAMETERS
-            true - Does the expression evaluate to true?
-            do - Execute command if the expression is not true.
-
-          RESULT
-            Unchanged if the expression is true.
-            If not true, then the result will be based on the command
-            specified after the 'do' keyword.
-
-          ERRORS
-            The errors depend on the object that is run.
-        TEXT
-      end
-
     end
   end
 end

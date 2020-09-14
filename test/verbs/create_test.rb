@@ -36,7 +36,7 @@ class CreateTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Create.help.start_with? 'CREATE VERB'
+    assert @engine.help.topic? Gloo::Verbs::Create.keyword
   end
 
 end

@@ -52,7 +52,7 @@ class MoveTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Move.help.start_with? 'MOVE VERB'
+    assert @engine.help.topic? Gloo::Verbs::Move.keyword
   end
 
 end

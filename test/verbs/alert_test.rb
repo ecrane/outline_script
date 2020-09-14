@@ -22,7 +22,7 @@ class AlertTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Alert.help.start_with? 'ALERT VERB'
+    assert @engine.help.topic? Gloo::Verbs::Alert.keyword
   end
 
 end

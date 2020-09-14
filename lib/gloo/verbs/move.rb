@@ -88,41 +88,6 @@ module Gloo
         return o
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          MOVE VERB
-            NAME: move
-            SHORTCUT: mv
-
-          DESCRIPTION
-            Move an object to a new parent.
-
-          SYNTAX
-            move <path.to.object> to <new.parent>
-
-          PARAMETERS
-            path.to.object - The object that we want to move.
-            new.parent - The new location for the object.
-
-          RESULT
-            The object will now be in the new location.
-
-          ERRORS
-            The <path.to.object> is not specified.
-            The <path.to.object> cannot be resolved.
-            The <new.parent> is not specified.
-            The <new.parent> cannot be resolved.
-            The 'to' keyword is missing.
-        TEXT
-      end
-
     end
   end
 end

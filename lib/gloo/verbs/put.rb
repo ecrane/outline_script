@@ -79,40 +79,6 @@ module Gloo
         return nil
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          PUT VERB
-            NAME: put
-            SHORTCUT: p
-
-          DESCRIPTION
-            Put a value into an object.
-            The value is the result of an expression.
-
-          SYNTAX
-            put <expression> into <dst.path>
-
-          PARAMETERS
-            expression - The expression that is evaluated.
-            dst.path - The path to the destination object.
-
-          RESULT
-            <it> will contain the result of the evaluation.
-
-          ERRORS
-            The destination is not specified.
-            The destination cannot be resolved.
-            The 'into' keyword is missing.
-        TEXT
-      end
-
     end
   end
 end

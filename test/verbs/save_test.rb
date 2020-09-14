@@ -16,7 +16,7 @@ class SaveTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Save.help.start_with? 'SAVE VERB'
+    assert @engine.help.topic? Gloo::Verbs::Save.keyword
   end
 
 end

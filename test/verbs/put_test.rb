@@ -75,7 +75,7 @@ class PutTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Put.help.start_with? 'PUT VERB'
+    assert @engine.help.topic? Gloo::Verbs::Put.keyword
   end
 
 end

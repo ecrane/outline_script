@@ -28,7 +28,7 @@ class ListTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::List.help.start_with? 'LIST VERB'
+    assert @engine.help.topic? Gloo::Verbs::List.keyword
   end
 
 end

@@ -2,9 +2,10 @@ require 'test_helper'
 
 class VersionTest < Minitest::Test
 
-  # def setup
-  #   @engine = Gloo::App::Engine.new( [ '--quiet' ] )
-  # end
+  def setup
+    @engine = Gloo::App::Engine.new( [ '--quiet' ] )
+    @engine.start
+  end
 
   def test_the_keyword
     assert_equal 'version', Gloo::Verbs::Version.keyword
@@ -15,7 +16,7 @@ class VersionTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Version.help.start_with? 'VERSION VERB'
+    assert @engine.help.topic? Gloo::Verbs::Version.keyword
   end
 
 end

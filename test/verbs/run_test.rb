@@ -36,7 +36,7 @@ class RunTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Run.help.start_with? 'RUN VERB'
+    assert @engine.help.topic? Gloo::Verbs::Run.keyword
   end
 
 end

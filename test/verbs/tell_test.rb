@@ -25,7 +25,7 @@ class TellTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Tell.help.start_with? 'TELL VERB'
+    assert @engine.help.topic? Gloo::Verbs::Tell.keyword
   end
 
 end

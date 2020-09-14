@@ -1,0 +1,18 @@
+VERSION VERB
+  NAME: version
+  SHORTCUT: v
+
+DESCRIPTION
+  Show the application version information.
+
+SYNTAX
+  version
+
+PARAMETERS
+  None
+
+RESULT
+  None
+
+ERRORS
+  None

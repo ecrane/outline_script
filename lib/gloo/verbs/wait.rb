@@ -37,37 +37,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          WAIT VERB
-            NAME: wait
-            SHORTCUT: w
-
-          DESCRIPTION
-            Wait for the given number of seconds.
-
-          SYNTAX
-            wait <seconds>
-
-          PARAMETERS
-            seconds - The number of seconds.
-              If no value is given, we'll wait for 1 second.
-
-          RESULT
-            None
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

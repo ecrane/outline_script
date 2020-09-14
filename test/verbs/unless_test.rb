@@ -61,7 +61,7 @@ class UnlessTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Unless.help.start_with? 'UNLESS VERB'
+    assert @engine.help.topic? Gloo::Verbs::Unless.keyword
   end
 
 end

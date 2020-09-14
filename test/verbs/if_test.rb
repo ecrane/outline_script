@@ -61,7 +61,7 @@ class IfTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::If.help.start_with? 'IF VERB'
+    assert @engine.help.topic? Gloo::Verbs::If.keyword
   end
 
 end

@@ -4,6 +4,7 @@ class QuitTest < Minitest::Test
 
   def setup
     @engine = Gloo::App::Engine.new( [ '--quiet' ] )
+    @engine.start
   end
 
   def test_quit_verb
@@ -24,7 +25,7 @@ class QuitTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Quit.help.start_with? 'QUIT VERB'
+    assert @engine.help.topic? Gloo::Verbs::Quit.keyword
   end
 
 end

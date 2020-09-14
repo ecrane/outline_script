@@ -1,0 +1,18 @@
+CLS VERB
+  NAME: cls
+  SHORTCUT: cls
+
+DESCRIPTION
+  Clear the console screen.
+
+SYNTAX
+  cls
+
+PARAMETERS
+  None
+
+RESULT
+  The screen is cleared and cursor set to the top.
+
+ERRORS
+  None

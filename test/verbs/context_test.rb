@@ -34,7 +34,7 @@ class ContextTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Context.help.start_with? 'CONTEXT VERB'
+    assert @engine.help.topic? Gloo::Verbs::Context.keyword
   end
 
 end

@@ -55,37 +55,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          RUN VERB
-            NAME: run
-            SHORTCUT: r
-
-          DESCRIPTION
-            Run a script or other object.
-            This is the same as sending a 'run' message to the object.
-
-          SYNTAX
-            run <path.to.object>
-
-          PARAMETERS
-            path.to.object - Reference to the object which will be run.
-
-          RESULT
-            The result depends on the object that is run.
-
-          ERRORS
-            The errors depend on the object that is run.
-        TEXT
-      end
-
     end
   end
 end

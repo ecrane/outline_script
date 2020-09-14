@@ -56,38 +56,6 @@ module Gloo
         return KEYWORD_SHORT
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this verb.
-      #
-      def self.help
-        return <<~TEXT
-          ALERT VERB
-            NAME: alert
-            SHORTCUT: !
-
-          DESCRIPTION
-            Show a pop-up notification.
-            This has only been implemented for the Mac OSX as of yet.
-
-          SYNTAX
-            alert <messsage>
-
-          PARAMETERS
-            messsage - The message that will be displayed in the alert.
-
-          RESULT
-            On the Mac, a notification will popup on screen.
-            <it> will be set to the message.
-
-          ERRORS
-            None
-        TEXT
-      end
-
     end
   end
 end

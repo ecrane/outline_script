@@ -48,7 +48,7 @@ class ShowTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Verbs::Show.help.start_with? 'SHOW VERB'
+    assert @engine.help.topic? Gloo::Verbs::Show.keyword
   end
 
 end
