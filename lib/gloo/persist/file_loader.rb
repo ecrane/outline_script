@@ -14,7 +14,9 @@ module Gloo
 
       attr_reader :obj
 
+      #
       # Set up a file storage for an object.
+      #
       def initialize( pn )
         @pn = pn
         @tabs = 0
@@ -67,8 +69,10 @@ module Gloo
         end
       end
 
+      #
       # Is this line a comment or a blank line?
       # If so we'll skip it.
+      #
       def skip_line?( line )
         line = line.strip
         return true if line.empty?
@@ -77,7 +81,9 @@ module Gloo
         return false
       end
 
+      #
       # Determine the relative indent level for the line.
+      #
       def determine_indent( line )
         tabs = tab_count( line )
         @indent = 0 # same level as prior line
@@ -93,7 +99,9 @@ module Gloo
         puts "tabs: #{@tabs}, indent: #{@indent}, line: #{line}" if @debug
       end
 
+      #
       # Process one line and add objects.
+      #
       def process_line( line )
         # reset multiline unless we're actually indented
         if @in_multiline && @multi_indent > @indent

@@ -10,7 +10,9 @@ module Gloo
 
       attr_reader :obj, :pn
 
+      #
       # Set up a file storage for an object.
+      #
       def initialize( pn, obj = nil )
         @obj = obj
         @pn = pn

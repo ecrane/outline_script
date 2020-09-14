@@ -14,7 +14,9 @@ module Gloo
 
       attr_reader :obj
 
+      #
       # Set up a line splitter
+      #
       def initialize( line, tabs )
         @line = line
         @tabs = tabs

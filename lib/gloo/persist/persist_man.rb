@@ -12,7 +12,9 @@ module Gloo
 
       attr_reader :maps
 
+      #
       # Contructor for the persistence manager.
+      #
       def initialize
         @maps = []
       end
@@ -96,13 +98,17 @@ module Gloo
         return true
       end
 
+      #
       # Get the default file extention.
+      #
       def file_ext
         return '.gloo'
       end
 
+      #
       # Print out all object - persistance mappings.
       # This is a debugging tool.
+      #
       def show_maps
         @maps.each do |o|
           puts " \t #{o.pn} \t #{o.obj.name}"

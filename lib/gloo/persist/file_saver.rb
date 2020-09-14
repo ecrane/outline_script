@@ -8,7 +8,9 @@ module Gloo
   module Persist
     class FileSaver
 
+      #
       # Set up a file storage for an object.
+      #
       def initialize( pn, obj )
         @pn = pn
         @obj = obj
@@ -22,13 +24,17 @@ module Gloo
         File.write( @pn, data )
       end
 
+      #
       # Get string of tabs for indentation.
+      #
       def tabs( indent = 0 )
         return "\t" * indent
       end
 
+      #
       # Convert an object to textual representation.
       # This is a recursive function.
+      #
       def get_obj( obj, indent = 0 )
         t = tabs( indent )
         str = "#{t}#{obj.name} [#{obj.type_display}] : #{obj.value_display}\n"
