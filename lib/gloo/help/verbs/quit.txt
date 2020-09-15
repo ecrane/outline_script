@@ -2,18 +2,22 @@ QUIT VERB
   NAME: quit
   SHORTCUT: q
 
-DESCRIPTION
-  Stop running the gloo application.
-  Cleanup and shutdown.
+  DESCRIPTION
+    Stop running the gloo application.
+    Cleanup and shutdown.
 
-SYNTAX
-  quit
+  SYNTAX
+    quit
 
-PARAMETERS
-  None
+  PARAMETERS
+    None
 
-RESULT
-  None
+  RESULT
+    None
 
-ERRORS
-  None
+  ERRORS
+    None
+
+  EXAMPLE
+
+  SEE ALSO

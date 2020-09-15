@@ -2,17 +2,21 @@ CLS VERB
   NAME: cls
   SHORTCUT: cls
 
-DESCRIPTION
-  Clear the console screen.
+  DESCRIPTION
+    Clear the console screen.
 
-SYNTAX
-  cls
+  SYNTAX
+    cls
 
-PARAMETERS
-  None
+  PARAMETERS
+    None
 
-RESULT
-  The screen is cleared and cursor set to the top.
+  RESULT
+    The screen is cleared and cursor set to the top.
 
-ERRORS
-  None
+  ERRORS
+    None
+    
+  EXAMPLE
+
+  SEE ALSO

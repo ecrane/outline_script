@@ -2,18 +2,22 @@ SHOW VERB
   NAME: show
   SHORTCUT: =
 
-DESCRIPTION
-  Show an object's value.
+  DESCRIPTION
+    Show an object's value.
 
-SYNTAX
-  show <path.to.object>
+  SYNTAX
+    show <path.to.object>
 
-PARAMETERS
-  path.to.object - The object that we want to see.
+  PARAMETERS
+    path.to.object - The object that we want to see.
 
-RESULT
-  The object's value is shown.
-  <it> will contain the object's value.
+  RESULT
+    The object's value is shown.
+    <it> will contain the object's value.
 
-ERRORS
-  None
+  ERRORS
+    None
+
+  EXAMPLE
+
+  SEE ALSO

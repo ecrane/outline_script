@@ -2,17 +2,21 @@ BEEP VERB
   NAME: beep
   SHORTCUT: b
 
-DESCRIPTION
-  Play a standard system beep sound.
+  DESCRIPTION
+    Play a standard system beep sound.
 
-SYNTAX
-  beep
+  SYNTAX
+    beep
 
-PARAMETERS
-  None
+  PARAMETERS
+    None
 
-RESULT
-  None
+  RESULT
+    None
 
-ERRORS
-  None
+  ERRORS
+    None
+
+  EXAMPLE
+
+  SEE ALSO

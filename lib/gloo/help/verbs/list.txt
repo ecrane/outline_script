@@ -2,20 +2,24 @@ LIST VERB
   NAME: list
   SHORTCUT: .
 
-DESCRIPTION
-  List out objects (and children) at the current context.
-  When a path is provided, it will be listed instead of the
-  current context.
+  DESCRIPTION
+    List out objects (and children) at the current context.
+    When a path is provided, it will be listed instead of the
+    current context.
 
-SYNTAX
-  list <path.to.object>
+  SYNTAX
+    list <path.to.object>
 
-PARAMETERS
-  path.to.object - Optional path to object that will be listed.
-                   When no path is provided, the current context is used.
+  PARAMETERS
+    path.to.object - Optional path to object that will be listed.
+                     When no path is provided, the current context is used.
 
-RESULT
-  Object and children are listed out in the CLI.
+  RESULT
+    Object and children are listed out in the CLI.
 
-ERRORS
-  None
+  ERRORS
+    None
+
+  EXAMPLE
+
+  SEE ALSO

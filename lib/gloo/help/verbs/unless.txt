@@ -2,21 +2,25 @@ UNLESS VERB
   NAME: unless
   SHORTCUT: if!
 
-DESCRIPTION
-  Unless an expression is true, do something.
-  This is the opposite of the if verb.
+  DESCRIPTION
+    Unless an expression is true, do something.
+    This is the opposite of the if verb.
 
-SYNTAX
-  unless <true> do <do>
+  SYNTAX
+    unless <true> do <do>
 
-PARAMETERS
-  true - Does the expression evaluate to true?
-  do - Execute command if the expression is not true.
+  PARAMETERS
+    true - Does the expression evaluate to true?
+    do - Execute command if the expression is not true.
 
-RESULT
-  Unchanged if the expression is true.
-  If not true, then the result will be based on the command
-  specified after the 'do' keyword.
+  RESULT
+    Unchanged if the expression is true.
+    If not true, then the result will be based on the command
+    specified after the 'do' keyword.
 
-ERRORS
-  The errors depend on the object that is run.
+  ERRORS
+    The errors depend on the object that is run.
+
+  EXAMPLE
+
+  SEE ALSO

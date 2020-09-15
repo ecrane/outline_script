@@ -2,17 +2,21 @@ VERSION VERB
   NAME: version
   SHORTCUT: v
 
-DESCRIPTION
-  Show the application version information.
+  DESCRIPTION
+    Show the application version information.
 
-SYNTAX
-  version
+  SYNTAX
+    version
 
-PARAMETERS
-  None
+  PARAMETERS
+    None
 
-RESULT
-  None
+  RESULT
+    None
 
-ERRORS
-  None
+  ERRORS
+    None
+
+  EXAMPLE
+
+  SEE ALSO
