@@ -16,9 +16,14 @@ class AlertTest < Minitest::Test
   end
 
   def test_running_script
-    i = @engine.parser.parse_immediate 'alert "test passed"'
-    i.run
+    @engine.parser.run 'alert "test passed"'
     assert_equal 'test passed', @engine.heap.it.value
+  end
+
+  def test_running_script
+    @engine.parser.run 'create s as string : "boo"'
+    @engine.parser.run 'alert s'
+    assert_equal 'boo', @engine.heap.it.value
   end
 
   def test_help_text
