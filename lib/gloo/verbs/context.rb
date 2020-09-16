@@ -21,16 +21,6 @@ module Gloo
       end
 
       #
-      # Set the context to the given path.
-      #
-      def set_context
-        path = @tokens.second
-        $engine.heap.context.set_to path
-        $engine.heap.it.set_to path
-        $log.debug "Context set to #{$engine.heap.context}"
-      end
-
-      #
       # Show the current context.
       #
       def show_context
@@ -49,6 +39,22 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Set the context to the given path.
+      #
+      def set_context
+        path = @tokens.second
+        $engine.heap.context.set_to path
+        $engine.heap.it.set_to path
+        $log.debug "Context set to #{$engine.heap.context}"
       end
 
     end

@@ -25,6 +25,17 @@ class ContextTest < Minitest::Test
     assert_equal 'bob', @engine.heap.it.to_s
   end
 
+  def test_setting_the_context_back_to_root
+    assert @engine.running
+    assert_equal 'root', @engine.heap.context.to_s
+
+    @engine.parser.run 'context bob'
+    assert_equal 'bob', @engine.heap.it.to_s
+
+    @engine.parser.run 'context root'
+    assert_equal 'root', @engine.heap.it.to_s
+  end
+
   def test_the_keyword
     assert_equal 'context', Gloo::Verbs::Context.keyword
   end

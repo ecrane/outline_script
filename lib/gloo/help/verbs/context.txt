@@ -23,6 +23,21 @@ CONTEXT VERB
   ERRORS
     None
 
+    Note that providing a context does not exist will not initially
+    be a problem.  In other words, you can set the context to an
+    object before it exists.  However use of context that doesn't exist
+    will be a problem.
+
   EXAMPLE
 
+    > context
+      Context: root
+
+    > context my.object.path
+      Context: my.object.path
+
+    > context root
+      Context: root
+
   SEE ALSO
+    list

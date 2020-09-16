@@ -16,7 +16,9 @@ CLS VERB
 
   ERRORS
     None
-    
+
   EXAMPLE
+
+    > cls
 
   SEE ALSO
