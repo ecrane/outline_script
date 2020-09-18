@@ -19,8 +19,15 @@ CREATE VERB
     <it> will be set to the new object's initial value.
 
   ERRORS
-    None
+    Object name is missing!
+      - The name of the object was not specified and the object
+      cannot be created.
 
   EXAMPLE
 
+    > create x as integer : 1
+    > create s : "abc"
+    > create t
+
   SEE ALSO
+    objects

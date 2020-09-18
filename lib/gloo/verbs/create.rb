@@ -12,6 +12,7 @@ module Gloo
       KEYWORD_SHORT = '`'.freeze
       AS = 'as'.freeze
       VAL = ':'.freeze
+      NO_NAME_ERR = 'Object name is missing!'.freeze
 
       #
       # Run the verb.
@@ -21,13 +22,11 @@ module Gloo
         type = @tokens.after_token( AS )
         value = @tokens.after_token( VAL )
 
-        if Gloo::Expr::LString.string?( value )
-          value = Gloo::Expr::LString.strip_quotes( value )
+        unless name
+          $engine.err NO_NAME_ERR
+          return
         end
-        obj = $engine.factory.create( { name: name, type: type, value: value } )
-
-        obj.add_default_children if obj&.add_children_on_create?
-        $engine.heap.it.set_to value
+        create name, type, value
       end
 
       #
@@ -42,6 +41,26 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Create an object with given name of given type with
+      # the given initial value.
+      #
+      def create( name, type, value )
+        if Gloo::Expr::LString.string?( value )
+          value = Gloo::Expr::LString.strip_quotes( value )
+        end
+        obj = $engine.factory.create( { name: name, type: type, value: value } )
+
+        obj.add_default_children if obj&.add_children_on_create?
+        $engine.heap.it.set_to value
       end
 
     end

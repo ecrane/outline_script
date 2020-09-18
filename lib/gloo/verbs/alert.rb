@@ -19,7 +19,7 @@ module Gloo
       #
       def run
         unless @tokens.token_count > 1
-          $log.error MISSING_EXPR_ERR
+          $engine.err MISSING_EXPR_ERR
           return
         end
 
@@ -30,7 +30,7 @@ module Gloo
           $engine.heap.it.set_to result
           post_alert result
         else
-          $log.error NO_RESULT_ERR
+          $engine.err NO_RESULT_ERR
         end
       end
 

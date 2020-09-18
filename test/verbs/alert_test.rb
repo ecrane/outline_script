@@ -30,4 +30,16 @@ class AlertTest < Minitest::Test
     assert @engine.help.topic? Gloo::Verbs::Alert.keyword
   end
 
+  def test_alert_without_expression
+    @engine.parser.run 'alert'
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Alert::MISSING_EXPR_ERR, @engine.heap.error.value
+  end
+
+  def test_alert_with_empty_expression
+    @engine.parser.run 'alert s'
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Alert::NO_RESULT_ERR, @engine.heap.error.value
+  end
+
 end

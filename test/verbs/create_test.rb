@@ -29,6 +29,19 @@ class CreateTest < Minitest::Test
     assert_equal 1, @engine.heap.it.value
   end
 
+  def test_object_creation
+    @engine.parser.run 'create x as integer : 1'
+    assert_equal 1, @engine.heap.root.child_count
+    assert_equal 1, @engine.heap.root.children.first.value
+  end
+
+  def test_object_creation_without_name
+    @engine.parser.run 'create'
+    assert_equal 0, @engine.heap.root.child_count
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Create::NO_NAME_ERR, @engine.heap.error.value
+  end
+
   def test_object_creation_bad_path
     i = @engine.parser.parse_immediate '` x.y.z'
     i.run
