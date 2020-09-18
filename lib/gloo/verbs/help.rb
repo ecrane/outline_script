@@ -11,6 +11,7 @@ module Gloo
       KEYWORD = 'help'.freeze
       KEYWORD_SHORT = '?'.freeze
       DEFAULT_HELP = 'default_help'.freeze
+      HELP_NOT_FOUND_ERR = 'Help command could not be found:'.freeze
 
       DISPATCH = {
         settings: 'show_settings',
@@ -33,10 +34,103 @@ module Gloo
         opts = opts.strip.downcase if opts
 
         if opts
-          self.dispatch opts
+          dispatch opts
         else
           $engine.help.page_topic DEFAULT_HELP
         end
+      end
+
+      #
+      # Get the text for the list of verbs.
+      #
+      def get_verb_list
+        out = "Verbs:\n"
+        str = ''
+        verbs = $engine.dictionary.get_verbs.sort_by( &:keyword )
+        verbs.each_with_index do |v, i|
+          cut = v.keyword_shortcut.ljust( 5, ' ' )
+          str << " #{cut} #{v.keyword.ljust( 20, ' ' )}"
+          if ( ( i + 1 ) % 3 ).zero?
+            out << "#{str}\n"
+            str = ''
+          end
+        end
+
+        return out
+      end
+
+      #
+      # Lookup the opts in the dispatch table.
+      #
+      def lookup_opts( opts )
+        return DISPATCH[ opts.to_sym ]
+      end
+
+      #
+      # Get the text for the list of verbs.
+      #
+      def get_obj_list
+        out = "Object Types:\n"
+        str = ''
+        objs = $engine.dictionary.get_obj_types.sort_by( &:typename )
+        objs.each_with_index do |o, i|
+          name = o.typename
+          if o.short_typename != o.typename
+            name = "#{name} (#{o.short_typename})"
+          end
+          str << " #{name.ljust( 30, ' ' )}"
+          if ( ( i + 1 ) % 4 ).zero?
+            out << "#{str}\n"
+            str = ''
+          end
+        end
+
+        return out
+      end
+
+      #
+      # Get the list of help topics.
+      #
+      def get_topics
+        out = "Help Topics:\n"
+        str = ''
+        objs = $engine.help.topics.keys.sort
+        objs.each_with_index do |o, i|
+          str << " #{o.ljust( 30, ' ' )}"
+          if ( ( i + 1 ) % 4 ).zero?
+            out << "#{str}\n"
+            str = ''
+          end
+        end
+
+        return out
+      end
+
+      #
+      # Get the Verb's keyword.
+      #
+      def self.keyword
+        return KEYWORD
+      end
+
+      #
+      # Get the Verb's keyword shortcut.
+      #
+      def self.keyword_shortcut
+        return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Report an error with the inline help.
+      #
+      def report_help_error( opts )
+        $engine.err "#{HELP_NOT_FOUND_ERR} '#{opts}'"
       end
 
       #
@@ -79,6 +173,23 @@ module Gloo
       end
 
       #
+      # Write output to it and show it unless we are in
+      # silent mode.
+      #
+      def show_output( out )
+        $engine.heap.it.set_to out
+        puts out unless $engine.args.quiet?
+      end
+
+      #
+      # List all help topics (articles)
+      #
+      def show_topics
+        out = self.get_topics
+        show_output out
+      end
+
+      #
       # Dispatch the help command to a verb or object
       # if we can find one matching the request.
       #
@@ -97,7 +208,7 @@ module Gloo
         if $engine.dictionary.verb?( opts )
           t = $engine.dictionary.find_verb( opts )
           out = t.send 'help'
-          self.show_output out
+          show_output out
           return true
         end
 
@@ -112,27 +223,11 @@ module Gloo
         if $engine.dictionary.obj?( opts )
           t = $engine.dictionary.find_obj( opts )
           out = t.send 'help'
-          self.show_output out
+          show_output out
           return true
         end
 
         return false
-      end
-
-      #
-      # Lookup the opts in the dispatch table.
-      #
-      def lookup_opts( opts )
-        return DISPATCH[ opts.to_sym ]
-      end
-
-      #
-      # Report an error with the inline help.
-      #
-      def report_help_error( opts )
-        msg = "Help command '#{opts}' could not be found"
-        $log.warn msg
-        $engine.heap.error.set_to msg
       end
 
       #
@@ -153,27 +248,7 @@ module Gloo
       # List the verbs
       #
       def show_verbs
-        out = self.get_verb_list
-        self.show_output out
-      end
-
-      #
-      # Get the text for the list of verbs.
-      #
-      def get_verb_list
-        out = "Verbs:\n"
-        str = ''
-        verbs = $engine.dictionary.get_verbs.sort_by( &:keyword )
-        verbs.each_with_index do |v, i|
-          cut = v.keyword_shortcut.ljust( 5, ' ' )
-          str << " #{cut} #{v.keyword.ljust( 20, ' ' )}"
-          if ( ( i + 1 ) % 3 ).zero?
-            out << "#{str}\n"
-            str = ''
-          end
-        end
-
-        return out
+        show_output get_verb_list
       end
 
       #
@@ -181,78 +256,7 @@ module Gloo
       #
       def show_objs
         out = self.get_obj_list
-        self.show_output out
-      end
-
-      #
-      # Get the text for the list of verbs.
-      #
-      def get_obj_list
-        out = "Object Types:\n"
-        str = ''
-        objs = $engine.dictionary.get_obj_types.sort_by( &:typename )
-        objs.each_with_index do |o, i|
-          name = o.typename
-          if o.short_typename != o.typename
-            name = "#{name} (#{o.short_typename})"
-          end
-          str << " #{name.ljust( 30, ' ' )}"
-          if ( ( i + 1 ) % 4 ).zero?
-            out << "#{str}\n"
-            str = ''
-          end
-        end
-
-        return out
-      end
-
-      #
-      # List all help topics (articles)
-      #
-      def show_topics
-        out = self.get_topics
-        self.show_output out
-      end
-
-      #
-      # Get the list of help topics.
-      #
-      def get_topics
-        out = "Help Topics:\n"
-        str = ''
-        objs = $engine.help.topics.keys.sort
-        objs.each_with_index do |o, i|
-          str << " #{o.ljust( 30, ' ' )}"
-          if ( ( i + 1 ) % 4 ).zero?
-            out << "#{str}\n"
-            str = ''
-          end
-        end
-
-        return out
-      end
-
-      #
-      # Write output to it and show it unless we are in
-      # silent mode.
-      #
-      def show_output( out )
-        $engine.heap.it.set_to out
-        puts out unless $engine.args.quiet?
-      end
-
-      #
-      # Get the Verb's keyword.
-      #
-      def self.keyword
-        return KEYWORD
-      end
-
-      #
-      # Get the Verb's keyword shortcut.
-      #
-      def self.keyword_shortcut
-        return KEYWORD_SHORT
+        show_output out
       end
 
     end

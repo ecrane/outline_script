@@ -26,8 +26,9 @@ HELP VERB
     The help screen will be shown with relevant information.
 
   ERRORS
-    Trying to access a help topic that does not exist will result
-    in an error.
+    Help command could not be found
+      - Trying to access a help topic that does not exist will result
+      in an error.
 
   SEE ALSO
     application

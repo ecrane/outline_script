@@ -99,4 +99,11 @@ class HelpTest < Minitest::Test
     assert o.start_with? 'Object Types:'
   end
 
+  def test_help_not_fount
+    @engine.parser.run 'help asjdfajkfjekajfe'
+    assert @engine.error?
+    msg = Gloo::Verbs::Help::HELP_NOT_FOUND_ERR
+    assert @engine.heap.error.value.start_with? msg
+  end
+
 end
