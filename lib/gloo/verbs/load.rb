@@ -10,14 +10,20 @@ module Gloo
 
       KEYWORD = 'load'.freeze
       KEYWORD_SHORT = '<'.freeze
+      MISSING_EXPR_ERR = 'Missing Expression!'.freeze
 
       #
       # Run the verb.
       #
       def run
         fn = @tokens.second
-        $log.debug "Getting ready to load file: #{fn}"
-        $engine.persist_man.load fn
+
+        if fn
+          $log.debug "Getting ready to load file: #{fn}"
+          $engine.persist_man.load fn
+        else
+          $engine.err MISSING_EXPR_ERR
+        end
       end
 
       #

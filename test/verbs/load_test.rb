@@ -34,4 +34,10 @@ class LoadTest < Minitest::Test
     assert @engine.help.topic? Gloo::Verbs::Load.keyword
   end
 
+  def test_load_without_expression
+    @engine.parser.run 'load'
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Load::MISSING_EXPR_ERR, @engine.heap.error.value
+  end
+  
 end

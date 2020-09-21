@@ -4,8 +4,11 @@ LOAD VERB
 
   DESCRIPTION
     Load an object file.
-    There are two ways to specify the file.  Give either the full path and file name or use a relative path from the gloo project folder.  For the latter, the extension is not needed.  For the former, the
+    There are two ways to specify the file.  Give either the full path
+    and file name or use a relative path from the gloo project folder.
+    For the latter, the extension is not needed.  For the former, the
     file extension is necessary.
+    
     Using * instead of a file name will load all gloo files in the folder.
 
   SYNTAX
@@ -19,9 +22,17 @@ LOAD VERB
     on_load scripts are run within the loaded objects.
 
   ERRORS
+    Missing Expression!
+      - No expression is provided as parameter to the verb.
+
     If the file specified can't be found or can't be loaded,
     an error condition will result.
 
   EXAMPLE
 
+    > load my/project/file
+    > load my/app/*
+    > load ~/.my_app/settings.gloo
+
   SEE ALSO
+    save
