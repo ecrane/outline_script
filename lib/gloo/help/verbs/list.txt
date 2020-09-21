@@ -7,6 +7,9 @@ LIST VERB
     When a path is provided, it will be listed instead of the
     current context.
 
+    When using context, the current context will be shown, but
+    when context has not been set, the root will be shown.
+
   SYNTAX
     list <path.to.object>
 
@@ -18,9 +21,14 @@ LIST VERB
     Object and children are listed out in the CLI.
 
   ERRORS
-    None
+    Object does not exist
+      - The object specified that is to be listed could not be found.
 
   EXAMPLE
+
+    > list
+    > list my.container
+    > list root
 
   SEE ALSO
     context

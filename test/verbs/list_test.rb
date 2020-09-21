@@ -31,4 +31,11 @@ class ListTest < Minitest::Test
     assert @engine.help.topic? Gloo::Verbs::List.keyword
   end
 
+  def test_help_not_fount
+    @engine.parser.run 'list asjdfajkfjekajfe'
+    assert @engine.error?
+    msg = Gloo::Verbs::List::TARGET_MISSING_ERR
+    assert @engine.heap.error.value.start_with? msg
+  end
+
 end
