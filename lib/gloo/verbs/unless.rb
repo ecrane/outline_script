@@ -10,32 +10,19 @@ module Gloo
 
       KEYWORD = 'unless'.freeze
       KEYWORD_SHORT = 'if!'.freeze
-      THEN = 'do'.freeze
+      DO = 'do'.freeze
+      MISSING_EXPR_ERR = 'Missing Expression!'.freeze
 
       #
       # Run the verb.
       #
       def run
-        value = @tokens.before_token( THEN )
-        if value.count > 1
-          # The first token is the verb, so we drop it.
-          value = value[ 1..-1 ]
-        end
+        value = value_tokens
+        return if value.nil?
 
-        evals_false = false
-        if value.count.positive?
-          expr = Gloo::Expr::Expression.new( value )
-          result = expr.evaluate
-          evals_false = true if result == false
-          evals_false = true if result.is_a?( Numeric ) && result.zero?
-        end
-        return unless evals_false
+        return unless evals_false( value )
 
-        cmd = @tokens.expr_after( THEN )
-        i = $engine.parser.parse_immediate cmd
-        return unless i
-
-        i.run
+        run_do
       end
 
       #
@@ -50,6 +37,54 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Get the list of tokens that represent the parameters
+      # of the unless command.
+      #
+      def value_tokens
+        value = @tokens.before_token( DO )
+        if value && value.count > 1
+          # The first token is the verb, so we drop it.
+          value = value[ 1..-1 ]
+        else
+          $engine.err MISSING_EXPR_ERR
+        end
+
+        return value
+      end
+
+      #
+      # Does the given value evalute to true?
+      #
+      def evals_false( value )
+        eval_result = false
+        if value.count.positive?
+          expr = Gloo::Expr::Expression.new( value )
+          result = expr.evaluate
+          eval_result = true if result == false
+          eval_result = true if result.is_a?( Numeric ) && result.zero?
+        end
+
+        return eval_result
+      end
+
+      #
+      # Run the 'do' command.
+      #
+      def run_do
+        cmd = @tokens.expr_after( DO )
+        i = $engine.parser.parse_immediate cmd
+        return unless i
+
+        i.run
       end
 
     end

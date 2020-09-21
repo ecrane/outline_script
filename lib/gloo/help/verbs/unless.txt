@@ -7,11 +7,11 @@ UNLESS VERB
     This is the opposite of the if verb.
 
   SYNTAX
-    unless <true> do <do>
+    unless <true> do <command>
 
   PARAMETERS
     true - Does the expression evaluate to true?
-    do - Execute command if the expression is not true.
+    command - Execute command if the expression is not true.
 
   RESULT
     Unchanged if the expression is true.
@@ -19,8 +19,20 @@ UNLESS VERB
     specified after the 'do' keyword.
 
   ERRORS
-    The errors depend on the object that is run.
+    Missing Expression!
+      - No expression is provided as parameter to the verb.
+
+    Other errors depend on the command that is run.
 
   EXAMPLE
 
+    unless [container] :
+      x [bool] : true
+      false_msg [string] : It is NOT true!
+      on_load [script] :
+        unless unless.x do show "first time: " + unless.false_msg
+        put false into unless.x
+        unless unless.x do show "second time: " +  unless.false_msg
+
   SEE ALSO
+    if

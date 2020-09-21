@@ -18,8 +18,20 @@ IF VERB
     specified after the 'then' keyword.
 
   ERRORS
-    The errors depend on the object that is run.
+    Missing Expression!
+      - No expression is provided as parameter to the verb.
+
+    Other errors depend on the command that is run.
 
   EXAMPLE
 
+    if [container] :
+    	x [bool] : false
+    	true_msg [string] : It is true!
+    	on_load [script] :
+    		if if.x then show "first time: " + if.true_msg
+        put true into if.x
+        if if.x then show "second time: " + if.true_msg
+
   SEE ALSO
+    unless
