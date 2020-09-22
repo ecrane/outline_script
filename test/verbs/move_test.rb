@@ -33,26 +33,43 @@ class MoveTest < Minitest::Test
     assert_equal 1, @engine.heap.root.child_count
   end
 
-  def test_moving_without_object_to_move
-    o = @engine.parser.parse_immediate 'move to b'
-    o.run
-    assert $engine.error?
-  end
-
   def test_moving_without_to
-    o = @engine.parser.parse_immediate 'move a'
-    o.run
+    @engine.parser.run 'move a'
     assert $engine.error?
+    assert_equal Gloo::Verbs::Move::MISSING_DST_ERR, @engine.heap.error.value
   end
 
   def test_moving_without_dst
-    o = @engine.parser.parse_immediate 'move a to'
-    o.run
+    @engine.parser.run 'move a to'
     assert $engine.error?
+    assert_equal Gloo::Verbs::Move::MISSING_DST_ERR, @engine.heap.error.value
   end
 
   def test_help_text
     assert @engine.help.topic? Gloo::Verbs::Move.keyword
+  end
+
+  def test_moving_without_object_to_move
+    @engine.parser.run 'create can as container'
+    @engine.parser.run 'move to can'
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Move::MISSING_SRC_ERR, @engine.heap.error.value
+  end
+
+  def test_moving_with_bad_src_path
+    @engine.parser.run 'create can as container'
+    @engine.parser.run 'move x to can'
+    assert @engine.error?
+    msg = Gloo::Verbs::Move::MISSING_SRC_OBJ_ERR
+    assert @engine.heap.error.value.start_with? msg
+  end
+
+  def test_moving_with_bad_dst_path
+    @engine.parser.run 'create x as string'
+    @engine.parser.run 'move x to cant'
+    assert @engine.error?
+    msg = Gloo::Verbs::Move::MISSING_DST_OBJ_ERR
+    assert @engine.heap.error.value.start_with? msg
   end
 
 end

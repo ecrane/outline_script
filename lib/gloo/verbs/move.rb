@@ -11,6 +11,10 @@ module Gloo
       KEYWORD = 'move'.freeze
       KEYWORD_SHORT = 'mv'.freeze
       TO = 'to'.freeze
+      MISSING_SRC_ERR = 'Object to move was not specified!'.freeze
+      MISSING_SRC_OBJ_ERR = 'Could not find object to move: '.freeze
+      MISSING_DST_ERR = "Move' must include 'to' parent object!".freeze
+      MISSING_DST_OBJ_ERR = 'Could not resolve target: '.freeze
 
       #
       # Run the verb.
@@ -41,8 +45,10 @@ module Gloo
       end
 
       # ---------------------------------------------------------------------
-      #    Helper functions
+      #    Private functions
       # ---------------------------------------------------------------------
+
+      private
 
       #
       # Lookup the object that we're moving.
@@ -50,19 +56,15 @@ module Gloo
       def lookup_obj
         arr = @tokens.before_token( TO )
         if arr.count == 1
-          msg = 'object to move was not specified'
-          $log.error msg, nil, $engine
+          $engine.err MISSING_SRC_ERR
+          return
         end
 
         name = arr[ 1 ]
         pn = Gloo::Core::Pn.new name
         o = pn.resolve
 
-        unless o
-          msg = "could not find object to move: #{name}"
-          $log.error msg, nil, $engine
-        end
-
+        $engine.err( "#{MISSING_SRC_OBJ_ERR} #{name}" ) unless o
         return o
       end
 
@@ -72,19 +74,13 @@ module Gloo
       def lookup_dst
         dst = @tokens.after_token( TO )
         unless dst
-          msg = "'move' must include 'to' parent object"
-          $log.error msg, nil, $engine
+          $engine.err MISSING_DST_ERR
           return nil
         end
 
         pn = Gloo::Core::Pn.new dst
         o = pn.resolve
-        unless o
-          msg = "could not resolve '#{dst}'"
-          $log.error msg, nil, $engine
-          return nil
-        end
-
+        $engine.err( "#{MISSING_DST_OBJ_ERR} '#{dst}'" ) unless o
         return o
       end
 

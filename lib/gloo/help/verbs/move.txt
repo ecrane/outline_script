@@ -16,12 +16,27 @@ MOVE VERB
     The object will now be in the new location.
 
   ERRORS
-    The <path.to.object> is not specified.
-    The <path.to.object> cannot be resolved.
-    The <new.parent> is not specified.
-    The <new.parent> cannot be resolved.
-    The 'to' keyword is missing.
+    Object to move was not specified
+      - The <path.to.object> is not specified.
+
+    Could not find object to move
+      - The <path.to.object> cannot be resolved.
+
+    Move' must include 'to' parent object
+      - The 'to' keyword is missing.
+      - The <new.parent> is not specified.
+
+    Could not resolve target
+      - The <new.parent> cannot be resolved.
 
   EXAMPLE
 
+    can [can] :
+      two [string] : def
+      data [can] :
+        one [string] : abc
+      on_load [script] :
+        move can.two to can.data
+
   SEE ALSO
+    create
