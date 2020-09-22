@@ -17,10 +17,22 @@ PUT VERB
     <it> will contain the result of the evaluation.
 
   ERRORS
-    The destination is not specified.
-    The destination cannot be resolved.
-    The 'into' keyword is missing.
+    Missing Expression
+      - The 'into' keyword is missing.
+      - No source expression is provided.
+
+    Target (into) missing
+      - The destination is not specified.
+
+    Target could not be resolved
+      - The destination of the put cannot be resolved.
 
   EXAMPLE
+
+    > put 'one' into str
+    > put "two" into str
+    > put 123 into x
+    > put 3 + 5 into x
+    > put TRUE into flag
 
   SEE ALSO

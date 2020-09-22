@@ -45,33 +45,35 @@ class PutTest < Minitest::Test
     assert_equal 0, @engine.heap.root.child_count
   end
 
-  def test_fetching_the_value_tokens
-    o = @engine.parser.parse_immediate 'put x into y'
-    value = o.fetch_value_tokens
-    assert value
-    assert 1, value.count
-
-    o = @engine.parser.parse_immediate 'put x'
-    value = o.fetch_value_tokens
-    refute value
-  end
-
   def test_putting_without_src
-    o = @engine.parser.parse_immediate 'put into b'
-    o.run
+    @engine.parser.run 'create b'
+    @engine.parser.run 'put into b'
     assert $engine.error?
+    assert_equal Gloo::Verbs::Put::MISSING_EXPR_ERR, @engine.heap.error.value
   end
 
-  def test_putting_without_with
-    o = @engine.parser.parse_immediate 'put a'
-    o.run
+  def test_putting_without_into
+    @engine.parser.run 'put x'
     assert $engine.error?
+    assert_equal Gloo::Verbs::Put::MISSING_EXPR_ERR, @engine.heap.error.value
   end
 
   def test_putting_without_dst
-    o = @engine.parser.parse_immediate 'put a into'
-    o.run
+    @engine.parser.run 'put x into'
     assert $engine.error?
+    assert_equal Gloo::Verbs::Put::INTO_MISSING_ERR, @engine.heap.error.value
+  end
+
+  def test_dst_resolution_err
+    @engine.parser.run 'put x into y'
+    assert $engine.error?
+    msg = Gloo::Verbs::Put::TARGET_ERR
+    assert @engine.heap.error.value.start_with? msg
+  end
+
+  def test_alert_without_expression
+    @engine.parser.run 'alert'
+    assert @engine.error?
   end
 
   def test_help_text

@@ -20,4 +20,6 @@ QUIT VERB
 
   EXAMPLE
 
+    > quit
+
   SEE ALSO

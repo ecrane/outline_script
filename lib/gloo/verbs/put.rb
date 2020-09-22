@@ -11,6 +11,9 @@ module Gloo
       KEYWORD = 'put'.freeze
       KEYWORD_SHORT = 'p'.freeze
       INTO = 'into'.freeze
+      MISSING_EXPR_ERR = 'Missing Expression!'.freeze
+      INTO_MISSING_ERR = 'Target (into) missing!'.freeze
+      TARGET_ERR = 'Target could not be resolved: '.freeze
 
       #
       # Run the verb.
@@ -22,17 +25,7 @@ module Gloo
         target = lookup_target
         return if target.nil?
 
-        pn = Gloo::Core::Pn.new target
-        o = pn.resolve
-        if o.nil?
-          msg = "could not find target of put: #{target}"
-          $log.error msg, nil, $engine
-        elsif value.count.positive?
-          expr = Gloo::Expr::Expression.new( value )
-          result = expr.evaluate
-          o.set_value result
-          $engine.heap.it.set_to result
-        end
+        update_target target, value
       end
 
       #
@@ -50,33 +43,50 @@ module Gloo
       end
 
       # ---------------------------------------------------------------------
-      #    Helper functions
+      #    Private functions
       # ---------------------------------------------------------------------
 
+      private
+
+      #
       # Get the value that is being put.
+      #
       def fetch_value_tokens
         value = @tokens.before_token( INTO )
-        if value.nil?
-          msg = "'put' must include 'into'"
-          $log.error msg, nil, $engine
+        if value.nil? || ( value.count <= 1 )
+          $engine.err MISSING_EXPR_ERR
           return nil
         end
 
-        if value.count > 1
-          # The first token is the verb, so we drop it.
-          value = value[ 1..-1 ]
-        end
-        return value
+        # The first token is the verb, so we drop it.
+        return value[ 1..-1 ]
       end
 
+      #
       # Lookup the target of the put command.
+      #
       def lookup_target
         target = @tokens.after_token( INTO )
         return target if target
 
-        msg = "'put' must include 'into' target"
-        $log.error msg, nil, $engine
+        $engine.err INTO_MISSING_ERR
         return nil
+      end
+
+      #
+      # Update the target with the new value.
+      #
+      def update_target( target, value )
+        pn = Gloo::Core::Pn.new target
+        o = pn.resolve
+        if o.nil?
+          $engine.err "#{TARGET_ERR} #{target}"
+        elsif value.count.positive?
+          expr = Gloo::Expr::Expression.new( value )
+          result = expr.evaluate
+          o.set_value result
+          $engine.heap.it.set_to result
+        end
       end
 
     end
