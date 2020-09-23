@@ -20,4 +20,10 @@ WAIT VERB
 
   EXAMPLE
 
+    > wait
+    > wait 3
+
+    > create x as int : 10
+    > wait x
+
   SEE ALSO

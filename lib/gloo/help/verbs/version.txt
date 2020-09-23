@@ -5,6 +5,9 @@ VERSION VERB
   DESCRIPTION
     Show the application version information.
 
+    This is the same as showing the version by running gloo
+    with the --version command line parameter.
+
   SYNTAX
     version
 
@@ -18,5 +21,12 @@ VERSION VERB
     None
 
   EXAMPLE
+
+    > version
+    > v
+
+    This is the same as running this from the command line:
+
+    > gloo --version
 
   SEE ALSO
