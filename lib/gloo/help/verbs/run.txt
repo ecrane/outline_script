@@ -8,16 +8,34 @@ RUN VERB
 
   SYNTAX
     run <path.to.object>
+    run ~> <expression>
 
   PARAMETERS
-    path.to.object - Reference to the object which will be run.
+    path.to.object
+      - Reference to the object which will be run.
+      - The object must be a runnable object such as a script.
+
+    expression
+      - Evaluate the expression and run it.
+
 
   RESULT
     The result depends on the object that is run.
 
   ERRORS
-    The errors depend on the object that is run.
+    Missing Expression!
+      - No expression is provided as parameter to the verb.
 
   EXAMPLE
 
+    > run my.script
+
+    > create s as script : "show 3 + 4"
+    > run s
+
+    Run a script in an evaluated expression:
+    > create s as string : "show 3 + 4"
+    > run ~> s
+
   SEE ALSO
+    tell

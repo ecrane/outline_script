@@ -12,33 +12,22 @@ module Gloo
       KEYWORD = 'run'.freeze
       KEYWORD_SHORT = 'r'.freeze
       EVALUATE_RUN = '~>'.freeze
+      MISSING_EXPR_ERR = 'Missing Expression!'.freeze
 
       #
       # Run the verb.
       #
       def run
+        if @tokens.token_count < 2
+          $engine.err MISSING_EXPR_ERR
+          return
+        end
+
         if @tokens.second == EVALUATE_RUN
           run_expression
         else
           run_script
         end
-      end
-
-      #
-      # Run a script specified by pathname
-      #
-      def run_script
-        Gloo::Exec::Runner.run @tokens.second
-      end
-
-      #
-      # Evaluate an expression and run that.
-      #
-      def run_expression
-        return unless @tokens.token_count > 2
-
-        expr = Gloo::Expr::Expression.new( @tokens.params[ 1..-1 ] )
-        $engine.parser.run expr.evaluate
       end
 
       #
@@ -53,6 +42,32 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Run a script specified by pathname
+      #
+      def run_script
+        Gloo::Exec::Runner.run @tokens.second
+      end
+
+      #
+      # Evaluate an expression and run that.
+      #
+      def run_expression
+        unless @tokens.token_count > 2
+          $engine.err MISSING_EXPR_ERR
+          return
+        end
+
+        expr = Gloo::Expr::Expression.new( @tokens.params[ 1..-1 ] )
+        $engine.parser.run expr.evaluate
       end
 
     end
