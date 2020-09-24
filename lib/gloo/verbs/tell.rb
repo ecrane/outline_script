@@ -11,21 +11,18 @@ module Gloo
       KEYWORD = 'tell'.freeze
       KEYWORD_SHORT = '->'.freeze
       TO = 'to'.freeze
+      OBJ_NOT_FOUND_ERR = 'Object was not found: '.freeze
+      UNKNOWN_MSG_ERR = 'Missing message!'.freeze
 
       #
       # Run the verb.
       #
       def run
-        name = @tokens.second
-        msg = @tokens.after_token( TO )
-        pn = Gloo::Core::Pn.new name
-        o = pn.resolve
+        setup_msg
+        return unless @msg
 
-        if o
-          Gloo::Exec::Dispatch.message msg, o, @params
-        else
-          $log.error "Could not send message to object.  Bad path: #{name}"
-        end
+        setup_target
+        dispatch_msg
       end
 
       #
@@ -40,6 +37,41 @@ module Gloo
       #
       def self.keyword_shortcut
         return KEYWORD_SHORT
+      end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Lookup the message to send.
+      #
+      def setup_msg
+        @msg = @tokens.after_token( TO )
+
+        $engine.err( UNKNOWN_MSG_ERR ) unless @msg
+      end
+
+      #
+      # Setup the target of the message.
+      #
+      def setup_target
+        @obj_name = @tokens.second
+        pn = Gloo::Core::Pn.new @obj_name
+        @target_obj = pn.resolve
+      end
+
+      #
+      # Dispatch the message to the target object.
+      #
+      def dispatch_msg
+        if @target_obj
+          Gloo::Exec::Dispatch.message @msg, @target_obj, @params
+        else
+          $engine.err "#{OBJ_NOT_FOUND_ERR} #{@obj_name}"
+        end
       end
 
     end

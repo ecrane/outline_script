@@ -28,4 +28,29 @@ class TellTest < Minitest::Test
     assert @engine.help.topic? Gloo::Verbs::Tell.keyword
   end
 
+  def test_object_not_found
+    @engine.parser.run 'tell x.y.z to run'
+    assert @engine.error?
+    msg = Gloo::Verbs::Tell::OBJ_NOT_FOUND_ERR
+    assert @engine.heap.error.value.start_with? msg
+  end
+
+  def test_unknown_msg
+    @engine.parser.run 'tell x.y.z to '
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Tell::UNKNOWN_MSG_ERR, @engine.heap.error.value
+  end
+
+  def test_missing_to
+    @engine.parser.run 'tell x.y.z '
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Tell::UNKNOWN_MSG_ERR, @engine.heap.error.value
+  end
+
+  def test_empty_tell
+    @engine.parser.run 'tell '
+    assert @engine.error?
+    assert_equal Gloo::Verbs::Tell::UNKNOWN_MSG_ERR, @engine.heap.error.value
+  end
+
 end

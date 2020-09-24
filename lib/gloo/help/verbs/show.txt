@@ -20,4 +20,11 @@ SHOW VERB
 
   EXAMPLE
 
+    > show "me"
+    > show "hello " "world"
+    > show 132 * 23
+
+    > create x : "boo"
+    > show x
+
   SEE ALSO
