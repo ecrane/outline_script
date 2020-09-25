@@ -43,14 +43,18 @@ module Gloo
         return super + %w[up down size]
       end
 
+      #
       # Get the size of the string.
+      #
       def msg_size
         s = value.size
         $engine.heap.it.set_to s
         return s
       end
 
+      #
       # Convert string to upper case
+      #
       def msg_up
         s = value.upcase
         set_value s
@@ -58,7 +62,9 @@ module Gloo
         return s
       end
 
+      #
       # Convert string to lower case
+      #
       def msg_down
         s = value.downcase
         set_value s

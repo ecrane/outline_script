@@ -14,9 +14,11 @@ module Gloo
       KEYWORD = 'teams'.freeze
       KEYWORD_SHORT = 'team'.freeze
       URL = 'uri'.freeze
+      DEFAULT_URL = 'https://outlook.office.com/webhook/...'.freeze
       MSG = 'message'.freeze
       TITLE = 'title'.freeze
       COLOR = 'color'.freeze
+      DEFAULT_COLOR = '008000'.freeze
 
       #
       # The name of the object type.
@@ -67,34 +69,26 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => URL,
-                      :type => 'string',
-                      :value => 'https://outlook.office.com/webhook/...',
-                      :parent => self } )
-        fac.create( { :name => TITLE,
-                      :type => 'string',
-                      :value => '',
-                      :parent => self } )
-        fac.create( { :name => COLOR,
-                      :type => 'color',
-                      :value => '008000',
-                      :parent => self } )
-        fac.create( { :name => MSG,
-                      :type => 'string',
-                      :value => '',
-                      :parent => self } )
+        fac.create_string URL, DEFAULT_URL, self
+        fac.create_string TITLE, '', self
+        fac.create_string COLOR, DEFAULT_COLOR, self
+        fac.create_string MSG, '', self
       end
 
       # ---------------------------------------------------------------------
@@ -108,7 +102,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
-      # Post the content to the endpoint.
+      #
+      # Post the content to Microsoft Teams.
+      #
       def msg_run
         uri = uri_value
         return unless uri

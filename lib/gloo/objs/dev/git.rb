@@ -43,7 +43,9 @@ module Gloo
         return super + %w[validate check_changes get_changes commit get_branch]
       end
 
+      #
       # Get the current working branch.
+      #
       def msg_get_branch
         branch = ''
         path = path_value
@@ -55,7 +57,9 @@ module Gloo
         $engine.heap.it.set_to branch
       end
 
+      #
       # Commit pending changes.
+      #
       def msg_commit
         msg = 'Commit'
         path = path_value
@@ -74,7 +78,9 @@ module Gloo
         $engine.heap.it.set_to msg
       end
 
+      #
       # Get the pending changes.
+      #
       def msg_get_changes
         path = path_value
         result = `cd #{path}; git status -s` if path_is_dir?( path )
@@ -82,12 +88,16 @@ module Gloo
         $engine.heap.it.set_to result
       end
 
+      #
       # Is the given path non nil and is it a directory?
+      #
       def path_is_dir?( path )
         return path && File.directory?( path )
       end
 
+      #
       # Check to see if the repo has changes.
+      #
       def msg_check_changes
         result = false
         path = path_value
@@ -99,7 +109,9 @@ module Gloo
         $engine.heap.it.set_to result
       end
 
+      #
       # Check to make sure this is a valide git repo.
+      #
       def msg_validate
         result = false
         path = path_value

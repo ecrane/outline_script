@@ -11,6 +11,7 @@ module Gloo
       KEYWORD = 'eval'.freeze
       KEYWORD_SHORT = 'ruby'.freeze
       CMD = 'command'.freeze
+      DEFAULT_CMD = '1+2'.freeze
       RESULT = 'result'.freeze
 
       #
@@ -52,26 +53,24 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'command',
-                      :type => 'string',
-                      :value => '1+2',
-                      :parent => self } )
-        fac.create( { :name => 'result',
-                      :type => 'string',
-                      :value => nil,
-                      :parent => self } )
+        fac.create_string CMD, DEFAULT_CMD, self
+        fac.create_string RESULT, nil, self
       end
 
       # ---------------------------------------------------------------------
@@ -85,7 +84,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
-      # Run the system command.
+      #
+      # Run the command and evaluate the expression.
+      #
       def msg_run
         cmd = cmd_value
         return unless cmd

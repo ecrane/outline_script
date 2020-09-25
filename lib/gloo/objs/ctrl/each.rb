@@ -46,7 +46,9 @@ module Gloo
         return o ? o.value : nil
       end
 
+      #
       # Run the do script once.
+      #
       def run_do
         o = find_child DO
         return unless o
@@ -58,16 +60,20 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
         fac.create_string WORD, '', self
@@ -103,16 +109,20 @@ module Gloo
       #    Child Object
       # ---------------------------------------------------------------------
 
+      #
       # Is it set up to run for each word?
       # If there is a child object by the name "word"
       # then we will loop for each word in the string.
+      #
       def each_child?
         return true if contains_child? CHILD
 
         return false
       end
 
+      #
       # Run for each word.
+      #
       def run_each_child
         o = find_child IN
         return unless o
@@ -124,7 +134,9 @@ module Gloo
         end
       end
 
+      #
       # Set the child alias.
+      #
       def set_child( obj )
         o = find_child CHILD
         return unless o
@@ -136,16 +148,20 @@ module Gloo
       #    Word
       # ---------------------------------------------------------------------
 
+      #
       # Is it set up to run for each word?
       # If there is a child object by the name "word"
       # then we will loop for each word in the string.
+      #
       def each_word?
         return true if find_child WORD
 
         return false
       end
 
+      #
       # Run for each word.
+      #
       def run_each_word
         str = in_value
         return unless str
@@ -156,7 +172,9 @@ module Gloo
         end
       end
 
+      #
       # Set the value of the word.
+      #
       def set_word( word )
         o = find_child WORD
         return unless o
@@ -168,16 +186,20 @@ module Gloo
       #    Line
       # ---------------------------------------------------------------------
 
+      #
       # Is it set up to run for each line?
       # If there is a child object by the name "line"
       # then we will loop for each line in the string.
+      #
       def each_line?
         return true if find_child LINE
 
         return false
       end
 
+      #
       # Run for each line.
+      #
       def run_each_line
         str = in_value
         return unless str
@@ -188,7 +210,9 @@ module Gloo
         end
       end
 
+      #
       # Set the value of the word.
+      #
       def set_line( line )
         o = find_child LINE
         return unless o
@@ -200,15 +224,20 @@ module Gloo
       #    Git Repo
       # ---------------------------------------------------------------------
 
+      #
       # Is it set up to run for each git repo?
       # If there is a child object by the name "repo"
       # then we will loop for each repo in the directory.
+      #
       def each_repo?
         return true if find_child REPO
 
         return false
       end
 
+      #
+      # Find all git projects in a path.
+      #
       def find_all_git_projects( path )
         path.children.collect do |f|
           if f.directory? && ( File.basename( f ) == '.git' )
@@ -219,7 +248,9 @@ module Gloo
         end.flatten.compact
       end
 
+      #
       # Run for each line.
+      #
       def run_each_repo
         path = in_value
         return unless path
@@ -232,8 +263,10 @@ module Gloo
         end
       end
 
+      #
       # Set the value of the repo.
       # This is a path to the repo.
+      #
       def set_repo( path )
         o = find_child REPO
         return unless o

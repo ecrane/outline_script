@@ -11,6 +11,7 @@ module Gloo
       KEYWORD = 'confirm'.freeze
       KEYWORD_SHORT = 'confirm'.freeze
       PROMPT = 'prompt'.freeze
+      DEFAULT_PROMPT = '> '.freeze
       RESULT = 'result'.freeze
 
       #
@@ -64,14 +65,8 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'prompt',
-                      :type => 'string',
-                      :value => '> ',
-                      :parent => self } )
-        fac.create( { :name => 'result',
-                      :type => 'boolean',
-                      :value => nil,
-                      :parent => self } )
+        fac.create_string PROMPT, DEFAULT_PROMPT, self
+        fac.create_bool RESULT, nil, self
       end
 
       # ---------------------------------------------------------------------
@@ -85,7 +80,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
-      # Run the system command.
+      #
+      # Run the confirmation command.
+      #
       def msg_run
         prompt = prompt_value
         return unless prompt

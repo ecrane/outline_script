@@ -48,7 +48,9 @@ module Gloo
         return super + %w[inc dec]
       end
 
+      #
       # Increment the integer
+      #
       def msg_inc
         i = value + 1
         set_value i
@@ -56,7 +58,9 @@ module Gloo
         return i
       end
 
+      #
       # Decrement the integer
+      #
       def msg_dec
         i = value - 1
         set_value i

@@ -37,7 +37,9 @@ module Gloo
         return o ? o.value : 0
       end
 
+      #
       # Run the do script once.
+      #
       def run_do
         o = find_child DO
         return unless o
@@ -45,7 +47,9 @@ module Gloo
         Gloo::Exec::Dispatch.message 'run', o
       end
 
+      #
       # Set the index of the current iteration.
+      #
       def set_index( index )
         o = find_child INDEX
         return unless o
@@ -57,16 +61,20 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
         fac.create_int TIMES, 0, self

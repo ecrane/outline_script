@@ -36,7 +36,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
+      #
       # Play the audio file.
+      #
       def msg_run
         system "afplay #{value}"
       end

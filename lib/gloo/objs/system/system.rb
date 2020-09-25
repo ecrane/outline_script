@@ -11,6 +11,7 @@ module Gloo
       KEYWORD = 'system'.freeze
       KEYWORD_SHORT = 'sys'.freeze
       CMD = 'command'.freeze
+      DEFAULT_CMD = 'date'.freeze
       RESULT = 'result'.freeze
       GET_OUTPUT = 'get_output'.freeze
 
@@ -65,30 +66,25 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'command',
-                      :type => 'string',
-                      :value => 'date',
-                      :parent => self } )
-        fac.create( { :name => 'get_output',
-                      :type => 'boolean',
-                      :value => true,
-                      :parent => self } )
-        fac.create( { :name => 'result',
-                      :type => 'string',
-                      :value => nil,
-                      :parent => self } )
+        fac.create_string CMD, DEFAULT_CMD, self
+        fac.create_bool GET_OUTPUT, true, self
+        fac.create_string RESULT, nil, self
       end
 
       # ---------------------------------------------------------------------
@@ -102,7 +98,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
+      #
       # Run the system command.
+      #
       def msg_run
         if output?
           run_with_output
@@ -111,6 +109,9 @@ module Gloo
         end
       end
 
+      #
+      # Run the command and collect output.
+      #
       def run_with_output
         cmd = cmd_value
         return unless cmd
@@ -119,6 +120,9 @@ module Gloo
         set_result result
       end
 
+      #
+      # Run the command and set the result.
+      #
       def run_with_result
         cmd = cmd_value
         return unless cmd

@@ -13,6 +13,7 @@ module Gloo
       KEYWORD_SHORT = 'say'.freeze
       VOICE = 'voice'.freeze
       MSG = 'message'.freeze
+      DEFAULT_MSG = 'talk to me'.freeze
 
       #
       # The name of the object type.
@@ -52,20 +53,24 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
         fac.create_string VOICE, '', self
-        fac.create_string MSG, 'talk to me', self
+        fac.create_string MSG, DEFAULT_MSG, self
       end
 
       # ---------------------------------------------------------------------
@@ -79,7 +84,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
-      # Run the system command.
+      #
+      # Have the computer 'speak' the message.
+      #
       def msg_run
         v = voice_value.empty? ? '' : "-v '#{voice_value}'"
         cmd = "say #{v} '#{msg_value}'"

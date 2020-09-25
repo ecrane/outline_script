@@ -46,6 +46,17 @@ module Gloo
       end
 
       #
+      # Helper shortcut to create a text child object.
+      #
+      def create_text( name, value, parent )
+        params = { :name => name,
+                   :type => 'text',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
+      #
       # Helper shortcut to create an integer child object.
       #
       def create_int( name, value, parent )

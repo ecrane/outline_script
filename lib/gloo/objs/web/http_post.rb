@@ -72,16 +72,20 @@ module Gloo
       #    Children
       # ---------------------------------------------------------------------
 
+      #
       # Does this object have children to add when an object
       # is created in interactive mode?
       # This does not apply during obj load, etc.
+      #
       def add_children_on_create?
         return true
       end
 
+      #
       # Add children to this object.
       # This is used by containers to add children needed
       # for default configurations.
+      #
       def add_default_children
         fac = $engine.factory
         fac.create_string URL, 'https://web.site/', self
@@ -99,7 +103,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
+      #
       # Post the content to the endpoint.
+      #
       def msg_run
         uri = uri_value
         return unless uri
@@ -116,7 +122,9 @@ module Gloo
       #    Static functions
       # ---------------------------------------------------------------------
 
+      #
       # Post the content to the endpoint.
+      #
       def self.post_json( url, body, use_ssl = true )
         # Structure the request
         uri = URI.parse( url )

@@ -42,10 +42,7 @@ module Gloo
       # for default configurations.
       def add_default_children
         fac = $engine.factory
-        fac.create( { :name => 'white',
-                      :type => 'string',
-                      :value => '',
-                      :parent => self } )
+        fac.create_string 'white', '', self
       end
 
       # ---------------------------------------------------------------------
@@ -59,7 +56,9 @@ module Gloo
         return super + [ 'run' ]
       end
 
-      # Run the system command.
+      #
+      # Run the colorize command.
+      #
       def msg_run
         msg = ''
         children.each do |o|

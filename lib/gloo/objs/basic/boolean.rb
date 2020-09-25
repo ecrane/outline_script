@@ -84,7 +84,9 @@ module Gloo
         return super + %w[not true false]
       end
 
+      #
       # Set the value to the opposite of what it is.
+      #
       def msg_not
         v = !value
         set_value v
@@ -92,14 +94,18 @@ module Gloo
         return v
       end
 
+      #
       # Set the value to true.
+      #
       def msg_true
         set_value true
         $engine.heap.it.set_to true
         return true
       end
 
+      #
       # Set the value to false.
+      #
       def msg_false
         set_value false
         $engine.heap.it.set_to false

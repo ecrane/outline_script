@@ -48,7 +48,9 @@ module Gloo
         return super + %w[now]
       end
 
-      # Get the current working branch.
+      #
+      # Set to the current date and time.
+      #
       def msg_now
         t = DateTime.now.strftime( '%Y.%m.%d %I:%M:%S %P' )
         self.value = t
