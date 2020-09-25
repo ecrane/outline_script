@@ -48,7 +48,7 @@ class HttpGetTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::HttpGet.help.start_with? 'HTTP_GET OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::HttpGet.typename
   end
 
 end
