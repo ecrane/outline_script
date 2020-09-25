@@ -65,32 +65,6 @@ module Gloo
         return i
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          DECIMAL OBJECT TYPE
-            NAME: decimal
-            SHORTCUT: num
-
-          DESCRIPTION
-            A decimal (numeric) value.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            round - Round to the nearest whole value.
-              If an optional parameter is included, round to the
-              precision specified.
-        TEXT
-      end
-
     end
   end
 end

@@ -62,7 +62,7 @@ class IntegerTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Integer.help.start_with? 'INTEGER OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Integer.typename
   end
 
 end

@@ -114,37 +114,6 @@ module Gloo
         set_result render.result_with_hash( param_hash )
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          ERB OBJECT TYPE
-            NAME: erb
-            SHORTCUT: erb
-
-          DESCRIPTION
-            Use the ERB templating system to generate content.
-
-          CHILDREN
-            template - text
-              The template that will be used the the ERB object is run.
-            params - container
-              The collection of children values that will be used
-              when the template object is rendered.
-            result - text
-              The result of the template rendering.
-
-          MESSAGES
-            run - Render the result based on the template and the
-                  parameter values.
-        TEXT
-      end
-
     end
   end
 end

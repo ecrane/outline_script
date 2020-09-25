@@ -66,32 +66,6 @@ module Gloo
         return s
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          STRING OBJECT TYPE
-            NAME: string
-            SHORTCUT: str
-
-          DESCRIPTION
-            A string value.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            up - Convert the string to uppercase.
-            down - Convert the string to lowercase.
-            size - Get the size of the string.
-        TEXT
-      end
-
     end
   end
 end

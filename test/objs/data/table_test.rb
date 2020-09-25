@@ -45,7 +45,7 @@ class TableTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Table.help.start_with? 'TABLE OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Table.typename
   end
 
 end

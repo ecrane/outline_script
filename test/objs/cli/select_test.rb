@@ -47,7 +47,7 @@ class SelectTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Select.help.start_with? 'SELECT OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Select.typename
   end
 
 end

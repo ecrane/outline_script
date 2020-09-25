@@ -55,7 +55,7 @@ class SayTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Say.help.start_with? 'SAY OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Say.typename
   end
 
 end

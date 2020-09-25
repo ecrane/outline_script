@@ -61,7 +61,7 @@ class SystemTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::System.help.start_with? 'SYSTEM OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::System.typename
   end
 
 end

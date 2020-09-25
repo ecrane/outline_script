@@ -92,7 +92,7 @@ class AliasTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Alias.help.start_with? 'ALIAS OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Alias.typename
   end
 
 end

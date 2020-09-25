@@ -43,30 +43,6 @@ module Gloo
         $engine.heap.it.set_to t
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          TIME OBJECT TYPE
-            NAME: time
-            SHORTCUT: time
-
-          DESCRIPTION
-            A reference to a time, but without a date.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            now - Set to the current system time.
-        TEXT
-      end
-
     end
   end
 end

@@ -45,7 +45,7 @@ class PastelTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Pastel.help.start_with? 'PASTEL OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Pastel.typename
   end
 
 end

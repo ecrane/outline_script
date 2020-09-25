@@ -71,7 +71,7 @@ class UriTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Uri.help.start_with? 'URI OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Uri.typename
   end
 
 end

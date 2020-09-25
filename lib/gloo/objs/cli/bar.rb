@@ -107,35 +107,6 @@ module Gloo
         @bar.advance x
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          BAR OBJECT TYPE
-            NAME: bar
-            SHORTCUT: bar
-
-          DESCRIPTION
-            CLI progress bar
-
-          CHILDREN
-            name - string
-              The name of the progress bar.
-            total - integer - 100
-              The total for the bar.
-
-          MESSAGES
-            start - Start the bar.
-            advance <amount> - Advance by the given amount.
-            stop - Complete the bar.
-        TEXT
-      end
-
     end
   end
 end

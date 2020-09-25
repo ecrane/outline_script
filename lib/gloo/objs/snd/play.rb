@@ -41,31 +41,6 @@ module Gloo
         system "afplay #{value}"
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          PLAY OBJECT TYPE
-            NAME: play
-            SHORTCUT: play
-
-          DESCRIPTION
-            Play an audio file, an MP3 for example.
-            The value of the play object is the path to the audio file.
-
-          CHILDREN
-            None.
-
-          MESSAGES
-            run - Play the audio file.
-        TEXT
-      end
-
     end
   end
 end

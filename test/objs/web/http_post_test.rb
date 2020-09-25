@@ -47,7 +47,7 @@ class HttpPostTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::HttpPost.help.start_with? 'HTTP_POST OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::HttpPost.typename
   end
 
 end

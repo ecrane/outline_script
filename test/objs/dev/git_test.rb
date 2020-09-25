@@ -35,7 +35,7 @@ class GitTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Git.help.start_with? 'GIT OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Git.typename
   end
 
 end

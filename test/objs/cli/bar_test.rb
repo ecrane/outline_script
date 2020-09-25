@@ -57,7 +57,7 @@ class BarTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Bar.help.start_with? 'BAR OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Bar.typename
   end
 
 end

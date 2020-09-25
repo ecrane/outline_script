@@ -117,37 +117,6 @@ module Gloo
         set_result self.key_for_option( result )
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          SELECT OBJECT TYPE
-            NAME: select
-            SHORTCUT: sel
-
-          DESCRIPTION
-            Prompt for user to select from a list of options.
-
-          CHILDREN
-            prompt - string - '> '
-              The prompt displayed to the user.
-            options - container
-              The list of options for the selection list.
-              The name of each option will be presented to the user, but
-              the value will be put in the result.
-            result - string - none
-              The result with the user's selection.
-
-          MESSAGES
-            run - Prompt the user for a selection and then set the result.
-        TEXT
-      end
-
     end
   end
 end

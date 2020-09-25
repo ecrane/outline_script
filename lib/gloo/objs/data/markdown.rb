@@ -79,31 +79,6 @@ module Gloo
         pager.page( md )
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          MARKDOWN OBJECT TYPE
-            NAME: markdown
-            SHORTCUT: md
-
-          DESCRIPTION
-            Markdown data in a text string.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            show - Show the markdown data in the terminal.
-            page - Show the markdown data in the terminal, paginated.
-        TEXT
-      end
-
     end
   end
 end

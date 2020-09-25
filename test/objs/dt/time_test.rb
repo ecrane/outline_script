@@ -44,7 +44,7 @@ class TimeTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Time.help.start_with? 'TIME OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Time.typename
   end
 
 end

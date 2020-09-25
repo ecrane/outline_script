@@ -1,0 +1,17 @@
+MARKDOWN OBJECT TYPE
+  NAME: markdown
+  SHORTCUT: md
+
+  DESCRIPTION
+    Markdown data in a text string.
+
+  CHILDREN
+    None
+
+  MESSAGES
+    show - Show the markdown data in the terminal.
+    page - Show the markdown data in the terminal, paginated.
+
+  EXAMPLE
+
+  SEE ALSO

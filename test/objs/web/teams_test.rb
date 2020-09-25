@@ -48,7 +48,7 @@ class TeamsTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Teams.help.start_with? 'TEAMS OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Teams.typename
   end
 
 end

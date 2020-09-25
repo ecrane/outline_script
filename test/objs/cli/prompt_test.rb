@@ -47,7 +47,7 @@ class PromptTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Prompt.help.start_with? 'PROMPT OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Prompt.typename
   end
 
 end

@@ -47,7 +47,7 @@ class SlackTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Slack.help.start_with? 'SLACK OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Slack.typename
   end
 
 end

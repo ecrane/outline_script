@@ -46,7 +46,7 @@ class BannerTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Banner.help.start_with? 'BANNER OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Banner.typename
   end
 
 end

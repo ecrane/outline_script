@@ -36,32 +36,6 @@ module Gloo
         return super # + [ "run" ]
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          UNTYPED OBJECT TYPE
-            NAME: untyped
-            SHORTCUT: un
-
-          DESCRIPTION
-            An untyped object.
-            If no type is specified when an object is created it
-            will be of this type.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            None
-        TEXT
-      end
-
     end
   end
 end

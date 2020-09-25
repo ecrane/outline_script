@@ -33,7 +33,7 @@ class PlayTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Play.help.start_with? 'PLAY OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Play.typename
   end
 
 end

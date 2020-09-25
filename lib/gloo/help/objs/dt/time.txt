@@ -1,0 +1,16 @@
+TIME OBJECT TYPE
+  NAME: time
+  SHORTCUT: time
+
+  DESCRIPTION
+    A reference to a time, but without a date.
+
+  CHILDREN
+    None
+
+  MESSAGES
+    now - Set to the current system time.
+
+  EXAMPLE
+
+  SEE ALSO

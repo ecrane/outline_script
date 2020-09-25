@@ -24,7 +24,7 @@ class UntypedTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Untyped.help.start_with? 'UNTYPED OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Untyped.typename
   end
 
 end

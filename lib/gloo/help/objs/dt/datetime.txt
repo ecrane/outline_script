@@ -1,0 +1,16 @@
+DATETIME OBJECT TYPE
+  NAME: datetime
+  SHORTCUT: dt
+
+  DESCRIPTION
+    A reference to a date and time.
+
+  CHILDREN
+    None
+
+  MESSAGES
+    now - Set to the current system date and time.
+
+  EXAMPLE
+
+  SEE ALSO

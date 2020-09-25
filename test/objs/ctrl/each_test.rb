@@ -45,7 +45,7 @@ class EachTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Each.help.start_with? 'EACH OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Each.typename
   end
 
 end

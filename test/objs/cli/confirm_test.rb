@@ -46,7 +46,7 @@ class ConfirmTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Confirm.help.start_with? 'CONFIRM OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Confirm.typename
   end
 
 end

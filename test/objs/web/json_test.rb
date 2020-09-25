@@ -29,7 +29,7 @@ class JsonTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Json.help.start_with? 'JSON OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Json.typename
   end
 
   def test_getting_json_value

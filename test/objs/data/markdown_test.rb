@@ -34,7 +34,7 @@ class MarkdownTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Markdown.help.start_with? 'MARKDOWN OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Markdown.typename
   end
 
 end

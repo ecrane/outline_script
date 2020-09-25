@@ -106,33 +106,6 @@ module Gloo
         return false
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          BOOLEAN OBJECT TYPE
-            NAME: boolean
-            SHORTCUT: bool
-
-          DESCRIPTION
-            A boolean value.
-            Value will be either true or false.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            not - Set the boolean to the opposite of what it is now.
-            true - Set the boolean to true.
-            false - Set the boolean to false.
-        TEXT
-      end
-
     end
   end
 end

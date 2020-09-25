@@ -88,33 +88,6 @@ module Gloo
         puts pastel.decorate( self.text_value, *c )
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          PASTEL OBJECT TYPE
-            NAME: pastel
-            SHORTCUT: pastel
-
-          DESCRIPTION
-            Show colorized text with the pastel gem.
-
-          CHILDREN
-            text - string
-              The text that will be colorized.
-            color - string
-              The colors.  See pastel for options.
-
-          MESSAGES
-            show - Show the colorized text.
-        TEXT
-      end
-
     end
   end
 end

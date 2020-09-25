@@ -64,7 +64,7 @@ class ErbTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Erb.help.start_with? 'ERB OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Erb.typename
   end
 
 end

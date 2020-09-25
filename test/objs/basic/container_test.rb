@@ -64,7 +64,7 @@ class ContainerTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Container.help.start_with? 'CONTAINER OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Container.typename
   end
 
 end

@@ -121,35 +121,6 @@ module Gloo
         end
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          JSON OBJECT TYPE
-            NAME: json
-            SHORTCUT: json
-
-          DESCRIPTION
-            JSON data in a text string.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            get - get a value from the JSON data
-              Example: tell myjson to get ("title")
-              The additional parameter is the path to the value.
-            parse - parse the JSON data and put values in the
-              object specified by the additional parameter
-              Example: tell myjson to parse ("path.to.objects")
-        TEXT
-      end
-
     end
   end
 end

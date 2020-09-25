@@ -70,7 +70,7 @@ class MenuTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Menu.help.start_with? 'MENU OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Menu.typename
   end
 
 end

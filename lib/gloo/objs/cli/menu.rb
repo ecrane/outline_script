@@ -197,40 +197,6 @@ module Gloo
         s.run
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          MENU OBJECT TYPE
-            NAME: menu
-            SHORTCUT: menu
-
-          DESCRIPTION
-            A CLI menu.
-            This can be used for the main loop of a CLI application.
-
-          CHILDREN
-            prompt - string - '> '
-              The shortcut may be used to select the  menu item.
-            items - container
-              A textual description of the menu item action.
-            loop - boolean
-              The script that will be run if the menu item is selected.
-            default - script
-              Optional script element. Run this if no other option selected.
-
-          MESSAGES
-            run - Show the options and the the prompt.
-              Then run the script for the user's selection.
-              Optionally repeat as long as the loop child is true.
-        TEXT
-      end
-
     end
   end
 end

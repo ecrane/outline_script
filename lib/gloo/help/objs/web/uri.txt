@@ -1,0 +1,21 @@
+URI OBJECT TYPE
+  NAME: uri
+  SHORTCUT: url
+
+  DESCRIPTION
+    A URI or URL.
+
+  CHILDREN
+    None
+
+  MESSAGES
+    open - open the URL in the default browser
+    get_scheme - get the URI scheme; example:  http
+    get_host - get the URI host; example:  google.com
+    get_path - get the URI resource path; example:  /post
+    get_query - get the URI query parameterse; example:  id=121
+    get_fragment - get the URI fragment
+
+  EXAMPLE
+
+  SEE ALSO

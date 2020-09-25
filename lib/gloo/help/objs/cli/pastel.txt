@@ -1,0 +1,19 @@
+PASTEL OBJECT TYPE
+  NAME: pastel
+  SHORTCUT: pastel
+
+  DESCRIPTION
+    Show colorized text with the pastel gem.
+
+  CHILDREN
+    text - string
+      The text that will be colorized.
+    color - string
+      The colors.  See pastel for options.
+
+  MESSAGES
+    show - Show the colorized text.
+
+  EXAMPLE
+
+  SEE ALSO

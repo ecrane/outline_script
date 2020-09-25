@@ -86,35 +86,6 @@ module Gloo
         system cmd
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          SAY OBJECT TYPE
-            NAME: say
-            SHORTCUT: say
-
-          DESCRIPTION
-            Use the Mac text to speach function to say the .
-            From the Mac CLI, run this to get a list of voices:
-              say -v '?'
-
-          CHILDREN
-            voice - string
-              The Voice to use.  If left blank, the default voice will be used.
-            message - string - 'talk to me'
-              The message to speak.
-
-          MESSAGES
-            run - Speak the message, optionally in the voice specified.
-        TEXT
-      end
-
     end
   end
 end

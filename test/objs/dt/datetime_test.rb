@@ -45,7 +45,7 @@ class DatetimeTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Datetime.help.start_with? 'DATETIME OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Datetime.typename
   end
 
 end

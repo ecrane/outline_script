@@ -1,0 +1,17 @@
+TEXT OBJECT TYPE
+  NAME: text
+  SHORTCUT: txt
+
+  DESCRIPTION
+    A longer, multi-line text string.
+
+  CHILDREN
+    None
+
+  MESSAGES
+    edit - Edit the text field in the default editor.
+    page - Show the text, paginated.
+
+  EXAMPLE
+
+  SEE ALSO

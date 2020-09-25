@@ -127,40 +127,6 @@ module Gloo
         set_result result
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          SYSTEM OBJECT TYPE
-            NAME: system
-            SHORTCUT: sys
-
-          DESCRIPTION
-            Execute a system command.
-
-          CHILDREN
-            command - string - 'date'
-              The command that will be sent to the system.
-            get_output - boolean - true
-              Should executing the command get the output and put it
-              in the result object?
-            result - string
-              The result of running the command.
-              The result will only be set if the 'get_output' child
-              is set to true.
-
-          MESSAGES
-            run - Run the system level command.
-              Set the result value to the output of the command if the
-              'get_output' child is marked as true.
-        TEXT
-      end
-
     end
   end
 end

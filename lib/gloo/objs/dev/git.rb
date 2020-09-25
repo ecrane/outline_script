@@ -111,36 +111,6 @@ module Gloo
         $engine.heap.it.set_to result
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          GIT OBJECT TYPE
-            NAME: git_repo
-            SHORTCUT: git
-
-          DESCRIPTION
-            Reference to a git repository in the file system.
-            The value of the git_repo objectd is a string.
-            There are no children needed.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            validate - Validate that this is a git repo.
-            check_changes - Check to see if there are any pending changes.
-            get_changes - Get the list of pending changes.
-            commit - Commit changes.
-            get_branch - Get the current branch.
-        TEXT
-      end
-
     end
   end
 end

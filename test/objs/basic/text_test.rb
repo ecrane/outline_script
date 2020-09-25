@@ -41,7 +41,7 @@ class TextTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Text.help.start_with? 'TEXT OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Text.typename
   end
 
 end

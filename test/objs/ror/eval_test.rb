@@ -59,7 +59,7 @@ class EvalTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Eval.help.start_with? 'EVAL OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Eval.typename
   end
 
 end

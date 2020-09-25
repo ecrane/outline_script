@@ -38,7 +38,7 @@ class FileHandleTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::FileHandle.help.start_with? 'FILE OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::FileHandle.typename
   end
 
 end

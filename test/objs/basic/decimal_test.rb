@@ -61,7 +61,7 @@ class DecimalTest < Minitest::Test
   # end
 
   def test_help_text
-    assert Gloo::Objs::Decimal.help.start_with? 'DECIMAL OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Decimal.typename
   end
 
 end

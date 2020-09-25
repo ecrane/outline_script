@@ -133,37 +133,6 @@ module Gloo
         return result.body
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          HTTP_POST OBJECT TYPE
-            NAME: http_post
-            SHORTCUT: post
-
-          DESCRIPTION
-            Perform an HTTP Post.
-
-          CHILDREN
-            uri - string - 'https://web.site/'
-              The URI for the HTTP Post.
-            body - container
-              Collection of parameters for the HTTP Post.
-            result - string - Optional parameter
-              The result of the request.  Whatever was returned in the body
-              of the HTTP POST.
-
-          MESSAGES
-            run - Run the HTTP Post sending the body data to the
-              endpoint specified in the URI.
-        TEXT
-      end
-
     end
   end
 end

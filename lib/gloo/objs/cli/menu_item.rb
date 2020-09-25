@@ -90,39 +90,6 @@ module Gloo
         return super
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          MENU_ITEM OBJECT TYPE
-            NAME: menu_item
-            SHORTCUT: mitem
-
-          DESCRIPTION
-            A CLI menu item.  One element in a CLI menu.
-
-          CHILDREN
-            shortcut - string
-              The shortcut may be used to select the  menu item.
-              The shortcut child is optional.  If it is not provided,
-              the name of the menu item will be used instead.
-            description - string
-              A textual description of the menu item action.
-              The description child is optional.  If it is not provided,
-              the value of the menu item will be used instead.
-            do - script
-              The script that will be run if the menu item is selected.
-
-          MESSAGES
-            None
-        TEXT
-      end
-
     end
   end
 end

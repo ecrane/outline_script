@@ -47,7 +47,7 @@ class RepeatTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Repeat.help.start_with? 'REPEAT OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Repeat.typename
   end
 
 end

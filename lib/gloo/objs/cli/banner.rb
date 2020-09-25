@@ -103,35 +103,6 @@ module Gloo
         puts pastel.decorate( t, *c )
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          BANNER OBJECT TYPE
-            NAME: banner
-            SHORTCUT: ban
-
-          DESCRIPTION
-            Banner text in large, colored font.
-
-          CHILDREN
-            text - string
-              The text for the banner.
-            style - string
-              The banner style.  See tty-font for options.
-            color - string
-              The color for the banner.  See pastel for options.
-
-          MESSAGES
-            show - Show the text banner.
-        TEXT
-      end
-
     end
   end
 end

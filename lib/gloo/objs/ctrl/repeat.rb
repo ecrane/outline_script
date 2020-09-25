@@ -95,35 +95,6 @@ module Gloo
         end
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          REPEAT OBJECT TYPE
-            NAME: repeat
-            SHORTCUT: repeat
-
-          DESCRIPTION
-            Run a script a given number of times.
-
-          CHILDREN
-            times integer - 0
-              The number of times to run the script.
-            index integer - 0
-              The current iteration when the repeat loop is running.
-            do - script - none
-              The action we want to perform for iteration of the loop.
-
-          MESSAGES
-            run - Run the script for the given number of times.
-        TEXT
-      end
-
     end
   end
 end

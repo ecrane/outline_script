@@ -94,7 +94,7 @@ class ScriptObjTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Script.help.start_with? 'SCRIPT OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Script.typename
   end
 
 end

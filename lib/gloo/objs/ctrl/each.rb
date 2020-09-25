@@ -241,39 +241,6 @@ module Gloo
         o.set_value path
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          EACH OBJECT TYPE
-            NAME: each
-            SHORTCUT: each
-
-          DESCRIPTION
-            Perform an action for each item in a collection.
-
-          CHILDREN
-            child | word | line | repo - string - none
-              The entity we want to loop for.
-              It will hold the current value while the script is running.
-            in - string - none
-              The collection we will iterate in.
-              In the case of <word> or <line> this will be a string or text.
-              In the case of <repo> this will be the root path.
-            do - script - none
-              The action we want to perform for each found item.
-
-          MESSAGES
-            run - Look through the collecion and perform this for each
-              found item.
-        TEXT
-      end
-
     end
   end
 end

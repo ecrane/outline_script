@@ -71,7 +71,7 @@ class BooleanTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Boolean.help.start_with? 'BOOLEAN OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Boolean.typename
   end
 
 end

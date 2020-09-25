@@ -82,31 +82,6 @@ module Gloo
         set_value File.read( tmp )
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          TEXT OBJECT TYPE
-            NAME: text
-            SHORTCUT: txt
-
-          DESCRIPTION
-            A longer, multi-line text string.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            edit - Edit the text field in the default editor.
-            page - Show the text, paginated.
-        TEXT
-      end
-
     end
   end
 end

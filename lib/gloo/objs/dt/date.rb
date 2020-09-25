@@ -43,30 +43,6 @@ module Gloo
         $engine.heap.it.set_to t
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          DATE OBJECT TYPE
-            NAME: date
-            SHORTCUT: date
-
-          DESCRIPTION
-            A reference to a date, but without time.
-
-          CHILDREN
-            None
-
-          MESSAGES
-            now - Set to the current system date.
-        TEXT
-      end
-
     end
   end
 end

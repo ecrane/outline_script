@@ -131,38 +131,6 @@ module Gloo
         puts "#{rendered}\n\n"
       end
 
-      # ---------------------------------------------------------------------
-      #    Help
-      # ---------------------------------------------------------------------
-
-      #
-      # Get help for this object type.
-      #
-      def self.help
-        return <<~TEXT
-          TABLE OBJECT TYPE
-            NAME: table
-            SHORTCUT: tbl
-
-          DESCRIPTION
-            A data table.
-
-          CHILDREN
-            headers - container
-              A list of headers.
-              The name of the header object needs to be the same as the
-              name of the object in the data container.
-              The value of the header is what will be displayed.
-            data - container
-              The table's data.
-              The data container will have one or more containers, each
-              of which represents one row of data.
-
-          MESSAGES
-            show - Show the contents of the table in the CLI.
-        TEXT
-      end
-
     end
   end
 end

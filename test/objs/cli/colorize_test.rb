@@ -34,7 +34,7 @@ class ColorizeTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::Colorize.help.start_with? 'COLORIZE OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::Colorize.typename
   end
 
 end

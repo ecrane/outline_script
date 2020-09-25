@@ -66,7 +66,7 @@ class StringTest < Minitest::Test
   end
 
   def test_help_text
-    assert Gloo::Objs::String.help.start_with? 'STRING OBJECT TYPE'
+    assert @engine.help.topic? Gloo::Objs::String.typename
   end
 
 end
