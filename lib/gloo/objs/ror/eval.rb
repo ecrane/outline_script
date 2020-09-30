@@ -98,8 +98,7 @@ module Gloo
           set_result result
           $engine.heap.it.set_to result
         rescue => e
-          $log.error e.message
-          $engine.heap.error.set_to e.message
+          $engine.err e.message
         end
       end
 

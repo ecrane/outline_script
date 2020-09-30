@@ -3,7 +3,7 @@ SAY OBJECT TYPE
   SHORTCUT: say
 
   DESCRIPTION
-    Use the Mac text to speach function to say the .
+    Use the Mac text to speech function to convert text to audio.
     From the Mac CLI, run this to get a list of voices:
       say -v '?'
 
@@ -18,4 +18,11 @@ SAY OBJECT TYPE
 
   EXAMPLE
 
+    say [say] :
+    	voice [string] : Moira
+    	message [string] : So long, and thanks for all the fish!
+    	on_load [script] :
+    		tell say to run
+
   SEE ALSO
+    play, beep

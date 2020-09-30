@@ -14,4 +14,10 @@ PLAY OBJECT TYPE
 
   EXAMPLE
 
+    play [can] :
+    	snd [play] : ~/path/to/snd.mp3
+    	on_load [script] :
+    		run play.snd
+
   SEE ALSO
+    say, beep
