@@ -20,4 +20,11 @@ TEAMS OBJECT TYPE
 
   EXAMPLE
 
+    team [teams] :
+    	uri [string] : https://outlook.office.com/webhook/MYTOKEN/IncomingWebhook/MYTOKEN
+    	title [string] : Success
+    	color [string] : 008000
+    	message [string] : This worked!
+
   SEE ALSO
+    http_get, http_post, json, uri

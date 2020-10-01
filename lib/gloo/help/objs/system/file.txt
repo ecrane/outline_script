@@ -27,4 +27,15 @@ FILE OBJECT TYPE
 
   EXAMPLE
 
+    exists [can] :
+    	f [file] : /Users/me/tmp
+    	on_load [script] :
+    		show "Checking to see if file exists:  " + exists.f
+    		tell exists.f to check_exists
+    		show it
+    		tell exists.f to check_is_dir
+    		show "is a directory?  " + it
+    		tell exists.f to check_is_file
+    		show "is a file?  " + it
+
   SEE ALSO

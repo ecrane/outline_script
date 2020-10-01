@@ -18,4 +18,16 @@ JSON OBJECT TYPE
 
   EXAMPLE
 
+    json [can] :
+      on_load [script] :
+        list json.objs
+        show json.j
+        tell json.j to parse (json.objs)
+        list json.objs
+      j [json] : {"title":"Brute Force","quotation":"When in doubt, use brute force.","author":"Eric Steven Raymond","source":"The Art of Unix Programming"}
+      objs [can] :
+        title [string] :
+        quotation [string] :
+
   SEE ALSO
+    http_get, http_post, uri

@@ -23,4 +23,9 @@ SYSTEM OBJECT TYPE
 
   EXAMPLE
 
+    date [system] :
+  		command [string] : date
+  		get_output [bool] : true
+  		result [string] :
+
   SEE ALSO

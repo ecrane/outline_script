@@ -22,4 +22,12 @@ SLACK OBJECT TYPE
 
   EXAMPLE
 
+    slack [slack] :
+    	uri [string] : https://hooks.slack.com/services/MYTOKEN
+    	message [string] : Slackbot is here to help!
+    	username [string] : SlackBot
+    	channel [string] : general
+    	icon_emoji [string] : :ghost:
+
   SEE ALSO
+    http_get, http_post, json, uri

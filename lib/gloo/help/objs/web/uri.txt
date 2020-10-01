@@ -18,4 +18,20 @@ URI OBJECT TYPE
 
   EXAMPLE
 
+    url [can] :
+      on_load [script] :
+        tell url.u to get_scheme
+        show "scheme: " + it
+
+        tell url.u to get_host
+        show "host: " + it
+
+        tell url.u to get_path
+        show "path: " + it
+
+        show "opening URL: " + url.u
+        tell url.u to open
+      u [uri] : https://my.url/path/1234
+
   SEE ALSO
+    http_get, http_post, json

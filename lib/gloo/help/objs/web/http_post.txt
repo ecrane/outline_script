@@ -20,4 +20,13 @@ HTTP_POST OBJECT TYPE
 
   EXAMPLE
 
+    post [post] :
+      txt [str] : Message from gloo!
+    	uri [str] : https://my.service.com/my-long-token
+    	body [can] :
+    		text [alias] : post.txt
+    		username [str] : me
+    	on_load [script] : run post
+
   SEE ALSO
+    http_get, json, uri
