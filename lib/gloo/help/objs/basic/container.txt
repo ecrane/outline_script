@@ -22,4 +22,12 @@ CONTAINER OBJECT TYPE
 
   EXAMPLE
 
+    can [can] :
+      data [can] :
+        1 : one
+        2 : two
+        3 : three
+    	on_load [script] :
+    		tell can.data to show_key_value_table
+
   SEE ALSO

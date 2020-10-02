@@ -20,4 +20,18 @@ ERB OBJECT TYPE
 
   EXAMPLE
 
+    e [can] :
+    	erb [erb] :
+    		template [text] : BEGIN
+    			Hello <%= first %> <%= last %>!
+    			END
+    		params [container] :
+    			first [string] : Eric
+    			last [string] : Crane
+    		result [text] :
+    	on_load [script] :
+    		run e.erb
+    		show e.erb.result
+
   SEE ALSO
+    eval, system

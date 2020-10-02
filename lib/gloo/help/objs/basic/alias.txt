@@ -22,4 +22,15 @@ ALIAS OBJECT TYPE
 
   EXAMPLE
 
+    a [can] :
+      s [string] : a string
+      i [integer] : 13
+      ln [alias] : a.s
+      on_load [script] :
+        show a.ln
+        show a.ln*
+        put 'a.i' into a.ln*
+        put 7 into a.ln
+        show a.ln
+
   SEE ALSO

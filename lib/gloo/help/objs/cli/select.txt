@@ -20,4 +20,15 @@ SELECT OBJECT TYPE
 
   EXAMPLE
 
+    select [select] :
+    	prompt [string] : What is your favorite color?
+      options [can] :
+        red : r
+        green : g
+        blue : b
+    	result [string] :
+    	on_load [script] :
+    		run select
+    		show select.result
+
   SEE ALSO

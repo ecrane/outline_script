@@ -18,4 +18,16 @@ COLORIZE OBJECT TYPE
 
   EXAMPLE
 
+    color [can] :
+    	w [colorize] :
+    		white [string] : This is white!
+    	m [colorize] :
+    		red [string] : red -
+    		green [string] : green -
+    		blue [string] : blue
+    	on_load [script] :
+    		run color.w
+    		run color.m
+
   SEE ALSO
+    pastel

@@ -4,6 +4,7 @@ TEXT OBJECT TYPE
 
   DESCRIPTION
     A longer, multi-line text string.
+    Use BEGIN and END to mark the text range.
 
   CHILDREN
     None
@@ -14,4 +15,13 @@ TEXT OBJECT TYPE
 
   EXAMPLE
 
+    t [container] :
+    	msg [txt] : BEGIN
+    		I will now write a poem
+    		of two lines or less
+    		END
+    	on_load [script] :
+    		show t.msg
+
   SEE ALSO
+    string

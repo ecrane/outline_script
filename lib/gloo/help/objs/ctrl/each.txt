@@ -22,4 +22,27 @@ EACH OBJECT TYPE
 
   EXAMPLE
 
+    #
+    # Show each child in a container.
+    #
+
+    for [each] :
+    	child [alias] :
+    	in [alias] : objs
+    	do [script] : show for.child
+    objs [can] :
+      1 [string] : one
+      2 [string] : two
+      3 [string] : three
+
+    #
+    # Show each word in a string.
+    #
+
+    for [each] :
+    	word [string] :
+    	in [string] : one word at a time
+    	do [script] : show for.word
+
+
   SEE ALSO

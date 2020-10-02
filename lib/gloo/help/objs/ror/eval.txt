@@ -16,4 +16,9 @@ EVAL OBJECT TYPE
 
   EXAMPLE
 
+    eval [ruby] :
+      command [string] : 3 * 7
+  	  result [string] : 21
+
   SEE ALSO
+    system, erb

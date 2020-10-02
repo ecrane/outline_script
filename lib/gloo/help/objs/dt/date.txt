@@ -13,4 +13,11 @@ DATE OBJECT TYPE
 
   EXAMPLE
 
+    time [can] :
+    	t [time] :
+    	on_load [script] :
+    		tell time.t to now
+    		show time.t
+
   SEE ALSO
+    datetime, time

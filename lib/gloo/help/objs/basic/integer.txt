@@ -14,4 +14,14 @@ INTEGER OBJECT TYPE
 
   EXAMPLE
 
+    i [can] :
+      x [integer] : 0
+      on_load [script] :
+        show i.x
+        tell i.x to inc
+        show i.x
+        put i.x * 10 into i.x
+        show i.x
+
   SEE ALSO
+    decimal

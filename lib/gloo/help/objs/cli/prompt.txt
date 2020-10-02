@@ -17,4 +17,11 @@ PROMPT OBJECT TYPE
 
   EXAMPLE
 
+    ask [ask] :
+    	prompt [string] : What is your name?
+    	result [string] :
+    	on_load [script] :
+    		run ask
+    		show 'Hello, ' + ask.result + '!  Thanks for playing'
+
   SEE ALSO

@@ -15,4 +15,15 @@ SCRIPT OBJECT TYPE
 
   EXAMPLE
 
+    script [can] :
+    	on_load [script] :
+    		show "Showing multiple lines..."
+    		show script.msg1
+    		show script.msg2
+    		show script.msg3
+    		show "Done."
+    	msg1 [string] : one
+    	msg2 [string] : two
+    	msg3 [string] : three
+
   SEE ALSO

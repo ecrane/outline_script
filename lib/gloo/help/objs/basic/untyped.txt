@@ -15,4 +15,8 @@ UNTYPED OBJECT TYPE
 
   EXAMPLE
 
+    > create x
+    > put 1 into x
+    > put 'string' into x
+
   SEE ALSO

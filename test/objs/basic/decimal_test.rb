@@ -42,6 +42,20 @@ class DecimalTest < Minitest::Test
     assert msgs.include?( 'unload' )
   end
 
+  def test_rounding_down
+    @engine.parser.run 'create x as decimal : 1.2342'
+    @engine.parser.run 'tell x to round'
+    x = @engine.heap.root.children.first
+    assert_equal 1.0, x.value
+  end
+
+  def test_rounding_up
+    @engine.parser.run 'create x as decimal : 12.98'
+    @engine.parser.run 'tell x to round'
+    x = @engine.heap.root.children.first
+    assert_equal 13.0, x.value
+  end
+
   # def test_inc_msg
   #   o = Gloo::Objs::Decimal.new
   #   o.set_value 0

@@ -13,4 +13,12 @@ DATETIME OBJECT TYPE
 
   EXAMPLE
 
+    dt [can] :
+    	d [datetime] :
+    	on_load [script] :
+    		tell dt.d to now
+    		show dt.d
+      next [script] : put '1 week from now' into dt.d
+
   SEE ALSO
+    date, time

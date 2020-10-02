@@ -14,4 +14,12 @@ MARKDOWN OBJECT TYPE
 
   EXAMPLE
 
+    md [can] :
+      f [file] : 
+      on_load [script] :
+        put $.gloo.projects + "/o/data/txt.md" into md.f
+        tell md.f to read (md.data)
+    		tell md.data to show
+    	data [md] :
+
   SEE ALSO

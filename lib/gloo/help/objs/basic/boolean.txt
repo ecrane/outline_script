@@ -16,4 +16,13 @@ BOOLEAN OBJECT TYPE
 
   EXAMPLE
 
+    b [can] :
+      flag [boolean] : true
+      on_load [script] :
+        show b.flag
+        put false into b.flag
+        show b.flag
+        tell b.flag to not
+        show b.flag
+
   SEE ALSO

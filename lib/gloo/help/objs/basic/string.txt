@@ -15,4 +15,14 @@ STRING OBJECT TYPE
 
   EXAMPLE
 
+    s [can] :
+      msg [string] : Hello World!
+      on_load [script] :
+        show s.msg
+        tell s.msg to up
+        show s.msg
+        tell s.msg to size
+        show it
+
   SEE ALSO
+    text

@@ -16,4 +16,11 @@ CONFIRM OBJECT TYPE
 
   EXAMPLE
 
+    confirm [confirm] :
+    	prompt [string] : Are you sure?
+    	result [boolean] :
+    	on_load [script] :
+    		run confirm
+    		show 'Confirmed: ' + confirm.result
+
   SEE ALSO

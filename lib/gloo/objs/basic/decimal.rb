@@ -59,7 +59,13 @@ module Gloo
       # round to the precision given.
       #
       def msg_round
-        i = value + 1
+        data = 0
+        if @params&.token_count&.positive?
+          expr = Gloo::Expr::Expression.new( @params.tokens )
+          data = expr.evaluate.to_i
+        end
+
+        i = self.value.round( data )
         set_value i
         $engine.heap.it.set_to i
         return i

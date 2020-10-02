@@ -21,4 +21,26 @@ TABLE OBJECT TYPE
 
   EXAMPLE
 
+    t [tbl] :
+    	on_load [script] :
+    		tell t to show
+    	headers [can] :
+        name : Name
+        phone : Tel
+        notes : Notes
+    	data [alias] : table_data
+    table_data [can] :
+      1 [can] :
+        name : Joe
+        phone : 312-555-1212
+        notes : Play golf with Joe
+      2 [can] :
+        name : Sally
+        phone : 708-555-1212
+        notes : met Sally at the meetup last week
+      3 [can] :
+        name : Frank
+        phone : 312-555-1213
+        notes : Frank Lee Speaking
+
   SEE ALSO

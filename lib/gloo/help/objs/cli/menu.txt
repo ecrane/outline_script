@@ -23,4 +23,22 @@ MENU OBJECT TYPE
 
   EXAMPLE
 
+    menu [menu] :
+    	on_load [script] :
+    		run menu
+    	prompt [string] : >
+    	loop [bool] : true
+    	items [can] :
+    		hw [mitem] :
+    			shortcut [str] : hw
+    			description [str] : Run Hello World
+    			do [script] :
+            show 'Hello World!'
+    		q [mitem] :
+    			shortcut [str] : q
+    			description [str] : Quit this menu
+    			do [script] :
+            put false into menu.loop
+
   SEE ALSO
+    menu_item
