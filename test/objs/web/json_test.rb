@@ -28,6 +28,14 @@ class JsonTest < Minitest::Test
     assert_equal '{"title":"JSON data"}', o.value
   end
 
+  def test_messages
+    msgs = Gloo::Objs::Json.messages
+    assert msgs
+    assert msgs.include?( 'get' )
+    assert msgs.include?( 'parse' )
+    assert msgs.include?( 'pretty' )
+  end
+
   def test_help_text
     assert @engine.help.topic? Gloo::Objs::Json.typename
   end

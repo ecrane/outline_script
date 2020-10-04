@@ -38,7 +38,7 @@ module Gloo
       # Initially only true for scripts.
       #
       def multiline_value?
-        return false
+        return true
       end
 
       #
@@ -56,7 +56,16 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[get parse]
+        return super + %w[get parse pretty]
+      end
+
+      #
+      # Make the JSON pretty.
+      #
+      def msg_pretty
+        pretty = JSON.pretty_generate( self.value )
+        puts pretty
+        set_value pretty
       end
 
       #
