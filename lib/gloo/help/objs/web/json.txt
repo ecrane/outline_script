@@ -15,6 +15,7 @@ JSON OBJECT TYPE
     parse - parse the JSON data and put values in the
       object specified by the additional parameter
       Example: tell myjson to parse ("path.to.objects")
+    pretty - make the JSON format pretty
 
   EXAMPLE
 
