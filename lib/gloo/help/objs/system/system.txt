@@ -29,4 +29,4 @@ SYSTEM OBJECT TYPE
       result [string] :
 
   SEE ALSO
-    eval, erb
+    execute, eval, erb

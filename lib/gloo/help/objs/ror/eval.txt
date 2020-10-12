@@ -21,4 +21,4 @@ EVAL OBJECT TYPE
   	  result [string] : 21
 
   SEE ALSO
-    system, erb
+    system, erb, execute

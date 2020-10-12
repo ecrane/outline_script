@@ -8,7 +8,7 @@ module Gloo
   module App
     class Info
 
-      VERSION = '0.7.0'.freeze
+      VERSION = '0.7.1'.freeze
       APP_NAME = 'Gloo'.freeze
 
       #

@@ -34,4 +34,4 @@ ERB OBJECT TYPE
     		show e.erb.result
 
   SEE ALSO
-    eval, system
+    eval, system, execute
