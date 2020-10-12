@@ -24,10 +24,14 @@ module Gloo
         expr = Gloo::Expr::Expression.new( @tokens.params )
         cmd = expr.evaluate
         $log.debug "starting cmd: #{cmd}"
-        pid = spawn cmd
+
+        pid = fork { exec( cmd ) }
         Process.wait pid
-        $log.debug "done executing cmd: #{cmd}"
         
+        # pid = spawn cmd
+        # Process.wait pid
+        $log.debug "done executing cmd: #{cmd}"
+
         # system expr.evaluate  #, chdir: Dir.pwd
         # `#{expr.evaluate}`
         # exec expr.evaluate
