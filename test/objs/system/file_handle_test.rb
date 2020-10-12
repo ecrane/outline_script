@@ -30,6 +30,10 @@ class FileHandleTest < Minitest::Test
     assert msgs.include?( 'page' )
     assert msgs.include?( 'show' )
     assert msgs.include?( 'open' )
+    assert msgs.include?( 'find_match' )
+    assert msgs.include?( 'check_exists' )
+    assert msgs.include?( 'check_is_file' )
+    assert msgs.include?( 'check_is_dir' )
   end
 
   def test_adds_children_on_create

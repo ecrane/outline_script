@@ -36,8 +36,9 @@ module Gloo
       def self.messages
         basic = %w[read write]
         checks = %w[check_exists check_is_file check_is_dir]
+        search = %w[find_match]
         show = %w[show page open]
-        return super + basic + show + checks
+        return super + basic + show + checks + search
       end
 
       #
@@ -121,6 +122,14 @@ module Gloo
       #
       def msg_check_is_dir
         result = File.directory? value
+        $engine.heap.it.set_to result
+      end
+
+      #
+      # Look for any file matching pattern.
+      #
+      def msg_find_match
+        result = ! Dir.glob( value ).empty?
         $engine.heap.it.set_to result
       end
 
