@@ -129,7 +129,7 @@ module Gloo
       # Look for any file matching pattern.
       #
       def msg_find_match
-        result = ! Dir.glob( value ).empty?
+        result = !Dir.glob( value ).empty?
         $engine.heap.it.set_to result
       end
 

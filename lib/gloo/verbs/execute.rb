@@ -27,7 +27,7 @@ module Gloo
 
         pid = fork { exec( cmd ) }
         Process.wait pid
-        
+
         # pid = spawn cmd
         # Process.wait pid
         $log.debug "done executing cmd: #{cmd}"
