@@ -123,6 +123,12 @@ class GlooSystemTest < Minitest::Test
     assert_equal Gloo::App::Settings.cols, @engine.heap.it.value
   end
 
+  def test_line
+    i = @engine.parser.parse_immediate 'show $.line'
+    i.run
+    assert_equal "\n", @engine.heap.it.value
+  end
+
   def test_open_for_platform
     cmd = Gloo::Core::GlooSystem.open_for_platform
     assert_equal 'open', cmd

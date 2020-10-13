@@ -32,6 +32,9 @@ GLOO SYSTEM OBJECTS
     gloo.hostname         # Get the system hostname.
     gloo.user             # Get the logged in User.
 
+    SPECIAL CHARS
+    gloo.line             # A carriage return (line feed) character.
+
     FILE SYSTEM
     gloo.user_home        # Get the user's home directory.
     gloo.working_dir      # Get the working directory.
