@@ -16,6 +16,7 @@ GIT OBJECT TYPE
     get_changes - Get the list of pending changes.
     commit - Commit changes.
     get_branch - Get the current branch.
+    review - Review pending changes.
 
   EXAMPLE
 

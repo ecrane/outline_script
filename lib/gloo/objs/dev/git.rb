@@ -40,7 +40,9 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[validate check_changes get_changes commit get_branch]
+        actions = %w[validate commit get_branch review]
+        changes = %w[check_changes get_changes]
+        return super + changes + actions
       end
 
       #
@@ -55,6 +57,16 @@ module Gloo
         end
 
         $engine.heap.it.set_to branch
+      end
+
+      #
+      # Review pending changes.
+      #
+      def msg_review
+        $log.debug 'Reviewing pending changes'
+        cmd = "cd #{path_value}; git diff"
+        $log.debug cmd
+        system cmd
       end
 
       #

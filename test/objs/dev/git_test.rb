@@ -27,6 +27,7 @@ class GitTest < Minitest::Test
     assert msgs.include?( 'validate' )
     assert msgs.include?( 'check_changes' )
     assert msgs.include?( 'get_changes' )
+    assert msgs.include?( 'review' )
   end
 
   def test_adds_children_on_create
