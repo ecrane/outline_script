@@ -8,7 +8,17 @@ module Gloo
   module App
     class Info
 
-      VERSION = '0.7.4'.freeze
+      #
+      # Load the version from the VERSION file.
+      #
+      def self.get_version
+        f = File.dirname( File.absolute_path( __FILE__ ) )
+        f = File.dirname( File.dirname( f ) )
+        f = File.join( f, 'VERSION' )
+        return File.read( f )
+      end
+
+      VERSION = Gloo::App::Info.get_version
       APP_NAME = 'Gloo'.freeze
 
       #
