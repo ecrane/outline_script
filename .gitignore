@@ -9,3 +9,4 @@
 *.gem
 *.log
 test/gloo/debug/*
+.DS_Store
