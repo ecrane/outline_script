@@ -36,7 +36,7 @@ module Gloo
           $log.error "File '#{@pn}' does not exist."
           return
         end
-        
+
         $log.debug "Loading file '#{@pn}'"
         @tabs = 0
         @parent_stack = []
