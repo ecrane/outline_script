@@ -38,7 +38,7 @@ module Gloo
       # Initially only true for scripts.
       #
       def multiline_value?
-        return true
+        return false
       end
 
       #
