@@ -17,6 +17,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    ast (2.4.1)
     chronic (0.10.2)
     colorize (0.8.1)
     concurrent-ruby (1.1.7)
@@ -29,11 +30,29 @@ GEM
     minitest (5.14.2)
     necromancer (0.5.1)
     openssl (2.2.0)
+    parallel (1.19.2)
+    parser (2.7.2.0)
+      ast (~> 2.4.1)
     pastel (0.7.4)
       equatable (~> 0.6)
       tty-color (~> 0.5)
+    rainbow (3.0.0)
     rake (13.0.1)
+    regexp_parser (1.8.2)
+    rexml (3.2.4)
     rouge (3.24.0)
+    rubocop (1.2.0)
+      parallel (~> 1.10)
+      parser (>= 2.7.1.5)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8)
+      rexml
+      rubocop-ast (>= 1.0.1)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (1.1.1)
+      parser (>= 2.7.1.5)
+    ruby-progressbar (1.10.1)
     strings (0.1.8)
       strings-ansi (~> 0.1)
       unicode-display_width (~> 1.5)
@@ -137,6 +156,7 @@ DEPENDENCIES
   gloo!
   minitest (~> 5.0)
   rake (~> 13.0, >= 13.0.1)
+  rubocop
 
 BUNDLED WITH
    1.17.3

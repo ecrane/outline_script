@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'gloo.gemspec'
+    - 'test/**/*'
 
 # -------------- Layout -------------- #
 Layout/SpaceInsideParens:
@@ -38,7 +39,9 @@ Style/Documentation:
   Enabled: false
 Style/RedundantSelf:
   Enabled: false
-
+Style/IfUnlessModifier:
+  Enabled: false
+  
 # -------------- Naming -------------- #
 Naming/PredicateName:
   Enabled: true
