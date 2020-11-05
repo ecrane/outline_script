@@ -12,9 +12,9 @@ module Gloo
   module App
     class Settings
 
-      attr_reader :user_root, :log_path, :config_path, :project_path
-      attr_reader :start_with, :list_indent, :tmp_path
-      attr_reader :debug_path, :debug
+      attr_reader :user_root, :log_path, :config_path, :project_path,
+                  :start_with, :list_indent, :tmp_path,
+                  :debug_path, :debug
 
       #
       # Load setting from the yml file.

@@ -15,10 +15,10 @@ module Gloo
   module App
     class Engine
 
-      attr_reader :args, :mode, :running
-      attr_reader :dictionary, :parser, :heap, :factory
-      attr_accessor :last_cmd, :persist_man, :event_manager
-      attr_accessor :exec_env, :help, :converter
+      attr_reader :args, :mode, :running,
+                  :dictionary, :parser, :heap, :factory
+      attr_accessor :last_cmd, :persist_man, :event_manager,
+                    :exec_env, :help, :converter
 
       #
       # Set up the engine with basic elements.

@@ -1,6 +1,9 @@
 AllCops:
   Exclude:
     - 'gloo.gemspec'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'bin/**/*'
     - 'test/**/*'
 
 # -------------- Layout -------------- #
@@ -43,6 +46,16 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/ClassEqualityComparison:
   Enabled: false
+Style/ArgumentsForwarding: # (new in 1.1)
+  Enabled: true
+Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # (new in 1.1)
+  Enabled: true
+Style/NegatedIfElseCondition: # (new in 1.2)
+  Enabled: true
+Style/SwapValues: # (new in 1.1)
+  Enabled: true
 
 # -------------- Naming -------------- #
 Naming/PredicateName:
@@ -72,6 +85,16 @@ Lint/StructNewOverride:
   Enabled: true
 Lint/NonDeterministicRequireOrder:
   Enabled: false
+Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
+  Enabled: true
+Lint/EmptyBlock: # (new in 1.1)
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
+  Enabled: true
+Lint/ToEnumArguments: # (new in 1.1)
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: true
 
 # -------------- Security -------------- #
 Security/Eval:
