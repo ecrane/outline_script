@@ -41,7 +41,9 @@ Style/RedundantSelf:
   Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
-  
+Style/ClassEqualityComparison:
+  Enabled: false
+
 # -------------- Naming -------------- #
 Naming/PredicateName:
   Enabled: true

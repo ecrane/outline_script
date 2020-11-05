@@ -112,9 +112,9 @@ module Gloo
       # Note that this is a recursive function.
       #
       def handle_json( json, parent )
-        if json.class.instance_of?( Hash )
+        if json.class == Hash
           json.each do |k, v|
-            if v.class.instance_of?( Array )
+            if v.class == Array
               o = parent.find_add_child( k, 'can' )
               handle_json( v, o )
             else
@@ -122,7 +122,7 @@ module Gloo
               o.set_value v
             end
           end
-        elsif json.class.instance_of?( Array )
+        elsif json.class == Array
           json.each_with_index do |o, index|
             child = parent.find_add_child( index.to_s, 'can' )
             handle_json( o, child )

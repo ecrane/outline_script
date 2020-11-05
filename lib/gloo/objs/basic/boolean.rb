@@ -40,6 +40,9 @@ module Gloo
       def self.coerse_to_bool( new_value )
         return false if new_value.nil?
 
+        # I should be able to use this:
+        # if new_value.kind_of?( String )
+        # but it doesn't work.  I don't know why.
         if new_value.class.name == 'String'
           return true if new_value.strip.downcase == TRUE
           return false if new_value.strip.downcase == FALSE

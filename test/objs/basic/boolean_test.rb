@@ -34,6 +34,16 @@ class BooleanTest < Minitest::Test
     assert @dic.find_obj( 'BOOL' )
   end
 
+  def test_coersing_value
+    o = 'tRUe'
+    assert_equal o.class.name, 'String'
+    assert o.class.name == 'String'
+    # I should be able to use this:
+    assert o.is_a?( String )
+    assert o.instance_of?( String )
+    # but it doesn't work.  I don't know why.
+  end
+
   def test_setting_the_value_to_true
     o = Gloo::Objs::Boolean.new
     o.set_value( 3 )
