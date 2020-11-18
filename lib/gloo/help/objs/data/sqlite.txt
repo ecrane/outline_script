@@ -1,0 +1,18 @@
+SYSTEM OBJECT TYPE
+  NAME: sqlite
+  SHORTCUT: sqlite
+
+  DESCRIPTION
+    A Sqlite3 database connection.
+
+  CHILDREN
+    database - string - 'test.db'
+      The path to the database file.
+
+  MESSAGES
+    verify - Verify that the database connection can be established.
+
+  EXAMPLE
+
+  SEE ALSO
+    query
