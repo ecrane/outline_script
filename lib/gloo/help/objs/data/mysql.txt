@@ -1,0 +1,24 @@
+SYSTEM OBJECT TYPE
+  NAME: mysql
+  SHORTCUT: mysql
+
+  DESCRIPTION
+    A MySQL database connection.
+
+  CHILDREN
+    host - string
+      The database server host
+    database - string
+      The name of the database.
+    username - string
+      The username with which to connect.
+    pasword - string
+      The user's password.
+
+  MESSAGES
+    verify - Verify that the database connection can be established.
+
+  EXAMPLE
+
+  SEE ALSO
+    query
