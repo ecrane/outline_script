@@ -9,6 +9,7 @@ PATH
       mysql2 (~> 0.5, >= 0.5.3)
       net-ssh (~> 6.1, >= 6.1.0)
       openssl (~> 2.1, >= 2.1.0)
+      sqlite3 (~> 1.4, >= 1.4.2)
       tty (~> 0.8, >= 0.8.1)
 
 GEM
@@ -57,6 +58,7 @@ GEM
     rubocop-ast (1.1.1)
       parser (>= 2.7.1.5)
     ruby-progressbar (1.10.1)
+    sqlite3 (1.4.2)
     strings (0.1.8)
       strings-ansi (~> 0.1)
       unicode-display_width (~> 1.5)
