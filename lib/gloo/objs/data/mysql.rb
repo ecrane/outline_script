@@ -7,6 +7,15 @@
 # https://github.com/brianmario/mysql2
 # https://www.rubydoc.info/gems/mysql2/0.2.3/Mysql2/Client
 #
+# Connection Parameters
+#   user     = opts[:username]
+#   pass     = opts[:password]
+#   host     = opts[:host] || 'localhost'
+#   port     = opts[:port] || 3306
+#   database = opts[:database]
+#   socket   = opts[:socket]
+#   flags    = opts[:flags] || 0
+#
 require 'mysql2'
 
 module Gloo
@@ -16,15 +25,6 @@ module Gloo
       KEYWORD = 'mysql'.freeze
       KEYWORD_SHORT = 'mysql'.freeze
 
-      #
-      # user     = opts[:username]
-      #   pass     = opts[:password]
-      #   host     = opts[:host] || 'localhost'
-      #   port     = opts[:port] || 3306
-      #   database = opts[:database]
-      #   socket   = opts[:socket]
-      #   flags    = opts[:flags] || 0
-      #
       HOST = 'host'.freeze
       DB = 'database'.freeze
       USER = 'username'.freeze
@@ -91,6 +91,25 @@ module Gloo
       end
 
       # ---------------------------------------------------------------------
+      #    DB functions (all database connections)
+      # ---------------------------------------------------------------------
+
+      #
+      # Open a connection and execute the SQL statement.
+      # Return the resulting data.
+      #
+      def query sql
+        h = {
+          host: host_value,
+          database: db_value,
+          username: user_value,
+          password: passwd_value
+        }
+        client = Mysql2::Client.new( h )
+        return client.query( sql )
+      end
+
+      # ---------------------------------------------------------------------
       #    Private functions
       # ---------------------------------------------------------------------
 
@@ -104,6 +123,7 @@ module Gloo
         o = find_child HOST
         return nil unless o
 
+        o = Gloo::Objs::Alias.resolve_alias( o )
         return o.value
       end
 
@@ -115,6 +135,7 @@ module Gloo
         o = find_child DB
         return nil unless o
 
+        o = Gloo::Objs::Alias.resolve_alias( o )
         return o.value
       end
 
@@ -126,6 +147,7 @@ module Gloo
         o = find_child USER
         return nil unless o
 
+        o = Gloo::Objs::Alias.resolve_alias( o )
         return o.value
       end
 
@@ -137,6 +159,7 @@ module Gloo
         o = find_child PASSWD
         return nil unless o
 
+        o = Gloo::Objs::Alias.resolve_alias( o )
         return o.value
       end
 

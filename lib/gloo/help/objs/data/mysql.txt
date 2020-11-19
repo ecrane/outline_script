@@ -20,5 +20,21 @@ SYSTEM OBJECT TYPE
 
   EXAMPLE
 
+    mysql [can] :
+      on_load [script] :
+        run mysql.get_passwd
+        run mysql.sql
+      db [mysql] :
+        host : localhost
+        database : my_database
+        username : my_user
+        password [alias] : mysql.get_passwd.result
+      sql [query] :
+        database [alias] : mysql.db
+        sql : SELECT first, last, phone FROM people
+      get_passwd [ask] :
+        prompt [string] : Database Password?
+        result [string] :
+
   SEE ALSO
-    query
+    query, sqlite
