@@ -4,6 +4,16 @@
 # A Sqlite3 database connection.
 #
 # https://www.rubydoc.info/gems/sqlite3/1.3.11
+# https://www.devdungeon.com/content/ruby-sqlite-tutorial
+#
+# db.results_as_hash = true
+#   Set results to return as Hash object.
+#   This is slower but offers a huge convenience.
+#   Consider turning it off for high performance situations.
+#   Each row will have the column name as the hash key.
+#
+# # Alternatively, to only get one row and discard the rest,
+# replace `db.query()` with `db.get_first_value()`.
 #
 require 'sqlite3'
 
@@ -17,7 +27,7 @@ module Gloo
       DB = 'database'.freeze
       DEFAULT_DB = 'test.db'.freeze
 
-      NOT_IMPLEMENTED_ERR = 'Not implemented yet!'.freeze
+      DB_REQUIRED_ERR = 'The database name is required!'.freeze
 
       #
       # The name of the object type.
@@ -72,6 +82,26 @@ module Gloo
       #
       def msg_verify
         $engine.err NOT_IMPLEMENTED_ERR
+      end
+
+      # ---------------------------------------------------------------------
+      #    DB functions (all database connections)
+      # ---------------------------------------------------------------------
+
+      #
+      # Open a connection and execute the SQL statement.
+      # Return the resulting data.
+      #
+      def query sql
+        name = db_value
+        unless name
+          $engine.err DB_REQUIRED_ERR
+          return
+        end
+
+        db = SQLite3::Database.open name
+        db.results_as_hash = true
+        return db.query( sql )
       end
 
       # ---------------------------------------------------------------------

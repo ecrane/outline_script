@@ -24,6 +24,17 @@ module Gloo
       # ---------------------------------------------------------------------
 
       #
+      # Helper shortcut to create an alias child object.
+      #
+      def create_alias( name, value, parent )
+        params = { :name => name,
+                   :type => 'alias',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
+      #
       # Helper shortcut to create a string child object.
       #
       def create_untyped( name, value, parent )
