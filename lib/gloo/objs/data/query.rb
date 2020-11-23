@@ -137,7 +137,14 @@ module Gloo
       #
       def update_result_contaier( data )
         r = find_child RESULT
-        $engine.err NOT_IMPLEMENTED_ERR
+        r = Gloo::Objs::Alias.resolve_alias( r )
+        data.each_with_index do |row,i|
+          can = r.find_add_child( "#{i}", 'can' )
+          row.each do |k,v|
+            o = can.find_add_child( k, 'untyped' )
+            o.set_value v
+          end
+        end
       end
 
     end
