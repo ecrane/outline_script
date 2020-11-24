@@ -28,6 +28,7 @@ module Gloo
       DEFAULT_DB = 'test.db'.freeze
 
       DB_REQUIRED_ERR = 'The database name is required!'.freeze
+      DB_NOT_FOUND_ERR = 'The database file was not found!'.freeze
 
       #
       # The name of the object type.
@@ -81,7 +82,20 @@ module Gloo
       # Verify access to the Sqlite database specified.
       #
       def msg_verify
-        $engine.err NOT_IMPLEMENTED_ERR
+        name = db_value
+        if name.empty?
+          $engine.err DB_REQUIRED_ERR
+          $engine.heap.it.set_to false
+          return
+        end
+
+        unless File.exist? name
+          $engine.err DB_NOT_FOUND_ERR
+          $engine.heap.it.set_to false
+          return
+        end
+
+        $engine.heap.it.set_to true
       end
 
       # ---------------------------------------------------------------------
