@@ -125,10 +125,12 @@ module Gloo
       # Show the result of the query in the console.
       #
       def show_result( data )
-        data.each do |row|
-          s = ""
-          row.each { |k,v| s << "#{v} \t " }
-          puts s
+        data.each_with_index do |row, i|
+          # Show header for the first row
+          puts row.map { |k, _| k }.join( " \t " ).white if i.zero?
+
+          # Show the row data
+          puts row.map { |_, v| v }.join( " \t " )
         end
       end
 
@@ -138,9 +140,9 @@ module Gloo
       def update_result_contaier( data )
         r = find_child RESULT
         r = Gloo::Objs::Alias.resolve_alias( r )
-        data.each_with_index do |row,i|
-          can = r.find_add_child( "#{i}", 'can' )
-          row.each do |k,v|
+        data.each_with_index do |row, i|
+          can = r.find_add_child( i.to_s, 'can' )
+          row.each do |k, v|
             o = can.find_add_child( k, 'untyped' )
             o.set_value v
           end

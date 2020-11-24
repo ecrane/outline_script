@@ -98,7 +98,7 @@ module Gloo
       # Open a connection and execute the SQL statement.
       # Return the resulting data.
       #
-      def query sql
+      def query( sql )
         h = {
           host: host_value,
           database: db_value,

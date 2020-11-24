@@ -92,7 +92,7 @@ module Gloo
       # Open a connection and execute the SQL statement.
       # Return the resulting data.
       #
-      def query sql
+      def query( sql )
         name = db_value
         unless name
           $engine.err DB_REQUIRED_ERR
