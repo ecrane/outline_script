@@ -69,6 +69,18 @@ class SqliteTest < Minitest::Test
     assert_equal Gloo::Objs::Sqlite::DB_NOT_FOUND_ERR, @engine.heap.error.value
   end
 
+  def test_opening_file_that_isnt_sqlite_db
+    @engine.parser.run 'create o as sqlite'
+    assert_equal 1, @engine.heap.root.child_count
+    obj = @engine.heap.root.children.first
+    assert obj
+    @engine.parser.run "put 'test/test_helper.rb' into o.database"
+    @engine.parser.run "tell o to verify"
+    assert @engine.error?
+    assert_equal 'file is not a database', @engine.heap.error.value
+    assert_equal false, @engine.heap.it.value
+  end
+
   def test_verify_for_test_db
     @engine.parser.run 'create o as sqlite'
     assert_equal 1, @engine.heap.root.child_count
@@ -76,7 +88,7 @@ class SqliteTest < Minitest::Test
     assert obj
     @engine.parser.run "put 'test/test.db' into o.database"
     @engine.parser.run "tell o to verify"
-    assert_equal true, $engine.heap.it.value
+    assert_equal true, @engine.heap.it.value
   end
 
   def test_help_text

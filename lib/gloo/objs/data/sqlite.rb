@@ -95,6 +95,8 @@ module Gloo
           return
         end
 
+        return unless connects?
+
         $engine.heap.it.set_to true
       end
 
@@ -133,6 +135,23 @@ module Gloo
         return nil unless o
 
         return o.value
+      end
+
+      #
+      # Try the connection and make sure it works.
+      # Returns true if we can connect and do a query.
+      #
+      def connects?
+        begin
+          db = SQLite3::Database.open db_value
+          sql = "SELECT COUNT(name) FROM sqlite_master WHERE type='table'"
+          db.get_first_value sql
+        rescue => e
+          $engine.err e.message
+          $engine.heap.it.set_to false
+          return false
+        end
+        return true
       end
 
     end
