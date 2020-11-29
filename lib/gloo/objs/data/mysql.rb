@@ -30,8 +30,6 @@ module Gloo
       USER = 'username'.freeze
       PASSWD = 'password'.freeze
 
-      NOT_IMPLEMENTED_ERR = 'Not implemented yet!'.freeze
-
       #
       # The name of the object type.
       #
@@ -87,7 +85,9 @@ module Gloo
       # SSH to the host and execute the command, then update result.
       #
       def msg_verify
-        $engine.err NOT_IMPLEMENTED_ERR
+        return unless connects?
+
+        $engine.heap.it.set_to true
       end
 
       # ---------------------------------------------------------------------
@@ -161,6 +161,27 @@ module Gloo
 
         o = Gloo::Objs::Alias.resolve_alias( o )
         return o.value
+      end
+
+      #
+      # Try the connection and make sure it works.
+      # Returns true if we can establish a connection.
+      #
+      def connects?
+        begin
+          h = {
+            host: host_value,
+            database: db_value,
+            username: user_value,
+            password: passwd_value
+          }
+          Mysql2::Client.new( h )
+        rescue => e
+          $engine.err e.message
+          $engine.heap.it.set_to false
+          return false
+        end
+        return true
       end
 
     end

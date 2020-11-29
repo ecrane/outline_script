@@ -52,4 +52,15 @@ class MysqlTest < Minitest::Test
     assert @engine.help.topic? Gloo::Objs::Mysql.typename
   end
 
+  def test_verify_mysql
+    @engine.parser.run 'create o as mysql'
+    assert_equal 1, @engine.heap.root.child_count
+    obj = @engine.heap.root.children.first
+    assert obj
+    @engine.parser.run "put 'localhost' into o.host"
+    @engine.parser.run "tell o to verify"
+    assert_equal false, @engine.heap.it.value
+    assert @engine.error?
+  end
+
 end
