@@ -98,7 +98,7 @@ module Gloo
       # Open a connection and execute the SQL statement.
       # Return the resulting data.
       #
-      def query( sql )
+      def query( sql, params=nil )
         h = {
           host: host_value,
           database: db_value,
@@ -106,7 +106,12 @@ module Gloo
           password: passwd_value
         }
         client = Mysql2::Client.new( h )
-        return client.query( sql )
+        if params
+          pst = client.prepare( sql )
+          return pst.execute( params )
+        else
+          return client.query( sql )
+        end
       end
 
       # ---------------------------------------------------------------------

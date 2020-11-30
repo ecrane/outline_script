@@ -4,6 +4,7 @@ SYSTEM OBJECT TYPE
 
   DESCRIPTION
     A SQL Query.
+    A SELECT, INSERT, UPDATE or other SQL statement.
     The query requires a valid database connection.
 
   CHILDREN
@@ -16,6 +17,8 @@ SYSTEM OBJECT TYPE
       with an object for each column.
       The result container is optional.  If it is not present,
       the results will be displayed in the console.
+    params - container
+      Optional list of parameters for the query.
 
   MESSAGES
     run - Run the query and get back the data.

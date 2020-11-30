@@ -108,7 +108,7 @@ module Gloo
       # Open a connection and execute the SQL statement.
       # Return the resulting data.
       #
-      def query( sql )
+      def query( sql, params=nil )
         name = db_value
         unless name
           $engine.err DB_REQUIRED_ERR
@@ -117,7 +117,7 @@ module Gloo
 
         db = SQLite3::Database.open name
         db.results_as_hash = true
-        return db.query( sql )
+        return db.query( sql, params )
       end
 
       # ---------------------------------------------------------------------

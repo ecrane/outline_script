@@ -15,6 +15,7 @@ module Gloo
       DB = 'database'.freeze
       SQL = 'sql'.freeze
       RESULT = 'result'.freeze
+      PARAMS = 'params'.freeze
 
       DB_MISSING_ERR = 'The database connection is missing!'.freeze
 
@@ -78,7 +79,7 @@ module Gloo
           return
         end
 
-        result = db.query sql_value
+        result = db.query( sql_value, param_array )
         process_result result
       end
 
@@ -119,6 +120,25 @@ module Gloo
         else
           show_result data
         end
+      end
+
+      #
+      # Get the arrya of parameters.
+      # If there is no PARAM container of if it is empty,
+      # we'll return a nil value.
+      #
+      def param_array
+        o = find_child PARAMS
+        return nil unless o
+
+        return nil if o.child_count.zero?
+
+        params = []
+        o.children.each do |p|
+          params << p.value
+        end
+
+        return params
       end
 
       #
