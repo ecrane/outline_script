@@ -145,6 +145,8 @@ module Gloo
       # Show the result of the query in the console.
       #
       def show_result( data )
+        return if data.nil?
+
         data.each_with_index do |row, i|
           # Show header for the first row
           puts row.map { |k, _| k }.join( " \t " ).white if i.zero?
