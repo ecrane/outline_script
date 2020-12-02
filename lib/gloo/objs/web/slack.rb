@@ -122,7 +122,7 @@ module Gloo
         uri = uri_value
         return unless uri
 
-        Gloo::Objs::HttpPost.post_json uri, body_as_json, true
+        Gloo::Objs::HttpPost.post_json uri, body_as_json
       end
 
     end

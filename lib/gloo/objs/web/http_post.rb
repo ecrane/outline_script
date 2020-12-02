@@ -16,6 +16,7 @@ module Gloo
       URL = 'uri'.freeze
       BODY = 'body'.freeze
       RESULT = 'result'.freeze
+      SKIP_SSL_VERIFY = 'skip_ssl_verify'.freeze
 
       #
       # The name of the object type.
@@ -113,8 +114,7 @@ module Gloo
         $log.debug "posting to: #{uri}"
         body = self.body_as_json
         $log.debug "posting body: #{body}"
-        use_ssl = uri.downcase.start_with?( 'https' )
-        data = Gloo::Objs::HttpPost.post_json uri, body, use_ssl
+        data = Gloo::Objs::HttpPost.post_json( uri, body, skip_ssl_verify? )
         self.update_result data
       end
 
@@ -125,20 +125,57 @@ module Gloo
       #
       # Post the content to the endpoint.
       #
-      def self.post_json( url, body, use_ssl = true )
-        # Structure the request
-        uri = URI.parse( url )
-        request = Net::HTTP::Post.new( uri.path )
-        request.content_type = 'application/json'
-        request.body = body
-        n = Net::HTTP.new( uri.host, uri.port )
-        n.use_ssl = use_ssl
+      def self.post_json( url, body, skip_ssl_verify = false )
+        uri = URI( url )
+        params = { use_ssl: uri.scheme == 'https' }
+        params[ :verify_mode ] = ::OpenSSL::SSL::VERIFY_NONE if skip_ssl_verify
 
-        # Send the payload to the endpoint.
-        result = n.start { |http| http.request( request ) }
-        $log.debug result.code
-        $log.debug result.message
-        return result.body
+        Net::HTTP.start( uri.host, uri.port, params ) do |http|
+          request = Net::HTTP::Post.new uri
+          request.content_type = 'application/json'
+          request.body = body
+
+          result = http.request request # Net::HTTPResponse object
+          $log.debug result.code
+          $log.debug result.message
+          return result.body
+        end
+      end
+
+      # #
+      # # Post the content to the endpoint.
+      # #
+      # def self.post_json_1( url, body, use_ssl = true )
+      #   # Structure the request
+      #   uri = URI.parse( url )
+      #
+      #   request = Net::HTTP::Post.new( uri.path )
+      #   request.content_type = 'application/json'
+      #   request.body = body
+      #   n = Net::HTTP.new( uri.host, uri.port )
+      #   n.use_ssl = use_ssl
+      #
+      #   # Send the payload to the endpoint.
+      #   result = n.start { |http| http.request( request ) }
+      #   $log.debug result.code
+      #   $log.debug result.message
+      #   return result.body
+      # end
+
+      # ---------------------------------------------------------------------
+      #    Private functions
+      # ---------------------------------------------------------------------
+
+      private
+
+      #
+      # Should we skip SSL verification during the request?
+      #
+      def skip_ssl_verify?
+        skip = find_child SKIP_SSL_VERIFY
+        return false unless skip
+
+        return skip.value
       end
 
     end
