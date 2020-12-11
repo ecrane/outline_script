@@ -111,6 +111,17 @@ module Gloo
         create params
       end
 
+      #
+      # Helper shortcut to create a file child object.
+      #
+      def create_file( name, value, parent )
+        params = { :name => name,
+                   :type => 'file',
+                   :value => value,
+                   :parent => parent }
+        create params
+      end
+
       # ---------------------------------------------------------------------
       #    Object Factory
       # ---------------------------------------------------------------------

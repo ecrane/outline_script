@@ -4,7 +4,7 @@ GIT OBJECT TYPE
 
   DESCRIPTION
     Reference to a git repository in the file system.
-    The value of the git_repo objectd is a string.
+    The value of the git_repo object is a string.
     There are no children needed.
 
   CHILDREN

@@ -1,0 +1,17 @@
+GIT OBJECT TYPE
+  NAME: stats
+  SHORTCUT: stats
+
+  DESCRIPTION
+    Development project statistics.
+
+  CHILDREN
+    folder - file
+      The project's root folder.
+
+  MESSAGES
+    show_all - Show all project statistics
+
+  EXAMPLE
+
+  SEE ALSO
