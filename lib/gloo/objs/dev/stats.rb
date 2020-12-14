@@ -30,7 +30,8 @@ module Gloo
       # Get the path to the git repo (locally).
       #
       def path_value
-        return value
+        o = find_child FOLDER
+        return o ? o.value : nil
       end
 
       # ---------------------------------------------------------------------
@@ -80,7 +81,9 @@ module Gloo
       # Review pending changes.
       #
       def msg_show_busy_folders
-        $engine.err NOT_IMPLEMENTED_ERR
+        # $engine.err NOT_IMPLEMENTED_ERR
+        o = Gloo::Utils::Stats.new( path_value )
+        o.busy_folders
       end
 
     end
