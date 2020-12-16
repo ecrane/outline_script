@@ -66,22 +66,30 @@ module Gloo
       #
       def self.messages
         all = %w[show_all]
-        more = %w[show_busy_folders]
+        more = %w[show_busy_folders show_types]
         return super + all + more
       end
 
       #
-      # Review pending changes.
+      # Show all project stats.
       #
       def msg_show_all
-        $engine.err NOT_IMPLEMENTED_ERR
+        o = Gloo::Utils::Stats.new( path_value )
+        o.show_all
       end
 
       #
-      # Review pending changes.
+      # Show file types.
+      #
+      def msg_show_types
+        o = Gloo::Utils::Stats.new( path_value )
+        o.file_types
+      end
+
+      #
+      # Show busy folders: those with the most files.
       #
       def msg_show_busy_folders
-        # $engine.err NOT_IMPLEMENTED_ERR
         o = Gloo::Utils::Stats.new( path_value )
         o.busy_folders
       end

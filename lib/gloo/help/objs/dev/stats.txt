@@ -11,6 +11,8 @@ GIT OBJECT TYPE
 
   MESSAGES
     show_all - Show all project statistics
+    show_busy_folders - Show a list of folders with the most files
+    show_types - Show file types and counts
 
   EXAMPLE
 
