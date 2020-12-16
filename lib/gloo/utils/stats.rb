@@ -30,6 +30,7 @@ module Gloo
       def valid?
         return false unless @dir
         return false unless File.directory? @dir
+
         return true
       end
 
@@ -50,14 +51,14 @@ module Gloo
       # Get a list of the busiest folders.
       # Count is how many results we want.
       #
-      def busy_folders( count=17 )
+      def busy_folders( count = 17 )
         generate
         puts "\nBusy Folders:".yellow
 
         @folders.sort! { |a, b| a[ :cnt ] <=> b[ :cnt ] }
         @folders.reverse!
-        @folders[0..count].each do |f|
-          puts "  #{f[:cnt]} - #{f[:name]}"
+        @folders[ 0..count ].each do |f|
+          puts "  #{f[ :cnt ]} - #{f[ :name ]}"
         end
       end
 
@@ -68,10 +69,10 @@ module Gloo
         generate
         puts "\nFiles by Type:".yellow
 
-        @types = @types.sort_by(&:last)
+        @types = @types.sort_by( &:last )
         @types.reverse!
         @types.each do |o|
-          puts "  #{o[1]} - #{o[0]}" unless o[0].empty?
+          puts "  #{o[ 1 ]} - #{o[ 0 ]}" unless o[ 0 ].empty?
         end
       end
 
@@ -98,14 +99,15 @@ module Gloo
       # NOTE: this is a recursive function.
       # It traverses all sub-direcctories.
       #
-      def generate_for path
+      def generate_for( path )
         return if File.basename( path ) == '.git'
+
         cnt = 0
         path.children.each do |f|
           if f.directory?
             @dir_cnt += 1
             generate_for( f )
-          elsif
+          else
             @file_cnt += 1
             cnt += 1
             # puts File.dirname( f )
