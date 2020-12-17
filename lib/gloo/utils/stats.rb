@@ -45,6 +45,7 @@ module Gloo
 
         busy_folders( 7 )
         file_types
+        loc
       end
 
       #
@@ -76,6 +77,15 @@ module Gloo
         end
       end
 
+      #
+      # Show Lines of Code
+      #
+      def loc
+        generate
+        puts "\nLines of Code:".yellow
+        puts " ** #{@ruby_lines} Ruby ** "
+      end
+
       # ---------------------------------------------------------------------
       #    Private Functions
       # ---------------------------------------------------------------------
@@ -91,6 +101,9 @@ module Gloo
         @types = {}
         @file_cnt = 0
         @dir_cnt = 0
+
+        @ruby_lines = 0
+        @ruby_files = []
         generate_for Pathname.new( @dir )
       end
 
@@ -110,6 +123,8 @@ module Gloo
           else
             @file_cnt += 1
             cnt += 1
+            handle_file( f )
+
             # puts File.dirname( f )
             if @types[ File.extname( f ) ]
               @types[ File.extname( f ) ] += 1
@@ -119,6 +134,23 @@ module Gloo
           end
         end
         @folders << { name: path, cnt: cnt }
+      end
+
+      #
+      # Consider code file types.
+      #
+      def handle_file( f )
+        if File.extname( f ) == '.rb'
+          lines = count_lines( f )
+          @ruby_lines += lines
+          @ruby_files << { lines: lines, file: f }
+        end
+      end
+
+      #
+      # Count lines of code in file.
+      def count_lines( f )
+        return %x{wc -l #{f}}.split.first.to_i
       end
 
     end
