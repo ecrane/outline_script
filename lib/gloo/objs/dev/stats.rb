@@ -11,6 +11,7 @@ module Gloo
       KEYWORD = 'stats'.freeze
       KEYWORD_SHORT = 'stat'.freeze
       FOLDER = 'folder'.freeze
+      TYPES = 'types'.freeze
 
       #
       # The name of the object type.
@@ -34,6 +35,14 @@ module Gloo
         return o ? o.value : nil
       end
 
+      #
+      # The code file types to count.
+      #
+      def types_value
+        o = find_child TYPES
+        return o ? o.value : ''
+      end
+
       # ---------------------------------------------------------------------
       #    Children
       # ---------------------------------------------------------------------
@@ -55,6 +64,7 @@ module Gloo
       def add_default_children
         fac = $engine.factory
         fac.create_file FOLDER, '', self
+        fac.create_string TYPES, '', self
       end
 
       # ---------------------------------------------------------------------
@@ -74,7 +84,7 @@ module Gloo
       # Show all project stats.
       #
       def msg_show_all
-        o = Gloo::Utils::Stats.new( path_value )
+        o = Gloo::Utils::Stats.new( path_value, types_value )
         o.show_all
       end
 
@@ -82,7 +92,7 @@ module Gloo
       # Show file types.
       #
       def msg_show_types
-        o = Gloo::Utils::Stats.new( path_value )
+        o = Gloo::Utils::Stats.new( path_value, types_value )
         o.file_types
       end
 
@@ -90,7 +100,7 @@ module Gloo
       # Show busy folders: those with the most files.
       #
       def msg_show_busy_folders
-        o = Gloo::Utils::Stats.new( path_value )
+        o = Gloo::Utils::Stats.new( path_value, types_value )
         o.busy_folders
       end
 

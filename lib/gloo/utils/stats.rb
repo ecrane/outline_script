@@ -15,8 +15,9 @@ module Gloo
       #
       # Create a stats utility class for the given directory.
       #
-      def initialize( dir )
+      def initialize( dir, types )
         @dir = dir
+        setup_loc types
       end
 
       # ---------------------------------------------------------------------
@@ -82,13 +83,39 @@ module Gloo
       #
       def loc
         generate
-        puts "\nLines of Code:".yellow
-        puts " ** #{@ruby_lines} Ruby ** "
+        total = 0
+
+        @loc.each do |k, v|
+          puts "\n #{k} Lines of Code".yellow
+          total += v[ :lines ]
+          formatted = Gloo::Utils::Format.number( v[ :lines ] )
+          puts " ** #{formatted} in #{v[ :files ].count} #{k} files ** "
+
+          puts "\n Busy #{k} files:".yellow
+          files = v[ :files ].sort! { |a, b| a[ :lines ] <=> b[ :lines ] }
+          files.reverse!
+          files[ 0..12 ].each do |f|
+            puts "  #{f[ :lines ]} - #{f[ :file ]}"
+          end
+        end
+
+        formatted = Gloo::Utils::Format.number( total )
+        puts "\n #{formatted} Total Lines of Code".white
       end
 
       # ---------------------------------------------------------------------
       #    Private Functions
       # ---------------------------------------------------------------------
+
+      #
+      # Setup counters for lines of code by file type.
+      def setup_loc( types )
+        @loc = {}
+
+        types.split( ' ' ).each do |t|
+          @loc[ t ] = { lines: 0, files: [] }
+        end
+      end
 
       #
       # Generate stat data unless we've already done so.
@@ -102,8 +129,6 @@ module Gloo
         @file_cnt = 0
         @dir_cnt = 0
 
-        @ruby_lines = 0
-        @ruby_files = []
         generate_for Pathname.new( @dir )
       end
 
@@ -124,33 +149,42 @@ module Gloo
             @file_cnt += 1
             cnt += 1
             handle_file( f )
-
-            # puts File.dirname( f )
-            if @types[ File.extname( f ) ]
-              @types[ File.extname( f ) ] += 1
-            else
-              @types[ File.extname( f ) ] = 1
-            end
+            inc_type( File.extname( f ) )
           end
         end
         @folders << { name: path, cnt: cnt }
       end
 
       #
-      # Consider code file types.
+      # Increment the file count.
       #
-      def handle_file( f )
-        if File.extname( f ) == '.rb'
-          lines = count_lines( f )
-          @ruby_lines += lines
-          @ruby_files << { lines: lines, file: f }
+      def inc_type( type )
+        if @types[ type ]
+          @types[ type ] += 1
+        else
+          @types[ type ] = 1
         end
       end
 
       #
+      # Consider code file types.
+      #
+      def handle_file( file )
+        ext = File.extname( file )
+        return unless ext
+
+        ext = ext[ 1..-1 ]
+        return unless @loc.key?( ext )
+
+        lines = count_lines( file )
+        @loc[ ext ][ :lines ] += lines
+        @loc[ ext ][ :files ] << { lines: lines, file: file }
+      end
+
+      #
       # Count lines of code in file.
-      def count_lines( f )
-        return %x{wc -l #{f}}.split.first.to_i
+      def count_lines( file )
+        return `wc -l #{file}`.split.first.to_i
       end
 
     end

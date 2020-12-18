@@ -8,6 +8,12 @@ GIT OBJECT TYPE
   CHILDREN
     folder - file
       The project's root folder.
+    types - string
+      The list of code file types.
+      We'll use this to count lines of code and to find the
+      longest files.
+      The list is a string of space-delimited file extensions.
+      For example:  rb erb js
 
   MESSAGES
     show_all - Show all project statistics
@@ -15,5 +21,12 @@ GIT OBJECT TYPE
     show_types - Show file types and counts
 
   EXAMPLE
+
+    main [can] :
+      stats [stats] :
+        folder [file] : /Users/me/dev/project
+        types [string] : rb erb js
+      on_load [script] :
+        tell main.stats to show_all
 
   SEE ALSO

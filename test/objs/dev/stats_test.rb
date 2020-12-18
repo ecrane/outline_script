@@ -39,8 +39,9 @@ class StatsTest < Minitest::Test
     obj = @engine.heap.root.children.first
     assert obj
     assert_equal 's', obj.name
-    assert_equal 1, obj.child_count
+    assert_equal 2, obj.child_count
     assert_equal 'folder', obj.children.first.name
+    assert_equal 'types', obj.children.last.name
   end
 
   def test_help_text
