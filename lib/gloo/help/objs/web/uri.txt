@@ -13,8 +13,9 @@ URI OBJECT TYPE
     get_scheme - get the URI scheme; example:  http
     get_host - get the URI host; example:  google.com
     get_path - get the URI resource path; example:  /post
-    get_query - get the URI query parameterse; example:  id=121
+    get_query - get the URI query parameters; example:  id=121
     get_fragment - get the URI fragment
+    get_cert_expires - get the web site's certificate expiration date
 
   EXAMPLE
 

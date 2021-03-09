@@ -4,6 +4,8 @@
 # A URI (URL).
 #
 require 'uri'
+require 'net/http'
+require 'openssl'
 
 module Gloo
   module Objs
@@ -51,8 +53,23 @@ module Gloo
       def self.messages
         basic = %w[open]
         gets = %w[get_scheme get_host get_path]
-        more = %w[get_query get_fragment]
+        more = %w[get_query get_fragment get_cert_expires]
         return super + basic + gets + more
+      end
+
+      #
+      # Get the expiration date for the certificate.
+      #
+      def msg_get_cert_expires
+        return unless value
+        o = value
+        uri = URI( value )
+        response = Net::HTTP.start( uri.host, uri.port, :use_ssl => true )
+        cert = response.peer_cert
+        o = cert.not_after
+
+        $engine.heap.it.set_to o
+        return o
       end
 
       #
