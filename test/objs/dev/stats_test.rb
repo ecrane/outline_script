@@ -39,13 +39,26 @@ class StatsTest < Minitest::Test
     obj = @engine.heap.root.children.first
     assert obj
     assert_equal 's', obj.name
-    assert_equal 2, obj.child_count
+    assert_equal 3, obj.child_count
     assert_equal 'folder', obj.children.first.name
-    assert_equal 'types', obj.children.last.name
+    assert_equal 'types', obj.children[1].name
+    assert_equal 'skip', obj.children.last.name
   end
 
   def test_help_text
     assert @engine.help.topic? Gloo::Objs::Stats.typename
+  end
+
+  def test_skip_list
+    @engine.parser.run 'create s as stats'
+    obj = @engine.heap.root.children.first
+    @engine.parser.run 'put "one two three" into s.skip'
+    a = obj.skip_list
+    assert a
+    assert_equal 3, a.count
+    assert a.include? 'one'
+    assert a.include? 'two'
+    assert a.include? 'three'
   end
 
 end

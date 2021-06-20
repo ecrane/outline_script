@@ -15,9 +15,10 @@ module Gloo
       #
       # Create a stats utility class for the given directory.
       #
-      def initialize( dir, types )
+      def initialize( dir, types, skip = [] )
         @dir = dir
         setup_loc types
+        @skip = skip
       end
 
       # ---------------------------------------------------------------------
@@ -138,7 +139,7 @@ module Gloo
       # It traverses all sub-direcctories.
       #
       def generate_for( path )
-        return if File.basename( path ) == '.git'
+        return if @skip.include?( File.basename( path ) )
 
         cnt = 0
         path.children.each do |f|
