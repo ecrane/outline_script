@@ -15,6 +15,9 @@ BAR OBJECT TYPE
     start - Start the bar.
     advance <amount> - Advance by the given amount.
     stop - Complete the bar.
+    run <seconds> - Run for the given number of seconds
+      and advance the bar so that it completes at the end
+      of the time specified.
 
   EXAMPLE
 

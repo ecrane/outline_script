@@ -76,7 +76,7 @@ module Gloo
       # Get a list of message names that this object receives.
       #
       def self.messages
-        return super + %w[start advance stop]
+        return super + %w[start advance stop run]
       end
 
       #
@@ -105,6 +105,27 @@ module Gloo
         end
 
         @bar.advance x
+      end
+
+      #
+      # Run for the given number of seconds advancing
+      # the bar to the end.
+      #
+      def msg_run
+        msg_start
+
+        x = 1
+        if @params&.token_count&.positive?
+          expr = Gloo::Expr::Expression.new( @params.tokens )
+          x = expr.evaluate.to_i
+        end
+
+        100.times do
+          sleep ( 0.0 + x ) / 100.0
+          @bar.advance 1
+        end
+
+        msg_stop
       end
 
     end
